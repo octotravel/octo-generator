@@ -3,7 +3,7 @@ import { UnitModel } from "../../models/UnitModel";
 import { UnitDataProvider } from "../../dataProviders/UnitDataProvider";
 import { UnitParser } from "../UnitParser";
 
-describe("Unit parser", () => {
+describe("UnitParser", () => {
   const unitParser = new UnitParser();
 
   describe("Parse unit model to unit POJO", () => {
