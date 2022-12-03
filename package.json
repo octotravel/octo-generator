@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "check-format": "prettier --check \"**/*.{ts,js,css,json,md}\"",
+    "format-check": "prettier --check \"**/*.{ts,js,css,json,md}\"",
     "format": "prettier --write \"**/*.{ts,js,css,json,md}\"",
     "lint": "eslint . --ext .ts",
     "lint-fix": "eslint . --ext .ts --fix",

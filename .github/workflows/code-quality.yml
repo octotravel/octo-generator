@@ -21,6 +21,9 @@ jobs:
         with:
           node-version: 16
 
+      - name: "Install NPM dependencies"
+        run: "npm ci"
+
       - name: "Run Prettier"
         run: "npm run format-check"
 
@@ -37,8 +40,11 @@ jobs:
         with:
           node-version: 16
 
+      - name: "Install NPM dependencies"
+        run: "npm ci"
+
       - name: "Run ESLint"
-        run: "npm run eslint"
+        run: "npm run lint"
 
   tests:
     name: "Tests"
@@ -52,6 +58,9 @@ jobs:
         uses: "actions/setup-node@v3"
         with:
           node-version: 16
+
+      - name: "Install NPM dependencies"
+        run: "npm ci"
 
       - name: "Run Jest"
         run: "npm run test"
