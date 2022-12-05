@@ -1,34 +1,12 @@
 import * as R from "ramda";
 
 import { Unit } from "@octocloud/types";
-import { UnitModel } from "../models/UnitModel";
-import { UnitContentModel } from "../models/UnitContentModel";
-import { UnitPricingModel } from "../models/UnitPricingModel";
+import { UnitModel } from "../models/Unit/UnitModel";
+import { UnitContentModel } from "../models/Unit/UnitContentModel";
+import { UnitPricingModel } from "../models/Unit/UnitPricingModel";
 
 export class UnitParser {
   public parsePOJOToModel = (unit: Unit): UnitModel => {
-    let unitContentModel;
-    let unitPricingModel;
-
-    if (
-      R.not(R.isNil(unit.title)) ||
-      R.not(R.isNil(unit.titlePlural)) ||
-      R.not(R.isNil(unit.subtitle))
-    ) {
-      unitContentModel = new UnitContentModel({
-        title: unit.title,
-        titlePlural: unit.titlePlural,
-        subtitle: unit.subtitle,
-      });
-    }
-
-    if (R.not(R.isNil(unit.pricingFrom)) || R.not(R.isNil(unit.pricing))) {
-      unitPricingModel = new UnitPricingModel({
-        pricingFrom: unit.pricingFrom,
-        pricing: unit.pricing,
-      });
-    }
-
     return new UnitModel({
       id: unit.id,
       internalName: unit.internalName,
@@ -36,8 +14,31 @@ export class UnitParser {
       type: unit.type,
       requiredContactFields: unit.requiredContactFields,
       restrictions: unit.restrictions,
-      unitContentModel: unitContentModel,
-      unitPricingModel: unitPricingModel,
+      unitContentModel: this.parseUnitContentPOJOToModel(unit),
+      unitPricingModel: this.parseUnitPricingPOJOToModel(unit),
+    });
+  };
+
+  private parseUnitContentPOJOToModel = (unit: Unit): UnitContentModel | undefined => {
+    if (unit.title === undefined || unit.titlePlural === undefined || unit.subtitle === undefined) {
+      return undefined;
+    }
+
+    return new UnitContentModel({
+      title: unit.title,
+      titlePlural: unit.titlePlural,
+      subtitle: unit.subtitle,
+    });
+  };
+
+  private parseUnitPricingPOJOToModel = (unit: Unit): UnitPricingModel | undefined => {
+    if (unit.pricingFrom === undefined && unit.pricing === undefined) {
+      return undefined;
+    }
+
+    return new UnitPricingModel({
+      pricingFrom: unit.pricingFrom,
+      pricing: unit.pricing,
     });
   };
 
