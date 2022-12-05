@@ -7,8 +7,8 @@ import { UnitPricingModel } from "../models/UnitPricingModel";
 
 export class UnitParser {
   public parsePOJOToModel = (unit: Unit): UnitModel => {
-    let unitContentModel = undefined;
-    let unitPricingModel = undefined;
+    let unitContentModel;
+    let unitPricingModel;
 
     if (
       R.not(R.isNil(unit.title)) ||

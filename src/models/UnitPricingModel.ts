@@ -2,8 +2,8 @@ import * as R from "ramda";
 import { Pricing } from "@octocloud/types";
 
 export class UnitPricingModel {
-  private readonly _pricingFrom?: Array<Pricing>;
-  private readonly _pricing?: Array<Pricing>;
+  public readonly pricingFrom?: Array<Pricing>;
+  public readonly pricing?: Array<Pricing>;
 
   constructor({
     pricingFrom,
@@ -16,15 +16,7 @@ export class UnitPricingModel {
       throw new Error("Only one of pricingFrom and pricing should be set.");
     }
 
-    this._pricingFrom = pricingFrom;
-    this._pricing = pricing;
-  }
-
-  public get pricingFrom() {
-    return this._pricingFrom;
-  }
-
-  public get pricing() {
-    return this._pricing;
+    this.pricingFrom = pricingFrom;
+    this.pricing = pricing;
   }
 }

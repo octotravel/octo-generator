@@ -3,7 +3,6 @@ import { PricingPer } from "@octocloud/types";
 import { UnitParser } from "../parsers/UnitParser";
 import { UnitData } from "../data/UnitData";
 import { UnitDataProvider } from "../dataProviders/UnitDataProvider";
-import * as R from "ramda";
 
 interface UnitModelBuilderData {
   unitData: UnitData;
@@ -29,8 +28,9 @@ export class UnitModelBuilder {
     let pricingFrom = unitData.pricing;
     let pricing = undefined;
 
-    if (R.not(R.isNil(unitData.pricing)) && pricingPer === PricingPer.BOOKING) {
-      pricing = pricingFrom;
+    // TODO pricing logic will be changed based on the source model
+    if (pricingPer === PricingPer.BOOKING) {
+      pricing = undefined;
       pricingFrom = undefined;
     }
 

@@ -3,14 +3,14 @@ import { UnitContentModel } from "./UnitContentModel";
 import { UnitPricingModel } from "./UnitPricingModel";
 
 export class UnitModel {
-  private readonly _id: string;
-  private readonly _internalName: string;
-  private readonly _reference: string;
-  private readonly _type: UnitType;
-  private readonly _restrictions: Restrictions;
-  private readonly _requiredContactFields: string[];
-  private readonly _unitContentModel?: UnitContentModel;
-  private readonly _unitPricingModel?: UnitPricingModel;
+  public readonly id: string;
+  public readonly internalName: string;
+  public readonly reference: string;
+  public readonly type: UnitType;
+  public readonly restrictions: Restrictions;
+  public readonly requiredContactFields: string[];
+  public readonly unitContentModel?: UnitContentModel;
+  public readonly unitPricingModel?: UnitPricingModel;
 
   constructor({
     id,
@@ -31,46 +31,14 @@ export class UnitModel {
     unitContentModel?: UnitContentModel;
     unitPricingModel?: UnitPricingModel;
   }) {
-    this._id = id;
-    this._internalName = internalName;
-    this._reference = reference;
-    this._type = type;
-    this._restrictions = restrictions;
-    this._requiredContactFields = requiredContactFields;
-    this._unitContentModel = unitContentModel;
-    this._unitPricingModel = unitPricingModel;
-  }
-
-  public get id() {
-    return this._id;
-  }
-
-  public get internalName() {
-    return this._internalName;
-  }
-
-  public get reference() {
-    return this._reference;
-  }
-
-  public get type() {
-    return this._type;
-  }
-
-  public get restrictions() {
-    return this._restrictions;
-  }
-
-  public get requiredContactFields() {
-    return this._requiredContactFields;
-  }
-
-  public get unitContentModel() {
-    return this._unitContentModel;
-  }
-
-  public get unitPricingModel() {
-    return this._unitPricingModel;
+    this.id = id;
+    this.internalName = internalName;
+    this.reference = reference;
+    this.type = type;
+    this.restrictions = restrictions;
+    this.requiredContactFields = requiredContactFields;
+    this.unitContentModel = unitContentModel;
+    this.unitPricingModel = unitPricingModel;
   }
 
   public isOnBooking(): boolean {

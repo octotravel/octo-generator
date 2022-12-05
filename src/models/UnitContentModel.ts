@@ -1,9 +1,9 @@
 import * as R from "ramda";
 
 export class UnitContentModel {
-  private readonly _title?: string;
-  private readonly _titlePlural?: string;
-  private readonly _subtitle?: Nullable<string>;
+  public readonly title?: string;
+  public readonly titlePlural?: string;
+  public readonly subtitle?: Nullable<string>;
 
   constructor({
     title,
@@ -18,20 +18,8 @@ export class UnitContentModel {
       throw new Error("At least one property should be set.");
     }
 
-    this._title = title;
-    this._titlePlural = titlePlural;
-    this._subtitle = subtitle;
-  }
-
-  public get title() {
-    return this._title;
-  }
-
-  public get titlePlural() {
-    return this._titlePlural;
-  }
-
-  public get subtitle() {
-    return this._subtitle;
+    this.title = title;
+    this.titlePlural = titlePlural;
+    this.subtitle = subtitle;
   }
 }
