@@ -67,7 +67,7 @@ export class OptionModel {
     this.optionPricingModel = optionPricingModel;
   }
 
-  public findUnitModelByUnitId = (unitId: string): Nullable<UnitModel> => {
+  public findUnitModelByUnitId(unitId: string): Nullable<UnitModel> {
     return this.unitModels.find((unitModel) => unitModel.id === unitId) ?? null;
-  };
+  }
 }

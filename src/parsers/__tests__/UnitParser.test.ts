@@ -17,27 +17,13 @@ describe("UnitParser", () => {
 
   describe("Parse unit model to unit POJO", () => {
     it("should return unit POJO", async () => {
-      const parsedPOJO = unitParser.parseModelToPOJO(unitModel);
-
-      expect(parsedPOJO.id).toStrictEqual(unit.id);
-      expect(parsedPOJO.internalName).toStrictEqual(unit.internalName);
-      expect(parsedPOJO.reference).toStrictEqual(unit.reference);
-      expect(parsedPOJO.type).toStrictEqual(unit.type);
-      expect(parsedPOJO.restrictions).toStrictEqual(unit.restrictions);
-      expect(parsedPOJO.requiredContactFields).toStrictEqual(unit.requiredContactFields);
+      expect(unitParser.parseModelToPOJO(unitModel)).toStrictEqual(unit);
     });
   });
 
   describe("Parse POJO to unit model", () => {
     it("should return unit model", async () => {
-      const parsedModel = unitParser.parsePOJOToModel(unit);
-
-      expect(parsedModel.id).toStrictEqual(unitModel.id);
-      expect(parsedModel.internalName).toStrictEqual(unitModel.internalName);
-      expect(parsedModel.reference).toStrictEqual(unitModel.reference);
-      expect(parsedModel.type).toStrictEqual(unitModel.type);
-      expect(parsedModel.restrictions).toStrictEqual(unitModel.restrictions);
-      expect(parsedModel.requiredContactFields).toStrictEqual(unitModel.requiredContactFields);
+      expect(unitParser.parsePOJOToModel(unit)).toStrictEqual(unitModel);
     });
   });
 });

@@ -39,37 +39,13 @@ describe("OptionParser", () => {
 
   describe("Parse option model to option POJO", () => {
     it("should return option POJO", async () => {
-      const parsedPOJO = optionParser.parseModelToPOJO(optionModel);
-
-      expect(parsedPOJO.id).toStrictEqual(option.id);
-      expect(parsedPOJO.default).toStrictEqual(option.default);
-      expect(parsedPOJO.internalName).toStrictEqual(option.internalName);
-      expect(parsedPOJO.reference).toStrictEqual(option.reference);
-      expect(parsedPOJO.availabilityLocalStartTimes).toStrictEqual(option.availabilityLocalStartTimes);
-      expect(parsedPOJO.cancellationCutoff).toStrictEqual(option.cancellationCutoff);
-      expect(parsedPOJO.cancellationCutoffAmount).toStrictEqual(option.cancellationCutoffAmount);
-      expect(parsedPOJO.cancellationCutoffUnit).toStrictEqual(option.cancellationCutoffUnit);
-      expect(parsedPOJO.requiredContactFields).toStrictEqual(option.requiredContactFields);
-      expect(parsedPOJO.restrictions).toStrictEqual(option.restrictions);
-      expect(parsedPOJO.units).toStrictEqual(option.units);
+      expect(optionParser.parseModelToPOJO(optionModel)).toStrictEqual(option);
     });
   });
 
   describe("Parse POJO to option model", () => {
     it("should return option model", async () => {
-      const parsedModel = optionParser.parsePOJOToModel(option);
-
-      expect(parsedModel.id).toStrictEqual(optionModel.id);
-      expect(parsedModel.isDefault).toStrictEqual(optionModel.isDefault);
-      expect(parsedModel.internalName).toStrictEqual(optionModel.internalName);
-      expect(parsedModel.reference).toStrictEqual(optionModel.reference);
-      expect(parsedModel.availabilityLocalStartTimes).toStrictEqual(optionModel.availabilityLocalStartTimes);
-      expect(parsedModel.cancellationCutoff).toStrictEqual(optionModel.cancellationCutoff);
-      expect(parsedModel.cancellationCutoffAmount).toStrictEqual(optionModel.cancellationCutoffAmount);
-      expect(parsedModel.cancellationCutoffUnit).toStrictEqual(optionModel.cancellationCutoffUnit);
-      expect(parsedModel.requiredContactFields).toStrictEqual(optionModel.requiredContactFields);
-      expect(parsedModel.restrictions).toStrictEqual(optionModel.restrictions);
-      expect(parsedModel.unitModels).toStrictEqual(optionModel.unitModels);
+      expect(optionParser.parsePOJOToModel(option)).toStrictEqual(optionModel);
     });
   });
 });
