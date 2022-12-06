@@ -9,7 +9,7 @@
     "lint": "eslint . --ext .ts",
     "lint-fix": "eslint . --ext .ts --fix",
     "test": "jest --verbose",
-    "test:coverage": "jest --coverage",
+    "test-coverage": "jest --coverage",
     "prepare": "husky install",
     "checks": "npm run format && npm run lint && npm run test"
   },
