@@ -42,6 +42,6 @@ export class UnitModel {
   }
 
   public isOnBooking(): boolean {
-    return this.unitPricingModel?.pricingFrom == undefined;
+    return this.unitPricingModel?.pricingFrom === undefined;
   }
 }
