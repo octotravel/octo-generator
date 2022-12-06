@@ -5,6 +5,7 @@ import { OptionModel } from "../models/Option/OptionModel";
 import { OptionContentModel } from "../models/Option/OptionContentModel";
 import { OptionPickupModel } from "../models/Option/OptionPickupModel";
 import { OptionPricingModel } from "../models/Option/OptionPricingModel";
+import { PricingDataProvider } from "../dataProviders/PricingDataProvider";
 
 interface OptionModelBuilderData {
   optionData: OptionData;
@@ -89,8 +90,8 @@ export class OptionModelBuilder {
 
     // TODO After the product model/related stuff is implemented use pricingFrom or pricing based on the source model
     return new OptionPricingModel({
-      pricingFrom: optionData.pricing,
-      pricing: optionData.pricing,
+      pricingFrom: optionData.pricing ?? [PricingDataProvider.adultPricing],
+      //pricing: optionData.pricing,
     });
   }
 }

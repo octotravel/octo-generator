@@ -15,13 +15,13 @@ describe("UnitParser", () => {
   };
   const unitModel = new UnitModel(unit);
 
-  describe("Parse unit model to unit POJO", () => {
+  describe("parseModelToPOJO", () => {
     it("should return unit POJO", async () => {
       expect(unitParser.parseModelToPOJO(unitModel)).toStrictEqual(unit);
     });
   });
 
-  describe("Parse POJO to unit model", () => {
+  describe("parsePOJOToModel", () => {
     it("should return unit model", async () => {
       expect(unitParser.parsePOJOToModel(unit)).toStrictEqual(unitModel);
     });

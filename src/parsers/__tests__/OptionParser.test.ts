@@ -37,13 +37,13 @@ describe("OptionParser", () => {
     unitModels: option.units.map((unit) => new UnitModel(unit)),
   });
 
-  describe("Parse option model to option POJO", () => {
+  describe("parseModelToPOJO", () => {
     it("should return option POJO", async () => {
       expect(optionParser.parseModelToPOJO(optionModel)).toStrictEqual(option);
     });
   });
 
-  describe("Parse POJO to option model", () => {
+  describe("parsePOJOToModel", () => {
     it("should return option model", async () => {
       expect(optionParser.parsePOJOToModel(option)).toStrictEqual(optionModel);
     });

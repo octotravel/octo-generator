@@ -4,6 +4,7 @@ import { UnitData } from "../data/UnitData";
 import { UnitDataProvider } from "../dataProviders/UnitDataProvider";
 import { UnitContentModel } from "../models/Unit/UnitContentModel";
 import { UnitPricingModel } from "../models/Unit/UnitPricingModel";
+import { PricingDataProvider } from "../dataProviders/PricingDataProvider";
 
 interface UnitModelBuilderData {
   unitData: UnitData;
@@ -63,8 +64,8 @@ export class UnitModelBuilder {
 
     // TODO After the product model/related stuff is implemented use pricingFrom or pricing based on the source model
     return new UnitPricingModel({
-      pricingFrom: unitData.pricing,
-      pricing: unitData.pricing,
+      pricingFrom: unitData.pricing ?? [PricingDataProvider.adultPricing],
+      //pricing: unitData.pricing,
     });
   }
 }

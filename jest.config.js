@@ -12,4 +12,5 @@ module.exports = {
       tsconfig: "tsconfig.json",
     },
   },
+  coveragePathIgnorePatterns: ["<rootDir>/src/generators"],
 };

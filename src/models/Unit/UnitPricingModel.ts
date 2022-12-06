@@ -1,4 +1,3 @@
-import * as R from "ramda";
 import { Pricing } from "@octocloud/types";
 
 export class UnitPricingModel {
@@ -6,7 +5,7 @@ export class UnitPricingModel {
   public readonly pricing?: Array<Pricing>;
 
   constructor({ pricingFrom, pricing }: { pricingFrom?: Array<Pricing>; pricing?: Array<Pricing> }) {
-    if (R.isNil(pricingFrom) && R.isNil(pricing)) {
+    if (pricingFrom !== undefined && pricing !== undefined) {
       throw new Error("Only one of pricingFrom and pricing should be set.");
     }
 
