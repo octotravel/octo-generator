@@ -43,7 +43,7 @@ export class OptionModelBuilder {
   }
 
   private buildContentModel(builderData: OptionModelBuilderData): OptionContentModel | undefined {
-    if (builderData.capabilities?.includes(CapabilityId.Content) == false) {
+    if (builderData.capabilities?.includes(CapabilityId.Content) === false) {
       return undefined;
     }
 
@@ -64,7 +64,7 @@ export class OptionModelBuilder {
   }
 
   private buildPickupModel(builderData: OptionModelBuilderData): OptionPickupModel | undefined {
-    if (builderData.capabilities?.includes(CapabilityId.Pickups) == false) {
+    if (builderData.capabilities?.includes(CapabilityId.Pickups) === false) {
       return undefined;
     }
 
@@ -79,7 +79,7 @@ export class OptionModelBuilder {
 
   private buildPricingModel(builderData: OptionModelBuilderData): OptionPricingModel | undefined {
     if (
-      builderData.capabilities?.includes(CapabilityId.Pricing) == false ||
+      builderData.capabilities?.includes(CapabilityId.Pricing) === false ||
       builderData.pricingPer === PricingPer.BOOKING
     ) {
       return undefined;

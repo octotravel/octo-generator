@@ -38,7 +38,7 @@ export class UnitModelBuilder {
   };
 
   private buildContentModel(builderData: UnitModelBuilderData): UnitContentModel | undefined {
-    if (builderData.capabilities?.includes(CapabilityId.Content) == false) {
+    if (builderData.capabilities?.includes(CapabilityId.Content) === false) {
       return undefined;
     }
 
@@ -53,7 +53,7 @@ export class UnitModelBuilder {
 
   private buildPricingModel(builderData: UnitModelBuilderData): UnitPricingModel | undefined {
     if (
-      builderData.capabilities?.includes(CapabilityId.Pricing) == false ||
+      builderData.capabilities?.includes(CapabilityId.Pricing) === false ||
       builderData.pricingPer === PricingPer.BOOKING
     ) {
       return undefined;
