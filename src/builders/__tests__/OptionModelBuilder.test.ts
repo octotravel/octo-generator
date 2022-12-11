@@ -1,42 +1,14 @@
-import { UnitType } from "@octocloud/types/src/types/Unit";
-import { PricingDataProvider } from "../../dataProviders/PricingDataProvider";
-import { UnitData } from "../../data/UnitData";
-import { CapabilityId, DurationUnit, PricingPer } from "@octocloud/types";
+import { CapabilityId, PricingPer } from "@octocloud/types";
 import { OptionModelBuilder } from "../OptionModelBuilder";
 import { OptionModel } from "../../models/Option/OptionModel";
-import { OptionData } from "../../data/OptionData";
+import { OptionDataProvider } from "../../dataProviders/OptionDataProvider";
 
 describe("OptionModelBuilder", () => {
   const optionModelBuilder = new OptionModelBuilder();
-  const unitData: UnitData = {
-    id: "test",
-    type: UnitType.ADULT,
-    pricing: [PricingDataProvider.adultPricing],
-  };
-  const optionData: OptionData = {
-    restrictions: {
-      minUnits: 0,
-      maxUnits: null,
-    },
-    unitsData: [unitData],
-    title: "title",
-    subtitle: "subtitle",
-    language: "language",
-    shortDescription: "shortDescription",
-    duration: "duration",
-    durationAmount: "durationAmount",
-    durationUnit: DurationUnit.HOUR,
-    itinerary: null,
-    pickupRequired: false,
-    pickupAvailable: false,
-    pickupPoints: [],
-    pricing: [PricingDataProvider.adultPricing],
-  };
-
   describe("build", () => {
     it("should build option model without any capabilities", async () => {
       const generatedOptionModel = optionModelBuilder.build({
-        optionData: optionData,
+        optionData: OptionDataProvider.defaultOption,
         pricingPer: PricingPer.UNIT,
         capabilities: [],
       });
@@ -49,7 +21,7 @@ describe("OptionModelBuilder", () => {
 
     it("should build option model with content capability", async () => {
       const generatedOptionModel = optionModelBuilder.build({
-        optionData: optionData,
+        optionData: OptionDataProvider.defaultOption,
         pricingPer: PricingPer.UNIT,
         capabilities: [CapabilityId.Content],
       });
@@ -62,7 +34,7 @@ describe("OptionModelBuilder", () => {
 
     it("should build option model with pickup capability", async () => {
       const generatedOptionModel = optionModelBuilder.build({
-        optionData: optionData,
+        optionData: OptionDataProvider.defaultOption,
         pricingPer: PricingPer.UNIT,
         capabilities: [CapabilityId.Pickups],
       });
@@ -75,7 +47,7 @@ describe("OptionModelBuilder", () => {
 
     it("should build option model with pricing capability", async () => {
       const generatedOptionModel = optionModelBuilder.build({
-        optionData: optionData,
+        optionData: OptionDataProvider.defaultOption,
         pricingPer: PricingPer.UNIT,
         capabilities: [CapabilityId.Pricing],
       });
@@ -88,7 +60,7 @@ describe("OptionModelBuilder", () => {
 
     it("should build option model with all capabilities", async () => {
       const generatedOptionModel = optionModelBuilder.build({
-        optionData: optionData,
+        optionData: OptionDataProvider.defaultOption,
         pricingPer: PricingPer.UNIT,
         capabilities: [CapabilityId.Content, CapabilityId.Pickups, CapabilityId.Pricing],
       });

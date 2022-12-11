@@ -13,6 +13,14 @@ export class UnitModelGenerator {
     });
   };
 
+  public generateMultiple = (unitsData: UnitData[]): UnitModel[] => {
+    return unitsData.map((unitData) => {
+      return this.unitModelBuilder.build({
+        unitData: unitData,
+      });
+    });
+  };
+
   public generateForAdultType = (): UnitModel => {
     const data: UnitData = {
       id: "adult",

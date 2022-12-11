@@ -1,5 +1,3 @@
-import * as R from "ramda";
-
 import { Unit } from "@octocloud/types";
 import { UnitModel } from "../models/Unit/UnitModel";
 import { UnitContentModel } from "../models/Unit/UnitContentModel";
@@ -52,13 +50,13 @@ export class UnitParser {
       requiredContactFields: unitModel.requiredContactFields,
     };
 
-    if (R.not(R.isNil(unitModel.unitContentModel))) {
+    if (unitModel.unitContentModel !== undefined) {
       unit.title = unitModel.unitContentModel?.title;
       unit.titlePlural = unitModel.unitContentModel?.titlePlural;
       unit.subtitle = unitModel.unitContentModel?.subtitle;
     }
 
-    if (R.not(R.isNil(unitModel.unitPricingModel))) {
+    if (unitModel.unitPricingModel !== undefined) {
       unit.pricingFrom = unitModel.unitPricingModel?.pricingFrom;
       unit.pricing = unitModel.unitPricingModel?.pricing;
     }

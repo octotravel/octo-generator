@@ -34,10 +34,6 @@ export class UnitModelBuilder {
     });
   }
 
-  public buildMultiple = (unitsData: UnitData[], pricingPer: PricingPer): UnitModel[] => {
-    return unitsData.map((unitData) => this.build({ unitData, pricingPer }));
-  };
-
   private buildContentModel(builderData: UnitModelBuilderData): UnitContentModel | undefined {
     if (builderData.capabilities?.includes(CapabilityId.Content) === false) {
       return undefined;

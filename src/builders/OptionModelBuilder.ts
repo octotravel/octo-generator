@@ -6,6 +6,8 @@ import { OptionContentModel } from "../models/Option/OptionContentModel";
 import { OptionPickupModel } from "../models/Option/OptionPickupModel";
 import { OptionPricingModel } from "../models/Option/OptionPricingModel";
 import { PricingDataProvider } from "../dataProviders/PricingDataProvider";
+import { UnitModel } from "../models/Unit/UnitModel";
+import { LocaleDataProvider } from "../dataProviders/LocaleDataProvider";
 
 interface OptionModelBuilderData {
   optionData: OptionData;
@@ -36,11 +38,21 @@ export class OptionModelBuilder {
       cancellationCutoffUnit: optionData.cancellationCutoffUnit ?? "hour",
       requiredContactFields: optionData.requiredContactFields ?? [],
       restrictions: optionData.restrictions,
-      unitModels: this.unitModelBuilder.buildMultiple(optionData.unitsData, builderData.pricingPer),
+      unitModels: this.buildUnitModels(builderData),
       optionContentModel: this.buildContentModel(builderData),
       optionPickupModel: this.buildPickupModel(builderData),
       optionPricingModel: this.buildPricingModel(builderData),
     });
+  }
+
+  private buildUnitModels(builderData: OptionModelBuilderData): UnitModel[] {
+    return builderData.optionData.unitsData.map((unitData) => {
+      return this.unitModelBuilder.build({
+        unitData: unitData,
+        pricingPer: builderData.pricingPer,
+        capabilities: builderData.capabilities,
+      });
+    }, builderData);
   }
 
   private buildContentModel(builderData: OptionModelBuilderData): OptionContentModel | undefined {
@@ -55,7 +67,7 @@ export class OptionModelBuilder {
     return new OptionContentModel({
       title: optionData.title ?? "title",
       subtitle: optionData.subtitle ?? "subtitle",
-      language: optionData.language ?? "en",
+      language: optionData.language ?? LocaleDataProvider.en,
       shortDescription: optionData.shortDescription ?? "shortDescription",
       durationUnit: optionData.durationUnit ?? DurationUnit.HOUR,
       durationAmount: optionData.durationAmount ?? "0",

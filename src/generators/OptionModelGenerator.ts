@@ -10,4 +10,12 @@ export class OptionModelGenerator {
       optionData: optionData,
     });
   };
+
+  public generateMultiple = (optionsData: OptionData[]): OptionModel[] => {
+    return optionsData.map((optionData) => {
+      return this.optionModelBuilder.build({
+        optionData: optionData,
+      });
+    });
+  };
 }

@@ -1,23 +1,15 @@
-import { UnitType } from "@octocloud/types/src/types/Unit";
-import { PricingDataProvider } from "../../dataProviders/PricingDataProvider";
 import { UnitModel } from "../../models/Unit/UnitModel";
 import { UnitModelBuilder } from "../UnitModelBuilder";
-import { UnitData } from "../../data/UnitData";
 import { CapabilityId, PricingPer } from "@octocloud/types";
+import { UnitDataProvider } from "../../dataProviders/UnitDataProvider";
 
 describe("UnitModelBuilder", () => {
   const unitModelBuilder = new UnitModelBuilder();
 
   describe("build", () => {
-    const unitData: UnitData = {
-      id: "test",
-      type: UnitType.ADULT,
-      pricing: [PricingDataProvider.adultPricing],
-    };
-
     it("should build unit model without any capabilities", async () => {
       const generatedUnitModel = unitModelBuilder.build({
-        unitData,
+        unitData: UnitDataProvider.adultUnit,
         pricingPer: PricingPer.UNIT,
         capabilities: [],
       });
@@ -29,7 +21,7 @@ describe("UnitModelBuilder", () => {
 
     it("should build unit model with content capability", async () => {
       const generatedUnitModel = unitModelBuilder.build({
-        unitData,
+        unitData: UnitDataProvider.adultUnit,
         pricingPer: PricingPer.UNIT,
         capabilities: [CapabilityId.Content],
       });
@@ -41,7 +33,7 @@ describe("UnitModelBuilder", () => {
 
     it("should build unit model with pricing capability", async () => {
       const generatedUnitModel = unitModelBuilder.build({
-        unitData,
+        unitData: UnitDataProvider.adultUnit,
         pricingPer: PricingPer.UNIT,
         capabilities: [CapabilityId.Pricing],
       });
@@ -53,7 +45,7 @@ describe("UnitModelBuilder", () => {
 
     it("should build unit model with all capabilities", async () => {
       const generatedUnitModel = unitModelBuilder.build({
-        unitData,
+        unitData: UnitDataProvider.adultUnit,
         pricingPer: PricingPer.UNIT,
         capabilities: [CapabilityId.Content, CapabilityId.Pricing],
       });
@@ -65,7 +57,7 @@ describe("UnitModelBuilder", () => {
 
     it("should build unit model with pricing per unit", async () => {
       const generatedUnitModel = unitModelBuilder.build({
-        unitData,
+        unitData: UnitDataProvider.adultUnit,
         pricingPer: PricingPer.UNIT,
       });
 
@@ -77,7 +69,7 @@ describe("UnitModelBuilder", () => {
 
     it("should build unit model with pricing per booking", async () => {
       const generatedUnitModel = unitModelBuilder.build({
-        unitData,
+        unitData: UnitDataProvider.adultUnit,
         pricingPer: PricingPer.BOOKING,
       });
 
