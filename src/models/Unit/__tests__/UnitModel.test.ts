@@ -1,17 +1,34 @@
 import { UnitType } from "@octocloud/types/src/types/Unit";
 import { PricingDataProvider } from "../../../dataProviders/PricingDataProvider";
 import { UnitModelGenerator } from "../../../generators/UnitModelGenerator";
+import { PricingPer } from "@octocloud/types";
 
 describe("UnitModel", () => {
   const unitModelGenerator = new UnitModelGenerator();
 
   describe("isOnBooking", () => {
     it("should return true", async () => {
-      const optionModel = unitModelGenerator.generate({
-        id: "id",
-        type: UnitType.ADULT,
-        pricing: [PricingDataProvider.adultPricing],
-      });
+      const optionModel = unitModelGenerator.generate(
+        {
+          id: "id",
+          type: UnitType.ADULT,
+          pricing: [PricingDataProvider.adultPricing],
+        },
+        PricingPer.BOOKING
+      );
+
+      expect(optionModel.isOnBooking()).toStrictEqual(true);
+    });
+
+    it("should return false", async () => {
+      const optionModel = unitModelGenerator.generate(
+        {
+          id: "id",
+          type: UnitType.ADULT,
+          pricing: [PricingDataProvider.adultPricing],
+        },
+        PricingPer.UNIT
+      );
 
       expect(optionModel.isOnBooking()).toStrictEqual(false);
     });

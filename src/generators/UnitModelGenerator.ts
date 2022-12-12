@@ -3,13 +3,15 @@ import { UnitData } from "../data/UnitData";
 import { UnitModelBuilder } from "../builders/UnitModelBuilder";
 import { UnitType } from "@octocloud/types/src/types/Unit";
 import { PricingDataProvider } from "../dataProviders/PricingDataProvider";
+import { PricingPer } from "@octocloud/types";
 
 export class UnitModelGenerator {
   private readonly unitModelBuilder = new UnitModelBuilder();
 
-  public generate = (unitData: UnitData): UnitModel => {
+  public generate = (unitData: UnitData, pricingPer?: PricingPer): UnitModel => {
     return this.unitModelBuilder.build({
       unitData: unitData,
+      pricingPer: pricingPer,
     });
   };
 
