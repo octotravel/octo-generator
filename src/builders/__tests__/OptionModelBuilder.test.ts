@@ -9,7 +9,7 @@ describe("OptionModelBuilder", () => {
     it("should build option model without any capabilities", async () => {
       const generatedOptionModel = optionModelBuilder.build({
         optionData: OptionDataProvider.defaultOption,
-        pricingPer: PricingPer.UNIT,
+        pricingPer: PricingPer.BOOKING,
         capabilities: [],
       });
 
@@ -22,7 +22,7 @@ describe("OptionModelBuilder", () => {
     it("should build option model with content capability", async () => {
       const generatedOptionModel = optionModelBuilder.build({
         optionData: OptionDataProvider.defaultOption,
-        pricingPer: PricingPer.UNIT,
+        pricingPer: PricingPer.BOOKING,
         capabilities: [CapabilityId.Content],
       });
 
@@ -35,7 +35,7 @@ describe("OptionModelBuilder", () => {
     it("should build option model with pickup capability", async () => {
       const generatedOptionModel = optionModelBuilder.build({
         optionData: OptionDataProvider.defaultOption,
-        pricingPer: PricingPer.UNIT,
+        pricingPer: PricingPer.BOOKING,
         capabilities: [CapabilityId.Pickups],
       });
 
@@ -48,7 +48,7 @@ describe("OptionModelBuilder", () => {
     it("should build option model with pricing capability", async () => {
       const generatedOptionModel = optionModelBuilder.build({
         optionData: OptionDataProvider.defaultOption,
-        pricingPer: PricingPer.UNIT,
+        pricingPer: PricingPer.BOOKING,
         capabilities: [CapabilityId.Pricing],
       });
 
@@ -61,7 +61,7 @@ describe("OptionModelBuilder", () => {
     it("should build option model with all capabilities", async () => {
       const generatedOptionModel = optionModelBuilder.build({
         optionData: OptionDataProvider.defaultOption,
-        pricingPer: PricingPer.UNIT,
+        pricingPer: PricingPer.BOOKING,
         capabilities: [CapabilityId.Content, CapabilityId.Pickups, CapabilityId.Pricing],
       });
 

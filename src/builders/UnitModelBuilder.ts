@@ -5,11 +5,14 @@ import { UnitDataProvider } from "../dataProviders/UnitDataProvider";
 import { UnitContentModel } from "../models/Unit/UnitContentModel";
 import { UnitPricingModel } from "../models/Unit/UnitPricingModel";
 import { PricingDataProvider } from "../dataProviders/PricingDataProvider";
+import { ProductModel } from "../models/Product/ProductModel";
+import { OptionPricingModel } from "../models/Option/OptionPricingModel";
 
 interface UnitModelBuilderData {
   unitData: UnitData;
   pricingPer?: PricingPer;
   capabilities?: CapabilityId[];
+  sourceModel?: object;
 }
 
 const defaultPricingPer: PricingPer = PricingPer.UNIT;
@@ -57,11 +60,16 @@ export class UnitModelBuilder {
     }
 
     const unitData = builderData.unitData;
+    unitData.pricing ??= [PricingDataProvider.adultPricing];
 
-    // TODO After the product model/related stuff is implemented use pricingFrom or pricing based on the source model
-    return new UnitPricingModel({
-      pricingFrom: unitData.pricing ?? [PricingDataProvider.adultPricing],
-      //pricing: unitData.pricing,
+    if (builderData.sourceModel instanceof ProductModel) {
+      return new OptionPricingModel({
+        pricingFrom: unitData.pricing,
+      });
+    }
+
+    return new OptionPricingModel({
+      pricing: unitData.pricing,
     });
   }
 }

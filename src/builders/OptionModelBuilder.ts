@@ -8,11 +8,13 @@ import { OptionPricingModel } from "../models/Option/OptionPricingModel";
 import { PricingDataProvider } from "../dataProviders/PricingDataProvider";
 import { UnitModel } from "../models/Unit/UnitModel";
 import { LocaleDataProvider } from "../dataProviders/LocaleDataProvider";
+import { ProductModel } from "../models/Product/ProductModel";
 
 interface OptionModelBuilderData {
   optionData: OptionData;
   pricingPer?: PricingPer;
   capabilities?: CapabilityId[];
+  sourceModel?: object;
 }
 
 const defaultPricingPer: PricingPer = PricingPer.UNIT;
@@ -51,6 +53,7 @@ export class OptionModelBuilder {
         unitData: unitData,
         pricingPer: builderData.pricingPer,
         capabilities: builderData.capabilities,
+        sourceModel: builderData.sourceModel,
       });
     }, builderData);
   }
@@ -93,17 +96,22 @@ export class OptionModelBuilder {
   private buildPricingModel(builderData: OptionModelBuilderData): OptionPricingModel | undefined {
     if (
       builderData.capabilities?.includes(CapabilityId.Pricing) === false ||
-      builderData.pricingPer === PricingPer.BOOKING
+      builderData.pricingPer === PricingPer.UNIT
     ) {
       return undefined;
     }
 
     const optionData = builderData.optionData;
+    optionData.pricing ??= [PricingDataProvider.adultPricing];
 
-    // TODO After the product model/related stuff is implemented use pricingFrom or pricing based on the source model
+    if (builderData.sourceModel instanceof ProductModel) {
+      return new OptionPricingModel({
+        pricingFrom: optionData.pricing,
+      });
+    }
+
     return new OptionPricingModel({
-      pricingFrom: optionData.pricing ?? [PricingDataProvider.adultPricing],
-      //pricing: optionData.pricing,
+      pricing: optionData.pricing,
     });
   }
 }

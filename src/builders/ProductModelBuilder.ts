@@ -58,6 +58,7 @@ export class ProductModelBuilder {
         optionData: optionData,
         pricingPer: builderData.productData.pricingPer,
         capabilities: builderData.capabilities,
+        sourceModel: ProductModel,
       });
     }, builderData);
   }
