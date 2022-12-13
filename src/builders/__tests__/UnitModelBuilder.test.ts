@@ -2,6 +2,7 @@ import { UnitModel } from "../../models/Unit/UnitModel";
 import { UnitModelBuilder } from "../UnitModelBuilder";
 import { CapabilityId, PricingPer } from "@octocloud/types";
 import { UnitDataProvider } from "../../dataProviders/UnitDataProvider";
+import { ProductModel } from "../../models/Product/ProductModel";
 
 describe("UnitModelBuilder", () => {
   const unitModelBuilder = new UnitModelBuilder();
@@ -61,10 +62,8 @@ describe("UnitModelBuilder", () => {
         pricingPer: PricingPer.UNIT,
       });
 
-      // TODO this will be changed based on the source model
       expect(generatedUnitModel).toBeInstanceOf(UnitModel);
-      //expect(generatedUnitModel.unitPricingModel?.pricingFrom).toBeDefined();
-      //expect(generatedUnitModel.unitPricingModel?.pricing).toBeUndefined();
+      expect(generatedUnitModel.unitPricingModel?.pricing).toBeDefined();
     });
 
     it("should build unit model with pricing per booking", async () => {
@@ -74,9 +73,20 @@ describe("UnitModelBuilder", () => {
       });
 
       expect(generatedUnitModel).toBeInstanceOf(UnitModel);
-      // TODO this will be changed based on the source model
-      //expect(generatedUnitModel.unitPricingModel?.pricingFrom).toBeUndefined();
-      //expect(generatedUnitModel.unitPricingModel?.pricing).toBeDefined();
+      expect(generatedUnitModel.unitPricingModel?.pricingFrom).toBeUndefined();
+      expect(generatedUnitModel.unitPricingModel).toBeUndefined();
+    });
+
+    it("should build unit model with product as a source model", async () => {
+      const generatedUnitModel = unitModelBuilder.build({
+        unitData: UnitDataProvider.adultUnit,
+        pricingPer: PricingPer.UNIT,
+        sourceModel: ProductModel,
+      });
+
+      expect(generatedUnitModel).toBeInstanceOf(UnitModel);
+      expect(generatedUnitModel.unitPricingModel?.pricingFrom).toBeDefined();
+      expect(generatedUnitModel.unitPricingModel?.pricing).toBeUndefined();
     });
   });
 });

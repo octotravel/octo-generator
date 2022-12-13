@@ -2,6 +2,7 @@ import { CapabilityId, PricingPer } from "@octocloud/types";
 import { OptionModelBuilder } from "../OptionModelBuilder";
 import { OptionModel } from "../../models/Option/OptionModel";
 import { OptionDataProvider } from "../../dataProviders/OptionDataProvider";
+import { ProductModel } from "../../models/Product/ProductModel";
 
 describe("OptionModelBuilder", () => {
   const optionModelBuilder = new OptionModelBuilder();
@@ -69,6 +70,19 @@ describe("OptionModelBuilder", () => {
       expect(generatedOptionModel.optionContentModel).toBeDefined();
       expect(generatedOptionModel.optionPickupModel).toBeDefined();
       expect(generatedOptionModel.optionPricingModel).toBeDefined();
+    });
+
+    it("should build option model with product as a source model", async () => {
+      const generatedOptionModel = optionModelBuilder.build({
+        optionData: OptionDataProvider.defaultOption,
+        pricingPer: PricingPer.BOOKING,
+        capabilities: [CapabilityId.Pricing],
+        sourceModel: ProductModel,
+      });
+
+      expect(generatedOptionModel).toBeInstanceOf(OptionModel);
+      expect(generatedOptionModel.optionPricingModel?.pricingFrom).toBeDefined();
+      expect(generatedOptionModel.optionPricingModel?.pricing).toBeUndefined();
     });
   });
 });

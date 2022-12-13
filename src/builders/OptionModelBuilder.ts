@@ -104,7 +104,7 @@ export class OptionModelBuilder {
     const optionData = builderData.optionData;
     optionData.pricing ??= [PricingDataProvider.adultPricing];
 
-    if (builderData.sourceModel instanceof ProductModel) {
+    if (builderData.sourceModel === ProductModel) {
       return new OptionPricingModel({
         pricingFrom: optionData.pricing,
       });
