@@ -1,45 +1,30 @@
 import { UnitModel } from "../models/Unit/UnitModel";
 import { UnitData } from "../data/UnitData";
 import { UnitModelBuilder } from "../builders/UnitModelBuilder";
-import { UnitType } from "@octocloud/types/src/types/Unit";
-import { PricingDataProvider } from "../dataProviders/PricingDataProvider";
-import { PricingPer } from "@octocloud/types";
+import { CapabilityId, PricingPer } from "@octocloud/types";
+
+interface UnitGenerateData {
+  unitData: UnitData;
+  pricingPer?: PricingPer;
+  capabilities?: CapabilityId[];
+}
 
 export class UnitModelGenerator {
   private readonly unitModelBuilder = new UnitModelBuilder();
 
-  public generate = (unitData: UnitData, pricingPer?: PricingPer): UnitModel => {
+  public generate = (unitGenerateData: UnitGenerateData): UnitModel => {
     return this.unitModelBuilder.build({
-      unitData: unitData,
-      pricingPer: pricingPer,
+      unitData: unitGenerateData.unitData,
+      pricingPer: unitGenerateData.pricingPer,
+      capabilities: unitGenerateData.capabilities,
     });
   };
 
-  public generateMultiple = (unitsData: UnitData[]): UnitModel[] => {
-    return unitsData.map((unitData) => {
+  public generateMultiple = (unitGenerateData: UnitGenerateData[]): UnitModel[] => {
+    return unitGenerateData.map((unitGenerateData) => {
       return this.unitModelBuilder.build({
-        unitData: unitData,
+        unitData: unitGenerateData.unitData,
       });
     });
-  };
-
-  public generateForAdultType = (): UnitModel => {
-    const data: UnitData = {
-      id: "adult",
-      type: UnitType.ADULT,
-      pricing: [PricingDataProvider.adultPricing],
-    };
-
-    return this.generate(data);
-  };
-
-  public generateForChildType = (): UnitModel => {
-    const data: UnitData = {
-      id: "child",
-      type: UnitType.CHILD,
-      pricing: [PricingDataProvider.childPricing],
-    };
-
-    return this.generate(data);
   };
 }

@@ -8,27 +8,27 @@ describe("UnitModel", () => {
 
   describe("isOnBooking", () => {
     it("should return true", async () => {
-      const optionModel = unitModelGenerator.generate(
-        {
+      const optionModel = unitModelGenerator.generate({
+        unitData: {
           id: "id",
           type: UnitType.ADULT,
           pricing: [PricingDataProvider.adultPricing],
         },
-        PricingPer.BOOKING
-      );
+        pricingPer: PricingPer.BOOKING,
+      });
 
       expect(optionModel.isOnBooking()).toStrictEqual(true);
     });
 
     it("should return false", async () => {
-      const optionModel = unitModelGenerator.generate(
-        {
+      const optionModel = unitModelGenerator.generate({
+        unitData: {
           id: "id",
           type: UnitType.ADULT,
           pricing: [PricingDataProvider.adultPricing],
         },
-        PricingPer.UNIT
-      );
+        pricingPer: PricingPer.UNIT,
+      });
 
       expect(optionModel.isOnBooking()).toStrictEqual(false);
     });

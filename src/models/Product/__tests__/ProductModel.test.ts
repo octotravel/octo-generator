@@ -9,19 +9,21 @@ describe("ProductModel", () => {
       const optionId = "optionId";
 
       const productModel = productModelGenerator.generate({
-        id: "id",
-        internalName: "internalName",
-        deliveryMethods: [],
-        optionsData: [
-          {
-            id: optionId,
-            restrictions: {
-              minUnits: 0,
-              maxUnits: null,
+        productData: {
+          id: "id",
+          internalName: "internalName",
+          deliveryMethods: [],
+          optionsData: [
+            {
+              id: optionId,
+              restrictions: {
+                minUnits: 0,
+                maxUnits: null,
+              },
+              unitsData: [],
             },
-            unitsData: [],
-          },
-        ],
+          ],
+        },
       });
 
       expect(productModel.findOptionModelByOptionId(optionId)).toBeInstanceOf(OptionModel);
@@ -29,10 +31,12 @@ describe("ProductModel", () => {
 
     it("should return null", async () => {
       const productModel = productModelGenerator.generate({
-        id: "id",
-        internalName: "internalName",
-        deliveryMethods: [],
-        optionsData: [],
+        productData: {
+          id: "id",
+          internalName: "internalName",
+          deliveryMethods: [],
+          optionsData: [],
+        },
       });
 
       expect(productModel.findOptionModelByOptionId("invalidOptionId")).toStrictEqual(null);
