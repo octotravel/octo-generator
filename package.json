@@ -24,10 +24,6 @@
     "url": "https://github.com/octotravel/octo-generator/issues"
   },
   "homepage": "https://github.com/octotravel/octo-generator#readme",
-  "dependencies": {
-    "@types/ramda": "^0.28.15",
-    "ramda": "^0.28.0"
-  },
   "devDependencies": {
     "@octocloud/types": "^1.4.7",
     "@types/jest": "^28.1.8",
@@ -41,6 +37,7 @@
     "lint-staged": "^13.0.3",
     "prettier": "^2.7.1",
     "ts-jest": "^28.0.8",
-    "typescript": "^4.7.4"
+    "typescript": "^4.7.4",
+    "@octocloud/validators": "^1.0.0"
   }
 }
