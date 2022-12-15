@@ -10,17 +10,19 @@ describe("OptionModel", () => {
       const unitId = "test";
 
       const optionModel = optionModelGenerator.generate({
-        restrictions: {
-          minUnits: 0,
-          maxUnits: null,
-        },
-        unitsData: [
-          {
-            id: unitId,
-            type: UnitType.ADULT,
-            pricing: [PricingDataProvider.adultPricing],
+        optionData: {
+          restrictions: {
+            minUnits: 0,
+            maxUnits: null,
           },
-        ],
+          unitsData: [
+            {
+              id: unitId,
+              type: UnitType.ADULT,
+              pricing: [PricingDataProvider.adultPricing],
+            },
+          ],
+        },
       });
 
       expect(optionModel.findUnitModelByUnitId(unitId)).toBeInstanceOf(UnitModel);
@@ -28,11 +30,13 @@ describe("OptionModel", () => {
 
     it("should return null", async () => {
       const optionModel = optionModelGenerator.generate({
-        restrictions: {
-          minUnits: 0,
-          maxUnits: null,
+        optionData: {
+          restrictions: {
+            minUnits: 0,
+            maxUnits: null,
+          },
+          unitsData: [],
         },
-        unitsData: [],
       });
 
       expect(optionModel.findUnitModelByUnitId("test")).toStrictEqual(null);
