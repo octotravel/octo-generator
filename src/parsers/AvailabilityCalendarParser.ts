@@ -18,7 +18,7 @@ export class AvailabilityCalendarParser {
   private parsePricingPOJOToModel = (
     availabilityCalendar: AvailabilityCalendar
   ): AvailabilityCalendarPricingModel | undefined => {
-    if (availabilityCalendar.unitPricingFrom === undefined || availabilityCalendar.pricingFrom === undefined) {
+    if (availabilityCalendar.unitPricingFrom === undefined && availabilityCalendar.pricingFrom === undefined) {
       return undefined;
     }
 

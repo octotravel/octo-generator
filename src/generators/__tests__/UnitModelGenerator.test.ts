@@ -13,7 +13,7 @@ describe("UnitModelGenerator", () => {
   });
 
   describe("generate and validate unit model", () => {
-    it("should generate valid unit model", async () => {
+    it.concurrent("should generate valid unit model", async () => {
       const unitModel = unitModelGenerator.generate({
         unitData: {
           id: "id",
@@ -27,7 +27,7 @@ describe("UnitModelGenerator", () => {
       expect(validationErrors).toStrictEqual([]);
     });
 
-    it("should generate invalid unit model", async () => {
+    it.concurrent("should generate invalid unit model", async () => {
       const unitModel = unitModelGenerator.generate({
         unitData: {
           id: "",

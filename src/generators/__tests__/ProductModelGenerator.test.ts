@@ -13,7 +13,7 @@ describe("ProductModelGenerator", () => {
   });
 
   describe("generate and validate product model", () => {
-    it("should generate valid product model", async () => {
+    it.concurrent("should generate valid product model", async () => {
       const productModel = productModelGenerator.generate({
         productData: {
           id: "id",
@@ -37,7 +37,7 @@ describe("ProductModelGenerator", () => {
       expect(validationErrors).toStrictEqual([]);
     });
 
-    it("should generate invalid model", async () => {
+    it.concurrent("should generate invalid model", async () => {
       const productModel = productModelGenerator.generate({
         productData: {
           id: "",

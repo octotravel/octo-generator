@@ -5,7 +5,6 @@ import { AvailabilityModel } from "../models/Availability/AvailabilityModel";
 import { AvailabilityContentModel } from "../models/Availability/AvailabilityContentModel";
 import { AvailabilityPricingModel } from "../models/Availability/AvailabilityPricingModel";
 import { AvailabilityPickupModel } from "../models/Availability/AvailabilityPickupModel";
-import { DateFactory } from "../factories/DateFactory";
 import { addDays } from "date-fns";
 import { DateHelper } from "../helpers/DateHelper";
 import { TimeZoneDataProvider } from "../dataProviders/TimeZoneDataProvider";
@@ -27,17 +26,16 @@ export class AvailabilityModelBuilder {
 
     const availabilityData = builderData.availabilityData;
     const date = new Date();
-    const dateAsString = DateFactory.createForAvailabilityFormat(date);
+    const dateAsString = DateHelper.formatForAvailability(date);
     const time = "00:00:00";
     const datetime = new Date(`${dateAsString}T${time}`);
-    console.debug(DateFactory.createForAvailabilityIdFormat(datetime, TimeZoneDataProvider.europeLondon));
 
     const localDateTimeStart =
       availabilityData.localDateTimeStart ??
-      DateFactory.createForAvailabilityIdFormat(datetime, TimeZoneDataProvider.europeLondon);
+      DateHelper.formatAsAvailabilityId(datetime, TimeZoneDataProvider.europeLondon);
     const localDateTimeEnd =
       availabilityData.localDateTimeEnd ??
-      DateFactory.createForAvailabilityIdFormat(addDays(datetime, 5), TimeZoneDataProvider.europeLondon);
+      DateHelper.formatAsAvailabilityId(addDays(datetime, 5), TimeZoneDataProvider.europeLondon);
 
     return new AvailabilityModel({
       id: availabilityData.id ?? localDateTimeStart,

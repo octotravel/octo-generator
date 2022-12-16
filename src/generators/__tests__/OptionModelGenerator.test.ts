@@ -13,7 +13,7 @@ describe("OptionModelGenerator", () => {
   });
 
   describe("generate and validate option model", () => {
-    it("should generate valid option model", async () => {
+    it.concurrent("should generate valid option model", async () => {
       const optionModel = optionModelGenerator.generate({
         optionData: {
           restrictions: {
@@ -30,7 +30,7 @@ describe("OptionModelGenerator", () => {
       expect(validationErrors).toStrictEqual([]);
     });
 
-    it("should generate invalid option model", async () => {
+    it.concurrent("should generate invalid option model", async () => {
       const optionModel = optionModelGenerator.generate({
         optionData: {
           id: "",

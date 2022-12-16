@@ -148,13 +148,13 @@ describe("ProductParser", () => {
   });
 
   describe("parseModelToPOJO", () => {
-    it("should return product POJO", async () => {
+    it.concurrent("should return product POJO", async () => {
       expect(productParser.parseModelToPOJO(productModel)).toStrictEqual(product);
     });
   });
 
   describe("parsePOJOToModel", () => {
-    it("should return option model", async () => {
+    it.concurrent("should return option model", async () => {
       expect(productParser.parsePOJOToModel(product)).toStrictEqual(productModel);
     });
   });

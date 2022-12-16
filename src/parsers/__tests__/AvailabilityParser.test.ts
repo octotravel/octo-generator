@@ -7,7 +7,7 @@ import { AvailabilityPricingModel } from "../../models/Availability/Availability
 import { AvailabilityPickupModel } from "../../models/Availability/AvailabilityPickupModel";
 
 describe("AvailabilityParser", () => {
-  const unitParser = new AvailabilityParser();
+  const availabilityParser = new AvailabilityParser();
   const availability = {
     id: "2023-12-01T00:00:00+01:00",
     localDateTimeStart: "2023-12-01T00:00:00+01:00",
@@ -67,14 +67,14 @@ describe("AvailabilityParser", () => {
   });
 
   describe("parseModelToPOJO", () => {
-    it("should return availability POJO", async () => {
-      expect(unitParser.parseModelToPOJO(availabilityModel)).toStrictEqual(availability);
+    it.concurrent("should return availability POJO", async () => {
+      expect(availabilityParser.parseModelToPOJO(availabilityModel)).toStrictEqual(availability);
     });
   });
 
   describe("parsePOJOToModel", () => {
-    it("should return availability model", async () => {
-      expect(unitParser.parsePOJOToModel(availability)).toStrictEqual(availabilityModel);
+    it.concurrent("should return availability model", async () => {
+      expect(availabilityParser.parsePOJOToModel(availability)).toStrictEqual(availabilityModel);
     });
   });
 });

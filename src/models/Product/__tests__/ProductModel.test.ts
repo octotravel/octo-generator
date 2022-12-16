@@ -5,7 +5,7 @@ describe("ProductModel", () => {
   const productModelGenerator = new ProductModelGenerator();
 
   describe("findOptionModelByOptionId", () => {
-    it("should return option model", async () => {
+    it.concurrent("should return option model", async () => {
       const optionId = "optionId";
 
       const productModel = productModelGenerator.generate({
@@ -29,7 +29,7 @@ describe("ProductModel", () => {
       expect(productModel.findOptionModelByOptionId(optionId)).toBeInstanceOf(OptionModel);
     });
 
-    it("should return null", async () => {
+    it.concurrent("should return null", async () => {
       const productModel = productModelGenerator.generate({
         productData: {
           id: "id",
