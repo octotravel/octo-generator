@@ -6,7 +6,7 @@ describe("AvailabilityCalendarModelBuilder", () => {
   const availabilityCalendarModelBuilder = new AvailabilityCalendarModelBuilder();
 
   describe("build", () => {
-    it.concurrent("should build availability calendar model without any capabilities", async () => {
+    it("should build availability calendar model without any capabilities", async () => {
       const availabilityCalendarModel = availabilityCalendarModelBuilder.build({
         availabilityCalendarData: {},
         pricingPer: PricingPer.BOOKING,
@@ -17,7 +17,7 @@ describe("AvailabilityCalendarModelBuilder", () => {
       expect(availabilityCalendarModel.availabilityCalendarPricingModel).toBeUndefined();
     });
 
-    it.concurrent("should build availability calendar model with all capabilities", async () => {
+    it("should build availability calendar model with all capabilities", async () => {
       const availabilityCalendarModel = availabilityCalendarModelBuilder.build({
         availabilityCalendarData: {},
         pricingPer: PricingPer.BOOKING,

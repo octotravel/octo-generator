@@ -40,13 +40,13 @@ describe("UnitParser", () => {
   });
 
   describe("parseModelToPOJO", () => {
-    it.concurrent("should return unit POJO", async () => {
+    it("should return unit POJO", async () => {
       expect(unitParser.parseModelToPOJO(unitModel)).toStrictEqual(unit);
     });
   });
 
   describe("parsePOJOToModel", () => {
-    it.concurrent("should return unit model", async () => {
+    it("should return unit model", async () => {
       expect(unitParser.parsePOJOToModel(unit)).toStrictEqual(unitModel);
     });
   });

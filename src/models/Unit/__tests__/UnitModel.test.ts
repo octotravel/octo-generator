@@ -7,7 +7,7 @@ describe("UnitModel", () => {
   const unitModelGenerator = new UnitModelGenerator();
 
   describe("isOnBooking", () => {
-    it.concurrent("should return true", async () => {
+    it("should return true", async () => {
       const optionModel = unitModelGenerator.generate({
         unitData: {
           id: "id",
@@ -20,7 +20,7 @@ describe("UnitModel", () => {
       expect(optionModel.isOnBooking()).toStrictEqual(true);
     });
 
-    it.concurrent("should return false", async () => {
+    it("should return false", async () => {
       const optionModel = unitModelGenerator.generate({
         unitData: {
           id: "id",

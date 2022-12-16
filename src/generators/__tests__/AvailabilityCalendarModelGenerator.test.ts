@@ -14,7 +14,7 @@ describe("AvailabilityCalendarModelGenerator", () => {
   });
 
   describe("generate and validate availability model", () => {
-    it.concurrent("should generate valid availability model", async () => {
+    it("should generate valid availability model", async () => {
       const availabilityCalendarModel = availabilityCalendarModelGenerator.generate({
         availabilityCalendarData: {
           localDate: "2022-12-11",
@@ -27,7 +27,7 @@ describe("AvailabilityCalendarModelGenerator", () => {
       expect(validationErrors).toStrictEqual([]);
     });
 
-    it.concurrent("should generate invalid availability model", async () => {
+    it("should generate invalid availability model", async () => {
       const availabilityCalendarModel = availabilityCalendarModelGenerator.generate({
         availabilityCalendarData: {
           localDate: "",

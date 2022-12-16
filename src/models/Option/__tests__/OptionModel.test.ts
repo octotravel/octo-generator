@@ -6,7 +6,7 @@ describe("OptionModel", () => {
   const optionModelGenerator = new OptionModelGenerator();
 
   describe("findUnitModelByUnitId", () => {
-    it.concurrent("should return unit model", async () => {
+    it("should return unit model", async () => {
       const unitId = "test";
 
       const optionModel = optionModelGenerator.generate({
@@ -28,7 +28,7 @@ describe("OptionModel", () => {
       expect(optionModel.findUnitModelByUnitId(unitId)).toBeInstanceOf(UnitModel);
     });
 
-    it.concurrent("should return null", async () => {
+    it("should return null", async () => {
       const optionModel = optionModelGenerator.generate({
         optionData: {
           restrictions: {

@@ -13,7 +13,7 @@ describe("AvailabilityModelGenerator", () => {
   });
 
   describe("generate and validate availability model", () => {
-    it.concurrent("should generate valid availability model", async () => {
+    it("should generate valid availability model", async () => {
       const availabilityModel = availabilityModelGenerator.generate({
         availabilityData: {
           id: "2023-12-01T00:00:00+01:00",
@@ -26,7 +26,7 @@ describe("AvailabilityModelGenerator", () => {
       expect(validationErrors).toStrictEqual([]);
     });
 
-    it.concurrent("should generate invalid availability model", async () => {
+    it("should generate invalid availability model", async () => {
       const availabilityModel = availabilityModelGenerator.generate({
         availabilityData: {
           id: "",

@@ -6,7 +6,7 @@ describe("AvailabilityModelBuilder", () => {
   const availabilityModelBuilder = new AvailabilityModelBuilder();
 
   describe("build", () => {
-    it.concurrent("should build availability model without any capabilities", async () => {
+    it("should build availability model without any capabilities", async () => {
       const availabilityModel = availabilityModelBuilder.build({
         availabilityData: {},
         pricingPer: PricingPer.BOOKING,
@@ -19,7 +19,7 @@ describe("AvailabilityModelBuilder", () => {
       expect(availabilityModel.availabilityPricingModel).toBeUndefined();
     });
 
-    it.concurrent("should build availability model with content capability", async () => {
+    it("should build availability model with content capability", async () => {
       const availabilityModel = availabilityModelBuilder.build({
         availabilityData: {},
         pricingPer: PricingPer.BOOKING,
@@ -32,7 +32,7 @@ describe("AvailabilityModelBuilder", () => {
       expect(availabilityModel.availabilityPricingModel).toBeUndefined();
     });
 
-    it.concurrent("should build availability model with pickup capability", async () => {
+    it("should build availability model with pickup capability", async () => {
       const availabilityModel = availabilityModelBuilder.build({
         availabilityData: {},
         pricingPer: PricingPer.BOOKING,
@@ -45,7 +45,7 @@ describe("AvailabilityModelBuilder", () => {
       expect(availabilityModel.availabilityPricingModel).toBeUndefined();
     });
 
-    it.concurrent("should build availability model with pricing capability", async () => {
+    it("should build availability model with pricing capability", async () => {
       const availabilityModel = availabilityModelBuilder.build({
         availabilityData: {},
         pricingPer: PricingPer.BOOKING,
@@ -58,7 +58,7 @@ describe("AvailabilityModelBuilder", () => {
       expect(availabilityModel.availabilityPricingModel).toBeDefined();
     });
 
-    it.concurrent("should build availability model with all capabilities", async () => {
+    it("should build availability model with all capabilities", async () => {
       const availabilityModel = availabilityModelBuilder.build({
         availabilityData: {},
         pricingPer: PricingPer.BOOKING,

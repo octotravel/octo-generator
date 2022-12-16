@@ -67,13 +67,13 @@ describe("AvailabilityParser", () => {
   });
 
   describe("parseModelToPOJO", () => {
-    it.concurrent("should return availability POJO", async () => {
+    it("should return availability POJO", async () => {
       expect(availabilityParser.parseModelToPOJO(availabilityModel)).toStrictEqual(availability);
     });
   });
 
   describe("parsePOJOToModel", () => {
-    it.concurrent("should return availability model", async () => {
+    it("should return availability model", async () => {
       expect(availabilityParser.parsePOJOToModel(availability)).toStrictEqual(availabilityModel);
     });
   });

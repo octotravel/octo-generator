@@ -35,7 +35,7 @@ describe("AvailabilityCalendarParser", () => {
   });
 
   describe("parseModelToPOJO", () => {
-    it.concurrent("should return availability calendar POJO", async () => {
+    it("should return availability calendar POJO", async () => {
       expect(availabilityCalendarParser.parseModelToPOJO(availabilityCalendarModel)).toStrictEqual(
         availabilityCalendar
       );
@@ -43,7 +43,7 @@ describe("AvailabilityCalendarParser", () => {
   });
 
   describe("parsePOJOToModel", () => {
-    it.concurrent("should return availability calendar model", async () => {
+    it("should return availability calendar model", async () => {
       expect(availabilityCalendarParser.parsePOJOToModel(availabilityCalendar)).toStrictEqual(
         availabilityCalendarModel
       );
