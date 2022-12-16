@@ -1,7 +1,7 @@
 import { CapabilityId, PricingPer } from "@octocloud/types";
-import {AvailabilityCalendarData} from "../data/AvailabilityCalendarData";
-import {AvailabilityCalendarModelBuilder} from "../builders/AvailabilityCalendarModelBuilder";
-import {AvailabilityCalendarModel} from "../models/Availability/AvailabilityCalendarModel";
+import { AvailabilityCalendarData } from "../data/AvailabilityCalendarData";
+import { AvailabilityCalendarModelBuilder } from "../builders/AvailabilityCalendarModelBuilder";
+import { AvailabilityCalendarModel } from "../models/Availability/AvailabilityCalendarModel";
 
 interface AvailabilityCalendarGenerateData {
   availabilityCalendarData: AvailabilityCalendarData;
@@ -20,7 +20,9 @@ export class AvailabilityCalendarModelGenerator {
     });
   };
 
-  public generateMultiple = (availabilityCalendarsGenerateData: AvailabilityCalendarGenerateData[]): AvailabilityCalendarModel[] => {
+  public generateMultiple = (
+    availabilityCalendarsGenerateData: AvailabilityCalendarGenerateData[]
+  ): AvailabilityCalendarModel[] => {
     return availabilityCalendarsGenerateData.map((availabilityCalendarGenerateData) => {
       return this.generate(availabilityCalendarGenerateData);
     });

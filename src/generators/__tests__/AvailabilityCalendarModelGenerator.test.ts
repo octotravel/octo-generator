@@ -1,7 +1,7 @@
-import {AvailabilityType, CapabilityId} from "@octocloud/types";
-import {AvailabilityCalendarValidator} from "@octocloud/validators";
-import {AvailabilityCalendarParser} from "../../parsers/AvailabilityCalendarParser";
-import {AvailabilityCalendarModelGenerator} from "../AvailabilityCalendarModelGenerator";
+import { AvailabilityType, CapabilityId } from "@octocloud/types";
+import { AvailabilityCalendarValidator } from "@octocloud/validators";
+import { AvailabilityCalendarParser } from "../../parsers/AvailabilityCalendarParser";
+import { AvailabilityCalendarModelGenerator } from "../AvailabilityCalendarModelGenerator";
 
 describe("AvailabilityCalendarModelGenerator", () => {
   const availabilityCalendarModelGenerator = new AvailabilityCalendarModelGenerator();
@@ -10,7 +10,7 @@ describe("AvailabilityCalendarModelGenerator", () => {
   const availabilityCalendarValidator = new AvailabilityCalendarValidator({
     path: "",
     capabilities: capabilities,
-    availabilityType: AvailabilityType.START_TIME
+    availabilityType: AvailabilityType.START_TIME,
   });
 
   describe("generate and validate availability model", () => {
