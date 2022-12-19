@@ -1,12 +1,12 @@
-import { UnitModel } from "../models/Unit/UnitModel";
+import { UnitModel } from "../models/unit/UnitModel";
 import { CapabilityId, PricingPer } from "@octocloud/types";
 import { UnitData } from "../data/UnitData";
 import { UnitDataProvider } from "../dataProviders/UnitDataProvider";
-import { UnitContentModel } from "../models/Unit/UnitContentModel";
-import { UnitPricingModel } from "../models/Unit/UnitPricingModel";
+import { UnitContentModel } from "../models/unit/UnitContentModel";
+import { UnitPricingModel } from "../models/unit/UnitPricingModel";
 import { PricingDataProvider } from "../dataProviders/PricingDataProvider";
-import { ProductModel } from "../models/Product/ProductModel";
-import { OptionPricingModel } from "../models/Option/OptionPricingModel";
+import { ProductModel } from "../models/product/ProductModel";
+import { OptionPricingModel } from "../models/option/OptionPricingModel";
 
 interface UnitModelBuilderData {
   unitData: UnitData;

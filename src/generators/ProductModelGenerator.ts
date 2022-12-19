@@ -1,5 +1,5 @@
 import { ProductData } from "../data/ProductData";
-import { ProductModel } from "../models/Product/ProductModel";
+import { ProductModel } from "../models/product/ProductModel";
 import { ProductModelBuilder } from "../builders/ProductModelBuilder";
 import { CapabilityId } from "@octocloud/types";
 

@@ -1,10 +1,10 @@
 import { AvailabilityStatus, CapabilityId, PricingPer } from "@octocloud/types";
 import { PricingDataProvider } from "../dataProviders/PricingDataProvider";
 import { AvailabilityData } from "../data/AvailabilityData";
-import { AvailabilityModel } from "../models/Availability/AvailabilityModel";
-import { AvailabilityContentModel } from "../models/Availability/AvailabilityContentModel";
-import { AvailabilityPricingModel } from "../models/Availability/AvailabilityPricingModel";
-import { AvailabilityPickupModel } from "../models/Availability/AvailabilityPickupModel";
+import { AvailabilityModel } from "../models/availability/AvailabilityModel";
+import { AvailabilityContentModel } from "../models/availability/AvailabilityContentModel";
+import { AvailabilityPricingModel } from "../models/availability/AvailabilityPricingModel";
+import { AvailabilityPickupModel } from "../models/availability/AvailabilityPickupModel";
 import { addDays } from "date-fns";
 import { DateHelper } from "../helpers/DateHelper";
 import { TimeZoneDataProvider } from "../dataProviders/TimeZoneDataProvider";

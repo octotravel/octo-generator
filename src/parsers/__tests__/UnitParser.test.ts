@@ -1,10 +1,10 @@
 import { UnitType } from "@octocloud/types";
-import { UnitModel } from "../../models/Unit/UnitModel";
+import { UnitModel } from "../../models/unit/UnitModel";
 import { UnitDataProvider } from "../../dataProviders/UnitDataProvider";
 import { UnitParser } from "../UnitParser";
-import { UnitContentModel } from "../../models/Unit/UnitContentModel";
+import { UnitContentModel } from "../../models/unit/UnitContentModel";
 import { PricingDataProvider } from "../../dataProviders/PricingDataProvider";
-import { UnitPricingModel } from "../../models/Unit/UnitPricingModel";
+import { UnitPricingModel } from "../../models/unit/UnitPricingModel";
 
 describe("UnitParser", () => {
   const unitParser = new UnitParser();

@@ -2,7 +2,7 @@ import { ContactField, UnitRestrictions } from "@octocloud/types/src/types/Optio
 import { OptionContentModel } from "./OptionContentModel";
 import { OptionPickupModel } from "./OptionPickupModel";
 import { OptionPricingModel } from "./OptionPricingModel";
-import { UnitModel } from "../Unit/UnitModel";
+import { UnitModel } from "../unit/UnitModel";
 
 export class OptionModel {
   public readonly id: string;
