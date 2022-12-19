@@ -20,7 +20,9 @@ export class AvailabilityModelGenerator {
     });
   };
 
-  public generateMultiple = (availabilitiesGenerateData: AvailabilityGenerateData[]): AvailabilityModel[] => {
+  public generateMultiple = (
+    availabilitiesGenerateData: AvailabilityGenerateData[]
+  ): AvailabilityModel[] => {
     return availabilitiesGenerateData.map((availabilityGenerateData) => {
       return this.generate(availabilityGenerateData);
     });

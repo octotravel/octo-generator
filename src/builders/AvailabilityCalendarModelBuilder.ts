@@ -46,9 +46,11 @@ export class AvailabilityCalendarModelBuilder {
       return undefined;
     }
 
+    const availabilityCalendarData = builderData.availabilityCalendarData;
+
     return AvailabilityCalendarPricingModelFactory.create({
-      unitPricing: builderData.availabilityCalendarData.unitPricingFrom ?? [PricingDataProvider.unitPricing],
-      pricing: builderData.availabilityCalendarData.pricingFrom ?? PricingDataProvider.adultPricing,
+      unitPricing: availabilityCalendarData.unitPricingFrom ?? [PricingDataProvider.unitPricing],
+      pricing: availabilityCalendarData.pricingFrom ?? PricingDataProvider.adultPricing,
       pricingPer: PricingPer.BOOKING,
     });
   }

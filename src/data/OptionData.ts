@@ -1,4 +1,11 @@
-import { ContactField, DurationUnit, Itinerary, PickupPoint, Pricing, UnitRestrictions } from "@octocloud/types";
+import {
+  ContactField,
+  DurationUnit,
+  Itinerary,
+  PickupPoint,
+  Pricing,
+  UnitRestrictions,
+} from "@octocloud/types";
 import { UnitData } from "./UnitData";
 
 export interface OptionData {

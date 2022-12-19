@@ -12,7 +12,9 @@ interface AvailabilityCalendarGenerateData {
 export class AvailabilityCalendarModelGenerator {
   private readonly availabilityCalendarModelBuilder = new AvailabilityCalendarModelBuilder();
 
-  public generate = (availabilityCalendarGenerateData: AvailabilityCalendarGenerateData): AvailabilityCalendarModel => {
+  public generate = (
+    availabilityCalendarGenerateData: AvailabilityCalendarGenerateData
+  ): AvailabilityCalendarModel => {
     return this.availabilityCalendarModelBuilder.build({
       availabilityCalendarData: availabilityCalendarGenerateData.availabilityCalendarData,
       pricingPer: availabilityCalendarGenerateData.pricingPer,

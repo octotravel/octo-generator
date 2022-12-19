@@ -18,7 +18,11 @@ interface OptionModelBuilderData {
 }
 
 const defaultPricingPer: PricingPer = PricingPer.UNIT;
-const defaultCapabilities: CapabilityId[] = [CapabilityId.Content, CapabilityId.Pickups, CapabilityId.Pricing];
+const defaultCapabilities: CapabilityId[] = [
+  CapabilityId.Content,
+  CapabilityId.Pickups,
+  CapabilityId.Pricing,
+];
 
 export class OptionModelBuilder {
   private unitModelBuilder = new UnitModelBuilder();

@@ -24,7 +24,9 @@ export class AvailabilityParser {
     });
   };
 
-  private parseContentPOJOToModel = (availability: Availability): AvailabilityContentModel | undefined => {
+  private parseContentPOJOToModel = (
+    availability: Availability
+  ): AvailabilityContentModel | undefined => {
     if (
       availability.meetingPoint === undefined ||
       availability.meetingPointCoordinates === undefined ||
@@ -44,7 +46,9 @@ export class AvailabilityParser {
     });
   };
 
-  private parsePickupPOJOToModel = (availability: Availability): AvailabilityPickupModel | undefined => {
+  private parsePickupPOJOToModel = (
+    availability: Availability
+  ): AvailabilityPickupModel | undefined => {
     if (
       availability.pickupRequired === undefined ||
       availability.pickupAvailable === undefined ||
@@ -60,7 +64,9 @@ export class AvailabilityParser {
     });
   };
 
-  private parsePricingPOJOToModel = (availability: Availability): AvailabilityPricingModel | undefined => {
+  private parsePricingPOJOToModel = (
+    availability: Availability
+  ): AvailabilityPricingModel | undefined => {
     if (availability.unitPricing === undefined || availability.pricing === undefined) {
       return undefined;
     }

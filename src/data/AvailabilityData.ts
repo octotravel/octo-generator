@@ -1,4 +1,10 @@
-import { AvailabilityStatus, OpeningHours, PickupPoint, Pricing, PricingUnit } from "@octocloud/types";
+import {
+  AvailabilityStatus,
+  OpeningHours,
+  PickupPoint,
+  Pricing,
+  PricingUnit,
+} from "@octocloud/types";
 
 export interface AvailabilityData {
   id?: string;

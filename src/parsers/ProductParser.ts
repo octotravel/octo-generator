@@ -110,7 +110,9 @@ export class ProductParser {
       deliveryFormats: productModel.deliveryFormats,
       deliveryMethods: productModel.deliveryMethods,
       redemptionMethod: productModel.redemptionMethod,
-      options: productModel.optionModels.map((optionModel) => this.optionParser.parseModelToPOJO(optionModel)),
+      options: productModel.optionModels.map((optionModel) =>
+        this.optionParser.parseModelToPOJO(optionModel)
+      ),
     };
 
     if (productModel.productContentModel !== undefined) {

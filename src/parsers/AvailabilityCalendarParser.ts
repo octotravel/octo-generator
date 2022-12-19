@@ -3,7 +3,9 @@ import { AvailabilityCalendarModel } from "../models/availability/AvailabilityCa
 import { AvailabilityCalendarPricingModel } from "../models/availability/AvailabilityCalendarPricingModel";
 
 export class AvailabilityCalendarParser {
-  public parsePOJOToModel = (availabilityCalendar: AvailabilityCalendar): AvailabilityCalendarModel => {
+  public parsePOJOToModel = (
+    availabilityCalendar: AvailabilityCalendar
+  ): AvailabilityCalendarModel => {
     return new AvailabilityCalendarModel({
       localDate: availabilityCalendar.localDate,
       available: availabilityCalendar.available,
@@ -18,7 +20,10 @@ export class AvailabilityCalendarParser {
   private parsePricingPOJOToModel = (
     availabilityCalendar: AvailabilityCalendar
   ): AvailabilityCalendarPricingModel | undefined => {
-    if (availabilityCalendar.unitPricingFrom === undefined && availabilityCalendar.pricingFrom === undefined) {
+    if (
+      availabilityCalendar.unitPricingFrom === undefined &&
+      availabilityCalendar.pricingFrom === undefined
+    ) {
       return undefined;
     }
 
@@ -28,7 +33,9 @@ export class AvailabilityCalendarParser {
     });
   };
 
-  public parseModelToPOJO = (availabilityCalendarModel: AvailabilityCalendarModel): AvailabilityCalendar => {
+  public parseModelToPOJO = (
+    availabilityCalendarModel: AvailabilityCalendarModel
+  ): AvailabilityCalendar => {
     const availabilityCalendar: AvailabilityCalendar = {
       localDate: availabilityCalendarModel.localDate,
       available: availabilityCalendarModel.available,
@@ -39,7 +46,8 @@ export class AvailabilityCalendarParser {
     };
 
     if (availabilityCalendarModel.availabilityCalendarPricingModel !== undefined) {
-      const availabilityCalendarPricingModel = availabilityCalendarModel.availabilityCalendarPricingModel;
+      const availabilityCalendarPricingModel =
+        availabilityCalendarModel.availabilityCalendarPricingModel;
 
       availabilityCalendar.unitPricingFrom = availabilityCalendarPricingModel.unitPricingFrom;
       availabilityCalendar.pricingFrom = availabilityCalendarPricingModel.pricingFrom;
