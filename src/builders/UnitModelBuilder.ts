@@ -4,7 +4,7 @@ import { UnitDataProvider } from "../dataProviders/UnitDataProvider";
 import { UnitContentModel } from "../models/Unit/UnitContentModel";
 import { UnitPricingModel } from "../models/Unit/UnitPricingModel";
 import { PricingDataProvider } from "../dataProviders/PricingDataProvider";
-import { ProductModel } from "../models/product/productModel";
+import { ProductModel } from "../models/product/ProductModel";
 import { OptionPricingModel } from "../models/Option/OptionPricingModel";
 
 interface UnitModelBuilderData {

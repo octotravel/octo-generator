@@ -1,4 +1,4 @@
-import { ProductModel } from "../models/product/productModel";
+import { ProductModel } from "../models/product/ProductModel";
 import { ProductModelBuilder } from "../builders/ProductModelBuilder";
 import { CapabilityId, Product } from "@octocloud/types";
 

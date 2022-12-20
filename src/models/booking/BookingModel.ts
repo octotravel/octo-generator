@@ -1,7 +1,7 @@
 import { DeliveryMethod } from "@octocloud/types/src/types/Product";
 import { BookingAvailability, BookingStatus, Cancellation, Contact, Ticket } from "@octocloud/types/src/types/Booking";
-import { OptionModel } from "../option/optionModel";
-import { ProductModel } from "../product/productModel";
+import { OptionModel } from "../option/OptionModel";
+import { ProductModel } from "../product/ProductModel";
 import { BookingCartModel } from "./BookingCartModel";
 import { BookingContentModel } from "./BookingContentModel";
 import { BookingPickupModel } from "./BookingPickupModel";

@@ -1,5 +1,5 @@
 import { OptionModelBuilder } from "../builders/OptionModelBuilder";
-import { OptionModel } from "../models/option/optionModel";
+import { OptionModel } from "../models/option/OptionModel";
 import { CapabilityId, Option, PricingPer } from "@octocloud/types";
 
 interface OptionGenerateData {
