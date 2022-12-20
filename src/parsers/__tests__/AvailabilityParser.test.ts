@@ -2,9 +2,9 @@ import { AvailabilityStatus } from "@octocloud/types";
 import { PricingDataProvider } from "../../dataProviders/PricingDataProvider";
 import { AvailabilityParser } from "../AvailabilityParser";
 import { AvailabilityModel } from "../../models/availability/AvailabilityModel";
-import { AvailabilityContentModel } from "../../models/Availability/AvailabilityContentModel";
-import { AvailabilityPricingModel } from "../../models/Availability/AvailabilityPricingModel";
-import { AvailabilityPickupModel } from "../../models/Availability/AvailabilityPickupModel";
+import { AvailabilityContentModel } from "../../models/availability/AvailabilityContentModel";
+import { AvailabilityPricingModel } from "../../models/availability/AvailabilityPricingModel";
+import { AvailabilityPickupModel } from "../../models/availability/AvailabilityPickupModel";
 
 describe("AvailabilityParser", () => {
   const availabilityParser = new AvailabilityParser();

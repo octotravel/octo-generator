@@ -12,8 +12,8 @@ import { OptionModelBuilder } from "./OptionModelBuilder";
 import { ProductModel } from "../models/product/ProductModel";
 import { TimeZoneDataProvider } from "../dataProviders/TimeZoneDataProvider";
 import { LocaleDataProvider } from "../dataProviders/LocaleDataProvider";
-import { ProductContentModel } from "../models/Product/ProductContentModel";
-import { ProductPricingModel } from "../models/Product/ProductPricingModel";
+import { ProductContentModel } from "../models/product/ProductContentModel";
+import { ProductPricingModel } from "../models/product/ProductPricingModel";
 
 interface ProductModelBuilderData {
   productData: Partial<Product>;

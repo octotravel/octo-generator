@@ -3,10 +3,10 @@ import { UnitModel } from "../../models/unit/UnitModel";
 import { OptionParser } from "../OptionParser";
 import { OptionModel } from "../../models/option/OptionModel";
 import { UnitDataProvider } from "../../dataProviders/UnitDataProvider";
-import { OptionContentModel } from "../../models/Option/OptionContentModel";
-import { OptionPricingModel } from "../../models/Option/OptionPricingModel";
+import { OptionContentModel } from "../../models/option/OptionContentModel";
+import { OptionPricingModel } from "../../models/option/OptionPricingModel";
 import { PricingDataProvider } from "../../dataProviders/PricingDataProvider";
-import { OptionPickupModel } from "../../models/Option/OptionPickupModel";
+import { OptionPickupModel } from "../../models/option/OptionPickupModel";
 
 describe("OptionParser", () => {
   const optionParser = new OptionParser();

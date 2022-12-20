@@ -12,8 +12,8 @@ import { TimeZoneDataProvider } from "../../dataProviders/TimeZoneDataProvider";
 import { ProductModel } from "../../models/product/ProductModel";
 import { OptionModel } from "../../models/option/OptionModel";
 import { UnitModel } from "../../models/unit/UnitModel";
-import { ProductContentModel } from "../../models/Product/ProductContentModel";
-import { ProductPricingModel } from "../../models/Product/ProductPricingModel";
+import { ProductContentModel } from "../../models/product/ProductContentModel";
+import { ProductPricingModel } from "../../models/product/ProductPricingModel";
 
 describe("ProductParser", () => {
   const productParser = new ProductParser();

@@ -2,8 +2,8 @@ import { Product } from "@octocloud/types";
 import { OptionParser } from "./OptionParser";
 import { ProductModel } from "../models/product/ProductModel";
 
-import { ProductContentModel } from "../models/Product/ProductContentModel";
-import { ProductPricingModel } from "../models/Product/ProductPricingModel";
+import { ProductContentModel } from "../models/product/ProductContentModel";
+import { ProductPricingModel } from "../models/product/ProductPricingModel";
 
 export class ProductParser {
   private readonly optionParser = new OptionParser();

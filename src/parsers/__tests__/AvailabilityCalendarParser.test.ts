@@ -1,7 +1,7 @@
 import { AvailabilityStatus } from "@octocloud/types";
 import { PricingDataProvider } from "../../dataProviders/PricingDataProvider";
-import { AvailabilityCalendarModel } from "../../models/Availability/AvailabilityCalendarModel";
-import { AvailabilityCalendarPricingModel } from "../../models/Availability/AvailabilityCalendarPricingModel";
+import { AvailabilityCalendarModel } from "../../models/availability/AvailabilityCalendarModel";
+import { AvailabilityCalendarPricingModel } from "../../models/availability/AvailabilityCalendarPricingModel";
 import { AvailabilityCalendarParser } from "../AvailabilityCalendarParser";
 
 describe("AvailabilityCalendarParser", () => {
