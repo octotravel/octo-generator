@@ -1,6 +1,6 @@
 import { AvailabilityCalendar } from "@octocloud/types";
-import { AvailabilityCalendarModel } from "../models/availability/AvailabilityCalendarModel";
-import { AvailabilityCalendarPricingModel } from "../models/availability/AvailabilityCalendarPricingModel";
+import { AvailabilityCalendarModel } from "../models/Availability/AvailabilityCalendarModel";
+import { AvailabilityCalendarPricingModel } from "../models/Availability/AvailabilityCalendarPricingModel";
 
 export class AvailabilityCalendarParser {
   public parsePOJOToModel = (

@@ -1,13 +1,17 @@
-import { AvailabilityStatus, CapabilityId, PricingPer } from "@octocloud/types";
+import {
+  AvailabilityCalendar,
+  AvailabilityStatus,
+  CapabilityId,
+  PricingPer,
+} from "@octocloud/types";
 import { PricingDataProvider } from "../dataProviders/PricingDataProvider";
 import { DateHelper } from "../helpers/DateHelper";
-import { AvailabilityCalendarData } from "../data/AvailabilityCalendarData";
-import { AvailabilityCalendarModel } from "../models/availability/AvailabilityCalendarModel";
-import { AvailabilityCalendarPricingModel } from "../models/availability/AvailabilityCalendarPricingModel";
+import { AvailabilityCalendarModel } from "../models/Availability/AvailabilityCalendarModel";
+import { AvailabilityCalendarPricingModel } from "../models/Availability/AvailabilityCalendarPricingModel";
 import { AvailabilityCalendarPricingModelFactory } from "../factories/AvailabilityCalendarPricingModelFactory";
 
 interface AvailabilityCalendarModelBuilderData {
-  availabilityCalendarData: AvailabilityCalendarData;
+  availabilityCalendarData: Partial<AvailabilityCalendar>;
   pricingPer?: PricingPer;
   capabilities?: CapabilityId[];
 }
@@ -29,12 +33,7 @@ export class AvailabilityCalendarModelBuilder {
       status: availabilityCalendarData.status ?? AvailabilityStatus.CLOSED,
       vacancies: availabilityCalendarData.vacancies ?? 0,
       capacity: availabilityCalendarData.capacity ?? 20,
-      openingHours: availabilityCalendarData.openingHours ?? [
-        {
-          from: "00:00",
-          to: "23:59",
-        },
-      ],
+      openingHours: availabilityCalendarData.openingHours ?? [],
       availabilityCalendarPricingModel: this.buildPricingModel(builderData),
     });
   }
@@ -46,11 +45,11 @@ export class AvailabilityCalendarModelBuilder {
       return undefined;
     }
 
-    const availabilityCalendarData = builderData.availabilityCalendarData;
-
     return AvailabilityCalendarPricingModelFactory.create({
-      unitPricing: availabilityCalendarData.unitPricingFrom ?? [PricingDataProvider.unitPricing],
-      pricing: availabilityCalendarData.pricingFrom ?? PricingDataProvider.adultPricing,
+      unitPricing: builderData.availabilityCalendarData.unitPricingFrom ?? [
+        PricingDataProvider.unitPricing,
+      ],
+      pricing: builderData.availabilityCalendarData.pricingFrom ?? PricingDataProvider.adultPricing,
       pricingPer: PricingPer.BOOKING,
     });
   }

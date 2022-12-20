@@ -1,17 +1,16 @@
-import { AvailabilityStatus, CapabilityId, PricingPer } from "@octocloud/types";
+import { Availability, AvailabilityStatus, CapabilityId, PricingPer } from "@octocloud/types";
 import { PricingDataProvider } from "../dataProviders/PricingDataProvider";
-import { AvailabilityData } from "../data/AvailabilityData";
-import { AvailabilityModel } from "../models/availability/AvailabilityModel";
-import { AvailabilityContentModel } from "../models/availability/AvailabilityContentModel";
-import { AvailabilityPricingModel } from "../models/availability/AvailabilityPricingModel";
-import { AvailabilityPickupModel } from "../models/availability/AvailabilityPickupModel";
+import { AvailabilityModel } from "../models/Availability/AvailabilityModel";
+import { AvailabilityContentModel } from "../models/Availability/AvailabilityContentModel";
+import { AvailabilityPricingModel } from "../models/Availability/AvailabilityPricingModel";
+import { AvailabilityPickupModel } from "../models/Availability/AvailabilityPickupModel";
 import { addDays } from "date-fns";
 import { DateHelper } from "../helpers/DateHelper";
 import { TimeZoneDataProvider } from "../dataProviders/TimeZoneDataProvider";
 import { AvailabilityPricingModelFactory } from "../factories/AvailabilityPricingModelFactory";
 
 interface AvailabilityModelBuilderData {
-  availabilityData: AvailabilityData;
+  availabilityData: Partial<Availability>;
   pricingPer?: PricingPer;
   capabilities?: CapabilityId[];
 }
@@ -52,12 +51,7 @@ export class AvailabilityModelBuilder {
       capacity: availabilityData.capacity ?? 10,
       maxUnits: availabilityData.maxUnits ?? 5,
       utcCutoffAt: availabilityData.utcCutoffAt ?? DateHelper.formatToUtcDate(date),
-      openingHours: availabilityData.openingHours ?? [
-        {
-          from: "06:00",
-          to: "20:00",
-        },
-      ],
+      openingHours: availabilityData.openingHours ?? [],
       availabilityContentModel: this.buildContentModel(builderData),
       availabilityPricingModel: this.buildPricingModel(builderData),
       availabilityPickupModel: this.buildPickupModel(builderData),

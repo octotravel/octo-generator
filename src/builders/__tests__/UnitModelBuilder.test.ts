@@ -1,8 +1,8 @@
-import { UnitModel } from "../../models/unit/UnitModel";
+import { UnitModel } from "../../models/Unit/UnitModel";
 import { UnitModelBuilder } from "../UnitModelBuilder";
 import { CapabilityId, PricingPer } from "@octocloud/types";
 import { UnitDataProvider } from "../../dataProviders/UnitDataProvider";
-import { ProductModel } from "../../models/product/ProductModel";
+import { ProductModel } from "../../models/Product/ProductModel";
 
 describe("UnitModelBuilder", () => {
   const unitModelBuilder = new UnitModelBuilder();

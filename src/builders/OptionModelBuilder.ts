@@ -1,17 +1,16 @@
-import { CapabilityId, DurationUnit, PricingPer } from "@octocloud/types";
+import { CapabilityId, DurationUnit, Option, PricingPer } from "@octocloud/types";
 import { UnitModelBuilder } from "./UnitModelBuilder";
-import { OptionData } from "../data/OptionData";
-import { OptionModel } from "../models/option/OptionModel";
-import { OptionContentModel } from "../models/option/OptionContentModel";
-import { OptionPickupModel } from "../models/option/OptionPickupModel";
-import { OptionPricingModel } from "../models/option/OptionPricingModel";
+import { OptionModel } from "../models/Option/OptionModel";
+import { OptionContentModel } from "../models/Option/OptionContentModel";
+import { OptionPickupModel } from "../models/Option/OptionPickupModel";
+import { OptionPricingModel } from "../models/Option/OptionPricingModel";
 import { PricingDataProvider } from "../dataProviders/PricingDataProvider";
-import { UnitModel } from "../models/unit/UnitModel";
+import { UnitModel } from "../models/Unit/UnitModel";
 import { LocaleDataProvider } from "../dataProviders/LocaleDataProvider";
-import { ProductModel } from "../models/product/ProductModel";
+import { ProductModel } from "../models/Product/ProductModel";
 
 interface OptionModelBuilderData {
-  optionData: OptionData;
+  optionData: Partial<Option>;
   pricingPer?: PricingPer;
   capabilities?: CapabilityId[];
   sourceModel?: object;
@@ -35,7 +34,7 @@ export class OptionModelBuilder {
 
     return new OptionModel({
       id: optionData.id ?? "DEFAULT",
-      isDefault: optionData.isDefault ?? true,
+      isDefault: optionData.default ?? true,
       internalName: optionData.internalName ?? "DEFAULT",
       reference: optionData.reference ?? null,
       availabilityLocalStartTimes: optionData.availabilityLocalStartTimes ?? ["00:00"],
@@ -43,7 +42,10 @@ export class OptionModelBuilder {
       cancellationCutoffAmount: optionData.cancellationCutoffAmount ?? 0,
       cancellationCutoffUnit: optionData.cancellationCutoffUnit ?? "hour",
       requiredContactFields: optionData.requiredContactFields ?? [],
-      restrictions: optionData.restrictions,
+      restrictions: optionData.restrictions ?? {
+        minUnits: 0,
+        maxUnits: null,
+      },
       unitModels: this.buildUnitModels(builderData),
       optionContentModel: this.buildContentModel(builderData),
       optionPickupModel: this.buildPickupModel(builderData),
@@ -52,7 +54,11 @@ export class OptionModelBuilder {
   }
 
   private buildUnitModels(builderData: OptionModelBuilderData): UnitModel[] {
-    return builderData.optionData.unitsData.map((unitData) => {
+    if (builderData.optionData.units === undefined) {
+      return [];
+    }
+
+    return builderData.optionData.units.map((unitData) => {
       return this.unitModelBuilder.build({
         unitData: unitData,
         pricingPer: builderData.pricingPer,

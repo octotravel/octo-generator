@@ -1,31 +1,24 @@
-import { UnitType } from "@octocloud/types/src/types/Unit";
-import { PricingDataProvider } from "../../../dataProviders/PricingDataProvider";
 import { OptionModelGenerator } from "../../../generators/OptionModelGenerator";
-import { UnitModel } from "../../unit/UnitModel";
+import { UnitModel } from "../../Unit/UnitModel";
+import { UnitDataProvider } from "../../../dataProviders/UnitDataProvider";
 describe("OptionModel", () => {
   const optionModelGenerator = new OptionModelGenerator();
 
   describe("findUnitModelByUnitId", () => {
     it("should return unit model", async () => {
-      const unitId = "test";
-
       const optionModel = optionModelGenerator.generate({
         optionData: {
           restrictions: {
             minUnits: 0,
             maxUnits: null,
           },
-          unitsData: [
-            {
-              id: unitId,
-              type: UnitType.ADULT,
-              pricing: [PricingDataProvider.adultPricing],
-            },
-          ],
+          units: [UnitDataProvider.adultUnit],
         },
       });
 
-      expect(optionModel.findUnitModelByUnitId(unitId)).toBeInstanceOf(UnitModel);
+      expect(optionModel.findUnitModelByUnitId(UnitDataProvider.adultUnit.id)).toBeInstanceOf(
+        UnitModel
+      );
     });
 
     it("should return null", async () => {
@@ -35,11 +28,11 @@ describe("OptionModel", () => {
             minUnits: 0,
             maxUnits: null,
           },
-          unitsData: [],
+          units: [],
         },
       });
 
-      expect(optionModel.findUnitModelByUnitId("test")).toStrictEqual(null);
+      expect(optionModel.findUnitModelByUnitId("nonExistingId")).toStrictEqual(null);
     });
   });
 });

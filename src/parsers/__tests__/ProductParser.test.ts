@@ -9,11 +9,11 @@ import {
 import { ProductParser } from "../ProductParser";
 import { LocaleDataProvider } from "../../dataProviders/LocaleDataProvider";
 import { TimeZoneDataProvider } from "../../dataProviders/TimeZoneDataProvider";
-import { ProductModel } from "../../models/product/ProductModel";
-import { OptionModel } from "../../models/option/OptionModel";
-import { UnitModel } from "../../models/unit/UnitModel";
-import { ProductContentModel } from "../../models/product/ProductContentModel";
-import { ProductPricingModel } from "../../models/product/ProductPricingModel";
+import { ProductModel } from "../../models/Product/ProductModel";
+import { OptionModel } from "../../models/Option/OptionModel";
+import { UnitModel } from "../../models/Unit/UnitModel";
+import { ProductContentModel } from "../../models/Product/ProductContentModel";
+import { ProductPricingModel } from "../../models/Product/ProductPricingModel";
 
 describe("ProductParser", () => {
   const productParser = new ProductParser();

@@ -1,12 +1,12 @@
 import { DurationUnit, UnitType } from "@octocloud/types";
-import { UnitModel } from "../../models/unit/UnitModel";
+import { UnitModel } from "../../models/Unit/UnitModel";
 import { OptionParser } from "../OptionParser";
-import { OptionModel } from "../../models/option/OptionModel";
+import { OptionModel } from "../../models/Option/OptionModel";
 import { UnitDataProvider } from "../../dataProviders/UnitDataProvider";
-import { OptionContentModel } from "../../models/option/OptionContentModel";
-import { OptionPricingModel } from "../../models/option/OptionPricingModel";
+import { OptionContentModel } from "../../models/Option/OptionContentModel";
+import { OptionPricingModel } from "../../models/Option/OptionPricingModel";
 import { PricingDataProvider } from "../../dataProviders/PricingDataProvider";
-import { OptionPickupModel } from "../../models/option/OptionPickupModel";
+import { OptionPickupModel } from "../../models/Option/OptionPickupModel";
 
 describe("OptionParser", () => {
   const optionParser = new OptionParser();

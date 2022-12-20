@@ -1,10 +1,9 @@
-import { CapabilityId, PricingPer } from "@octocloud/types";
-import { AvailabilityCalendarData } from "../data/AvailabilityCalendarData";
+import { AvailabilityCalendar, CapabilityId, PricingPer } from "@octocloud/types";
 import { AvailabilityCalendarModelBuilder } from "../builders/AvailabilityCalendarModelBuilder";
-import { AvailabilityCalendarModel } from "../models/availability/AvailabilityCalendarModel";
+import { AvailabilityCalendarModel } from "../models/Availability/AvailabilityCalendarModel";
 
 interface AvailabilityCalendarGenerateData {
-  availabilityCalendarData: AvailabilityCalendarData;
+  availabilityCalendarData: Partial<AvailabilityCalendar>;
   pricingPer?: PricingPer;
   capabilities?: CapabilityId[];
 }

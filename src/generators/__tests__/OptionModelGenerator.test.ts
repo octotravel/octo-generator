@@ -20,7 +20,7 @@ describe("OptionModelGenerator", () => {
             minUnits: 0,
             maxUnits: null,
           },
-          unitsData: [],
+          units: [],
         },
         capabilities: capabilities,
       });
@@ -38,7 +38,7 @@ describe("OptionModelGenerator", () => {
             minUnits: 0,
             maxUnits: null,
           },
-          unitsData: [],
+          units: [],
         },
         capabilities: capabilities,
       });
