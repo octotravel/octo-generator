@@ -1,10 +1,9 @@
-import { ProductData } from "../data/ProductData";
 import { ProductModel } from "../models/Product/ProductModel";
 import { ProductModelBuilder } from "../builders/ProductModelBuilder";
-import { CapabilityId } from "@octocloud/types";
+import { CapabilityId, Product } from "@octocloud/types";
 
 interface ProductGeneratorData {
-  productData: ProductData;
+  productData: Partial<Product>;
   capabilities?: CapabilityId[];
 }
 export class ProductModelGenerator {
@@ -17,11 +16,9 @@ export class ProductModelGenerator {
     });
   };
 
-  public generateMultiple = (productsData: ProductData[]): ProductModel[] => {
-    return productsData.map((productData) => {
-      return this.productModelBuilder.build({
-        productData: productData,
-      });
+  public generateMultiple = (productsGenerateData: ProductGeneratorData[]): ProductModel[] => {
+    return productsGenerateData.map((productGenerateData) => {
+      return this.generate(productGenerateData);
     });
   };
 }

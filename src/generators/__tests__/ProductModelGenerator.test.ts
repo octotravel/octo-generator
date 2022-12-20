@@ -2,6 +2,7 @@ import { CapabilityId, DeliveryMethod } from "@octocloud/types";
 import { ProductValidator } from "@octocloud/validators";
 import { ProductModelGenerator } from "../ProductModelGenerator";
 import { ProductParser } from "../../parsers/ProductParser";
+import { OptionDataProvider } from "../../dataProviders/OptionDataProvider";
 
 describe("ProductModelGenerator", () => {
   const productModelGenerator = new ProductModelGenerator();
@@ -19,15 +20,7 @@ describe("ProductModelGenerator", () => {
           id: "id",
           internalName: "internalName",
           deliveryMethods: [DeliveryMethod.VOUCHER, DeliveryMethod.TICKET],
-          optionsData: [
-            {
-              restrictions: {
-                minUnits: 0,
-                maxUnits: null,
-              },
-              unitsData: [],
-            },
-          ],
+          options: [OptionDataProvider.defaultOption],
         },
         capabilities: capabilities,
       });
@@ -43,7 +36,7 @@ describe("ProductModelGenerator", () => {
           id: "",
           internalName: "",
           deliveryMethods: [DeliveryMethod.VOUCHER, DeliveryMethod.TICKET],
-          optionsData: [],
+          options: [],
         },
         capabilities: capabilities,
       });
