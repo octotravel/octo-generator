@@ -1,15 +1,17 @@
 import { UnitModel } from "../models/Unit/UnitModel";
-import { CapabilityId, PricingPer } from "@octocloud/types";
-import { UnitData } from "../data/UnitData";
+import { CapabilityId, PricingPer, Unit, UnitType } from "@octocloud/types";
 import { UnitDataProvider } from "../dataProviders/UnitDataProvider";
 import { UnitContentModel } from "../models/Unit/UnitContentModel";
 import { UnitPricingModel } from "../models/Unit/UnitPricingModel";
 import { PricingDataProvider } from "../dataProviders/PricingDataProvider";
+import { ProductModel } from "../models/Product/ProductModel";
+import { OptionPricingModel } from "../models/Option/OptionPricingModel";
 
 interface UnitModelBuilderData {
-  unitData: UnitData;
+  unitData: Partial<Unit>;
   pricingPer?: PricingPer;
   capabilities?: CapabilityId[];
+  sourceModel?: object;
 }
 
 const defaultPricingPer: PricingPer = PricingPer.UNIT;
@@ -23,20 +25,16 @@ export class UnitModelBuilder {
     const unitData = builderData.unitData;
 
     return new UnitModel({
-      id: unitData.id,
-      internalName: unitData.internalName ?? unitData.id,
-      reference: unitData.reference ?? unitData.id.toLowerCase(),
-      type: unitData.type,
+      id: unitData.id ?? "id",
+      internalName: unitData.internalName ?? "internalName",
+      reference: unitData.reference ?? "reference",
+      type: unitData.type ?? UnitType.ADULT,
       restrictions: unitData.restrictions ?? UnitDataProvider.commonRestrictions,
       requiredContactFields: unitData.requiredContactFields ?? [],
       unitContentModel: this.buildContentModel(builderData),
       unitPricingModel: this.buildPricingModel(builderData),
     });
   }
-
-  public buildMultiple = (unitsData: UnitData[], pricingPer: PricingPer): UnitModel[] => {
-    return unitsData.map((unitData) => this.build({ unitData, pricingPer }));
-  };
 
   private buildContentModel(builderData: UnitModelBuilderData): UnitContentModel | undefined {
     if (builderData.capabilities?.includes(CapabilityId.Content) === false) {
@@ -46,9 +44,9 @@ export class UnitModelBuilder {
     const unitData = builderData.unitData;
 
     return new UnitContentModel({
-      title: unitData.title ?? unitData.id,
-      titlePlural: unitData.titlePlural ?? `${unitData.id}'s subtitle`,
-      subtitle: unitData.subtitle ?? `${unitData.id}'s subtitle`,
+      title: unitData.title ?? "title",
+      titlePlural: unitData.titlePlural ?? "titles",
+      subtitle: unitData.subtitle ?? "subtitle",
     });
   }
 
@@ -61,11 +59,16 @@ export class UnitModelBuilder {
     }
 
     const unitData = builderData.unitData;
+    unitData.pricing ??= [PricingDataProvider.adultPricing];
 
-    // TODO After the product model/related stuff is implemented use pricingFrom or pricing based on the source model
-    return new UnitPricingModel({
-      pricingFrom: unitData.pricing ?? [PricingDataProvider.adultPricing],
-      //pricing: unitData.pricing,
+    if (builderData.sourceModel === ProductModel) {
+      return new OptionPricingModel({
+        pricingFrom: unitData.pricing,
+      });
+    }
+
+    return new OptionPricingModel({
+      pricing: unitData.pricing,
     });
   }
 }

@@ -1,12 +1,17 @@
-import { Option } from "@octocloud/types";
+import { DurationUnit, UnitType } from "@octocloud/types";
 import { UnitModel } from "../../models/Unit/UnitModel";
 import { OptionParser } from "../OptionParser";
 import { OptionModel } from "../../models/Option/OptionModel";
+import { UnitDataProvider } from "../../dataProviders/UnitDataProvider";
+import { OptionContentModel } from "../../models/Option/OptionContentModel";
+import { OptionPricingModel } from "../../models/Option/OptionPricingModel";
+import { PricingDataProvider } from "../../dataProviders/PricingDataProvider";
+import { OptionPickupModel } from "../../models/Option/OptionPickupModel";
 
 describe("OptionParser", () => {
   const optionParser = new OptionParser();
 
-  const option: Option = {
+  const option = {
     id: "id",
     default: true,
     internalName: "internalName",
@@ -20,7 +25,29 @@ describe("OptionParser", () => {
       minUnits: 0,
       maxUnits: null,
     },
-    units: [],
+    units: [
+      {
+        id: "id",
+        internalName: "internalName",
+        reference: "reference",
+        type: UnitType.CHILD,
+        restrictions: UnitDataProvider.commonRestrictions,
+        requiredContactFields: [],
+      },
+    ],
+    title: "title",
+    subtitle: "subtitle",
+    language: "language",
+    shortDescription: "shortDescription",
+    duration: "duration",
+    durationAmount: "durationAmount",
+    durationUnit: DurationUnit.HOUR,
+    itinerary: null,
+    pickupRequired: false,
+    pickupAvailable: false,
+    pickupPoints: [],
+    pricing: [PricingDataProvider.adultPricing],
+    pricingFrom: undefined,
   };
 
   const optionModel = new OptionModel({
@@ -35,6 +62,25 @@ describe("OptionParser", () => {
     requiredContactFields: option.requiredContactFields,
     restrictions: option.restrictions,
     unitModels: option.units.map((unit) => new UnitModel(unit)),
+    optionContentModel: new OptionContentModel({
+      title: option.title,
+      subtitle: option.subtitle,
+      language: option.language,
+      shortDescription: option.shortDescription,
+      duration: option.duration,
+      durationAmount: option.durationAmount,
+      durationUnit: option.durationUnit,
+      itinerary: option.itinerary,
+    }),
+    optionPickupModel: new OptionPickupModel({
+      pickupRequired: option.pickupRequired,
+      pickupAvailable: option.pickupAvailable,
+      pickupPoints: option.pickupPoints,
+    }),
+    optionPricingModel: new OptionPricingModel({
+      pricing: option.pricing,
+      pricingFrom: option.pricingFrom,
+    }),
   });
 
   describe("parseModelToPOJO", () => {

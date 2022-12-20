@@ -1,16 +1,19 @@
-import { CapabilityId, DurationUnit, PricingPer } from "@octocloud/types";
+import { CapabilityId, DurationUnit, Option, PricingPer } from "@octocloud/types";
 import { UnitModelBuilder } from "./UnitModelBuilder";
-import { OptionData } from "../data/OptionData";
 import { OptionModel } from "../models/Option/OptionModel";
 import { OptionContentModel } from "../models/Option/OptionContentModel";
 import { OptionPickupModel } from "../models/Option/OptionPickupModel";
 import { OptionPricingModel } from "../models/Option/OptionPricingModel";
 import { PricingDataProvider } from "../dataProviders/PricingDataProvider";
+import { UnitModel } from "../models/Unit/UnitModel";
+import { LocaleDataProvider } from "../dataProviders/LocaleDataProvider";
+import { ProductModel } from "../models/Product/ProductModel";
 
 interface OptionModelBuilderData {
-  optionData: OptionData;
+  optionData: Partial<Option>;
   pricingPer?: PricingPer;
   capabilities?: CapabilityId[];
+  sourceModel?: object;
 }
 
 const defaultPricingPer: PricingPer = PricingPer.UNIT;
@@ -27,7 +30,7 @@ export class OptionModelBuilder {
 
     return new OptionModel({
       id: optionData.id ?? "DEFAULT",
-      isDefault: optionData.isDefault ?? true,
+      isDefault: optionData.default ?? true,
       internalName: optionData.internalName ?? "DEFAULT",
       reference: optionData.reference ?? null,
       availabilityLocalStartTimes: optionData.availabilityLocalStartTimes ?? ["00:00"],
@@ -35,12 +38,30 @@ export class OptionModelBuilder {
       cancellationCutoffAmount: optionData.cancellationCutoffAmount ?? 0,
       cancellationCutoffUnit: optionData.cancellationCutoffUnit ?? "hour",
       requiredContactFields: optionData.requiredContactFields ?? [],
-      restrictions: optionData.restrictions,
-      unitModels: this.unitModelBuilder.buildMultiple(optionData.unitsData, builderData.pricingPer),
+      restrictions: optionData.restrictions ?? {
+        minUnits: 0,
+        maxUnits: null,
+      },
+      unitModels: this.buildUnitModels(builderData),
       optionContentModel: this.buildContentModel(builderData),
       optionPickupModel: this.buildPickupModel(builderData),
       optionPricingModel: this.buildPricingModel(builderData),
     });
+  }
+
+  private buildUnitModels(builderData: OptionModelBuilderData): UnitModel[] {
+    if (builderData.optionData.units === undefined) {
+      return [];
+    }
+
+    return builderData.optionData.units.map((unitData) => {
+      return this.unitModelBuilder.build({
+        unitData: unitData,
+        pricingPer: builderData.pricingPer,
+        capabilities: builderData.capabilities,
+        sourceModel: builderData.sourceModel,
+      });
+    }, builderData);
   }
 
   private buildContentModel(builderData: OptionModelBuilderData): OptionContentModel | undefined {
@@ -55,7 +76,7 @@ export class OptionModelBuilder {
     return new OptionContentModel({
       title: optionData.title ?? "title",
       subtitle: optionData.subtitle ?? "subtitle",
-      language: optionData.language ?? "en",
+      language: optionData.language ?? LocaleDataProvider.en,
       shortDescription: optionData.shortDescription ?? "shortDescription",
       durationUnit: optionData.durationUnit ?? DurationUnit.HOUR,
       durationAmount: optionData.durationAmount ?? "0",
@@ -81,17 +102,22 @@ export class OptionModelBuilder {
   private buildPricingModel(builderData: OptionModelBuilderData): OptionPricingModel | undefined {
     if (
       builderData.capabilities?.includes(CapabilityId.Pricing) === false ||
-      builderData.pricingPer === PricingPer.BOOKING
+      builderData.pricingPer === PricingPer.UNIT
     ) {
       return undefined;
     }
 
     const optionData = builderData.optionData;
+    optionData.pricing ??= [PricingDataProvider.adultPricing];
 
-    // TODO After the product model/related stuff is implemented use pricingFrom or pricing based on the source model
+    if (builderData.sourceModel === ProductModel) {
+      return new OptionPricingModel({
+        pricingFrom: optionData.pricing,
+      });
+    }
+
     return new OptionPricingModel({
-      pricingFrom: optionData.pricing ?? [PricingDataProvider.adultPricing],
-      //pricing: optionData.pricing,
+      pricing: optionData.pricing,
     });
   }
 }

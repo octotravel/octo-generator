@@ -1,42 +1,35 @@
-import { OptionModelGenerator } from "../../../generators/OptionModelGenerator";
-import { UnitType } from "@octocloud/types/src/types/Unit";
 import { PricingDataProvider } from "../../../dataProviders/PricingDataProvider";
-import { UnitModel } from "../../Unit/UnitModel";
+import { UnitModelGenerator } from "../../../generators/UnitModelGenerator";
+import { PricingPer, UnitType } from "@octocloud/types";
 
 describe("UnitModel", () => {
-  const optionModelGenerator = new OptionModelGenerator();
+  const unitModelGenerator = new UnitModelGenerator();
 
-  describe("findUnitModelByUnitId", () => {
-    it("should return unit model", async () => {
-      const unitId = "test";
-
-      const optionModel = optionModelGenerator.generate({
-        restrictions: {
-          minUnits: 0,
-          maxUnits: null,
+  describe("isOnBooking", () => {
+    it("should return true", async () => {
+      const optionModel = unitModelGenerator.generate({
+        unitData: {
+          id: "id",
+          type: UnitType.ADULT,
+          pricing: [PricingDataProvider.adultPricing],
         },
-        unitsData: [
-          {
-            id: unitId,
-            type: UnitType.ADULT,
-            pricing: [PricingDataProvider.adultPricing],
-          },
-        ],
+        pricingPer: PricingPer.BOOKING,
       });
 
-      expect(optionModel.findUnitModelByUnitId(unitId)).toBeInstanceOf(UnitModel);
+      expect(optionModel.isOnBooking()).toStrictEqual(true);
     });
 
-    it("should return null", async () => {
-      const optionModel = optionModelGenerator.generate({
-        restrictions: {
-          minUnits: 0,
-          maxUnits: null,
+    it("should return false", async () => {
+      const optionModel = unitModelGenerator.generate({
+        unitData: {
+          id: "id",
+          type: UnitType.ADULT,
+          pricing: [PricingDataProvider.adultPricing],
         },
-        unitsData: [],
+        pricingPer: PricingPer.UNIT,
       });
 
-      expect(optionModel.findUnitModelByUnitId("test")).toStrictEqual(null);
+      expect(optionModel.isOnBooking()).toStrictEqual(false);
     });
   });
 });
