@@ -1,6 +1,6 @@
 import { Availability, AvailabilityStatus, CapabilityId, PricingPer } from "@octocloud/types";
 import { PricingDataProvider } from "../dataProviders/PricingDataProvider";
-import { AvailabilityModel } from "../models/Availability/AvailabilityModel";
+import { AvailabilityModel } from "../models/availability/availabilityModel";
 import { AvailabilityContentModel } from "../models/Availability/AvailabilityContentModel";
 import { AvailabilityPricingModel } from "../models/Availability/AvailabilityPricingModel";
 import { AvailabilityPickupModel } from "../models/Availability/AvailabilityPickupModel";

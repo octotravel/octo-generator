@@ -9,9 +9,9 @@ import {
 import { ProductParser } from "../ProductParser";
 import { LocaleDataProvider } from "../../dataProviders/LocaleDataProvider";
 import { TimeZoneDataProvider } from "../../dataProviders/TimeZoneDataProvider";
-import { ProductModel } from "../../models/Product/ProductModel";
-import { OptionModel } from "../../models/Option/OptionModel";
-import { UnitModel } from "../../models/Unit/UnitModel";
+import { ProductModel } from "../../models/product/productModel";
+import { OptionModel } from "../../models/option/optionModel";
+import { UnitModel } from "../../models/unit/UnitModel";
 import { ProductContentModel } from "../../models/Product/ProductContentModel";
 import { ProductPricingModel } from "../../models/Product/ProductPricingModel";
 

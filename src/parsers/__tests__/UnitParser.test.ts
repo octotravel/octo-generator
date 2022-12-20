@@ -1,5 +1,5 @@
 import { UnitType } from "@octocloud/types";
-import { UnitModel } from "../../models/Unit/UnitModel";
+import { UnitModel } from "../../models/unit/UnitModel";
 import { UnitDataProvider } from "../../dataProviders/UnitDataProvider";
 import { UnitParser } from "../UnitParser";
 import { UnitContentModel } from "../../models/Unit/UnitContentModel";

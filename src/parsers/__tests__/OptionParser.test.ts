@@ -1,7 +1,7 @@
 import { DurationUnit, UnitType } from "@octocloud/types";
-import { UnitModel } from "../../models/Unit/UnitModel";
+import { UnitModel } from "../../models/unit/UnitModel";
 import { OptionParser } from "../OptionParser";
-import { OptionModel } from "../../models/Option/OptionModel";
+import { OptionModel } from "../../models/option/optionModel";
 import { UnitDataProvider } from "../../dataProviders/UnitDataProvider";
 import { OptionContentModel } from "../../models/Option/OptionContentModel";
 import { OptionPricingModel } from "../../models/Option/OptionPricingModel";

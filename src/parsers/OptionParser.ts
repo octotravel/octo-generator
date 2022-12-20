@@ -1,5 +1,5 @@
 import { Option } from "@octocloud/types";
-import { OptionModel } from "../models/option/OptionModel";
+import { OptionModel } from "../models/option/optionModel";
 import { UnitParser } from "./UnitParser";
 import { OptionContentModel } from "../models/option/OptionContentModel";
 import { OptionPickupModel } from "../models/option/OptionPickupModel";

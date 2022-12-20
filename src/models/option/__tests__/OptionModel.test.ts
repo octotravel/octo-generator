@@ -1,5 +1,5 @@
 import { OptionModelGenerator } from "../../../generators/OptionModelGenerator";
-import { UnitModel } from "../../Unit/UnitModel";
+import { UnitModel } from "../../unit/UnitModel";
 import { UnitDataProvider } from "../../../dataProviders/UnitDataProvider";
 describe("OptionModel", () => {
   const optionModelGenerator = new OptionModelGenerator();

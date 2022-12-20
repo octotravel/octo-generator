@@ -1,13 +1,13 @@
 import { CapabilityId, DurationUnit, Option, PricingPer } from "@octocloud/types";
 import { UnitModelBuilder } from "./UnitModelBuilder";
-import { OptionModel } from "../models/Option/OptionModel";
+import { OptionModel } from "../models/option/optionModel";
 import { OptionContentModel } from "../models/Option/OptionContentModel";
 import { OptionPickupModel } from "../models/Option/OptionPickupModel";
 import { OptionPricingModel } from "../models/Option/OptionPricingModel";
 import { PricingDataProvider } from "../dataProviders/PricingDataProvider";
-import { UnitModel } from "../models/Unit/UnitModel";
+import { UnitModel } from "../models/unit/UnitModel";
 import { LocaleDataProvider } from "../dataProviders/LocaleDataProvider";
-import { ProductModel } from "../models/Product/ProductModel";
+import { ProductModel } from "../models/product/productModel";
 
 interface OptionModelBuilderData {
   optionData: Partial<Option>;

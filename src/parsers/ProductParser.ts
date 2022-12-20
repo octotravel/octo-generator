@@ -1,6 +1,6 @@
 import { Product } from "@octocloud/types";
 import { OptionParser } from "./OptionParser";
-import { ProductModel } from "../models/Product/ProductModel";
+import { ProductModel } from "../models/product/productModel";
 
 import { ProductContentModel } from "../models/Product/ProductContentModel";
 import { ProductPricingModel } from "../models/Product/ProductPricingModel";

@@ -1,6 +1,6 @@
 import { CapabilityId, PricingPer } from "@octocloud/types";
 import { AvailabilityModelBuilder } from "../AvailabilityModelBuilder";
-import { AvailabilityModel } from "../../models/Availability/AvailabilityModel";
+import { AvailabilityModel } from "../../models/availability/availabilityModel";
 
 describe("AvailabilityModelBuilder", () => {
   const availabilityModelBuilder = new AvailabilityModelBuilder();

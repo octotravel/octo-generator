@@ -1,5 +1,5 @@
 import { AvailabilityType, DeliveryFormat, DeliveryMethod, RedemptionMethod } from "@octocloud/types";
-import { OptionModel } from "../Option/OptionModel";
+import { OptionModel } from "../option/optionModel";
 import { ProductContentModel } from "./ProductContentModel";
 import { ProductPricingModel } from "./ProductPricingModel";
 

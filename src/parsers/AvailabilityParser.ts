@@ -1,5 +1,5 @@
 import { Availability } from "@octocloud/types";
-import { AvailabilityModel } from "../models/Availability/AvailabilityModel";
+import { AvailabilityModel } from "../models/availability/availabilityModel";
 import { AvailabilityContentModel } from "../models/Availability/AvailabilityContentModel";
 import { AvailabilityPickupModel } from "../models/Availability/AvailabilityPickupModel";
 import { AvailabilityPricingModel } from "../models/Availability/AvailabilityPricingModel";

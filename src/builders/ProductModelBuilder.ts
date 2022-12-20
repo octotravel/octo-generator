@@ -7,9 +7,9 @@ import {
   Product,
   RedemptionMethod,
 } from "@octocloud/types";
-import { OptionModel } from "../models/Option/OptionModel";
+import { OptionModel } from "../models/option/optionModel";
 import { OptionModelBuilder } from "./OptionModelBuilder";
-import { ProductModel } from "../models/Product/ProductModel";
+import { ProductModel } from "../models/product/productModel";
 import { TimeZoneDataProvider } from "../dataProviders/TimeZoneDataProvider";
 import { LocaleDataProvider } from "../dataProviders/LocaleDataProvider";
 import { ProductContentModel } from "../models/Product/ProductContentModel";
