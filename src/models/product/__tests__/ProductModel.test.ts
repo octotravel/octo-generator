@@ -16,9 +16,7 @@ describe("ProductModel", () => {
         },
       });
 
-      expect(
-        productModel.findOptionModelByOptionId(OptionDataProvider.defaultOption.id)
-      ).toBeInstanceOf(OptionModel);
+      expect(productModel.findOptionModelByOptionId(OptionDataProvider.defaultOption.id)).toBeInstanceOf(OptionModel);
     });
 
     it("should return null", async () => {

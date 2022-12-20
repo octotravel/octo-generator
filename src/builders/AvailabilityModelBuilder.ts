@@ -16,11 +16,7 @@ interface AvailabilityModelBuilderData {
 }
 
 const defaultPricingPer: PricingPer = PricingPer.UNIT;
-const defaultCapabilities: CapabilityId[] = [
-  CapabilityId.Content,
-  CapabilityId.Pricing,
-  CapabilityId.Pickups,
-];
+const defaultCapabilities: CapabilityId[] = [CapabilityId.Content, CapabilityId.Pricing, CapabilityId.Pickups];
 
 export class AvailabilityModelBuilder {
   public build(builderData: AvailabilityModelBuilderData): AvailabilityModel {
@@ -58,9 +54,7 @@ export class AvailabilityModelBuilder {
     });
   }
 
-  private buildContentModel(
-    builderData: AvailabilityModelBuilderData
-  ): AvailabilityContentModel | undefined {
+  private buildContentModel(builderData: AvailabilityModelBuilderData): AvailabilityContentModel | undefined {
     if (builderData.capabilities?.includes(CapabilityId.Content) === false) {
       return undefined;
     }
@@ -76,9 +70,7 @@ export class AvailabilityModelBuilder {
     });
   }
 
-  private buildPricingModel(
-    builderData: AvailabilityModelBuilderData
-  ): AvailabilityPricingModel | undefined {
+  private buildPricingModel(builderData: AvailabilityModelBuilderData): AvailabilityPricingModel | undefined {
     if (builderData.capabilities?.includes(CapabilityId.Pricing) === false) {
       return undefined;
     }
@@ -90,9 +82,7 @@ export class AvailabilityModelBuilder {
     });
   }
 
-  private buildPickupModel(
-    builderData: AvailabilityModelBuilderData
-  ): AvailabilityPickupModel | undefined {
+  private buildPickupModel(builderData: AvailabilityModelBuilderData): AvailabilityPickupModel | undefined {
     if (builderData.capabilities?.includes(CapabilityId.Pickups) === false) {
       return undefined;
     }

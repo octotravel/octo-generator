@@ -21,8 +21,7 @@ describe("AvailabilityCalendarModelGenerator", () => {
         },
         capabilities: capabilities,
       });
-      const availabilityCalendar =
-        availabilityCalendarParser.parseModelToPOJO(availabilityCalendarModel);
+      const availabilityCalendar = availabilityCalendarParser.parseModelToPOJO(availabilityCalendarModel);
       const validationErrors = availabilityCalendarValidator.validate(availabilityCalendar);
 
       expect(validationErrors).toStrictEqual([]);
@@ -35,8 +34,7 @@ describe("AvailabilityCalendarModelGenerator", () => {
         },
         capabilities: capabilities,
       });
-      const availabilityCalendar =
-        availabilityCalendarParser.parseModelToPOJO(availabilityCalendarModel);
+      const availabilityCalendar = availabilityCalendarParser.parseModelToPOJO(availabilityCalendarModel);
       const validationErrors = availabilityCalendarValidator.validate(availabilityCalendar);
 
       expect(validationErrors.length).toBeGreaterThan(0);

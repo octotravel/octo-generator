@@ -8,9 +8,7 @@ interface AvailabilityCalendarPricingModelFactoryData {
   containsUnits?: boolean;
 }
 export abstract class AvailabilityCalendarPricingModelFactory {
-  public static create(
-    factoryData: AvailabilityCalendarPricingModelFactoryData
-  ): AvailabilityCalendarPricingModel {
+  public static create(factoryData: AvailabilityCalendarPricingModelFactoryData): AvailabilityCalendarPricingModel {
     let unitPricingFrom = undefined;
     let pricingFrom = undefined;
 

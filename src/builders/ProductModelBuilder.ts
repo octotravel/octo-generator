@@ -41,10 +41,7 @@ export class ProductModelBuilder {
       instantDelivery: productData.instantDelivery ?? true,
       availabilityRequired: productData.availabilityRequired ?? true,
       availabilityType: productData.availabilityType ?? AvailabilityType.START_TIME,
-      deliveryFormats: productData.deliveryFormats ?? [
-        DeliveryFormat.PDF_URL,
-        DeliveryFormat.QRCODE,
-      ],
+      deliveryFormats: productData.deliveryFormats ?? [DeliveryFormat.PDF_URL, DeliveryFormat.QRCODE],
       deliveryMethods: productData.deliveryMethods ?? [],
       redemptionMethod: productData.redemptionMethod ?? RedemptionMethod.DIGITAL,
       optionModels: this.buildOptionModels(builderData),

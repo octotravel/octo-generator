@@ -16,9 +16,7 @@ describe("OptionModel", () => {
         },
       });
 
-      expect(optionModel.findUnitModelByUnitId(UnitDataProvider.adultUnit.id)).toBeInstanceOf(
-        UnitModel
-      );
+      expect(optionModel.findUnitModelByUnitId(UnitDataProvider.adultUnit.id)).toBeInstanceOf(UnitModel);
     });
 
     it("should return null", async () => {

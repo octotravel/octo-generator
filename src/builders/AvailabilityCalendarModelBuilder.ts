@@ -1,9 +1,4 @@
-import {
-  AvailabilityCalendar,
-  AvailabilityStatus,
-  CapabilityId,
-  PricingPer,
-} from "@octocloud/types";
+import { AvailabilityCalendar, AvailabilityStatus, CapabilityId, PricingPer } from "@octocloud/types";
 import { PricingDataProvider } from "../dataProviders/PricingDataProvider";
 import { DateHelper } from "../helpers/DateHelper";
 import { AvailabilityCalendarModel } from "../models/Availability/AvailabilityCalendarModel";
@@ -46,9 +41,7 @@ export class AvailabilityCalendarModelBuilder {
     }
 
     return AvailabilityCalendarPricingModelFactory.create({
-      unitPricing: builderData.availabilityCalendarData.unitPricingFrom ?? [
-        PricingDataProvider.unitPricing,
-      ],
+      unitPricing: builderData.availabilityCalendarData.unitPricingFrom ?? [PricingDataProvider.unitPricing],
       pricing: builderData.availabilityCalendarData.pricingFrom ?? PricingDataProvider.adultPricing,
       pricingPer: PricingPer.BOOKING,
     });
