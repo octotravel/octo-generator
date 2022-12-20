@@ -1,32 +1,22 @@
 import { ProductModelGenerator } from "../../../generators/ProductModelGenerator";
 import { OptionModel } from "../../Option/OptionModel";
+import { OptionDataProvider } from "../../../dataProviders/OptionDataProvider";
 
 describe("ProductModel", () => {
   const productModelGenerator = new ProductModelGenerator();
 
   describe("findOptionModelByOptionId", () => {
     it("should return option model", async () => {
-      const optionId = "optionId";
-
       const productModel = productModelGenerator.generate({
         productData: {
           id: "id",
           internalName: "internalName",
           deliveryMethods: [],
-          optionsData: [
-            {
-              id: optionId,
-              restrictions: {
-                minUnits: 0,
-                maxUnits: null,
-              },
-              unitsData: [],
-            },
-          ],
+          options: [OptionDataProvider.defaultOption],
         },
       });
 
-      expect(productModel.findOptionModelByOptionId(optionId)).toBeInstanceOf(OptionModel);
+      expect(productModel.findOptionModelByOptionId(OptionDataProvider.defaultOption.id)).toBeInstanceOf(OptionModel);
     });
 
     it("should return null", async () => {
@@ -35,11 +25,11 @@ describe("ProductModel", () => {
           id: "id",
           internalName: "internalName",
           deliveryMethods: [],
-          optionsData: [],
+          options: [],
         },
       });
 
-      expect(productModel.findOptionModelByOptionId("invalidOptionId")).toStrictEqual(null);
+      expect(productModel.findOptionModelByOptionId("nonExistingId")).toStrictEqual(null);
     });
   });
 });

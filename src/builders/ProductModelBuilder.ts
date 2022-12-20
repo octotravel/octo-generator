@@ -4,9 +4,9 @@ import {
   Currency,
   DeliveryFormat,
   PricingPer,
+  Product,
   RedemptionMethod,
 } from "@octocloud/types";
-import { ProductData } from "../data/ProductData";
 import { OptionModel } from "../models/Option/OptionModel";
 import { OptionModelBuilder } from "./OptionModelBuilder";
 import { ProductModel } from "../models/Product/ProductModel";
@@ -16,7 +16,7 @@ import { ProductContentModel } from "../models/Product/ProductContentModel";
 import { ProductPricingModel } from "../models/Product/ProductPricingModel";
 
 interface ProductModelBuilderData {
-  productData: ProductData;
+  productData: Partial<Product>;
   capabilities?: CapabilityId[];
 }
 
@@ -31,8 +31,8 @@ export class ProductModelBuilder {
     const productData = builderData.productData;
 
     return new ProductModel({
-      id: productData.id,
-      internalName: productData.internalName,
+      id: productData.id ?? "id",
+      internalName: productData.internalName ?? "internalName",
       reference: productData.reference ?? null,
       locale: productData.locale ?? LocaleDataProvider.en,
       timeZone: productData.timeZone ?? TimeZoneDataProvider.europeLondon,
@@ -42,7 +42,7 @@ export class ProductModelBuilder {
       availabilityRequired: productData.availabilityRequired ?? true,
       availabilityType: productData.availabilityType ?? AvailabilityType.START_TIME,
       deliveryFormats: productData.deliveryFormats ?? [DeliveryFormat.PDF_URL, DeliveryFormat.QRCODE],
-      deliveryMethods: productData.deliveryMethods,
+      deliveryMethods: productData.deliveryMethods ?? [],
       redemptionMethod: productData.redemptionMethod ?? RedemptionMethod.DIGITAL,
       optionModels: this.buildOptionModels(builderData),
       productContentModel: this.buildContentModel(builderData),
@@ -51,8 +51,12 @@ export class ProductModelBuilder {
   }
 
   private buildOptionModels(builderData: ProductModelBuilderData): OptionModel[] {
-    return builderData.productData.optionsData.map((optionData, index) => {
-      optionData.isDefault ??= index === 0;
+    if (builderData.productData.options === undefined) {
+      return [];
+    }
+
+    return builderData.productData.options.map((optionData, index) => {
+      optionData.default ??= index === 0;
 
       return this.optionModelBuilder.build({
         optionData: optionData,
