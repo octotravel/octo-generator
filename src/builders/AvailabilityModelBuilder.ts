@@ -48,12 +48,7 @@ export class AvailabilityModelBuilder {
       capacity: availabilityData.capacity ?? 10,
       maxUnits: availabilityData.maxUnits ?? 5,
       utcCutoffAt: availabilityData.utcCutoffAt ?? DateHelper.formatToUtcDate(date),
-      openingHours: availabilityData.openingHours ?? [
-        {
-          from: "06:00",
-          to: "20:00",
-        },
-      ],
+      openingHours: availabilityData.openingHours ?? [],
       availabilityContentModel: this.buildContentModel(builderData),
       availabilityPricingModel: this.buildPricingModel(builderData),
       availabilityPickupModel: this.buildPickupModel(builderData),

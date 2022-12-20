@@ -29,12 +29,7 @@ export class AvailabilityCalendarModelBuilder {
       status: availabilityCalendarData.status ?? AvailabilityStatus.CLOSED,
       vacancies: availabilityCalendarData.vacancies ?? 0,
       capacity: availabilityCalendarData.capacity ?? 20,
-      openingHours: availabilityCalendarData.openingHours ?? [
-        {
-          from: "00:00",
-          to: "23:59",
-        },
-      ],
+      openingHours: availabilityCalendarData.openingHours ?? [],
       availabilityCalendarPricingModel: this.buildPricingModel(builderData),
     });
   }
