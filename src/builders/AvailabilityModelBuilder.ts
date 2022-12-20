@@ -1,6 +1,5 @@
-import { AvailabilityStatus, CapabilityId, PricingPer } from "@octocloud/types";
+import { Availability, AvailabilityStatus, CapabilityId, PricingPer } from "@octocloud/types";
 import { PricingDataProvider } from "../dataProviders/PricingDataProvider";
-import { AvailabilityData } from "../data/AvailabilityData";
 import { AvailabilityModel } from "../models/Availability/AvailabilityModel";
 import { AvailabilityContentModel } from "../models/Availability/AvailabilityContentModel";
 import { AvailabilityPricingModel } from "../models/Availability/AvailabilityPricingModel";
@@ -11,7 +10,7 @@ import { TimeZoneDataProvider } from "../dataProviders/TimeZoneDataProvider";
 import { AvailabilityPricingModelFactory } from "../factories/AvailabilityPricingModelFactory";
 
 interface AvailabilityModelBuilderData {
-  availabilityData: AvailabilityData;
+  availabilityData: Partial<Availability>;
   pricingPer?: PricingPer;
   capabilities?: CapabilityId[];
 }
