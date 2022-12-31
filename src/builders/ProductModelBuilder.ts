@@ -3,6 +3,7 @@ import {
   CapabilityId,
   Currency,
   DeliveryFormat,
+  DeliveryMethod,
   PricingPer,
   Product,
   RedemptionMethod,
@@ -20,7 +21,7 @@ interface ProductModelBuilderData {
   capabilities?: CapabilityId[];
 }
 
-const defaultCapabilities: CapabilityId[] = [CapabilityId.Content, CapabilityId.Pricing];
+const defaultCapabilities: CapabilityId[] = [CapabilityId.Content, CapabilityId.Pricing, CapabilityId.Pickups];
 
 export class ProductModelBuilder {
   private optionModelBuilder = new OptionModelBuilder();
@@ -42,7 +43,7 @@ export class ProductModelBuilder {
       availabilityRequired: productData.availabilityRequired ?? true,
       availabilityType: productData.availabilityType ?? AvailabilityType.START_TIME,
       deliveryFormats: productData.deliveryFormats ?? [DeliveryFormat.PDF_URL, DeliveryFormat.QRCODE],
-      deliveryMethods: productData.deliveryMethods ?? [],
+      deliveryMethods: productData.deliveryMethods ?? [DeliveryMethod.TICKET],
       redemptionMethod: productData.redemptionMethod ?? RedemptionMethod.DIGITAL,
       optionModels: this.buildOptionModels(builderData),
       productContentModel: this.buildContentModel(builderData),
@@ -52,7 +53,14 @@ export class ProductModelBuilder {
 
   private buildOptionModels(builderData: ProductModelBuilderData): OptionModel[] {
     if (builderData.productData.options === undefined) {
-      return [];
+      return [
+        this.optionModelBuilder.build({
+          optionData: {},
+          pricingPer: builderData.productData.pricingPer,
+          capabilities: builderData.capabilities,
+          sourceModel: ProductModel,
+        }),
+      ];
     }
 
     return builderData.productData.options.map((optionData, index) => {
