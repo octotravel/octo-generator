@@ -1,6 +1,6 @@
 module.exports = {
   roots: ["<rootDir>/src"],
-  testMatch: ["**/__tests__/**/*.+(ts|tsx|js)", "**/?(*.)+(spec|test).+(ts|tsx|js)"],
+  testMatch: ["**/__tests__/**/*.+(test.ts)"],
   transform: {
     "\\.ts?$": "ts-jest",
     "node_modules/@octocloud/types/\\.ts?$": "ts-jest",

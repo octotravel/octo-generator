@@ -7,6 +7,5 @@ export class BookingCartModel {
     this.orderId = orderId;
     this.orderReference = orderReference;
     this.primary = primary;
-    this.primary = primary;
   }
 }

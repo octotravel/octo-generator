@@ -6,6 +6,7 @@ import { AvailabilityCalendarParser } from "../AvailabilityCalendarParser";
 
 describe("AvailabilityCalendarParser", () => {
   const availabilityCalendarParser = new AvailabilityCalendarParser();
+
   const availabilityCalendar = {
     localDate: "2022-12-11",
     available: false,
@@ -21,6 +22,7 @@ describe("AvailabilityCalendarParser", () => {
     unitPricingFrom: [PricingDataProvider.unitPricing],
     pricingFrom: PricingDataProvider.adultPricing,
   };
+
   const availabilityCalendarModel = new AvailabilityCalendarModel({
     localDate: availabilityCalendar.localDate,
     available: availabilityCalendar.available,

@@ -5,7 +5,7 @@ import { AvailabilityContentModel } from "../models/availability/AvailabilityCon
 import { AvailabilityPricingModel } from "../models/availability/AvailabilityPricingModel";
 import { AvailabilityPickupModel } from "../models/availability/AvailabilityPickupModel";
 import { addDays } from "date-fns";
-import { DateHelper } from "../helpers/DateHelper";
+import { DateFormatter } from "../common/DateFormatter";
 import { TimeZoneDataProvider } from "../dataProviders/TimeZoneDataProvider";
 import { AvailabilityPricingModelFactory } from "../factories/AvailabilityPricingModelFactory";
 
@@ -25,16 +25,16 @@ export class AvailabilityModelBuilder {
 
     const availabilityData = builderData.availabilityData;
     const date = new Date();
-    const dateAsString = DateHelper.formatForAvailability(date);
+    const dateAsString = DateFormatter.formatForAvailability(date);
     const time = "00:00:00";
     const datetime = new Date(`${dateAsString}T${time}`);
 
     const localDateTimeStart =
       availabilityData.localDateTimeStart ??
-      DateHelper.formatAsAvailabilityId(datetime, TimeZoneDataProvider.europeLondon);
+      DateFormatter.formatAsAvailabilityId(datetime, TimeZoneDataProvider.europeLondon);
     const localDateTimeEnd =
       availabilityData.localDateTimeEnd ??
-      DateHelper.formatAsAvailabilityId(addDays(datetime, 5), TimeZoneDataProvider.europeLondon);
+      DateFormatter.formatAsAvailabilityId(addDays(datetime, 5), TimeZoneDataProvider.europeLondon);
 
     return new AvailabilityModel({
       id: availabilityData.id ?? localDateTimeStart,
@@ -46,7 +46,7 @@ export class AvailabilityModelBuilder {
       vacancies: availabilityData.vacancies ?? 10,
       capacity: availabilityData.capacity ?? 10,
       maxUnits: availabilityData.maxUnits ?? 5,
-      utcCutoffAt: availabilityData.utcCutoffAt ?? DateHelper.formatToUtcDate(date),
+      utcCutoffAt: availabilityData.utcCutoffAt ?? DateFormatter.formatToUtcDate(date),
       openingHours: availabilityData.openingHours ?? [],
       availabilityContentModel: this.buildContentModel(builderData),
       availabilityPricingModel: this.buildPricingModel(builderData),

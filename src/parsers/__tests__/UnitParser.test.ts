@@ -8,6 +8,7 @@ import { UnitPricingModel } from "../../models/unit/UnitPricingModel";
 
 describe("UnitParser", () => {
   const unitParser = new UnitParser();
+
   const unit = {
     id: "id",
     internalName: "internalName",
@@ -21,6 +22,7 @@ describe("UnitParser", () => {
     pricing: [PricingDataProvider.adultPricing],
     pricingFrom: undefined,
   };
+
   const unitModel = new UnitModel({
     id: unit.id,
     internalName: unit.internalName,

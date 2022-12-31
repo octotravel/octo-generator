@@ -24,7 +24,6 @@ export class BookingPickupModel {
     this.pickupPointId = pickupPointId;
     this.pickupHotel = pickupHotel;
     this.pickupHotelRoom = pickupHotelRoom;
-    this.pickupHotelRoom = pickupHotelRoom;
     this.pickupPoint = pickupPoint;
   }
 }

@@ -6,8 +6,9 @@ import { BookingCartModel } from "./BookingCartModel";
 import { BookingContentModel } from "./BookingContentModel";
 import { BookingPickupModel } from "./BookingPickupModel";
 import { BookingPricingModel } from "./BookingPricingModel";
+import { UnitItem } from "@octocloud/types";
 
-export class UnitModel {
+export class BookingModel {
   public readonly id: string;
   public readonly uuid: string;
   public readonly testMode: boolean;
@@ -32,7 +33,7 @@ export class UnitModel {
   public readonly notes: Nullable<string>;
   public readonly deliveryMethods: DeliveryMethod[];
   public readonly voucher: Nullable<Ticket>;
-  public readonly unitModels: UnitModel[];
+  public readonly unitItems: UnitItem[];
   public readonly bookingCartModel?: BookingCartModel;
   public readonly bookingContentModel?: BookingContentModel;
   public readonly bookingPickupModel?: BookingPickupModel;
@@ -63,7 +64,7 @@ export class UnitModel {
     notes,
     deliveryMethods,
     voucher,
-    unitModels,
+    unitItems,
     bookingCartModel,
     bookingContentModel,
     bookingPickupModel,
@@ -93,7 +94,7 @@ export class UnitModel {
     notes: Nullable<string>;
     deliveryMethods: DeliveryMethod[];
     voucher: Nullable<Ticket>;
-    unitModels: UnitModel[];
+    unitItems: UnitItem[];
     bookingCartModel?: BookingCartModel;
     bookingContentModel?: BookingContentModel;
     bookingPickupModel?: BookingPickupModel;
@@ -123,7 +124,7 @@ export class UnitModel {
     this.notes = notes;
     this.deliveryMethods = deliveryMethods;
     this.voucher = voucher;
-    this.unitModels = unitModels;
+    this.unitItems = unitItems;
     this.bookingCartModel = bookingCartModel;
     this.bookingContentModel = bookingContentModel;
     this.bookingPickupModel = bookingPickupModel;
