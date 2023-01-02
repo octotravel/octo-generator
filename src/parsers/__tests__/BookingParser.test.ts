@@ -8,7 +8,7 @@ import { BookingContentModel } from "../../models/booking/BookingContentModel";
 import { BookingPickupModel } from "../../models/booking/BookingPickupModel";
 import { BookingPricingModel } from "../../models/booking/BookingPricingModel";
 
-describe("UnitParser", () => {
+describe("BookingParser", () => {
   const bookingParser = new BookingParser();
   const product = ProductTestDataProvider.product;
   const option = OptionTestDataProvider.option;
