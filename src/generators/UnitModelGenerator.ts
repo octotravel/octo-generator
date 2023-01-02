@@ -1,4 +1,4 @@
-import { UnitModel } from "../models/Unit/UnitModel";
+import { UnitModel } from "../models/unit/UnitModel";
 import { UnitModelBuilder } from "../builders/UnitModelBuilder";
 import { CapabilityId, PricingPer, Unit } from "@octocloud/types";
 import { UnitDataProvider } from "../dataProviders/UnitDataProvider";

@@ -1,8 +1,8 @@
 import { Availability } from "@octocloud/types";
-import { AvailabilityModel } from "../models/Availability/AvailabilityModel";
-import { AvailabilityContentModel } from "../models/Availability/AvailabilityContentModel";
-import { AvailabilityPickupModel } from "../models/Availability/AvailabilityPickupModel";
-import { AvailabilityPricingModel } from "../models/Availability/AvailabilityPricingModel";
+import { AvailabilityModel } from "../models/availability/AvailabilityModel";
+import { AvailabilityContentModel } from "../models/availability/AvailabilityContentModel";
+import { AvailabilityPickupModel } from "../models/availability/AvailabilityPickupModel";
+import { AvailabilityPricingModel } from "../models/availability/AvailabilityPricingModel";
 
 export class AvailabilityParser {
   public parsePOJOToModel = (availability: Availability): AvailabilityModel => {

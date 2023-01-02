@@ -1,7 +1,7 @@
 import { CapabilityId } from "@octocloud/types";
 import { ProductModelBuilder } from "../ProductModelBuilder";
 import { ProductDataProvider } from "../../dataProviders/ProductDataProvider";
-import { ProductModel } from "../../models/Product/ProductModel";
+import { ProductModel } from "../../models/product/ProductModel";
 
 describe("ProductModelBuilder", () => {
   const productModelBuilder = new ProductModelBuilder();

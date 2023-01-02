@@ -1,7 +1,7 @@
 import { Unit } from "@octocloud/types";
-import { UnitModel } from "../models/Unit/UnitModel";
-import { UnitContentModel } from "../models/Unit/UnitContentModel";
-import { UnitPricingModel } from "../models/Unit/UnitPricingModel";
+import { UnitModel } from "../models/unit/UnitModel";
+import { UnitContentModel } from "../models/unit/UnitContentModel";
+import { UnitPricingModel } from "../models/unit/UnitPricingModel";
 
 export class UnitParser {
   public parsePOJOToModel = (unit: Unit): UnitModel => {

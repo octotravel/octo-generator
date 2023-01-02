@@ -1,8 +1,8 @@
 import { AvailabilityCalendar, AvailabilityStatus, CapabilityId, PricingPer } from "@octocloud/types";
 import { PricingDataProvider } from "../dataProviders/PricingDataProvider";
-import { DateHelper } from "../helpers/DateHelper";
-import { AvailabilityCalendarModel } from "../models/Availability/AvailabilityCalendarModel";
-import { AvailabilityCalendarPricingModel } from "../models/Availability/AvailabilityCalendarPricingModel";
+import { DateFormatter } from "../common/DateFormatter";
+import { AvailabilityCalendarModel } from "../models/availability/AvailabilityCalendarModel";
+import { AvailabilityCalendarPricingModel } from "../models/availability/AvailabilityCalendarPricingModel";
 import { AvailabilityCalendarPricingModelFactory } from "../factories/AvailabilityCalendarPricingModelFactory";
 
 interface AvailabilityCalendarModelBuilderData {
@@ -23,7 +23,7 @@ export class AvailabilityCalendarModelBuilder {
     const date = new Date();
 
     return new AvailabilityCalendarModel({
-      localDate: availabilityCalendarData.localDate ?? DateHelper.formatForAvailability(date),
+      localDate: availabilityCalendarData.localDate ?? DateFormatter.formatForAvailability(date),
       available: availabilityCalendarData.available ?? false,
       status: availabilityCalendarData.status ?? AvailabilityStatus.CLOSED,
       vacancies: availabilityCalendarData.vacancies ?? 0,

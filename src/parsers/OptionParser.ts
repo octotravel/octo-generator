@@ -1,9 +1,9 @@
 import { Option } from "@octocloud/types";
-import { OptionModel } from "../models/Option/OptionModel";
+import { OptionModel } from "../models/option/OptionModel";
 import { UnitParser } from "./UnitParser";
-import { OptionContentModel } from "../models/Option/OptionContentModel";
-import { OptionPickupModel } from "../models/Option/OptionPickupModel";
-import { OptionPricingModel } from "../models/Option/OptionPricingModel";
+import { OptionContentModel } from "../models/option/OptionContentModel";
+import { OptionPickupModel } from "../models/option/OptionPickupModel";
+import { OptionPricingModel } from "../models/option/OptionPricingModel";
 
 export class OptionParser {
   private readonly unitParser = new UnitParser();

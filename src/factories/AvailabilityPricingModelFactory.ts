@@ -1,5 +1,5 @@
 import { Pricing, PricingPer, PricingUnit } from "@octocloud/types";
-import { AvailabilityPricingModel } from "../models/Availability/AvailabilityPricingModel";
+import { AvailabilityPricingModel } from "../models/availability/AvailabilityPricingModel";
 
 interface AvailabilityPricingModelFactoryData {
   unitPricing?: PricingUnit[];

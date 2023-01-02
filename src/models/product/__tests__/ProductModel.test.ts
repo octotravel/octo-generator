@@ -1,5 +1,5 @@
 import { ProductModelGenerator } from "../../../generators/ProductModelGenerator";
-import { OptionModel } from "../../Option/OptionModel";
+import { OptionModel } from "../../option/OptionModel";
 import { OptionDataProvider } from "../../../dataProviders/OptionDataProvider";
 
 describe("ProductModel", () => {

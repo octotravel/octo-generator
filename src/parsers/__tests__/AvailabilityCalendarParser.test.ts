@@ -1,11 +1,12 @@
 import { AvailabilityStatus } from "@octocloud/types";
 import { PricingDataProvider } from "../../dataProviders/PricingDataProvider";
-import { AvailabilityCalendarModel } from "../../models/Availability/AvailabilityCalendarModel";
-import { AvailabilityCalendarPricingModel } from "../../models/Availability/AvailabilityCalendarPricingModel";
+import { AvailabilityCalendarModel } from "../../models/availability/AvailabilityCalendarModel";
+import { AvailabilityCalendarPricingModel } from "../../models/availability/AvailabilityCalendarPricingModel";
 import { AvailabilityCalendarParser } from "../AvailabilityCalendarParser";
 
 describe("AvailabilityCalendarParser", () => {
   const availabilityCalendarParser = new AvailabilityCalendarParser();
+
   const availabilityCalendar = {
     localDate: "2022-12-11",
     available: false,
@@ -21,6 +22,7 @@ describe("AvailabilityCalendarParser", () => {
     unitPricingFrom: [PricingDataProvider.unitPricing],
     pricingFrom: PricingDataProvider.adultPricing,
   };
+
   const availabilityCalendarModel = new AvailabilityCalendarModel({
     localDate: availabilityCalendar.localDate,
     available: availabilityCalendar.available,
