@@ -1,8 +1,8 @@
 {
-  "name": "validator",
+  "name": "@octocloud/generators",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "format-check": "prettier --check \"**/*.{ts,js,css,json,md}\"",
     "format": "prettier --write \"**/*.{ts,js,css,json,md}\"",
