@@ -1,12 +1,18 @@
-import { DeliveryMethod } from "@octocloud/types/src/types/Product";
-import { BookingAvailability, BookingStatus, Cancellation, Contact, Ticket } from "@octocloud/types/src/types/Booking";
 import { OptionModel } from "../option/OptionModel";
 import { ProductModel } from "../product/ProductModel";
 import { BookingCartModel } from "./BookingCartModel";
 import { BookingContentModel } from "./BookingContentModel";
 import { BookingPickupModel } from "./BookingPickupModel";
 import { BookingPricingModel } from "./BookingPricingModel";
-import { UnitItem } from "@octocloud/types";
+import {
+  BookingAvailability,
+  BookingStatus,
+  Cancellation,
+  Contact,
+  Ticket,
+  UnitItem,
+  DeliveryMethod,
+} from "@octocloud/types";
 
 export class BookingModel {
   public readonly id: string;

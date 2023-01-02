@@ -1,10 +1,8 @@
 import { BookingParser } from "../BookingParser";
 import { BookingModel } from "../../models/booking/BookingModel";
-import { DeliveryMethod } from "@octocloud/types/src/types/Product";
-import { BookingStatus } from "@octocloud/types/src/types/Booking";
 import { ProductTestDataProvider } from "./dataProviders/ProductTestDataProvider";
 import { OptionTestDataProvider } from "./dataProviders/OptionTestDataProvider";
-import { Currency, DurationUnit } from "@octocloud/types";
+import { Currency, DurationUnit, DeliveryMethod, BookingStatus } from "@octocloud/types";
 import { BookingCartModel } from "../../models/booking/BookingCartModel";
 import { BookingContentModel } from "../../models/booking/BookingContentModel";
 import { BookingPickupModel } from "../../models/booking/BookingPickupModel";

@@ -1,7 +1,6 @@
-import { UnitType } from "@octocloud/types/src/types/Unit";
 import { PricingDataProvider } from "../../../dataProviders/PricingDataProvider";
 import { UnitModelGenerator } from "../../../generators/UnitModelGenerator";
-import { PricingPer } from "@octocloud/types";
+import { UnitType, PricingPer } from "@octocloud/types";
 
 describe("UnitModel", () => {
   const unitModelGenerator = new UnitModelGenerator();

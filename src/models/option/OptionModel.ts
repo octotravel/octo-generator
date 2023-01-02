@@ -1,4 +1,4 @@
-import { ContactField, UnitRestrictions } from "@octocloud/types/src/types/Option";
+import { ContactField, UnitRestrictions } from "@octocloud/types";
 import { OptionContentModel } from "./OptionContentModel";
 import { OptionPickupModel } from "./OptionPickupModel";
 import { OptionPricingModel } from "./OptionPricingModel";
