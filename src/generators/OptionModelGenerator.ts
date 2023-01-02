@@ -1,7 +1,7 @@
 import { OptionModelBuilder } from "../builders/OptionModelBuilder";
 import { OptionModel } from "../models/option/OptionModel";
 import { CapabilityId, PricingPer } from "@octocloud/types";
-import { PartialOption } from "../global";
+import { PartialOption } from "../types/PartialOption";
 
 interface OptionGenerateData {
   optionData: PartialOption;

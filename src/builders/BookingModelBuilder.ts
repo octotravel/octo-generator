@@ -6,7 +6,7 @@ import { OptionModelBuilder } from "./OptionModelBuilder";
 import { BookingContentModel } from "../models/booking/BookingContentModel";
 import { BookingPickupModel } from "../models/booking/BookingPickupModel";
 import { BookingPricingModel } from "../models/booking/BookingPricingModel";
-import { PartialBooking } from "../global";
+import { PartialBooking } from "../types/PartialBooking";
 
 interface BookingModelBuilderData {
   bookingData: PartialBooking;

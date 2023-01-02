@@ -8,7 +8,7 @@ import { PricingDataProvider } from "../dataProviders/PricingDataProvider";
 import { UnitModel } from "../models/unit/UnitModel";
 import { LocaleDataProvider } from "../dataProviders/LocaleDataProvider";
 import { ProductModel } from "../models/product/ProductModel";
-import { PartialOption } from "../global";
+import { PartialOption } from "../types/PartialOption";
 
 interface OptionModelBuilderData {
   optionData: PartialOption;
