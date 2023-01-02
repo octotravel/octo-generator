@@ -1,4 +1,4 @@
-import { Booking, BookingStatus, CapabilityId, Currency, DeliveryMethod, DurationUnit } from "@octocloud/types";
+import { BookingStatus, CapabilityId, Currency, DeliveryMethod, DurationUnit } from "@octocloud/types";
 import { BookingModel } from "../models/booking/BookingModel";
 import { BookingCartModel } from "../models/booking/BookingCartModel";
 import { ProductModelBuilder } from "./ProductModelBuilder";
@@ -6,9 +6,10 @@ import { OptionModelBuilder } from "./OptionModelBuilder";
 import { BookingContentModel } from "../models/booking/BookingContentModel";
 import { BookingPickupModel } from "../models/booking/BookingPickupModel";
 import { BookingPricingModel } from "../models/booking/BookingPricingModel";
+import { PartialBooking } from "../global";
 
 interface BookingModelBuilderData {
-  bookingData: Partial<Booking>;
+  bookingData: PartialBooking;
   capabilities?: CapabilityId[];
 }
 

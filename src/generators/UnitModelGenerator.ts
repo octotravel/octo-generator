@@ -1,10 +1,11 @@
 import { UnitModel } from "../models/unit/UnitModel";
 import { UnitModelBuilder } from "../builders/UnitModelBuilder";
-import { CapabilityId, PricingPer, Unit } from "@octocloud/types";
+import { CapabilityId, PricingPer } from "@octocloud/types";
 import { UnitDataProvider } from "../dataProviders/UnitDataProvider";
+import { PartialUnit } from "../global";
 
 interface UnitGenerateData {
-  unitData: Partial<Unit>;
+  unitData: PartialUnit;
   pricingPer?: PricingPer;
   capabilities?: CapabilityId[];
 }

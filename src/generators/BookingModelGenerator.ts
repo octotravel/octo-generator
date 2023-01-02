@@ -1,9 +1,10 @@
-import { Booking, CapabilityId } from "@octocloud/types";
+import { CapabilityId } from "@octocloud/types";
 import { BookingModelBuilder } from "../builders/BookingModelBuilder";
 import { BookingModel } from "../models/booking/BookingModel";
+import { PartialBooking } from "../global";
 
 interface BookingGenerateData {
-  bookingData: Partial<Booking>;
+  bookingData: PartialBooking;
   capabilities?: CapabilityId[];
 }
 

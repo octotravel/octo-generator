@@ -5,7 +5,6 @@ import {
   DeliveryFormat,
   DeliveryMethod,
   PricingPer,
-  Product,
   RedemptionMethod,
 } from "@octocloud/types";
 import { OptionModel } from "../models/option/OptionModel";
@@ -15,9 +14,10 @@ import { TimeZoneDataProvider } from "../dataProviders/TimeZoneDataProvider";
 import { LocaleDataProvider } from "../dataProviders/LocaleDataProvider";
 import { ProductContentModel } from "../models/product/ProductContentModel";
 import { ProductPricingModel } from "../models/product/ProductPricingModel";
+import { PartialProduct } from "../global";
 
 interface ProductModelBuilderData {
-  productData: Partial<Product>;
+  productData: PartialProduct;
   capabilities?: CapabilityId[];
 }
 

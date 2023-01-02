@@ -1,4 +1,4 @@
-import { CapabilityId, DurationUnit, Option, PricingPer } from "@octocloud/types";
+import { CapabilityId, DurationUnit, PricingPer } from "@octocloud/types";
 import { UnitModelBuilder } from "./UnitModelBuilder";
 import { OptionModel } from "../models/option/OptionModel";
 import { OptionContentModel } from "../models/option/OptionContentModel";
@@ -8,9 +8,10 @@ import { PricingDataProvider } from "../dataProviders/PricingDataProvider";
 import { UnitModel } from "../models/unit/UnitModel";
 import { LocaleDataProvider } from "../dataProviders/LocaleDataProvider";
 import { ProductModel } from "../models/product/ProductModel";
+import { PartialOption } from "../global";
 
 interface OptionModelBuilderData {
-  optionData: Partial<Option>;
+  optionData: PartialOption;
   pricingPer?: PricingPer;
   capabilities?: CapabilityId[];
   sourceModel?: object;
