@@ -15,7 +15,7 @@ describe("AvailabilityCalendarModelGenerator", () => {
 
   describe("generate and validate availability model", () => {
     it("should generate valid availability model", async () => {
-      const availabilityCalendarModel = availabilityCalendarModelGenerator.generate({
+      const availabilityCalendarModel = availabilityCalendarModelGenerator.generateAvailabilityCalendar({
         availabilityCalendarData: {
           localDate: "2022-12-11",
         },
@@ -28,7 +28,7 @@ describe("AvailabilityCalendarModelGenerator", () => {
     });
 
     it("should generate invalid availability model", async () => {
-      const availabilityCalendarModel = availabilityCalendarModelGenerator.generate({
+      const availabilityCalendarModel = availabilityCalendarModelGenerator.generateAvailabilityCalendar({
         availabilityCalendarData: {
           localDate: "",
         },

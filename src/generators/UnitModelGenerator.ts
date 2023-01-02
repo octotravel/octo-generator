@@ -12,7 +12,7 @@ interface UnitGenerateData {
 export class UnitModelGenerator {
   private readonly unitModelBuilder = new UnitModelBuilder();
 
-  public generate = (unitGenerateData: UnitGenerateData): UnitModel => {
+  public generateUnit = (unitGenerateData: UnitGenerateData): UnitModel => {
     return this.unitModelBuilder.build({
       unitData: unitGenerateData.unitData,
       pricingPer: unitGenerateData.pricingPer,
@@ -20,7 +20,7 @@ export class UnitModelGenerator {
     });
   };
 
-  public generateMultiple = (unitGenerateData: UnitGenerateData[]): UnitModel[] => {
+  public generateMultipleUnits = (unitGenerateData: UnitGenerateData[]): UnitModel[] => {
     return unitGenerateData.map((unitGenerateData) => {
       return this.unitModelBuilder.build({
         unitData: unitGenerateData.unitData,
@@ -29,13 +29,13 @@ export class UnitModelGenerator {
   };
 
   public generateForAdultType = (): UnitModel => {
-    return this.generate({
+    return this.generateUnit({
       unitData: UnitDataProvider.adultUnit,
     });
   };
 
   public generateForChildType = (): UnitModel => {
-    return this.generate({
+    return this.generateUnit({
       unitData: UnitDataProvider.childUnit,
     });
   };

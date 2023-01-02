@@ -13,7 +13,7 @@ describe("BookingModelGenerator", () => {
 
   describe("generate and validate booking model", () => {
     it("should generate valid booking model", async () => {
-      const bookingModel = bookingModelGenerator.generate({
+      const bookingModel = bookingModelGenerator.generateBooking({
         bookingData: {
           id: "id",
         },
@@ -26,7 +26,7 @@ describe("BookingModelGenerator", () => {
     });
 
     it("should generate invalid booking model", async () => {
-      const unitModel = bookingModelGenerator.generate({
+      const unitModel = bookingModelGenerator.generateBooking({
         bookingData: {
           id: "",
         },
