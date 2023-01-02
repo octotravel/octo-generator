@@ -4,6 +4,7 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
+    "build": "tsc",
     "format-check": "prettier --check \"**/*.{ts,js,css,json,md}\"",
     "format": "prettier --write \"**/*.{ts,js,css,json,md}\"",
     "lint": "eslint . --ext .ts",
