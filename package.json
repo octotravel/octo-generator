@@ -11,7 +11,8 @@
     "lint-fix": "eslint . --ext .ts --fix",
     "test": "jest --verbose",
     "test-coverage": "jest --coverage",
-    "prepare": "husky install",
+    "pretest": "npm run build",
+    "prepare": "npm run build",
     "checks": "npm run format && npm run lint && npm run test"
   },
   "repository": {
