@@ -11,7 +11,7 @@ interface OptionGenerateData {
 export class OptionModelGenerator {
   private readonly optionModelBuilder = new OptionModelBuilder();
 
-  public generate = (optionGenerateData: OptionGenerateData): OptionModel => {
+  public generateOption = (optionGenerateData: OptionGenerateData): OptionModel => {
     return this.optionModelBuilder.build({
       optionData: optionGenerateData.optionData,
       pricingPer: optionGenerateData.pricingPer,
@@ -19,9 +19,9 @@ export class OptionModelGenerator {
     });
   };
 
-  public generateMultiple = (optionsGenerateData: OptionGenerateData[]): OptionModel[] => {
+  public generateMultipleOptions = (optionsGenerateData: OptionGenerateData[]): OptionModel[] => {
     return optionsGenerateData.map((optionGenerateData) => {
-      return this.generate(optionGenerateData);
+      return this.generateOption(optionGenerateData);
     });
   };
 }

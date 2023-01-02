@@ -11,7 +11,9 @@ interface AvailabilityCalendarGenerateData {
 export class AvailabilityCalendarModelGenerator {
   private readonly availabilityCalendarModelBuilder = new AvailabilityCalendarModelBuilder();
 
-  public generate = (availabilityCalendarGenerateData: AvailabilityCalendarGenerateData): AvailabilityCalendarModel => {
+  public generateAvailabilityCalendar = (
+    availabilityCalendarGenerateData: AvailabilityCalendarGenerateData
+  ): AvailabilityCalendarModel => {
     return this.availabilityCalendarModelBuilder.build({
       availabilityCalendarData: availabilityCalendarGenerateData.availabilityCalendarData,
       pricingPer: availabilityCalendarGenerateData.pricingPer,
@@ -19,11 +21,11 @@ export class AvailabilityCalendarModelGenerator {
     });
   };
 
-  public generateMultiple = (
+  public generateMultipleAvailabilityCalendars = (
     availabilityCalendarsGenerateData: AvailabilityCalendarGenerateData[]
   ): AvailabilityCalendarModel[] => {
     return availabilityCalendarsGenerateData.map((availabilityCalendarGenerateData) => {
-      return this.generate(availabilityCalendarGenerateData);
+      return this.generateAvailabilityCalendar(availabilityCalendarGenerateData);
     });
   };
 }

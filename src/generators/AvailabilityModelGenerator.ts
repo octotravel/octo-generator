@@ -11,7 +11,7 @@ interface AvailabilityGenerateData {
 export class AvailabilityModelGenerator {
   private readonly availabilityModelBuilder = new AvailabilityModelBuilder();
 
-  public generate = (availabilityGenerateData: AvailabilityGenerateData): AvailabilityModel => {
+  public generateAvailability = (availabilityGenerateData: AvailabilityGenerateData): AvailabilityModel => {
     return this.availabilityModelBuilder.build({
       availabilityData: availabilityGenerateData.availabilityData,
       pricingPer: availabilityGenerateData.pricingPer,
@@ -19,9 +19,11 @@ export class AvailabilityModelGenerator {
     });
   };
 
-  public generateMultiple = (availabilitiesGenerateData: AvailabilityGenerateData[]): AvailabilityModel[] => {
+  public generateMultipleAvailabilities = (
+    availabilitiesGenerateData: AvailabilityGenerateData[]
+  ): AvailabilityModel[] => {
     return availabilitiesGenerateData.map((availabilityGenerateData) => {
-      return this.generate(availabilityGenerateData);
+      return this.generateAvailability(availabilityGenerateData);
     });
   };
 }
