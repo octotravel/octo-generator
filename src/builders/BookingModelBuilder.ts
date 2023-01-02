@@ -27,8 +27,14 @@ export class BookingModelBuilder {
     builderData.capabilities ??= defaultCapabilities;
 
     const bookingData = builderData.bookingData;
-    const productModel = this.productModelBuilder.build({ productData: bookingData.product ?? {} });
-    const optionModel = this.optionModelBuilder.build({ optionData: bookingData.option ?? {} });
+    const productModel = this.productModelBuilder.build({
+      productData: bookingData.product ?? {},
+      capabilities: builderData.capabilities,
+    });
+    const optionModel = this.optionModelBuilder.build({
+      optionData: bookingData.option ?? {},
+      capabilities: builderData.capabilities,
+    });
 
     return new BookingModel({
       id: bookingData.id ?? "id",
