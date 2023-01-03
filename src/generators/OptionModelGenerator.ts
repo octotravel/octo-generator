@@ -20,9 +20,13 @@ export class OptionModelGenerator {
     });
   };
 
-  public generateMultipleOptions = (optionsGenerateData: OptionGenerateData[]): OptionModel[] => {
-    return optionsGenerateData.map((optionGenerateData) => {
-      return this.generateOption(optionGenerateData);
+  public generateMultipleOptions = (
+    optionsData: PartialOption[],
+    pricingPer?: PricingPer,
+    capabilities?: CapabilityId[]
+  ): OptionModel[] => {
+    return optionsData.map((optionData) => {
+      return this.generateOption({ optionData, pricingPer, capabilities });
     });
   };
 }

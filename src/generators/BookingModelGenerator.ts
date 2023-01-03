@@ -18,9 +18,9 @@ export class BookingModelGenerator {
     });
   };
 
-  public generateMultipleBookings = (bookingsGenerateData: BookingGenerateData[]): BookingModel[] => {
-    return bookingsGenerateData.map((bookingGenerateData) => {
-      return this.generateBooking(bookingGenerateData);
+  public generateMultipleBookings = (bookingsData: PartialBooking[], capabilities?: CapabilityId[]): BookingModel[] => {
+    return bookingsData.map((bookingData) => {
+      return this.generateBooking({ bookingData, capabilities });
     });
   };
 }

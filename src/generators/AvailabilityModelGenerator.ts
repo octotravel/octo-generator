@@ -1,9 +1,10 @@
-import { Availability, CapabilityId, PricingPer } from "@octocloud/types";
+import { CapabilityId, PricingPer } from "@octocloud/types";
 import { AvailabilityModelBuilder } from "../builders/AvailabilityModelBuilder";
 import { AvailabilityModel } from "../models/availability/AvailabilityModel";
+import { PartialAvailability } from "../types/PartialAvailability";
 
 interface AvailabilityGenerateData {
-  availabilityData: Partial<Availability>;
+  availabilityData: PartialAvailability;
   pricingPer?: PricingPer;
   capabilities?: CapabilityId[];
 }
@@ -20,10 +21,12 @@ export class AvailabilityModelGenerator {
   };
 
   public generateMultipleAvailabilities = (
-    availabilitiesGenerateData: AvailabilityGenerateData[]
+    availabilitiesData: PartialAvailability[],
+    pricingPer?: PricingPer,
+    capabilities?: CapabilityId[]
   ): AvailabilityModel[] => {
-    return availabilitiesGenerateData.map((availabilityGenerateData) => {
-      return this.generateAvailability(availabilityGenerateData);
+    return availabilitiesData.map((availabilityData) => {
+      return this.generateAvailability({ availabilityData, pricingPer, capabilities });
     });
   };
 }

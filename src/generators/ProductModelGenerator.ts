@@ -17,9 +17,9 @@ export class ProductModelGenerator {
     });
   };
 
-  public generateMultipleProducts = (productsGenerateData: ProductGeneratorData[]): ProductModel[] => {
-    return productsGenerateData.map((productGenerateData) => {
-      return this.generateProduct(productGenerateData);
+  public generateMultipleProducts = (productsData: PartialProduct[], capabilities?: CapabilityId[]): ProductModel[] => {
+    return productsData.map((productData) => {
+      return this.generateProduct({ productData, capabilities });
     });
   };
 }
