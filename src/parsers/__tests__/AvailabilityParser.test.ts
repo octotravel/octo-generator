@@ -2,7 +2,7 @@ import { AvailabilityParser } from "../AvailabilityParser";
 import { AvailabilityModel } from "../../models/availability/AvailabilityModel";
 import { AvailabilityContentModel } from "../../models/availability/AvailabilityContentModel";
 import { AvailabilityPricingModel } from "../../models/availability/AvailabilityPricingModel";
-import { AvailabilityPickupModel } from "../../models/availability/AvailabilityPickupModel";
+import { AvailabilityPickupsModel } from "../../models/availability/AvailabilityPickupsModel";
 import { AvailabilityStatus } from "@octocloud/types";
 import { PricingDataProvider } from "../../dataProviders/PricingDataProvider";
 
@@ -59,7 +59,7 @@ describe("AvailabilityParser", () => {
       unitPricing: availability.unitPricing,
       pricing: availability.pricing,
     }),
-    availabilityPickupModel: new AvailabilityPickupModel({
+    availabilityPickupsModel: new AvailabilityPickupsModel({
       pickupAvailable: availability.pickupAvailable,
       pickupRequired: availability.pickupRequired,
       pickupPoints: availability.pickupPoints,

@@ -2,7 +2,7 @@ import { OptionModel } from "../option/OptionModel";
 import { ProductModel } from "../product/ProductModel";
 import { BookingCartModel } from "./BookingCartModel";
 import { BookingContentModel } from "./BookingContentModel";
-import { BookingPickupModel } from "./BookingPickupModel";
+import { BookingPickupsModel } from "./BookingPickupsModel";
 import { BookingPricingModel } from "./BookingPricingModel";
 import {
   BookingAvailability,
@@ -42,7 +42,7 @@ export class BookingModel {
   public readonly unitItems: UnitItem[];
   public readonly bookingCartModel?: BookingCartModel;
   public readonly bookingContentModel?: BookingContentModel;
-  public readonly bookingPickupModel?: BookingPickupModel;
+  public readonly bookingPickupsModel?: BookingPickupsModel;
   public readonly bookingPricingModel?: BookingPricingModel;
 
   constructor({
@@ -73,7 +73,7 @@ export class BookingModel {
     unitItems,
     bookingCartModel,
     bookingContentModel,
-    bookingPickupModel,
+    bookingPickupsModel,
     bookingPricingModel,
   }: {
     id: string;
@@ -103,7 +103,7 @@ export class BookingModel {
     unitItems: UnitItem[];
     bookingCartModel?: BookingCartModel;
     bookingContentModel?: BookingContentModel;
-    bookingPickupModel?: BookingPickupModel;
+    bookingPickupsModel?: BookingPickupsModel;
     bookingPricingModel?: BookingPricingModel;
   }) {
     this.id = id;
@@ -133,7 +133,7 @@ export class BookingModel {
     this.unitItems = unitItems;
     this.bookingCartModel = bookingCartModel;
     this.bookingContentModel = bookingContentModel;
-    this.bookingPickupModel = bookingPickupModel;
+    this.bookingPickupsModel = bookingPickupsModel;
     this.bookingPricingModel = bookingPricingModel;
   }
 }

@@ -4,7 +4,7 @@ import { BookingCartModel } from "../models/booking/BookingCartModel";
 import { ProductModelBuilder } from "./ProductModelBuilder";
 import { OptionModelBuilder } from "./OptionModelBuilder";
 import { BookingContentModel } from "../models/booking/BookingContentModel";
-import { BookingPickupModel } from "../models/booking/BookingPickupModel";
+import { BookingPickupsModel } from "../models/booking/BookingPickupsModel";
 import { BookingPricingModel } from "../models/booking/BookingPricingModel";
 import { PartialBooking } from "../types/PartialBooking";
 
@@ -81,7 +81,7 @@ export class BookingModelBuilder {
       unitItems: bookingData.unitItems ?? [],
       bookingCartModel: this.buildCartModel(builderData),
       bookingContentModel: this.buildContentModel(builderData),
-      bookingPickupModel: this.buildPickupModel(builderData),
+      bookingPickupsModel: this.buildPickupModel(builderData),
       bookingPricingModel: this.buildPricingModel(builderData),
     });
   }
@@ -117,14 +117,14 @@ export class BookingModelBuilder {
     });
   }
 
-  private buildPickupModel(builderData: BookingModelBuilderData): BookingPickupModel | undefined {
+  private buildPickupModel(builderData: BookingModelBuilderData): BookingPickupsModel | undefined {
     if (builderData.capabilities?.includes(CapabilityId.Pickups) === false) {
       return undefined;
     }
 
     const bookingData = builderData.bookingData;
 
-    return new BookingPickupModel({
+    return new BookingPickupsModel({
       pickupRequested: bookingData.pickupRequested ?? false,
       pickupPointId: bookingData.pickupPointId ?? "pickupPointId",
       pickupHotel: bookingData.pickupHotel ?? null,

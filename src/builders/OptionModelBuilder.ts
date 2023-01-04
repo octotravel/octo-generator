@@ -2,7 +2,7 @@ import { CapabilityId, DurationUnit, PricingPer } from "@octocloud/types";
 import { UnitModelBuilder } from "./UnitModelBuilder";
 import { OptionModel } from "../models/option/OptionModel";
 import { OptionContentModel } from "../models/option/OptionContentModel";
-import { OptionPickupModel } from "../models/option/OptionPickupModel";
+import { OptionPickupsModel } from "../models/option/./OptionPickupsModel";
 import { OptionPricingModel } from "../models/option/OptionPricingModel";
 import { PricingDataProvider } from "../dataProviders/PricingDataProvider";
 import { UnitModel } from "../models/unit/UnitModel";
@@ -45,7 +45,7 @@ export class OptionModelBuilder {
       },
       unitModels: this.buildUnitModels(builderData),
       optionContentModel: this.buildContentModel(builderData),
-      optionPickupModel: this.buildPickupModel(builderData),
+      optionPickupsModel: this.buildPickupsModel(builderData),
       optionPricingModel: this.buildPricingModel(builderData),
     });
   }
@@ -86,14 +86,14 @@ export class OptionModelBuilder {
     });
   }
 
-  private buildPickupModel(builderData: OptionModelBuilderData): OptionPickupModel | undefined {
+  private buildPickupsModel(builderData: OptionModelBuilderData): OptionPickupsModel | undefined {
     if (builderData.capabilities?.includes(CapabilityId.Pickups) === false) {
       return undefined;
     }
 
     const optionData = builderData.optionData;
 
-    return new OptionPickupModel({
+    return new OptionPickupsModel({
       pickupRequired: optionData.pickupRequired ?? false,
       pickupAvailable: optionData.pickupAvailable ?? false,
       pickupPoints: optionData.pickupPoints ?? [],

@@ -3,7 +3,7 @@ import { PricingDataProvider } from "../dataProviders/PricingDataProvider";
 import { AvailabilityModel } from "../models/availability/AvailabilityModel";
 import { AvailabilityContentModel } from "../models/availability/AvailabilityContentModel";
 import { AvailabilityPricingModel } from "../models/availability/AvailabilityPricingModel";
-import { AvailabilityPickupModel } from "../models/availability/AvailabilityPickupModel";
+import { AvailabilityPickupsModel } from "../models/availability/AvailabilityPickupsModel";
 import { addDays } from "date-fns";
 import { DateFormatter } from "../common/DateFormatter";
 import { TimeZoneDataProvider } from "../dataProviders/TimeZoneDataProvider";
@@ -51,7 +51,7 @@ export class AvailabilityModelBuilder {
       openingHours: availabilityData.openingHours ?? [],
       availabilityContentModel: this.buildContentModel(builderData),
       availabilityPricingModel: this.buildPricingModel(builderData),
-      availabilityPickupModel: this.buildPickupModel(builderData),
+      availabilityPickupsModel: this.buildPickupModel(builderData),
     });
   }
 
@@ -83,14 +83,14 @@ export class AvailabilityModelBuilder {
     });
   }
 
-  private buildPickupModel(builderData: AvailabilityModelBuilderData): AvailabilityPickupModel | undefined {
+  private buildPickupModel(builderData: AvailabilityModelBuilderData): AvailabilityPickupsModel | undefined {
     if (builderData.capabilities?.includes(CapabilityId.Pickups) === false) {
       return undefined;
     }
 
     const availabilityData = builderData.availabilityData;
 
-    return new AvailabilityPickupModel({
+    return new AvailabilityPickupsModel({
       pickupRequired: availabilityData.pickupRequired ?? false,
       pickupAvailable: availabilityData.pickupAvailable ?? false,
       pickupPoints: availabilityData.pickupPoints ?? [],

@@ -1,8 +1,8 @@
-import { Option } from "@octocloud/types";
+import { CapabilityId, Option } from "@octocloud/types";
 import { OptionModel } from "../models/option/OptionModel";
 import { UnitParser } from "./UnitParser";
 import { OptionContentModel } from "../models/option/OptionContentModel";
-import { OptionPickupModel } from "../models/option/OptionPickupModel";
+import { OptionPickupsModel } from "../models/option/./OptionPickupsModel";
 import { OptionPricingModel } from "../models/option/OptionPricingModel";
 
 export class OptionParser {
@@ -22,7 +22,7 @@ export class OptionParser {
       restrictions: option.restrictions,
       unitModels: option.units.map((unit) => this.unitParser.parsePOJOToModel(unit)),
       optionContentModel: this.parseOptionContentPOJOToModel(option),
-      optionPickupModel: this.parseOptionPickupPOJOToModel(option),
+      optionPickupsModel: this.parseOptionPickupsPOJOToModel(option),
       optionPricingModel: this.parseOptionPricingPOJOToModel(option),
     });
   };
@@ -53,7 +53,7 @@ export class OptionParser {
     });
   };
 
-  private parseOptionPickupPOJOToModel = (option: Option): OptionPickupModel | undefined => {
+  private parseOptionPickupsPOJOToModel = (option: Option): OptionPickupsModel | undefined => {
     if (
       option.pickupRequired === undefined ||
       option.pickupAvailable === undefined ||
@@ -62,7 +62,7 @@ export class OptionParser {
       return undefined;
     }
 
-    return new OptionPickupModel({
+    return new OptionPickupsModel({
       pickupRequired: option.pickupRequired,
       pickupAvailable: option.pickupAvailable,
       pickupPoints: option.pickupPoints,
@@ -81,7 +81,46 @@ export class OptionParser {
   };
 
   public parseModelToPOJO = (optionModel: OptionModel): Option => {
-    const option: Option = {
+    const option = this.parseMainModelToPojo(optionModel);
+
+    this.parseContentModelToPOJO(option, optionModel);
+    this.parsePickupsModelToPOJO(option, optionModel);
+    this.parsePricingModelToPOJO(option, optionModel);
+
+    return option;
+  };
+
+  public parseModelToPOJOWithSpecificCapabilities = (
+    optionModel: OptionModel,
+    capabilities: CapabilityId[]
+  ): Option => {
+    const option = this.parseMainModelToPojo(optionModel);
+
+    if (capabilities?.includes(CapabilityId.Content)) {
+      this.parseContentModelToPOJO(option, optionModel);
+    }
+
+    if (capabilities?.includes(CapabilityId.Pickups)) {
+      this.parsePickupsModelToPOJO(option, optionModel);
+    }
+
+    if (capabilities?.includes(CapabilityId.Pricing)) {
+      this.parsePricingModelToPOJO(option, optionModel);
+    }
+
+    return option;
+  };
+
+  private parseMainModelToPojo = (optionModel: OptionModel, capabilities?: CapabilityId[]): Option => {
+    const units = optionModel.unitModels.map((unitModel) => {
+      if (capabilities === undefined) {
+        return this.unitParser.parseModelToPOJO(unitModel);
+      } else {
+        return this.unitParser.parseModelToPOJOWithSpecificCapabilities(unitModel, capabilities);
+      }
+    });
+
+    return {
       id: optionModel.id,
       default: optionModel.isDefault,
       internalName: optionModel.internalName,
@@ -92,37 +131,47 @@ export class OptionParser {
       cancellationCutoffUnit: optionModel.cancellationCutoffUnit,
       requiredContactFields: optionModel.requiredContactFields,
       restrictions: optionModel.restrictions,
-      units: optionModel.unitModels.map((unitModel) => this.unitParser.parseModelToPOJO(unitModel)),
+      units: units,
     };
+  };
 
-    if (optionModel.optionContentModel !== undefined) {
-      const optionContentModel = optionModel.optionContentModel;
-
-      option.title = optionContentModel.title;
-      option.subtitle = optionContentModel.subtitle;
-      option.language = optionContentModel.language;
-      option.shortDescription = optionContentModel.shortDescription;
-      option.duration = optionContentModel.duration;
-      option.durationAmount = optionContentModel.durationAmount;
-      option.durationUnit = optionContentModel.durationUnit;
-      option.itinerary = optionContentModel.itinerary;
+  private parseContentModelToPOJO = (option: Option, optionModel: OptionModel) => {
+    if (optionModel.optionContentModel === undefined) {
+      return;
     }
 
-    if (optionModel.optionPickupModel !== undefined) {
-      const optionPickupModel = optionModel.optionPickupModel;
+    const optionContentModel = optionModel.optionContentModel;
 
-      option.pickupRequired = optionPickupModel.pickupRequired;
-      option.pickupAvailable = optionPickupModel.pickupAvailable;
-      option.pickupPoints = optionPickupModel.pickupPoints;
+    option.title = optionContentModel.title;
+    option.subtitle = optionContentModel.subtitle;
+    option.language = optionContentModel.language;
+    option.shortDescription = optionContentModel.shortDescription;
+    option.duration = optionContentModel.duration;
+    option.durationAmount = optionContentModel.durationAmount;
+    option.durationUnit = optionContentModel.durationUnit;
+    option.itinerary = optionContentModel.itinerary;
+  };
+
+  private parsePickupsModelToPOJO = (option: Option, optionModel: OptionModel) => {
+    if (optionModel.optionPickupsModel === undefined) {
+      return;
     }
 
-    if (optionModel.optionPricingModel !== undefined) {
-      const optionPricingModel = optionModel.optionPricingModel;
+    const optionPickupModel = optionModel.optionPickupsModel;
 
-      option.pricingFrom = optionPricingModel.pricingFrom;
-      option.pricing = optionPricingModel.pricing;
+    option.pickupRequired = optionPickupModel.pickupRequired;
+    option.pickupAvailable = optionPickupModel.pickupAvailable;
+    option.pickupPoints = optionPickupModel.pickupPoints;
+  };
+
+  private parsePricingModelToPOJO = (option: Option, optionModel: OptionModel) => {
+    if (optionModel.optionPricingModel === undefined) {
+      return;
     }
 
-    return option;
+    const optionPricingModel = optionModel.optionPricingModel;
+
+    option.pricingFrom = optionPricingModel.pricingFrom;
+    option.pricing = optionPricingModel.pricing;
   };
 }

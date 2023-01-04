@@ -16,7 +16,7 @@ describe("OptionModelBuilder", () => {
 
       expect(generatedOptionModel).toBeInstanceOf(OptionModel);
       expect(generatedOptionModel.optionContentModel).toBeUndefined();
-      expect(generatedOptionModel.optionPickupModel).toBeUndefined();
+      expect(generatedOptionModel.optionPickupsModel).toBeUndefined();
       expect(generatedOptionModel.optionPricingModel).toBeUndefined();
     });
 
@@ -29,11 +29,11 @@ describe("OptionModelBuilder", () => {
 
       expect(generatedOptionModel).toBeInstanceOf(OptionModel);
       expect(generatedOptionModel.optionContentModel).toBeDefined();
-      expect(generatedOptionModel.optionPickupModel).toBeUndefined();
+      expect(generatedOptionModel.optionPickupsModel).toBeUndefined();
       expect(generatedOptionModel.optionPricingModel).toBeUndefined();
     });
 
-    it("should build option model with pickup capability", async () => {
+    it("should build option model with pickups capability", async () => {
       const generatedOptionModel = optionModelBuilder.build({
         optionData: OptionDataProvider.defaultOption,
         pricingPer: PricingPer.BOOKING,
@@ -42,7 +42,7 @@ describe("OptionModelBuilder", () => {
 
       expect(generatedOptionModel).toBeInstanceOf(OptionModel);
       expect(generatedOptionModel.optionContentModel).toBeUndefined();
-      expect(generatedOptionModel.optionPickupModel).toBeDefined();
+      expect(generatedOptionModel.optionPickupsModel).toBeDefined();
       expect(generatedOptionModel.optionPricingModel).toBeUndefined();
     });
 
@@ -55,7 +55,7 @@ describe("OptionModelBuilder", () => {
 
       expect(generatedOptionModel).toBeInstanceOf(OptionModel);
       expect(generatedOptionModel.optionContentModel).toBeUndefined();
-      expect(generatedOptionModel.optionPickupModel).toBeUndefined();
+      expect(generatedOptionModel.optionPickupsModel).toBeUndefined();
       expect(generatedOptionModel.optionPricingModel).toBeDefined();
     });
 
@@ -68,7 +68,7 @@ describe("OptionModelBuilder", () => {
 
       expect(generatedOptionModel).toBeInstanceOf(OptionModel);
       expect(generatedOptionModel.optionContentModel).toBeDefined();
-      expect(generatedOptionModel.optionPickupModel).toBeDefined();
+      expect(generatedOptionModel.optionPickupsModel).toBeDefined();
       expect(generatedOptionModel.optionPricingModel).toBeDefined();
     });
 
