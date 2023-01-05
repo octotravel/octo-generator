@@ -3,7 +3,7 @@ import { AvailabilityModel } from "../../models/availability/AvailabilityModel";
 import { AvailabilityContentModel } from "../../models/availability/AvailabilityContentModel";
 import { AvailabilityPricingModel } from "../../models/availability/AvailabilityPricingModel";
 import { AvailabilityPickupsModel } from "../../models/availability/AvailabilityPickupsModel";
-import { AvailabilityStatus } from "@octocloud/types";
+import { AvailabilityStatus, CapabilityId } from "@octocloud/types";
 import { PricingDataProvider } from "../../dataProviders/PricingDataProvider";
 
 describe("AvailabilityParser", () => {
@@ -25,56 +25,121 @@ describe("AvailabilityParser", () => {
         to: "17:00",
       },
     ],
+  };
+  const availabilityContent = {
     meetingPoint: null,
     meetingPointCoordinates: null,
     meetingPointLatitude: null,
     meetingPointLongitude: null,
     meetingLocalDateTime: null,
-    unitPricing: [PricingDataProvider.unitPricing],
-    pricing: PricingDataProvider.adultPricing,
+  };
+  const availabilityPickups = {
     pickupAvailable: false,
     pickupRequired: false,
     pickupPoints: [],
   };
+  const availabilityPricing = {
+    unitPricing: [PricingDataProvider.unitPricing],
+    pricing: PricingDataProvider.adultPricing,
+  };
+  const availabilityPOJO = {
+    ...availability,
+    ...availabilityContent,
+    ...availabilityPickups,
+    ...availabilityPricing,
+  };
   const availabilityModel = new AvailabilityModel({
-    id: availability.id,
-    localDateTimeStart: availability.localDateTimeStart,
-    localDateTimeEnd: availability.localDateTimeEnd,
-    allDay: availability.allDay,
-    available: availability.available,
-    status: availability.status,
-    vacancies: availability.vacancies,
-    capacity: availability.capacity,
-    maxUnits: availability.maxUnits,
-    utcCutoffAt: availability.utcCutoffAt,
-    openingHours: availability.openingHours,
+    id: availabilityPOJO.id,
+    localDateTimeStart: availabilityPOJO.localDateTimeStart,
+    localDateTimeEnd: availabilityPOJO.localDateTimeEnd,
+    allDay: availabilityPOJO.allDay,
+    available: availabilityPOJO.available,
+    status: availabilityPOJO.status,
+    vacancies: availabilityPOJO.vacancies,
+    capacity: availabilityPOJO.capacity,
+    maxUnits: availabilityPOJO.maxUnits,
+    utcCutoffAt: availabilityPOJO.utcCutoffAt,
+    openingHours: availabilityPOJO.openingHours,
     availabilityContentModel: new AvailabilityContentModel({
-      meetingPoint: availability.meetingPoint,
-      meetingPointCoordinates: availability.meetingPointCoordinates,
-      meetingPointLatitude: availability.meetingPointLatitude,
-      meetingPointLongitude: availability.meetingPointLongitude,
-      meetingLocalDateTime: availability.meetingLocalDateTime,
+      meetingPoint: availabilityPOJO.meetingPoint,
+      meetingPointCoordinates: availabilityPOJO.meetingPointCoordinates,
+      meetingPointLatitude: availabilityPOJO.meetingPointLatitude,
+      meetingPointLongitude: availabilityPOJO.meetingPointLongitude,
+      meetingLocalDateTime: availabilityPOJO.meetingLocalDateTime,
     }),
     availabilityPricingModel: new AvailabilityPricingModel({
-      unitPricing: availability.unitPricing,
-      pricing: availability.pricing,
+      unitPricing: availabilityPOJO.unitPricing,
+      pricing: availabilityPOJO.pricing,
     }),
     availabilityPickupsModel: new AvailabilityPickupsModel({
-      pickupAvailable: availability.pickupAvailable,
-      pickupRequired: availability.pickupRequired,
-      pickupPoints: availability.pickupPoints,
+      pickupAvailable: availabilityPOJO.pickupAvailable,
+      pickupRequired: availabilityPOJO.pickupRequired,
+      pickupPoints: availabilityPOJO.pickupPoints,
     }),
-  });
-
-  describe("parseModelToPOJO", () => {
-    it("should return availability POJO", async () => {
-      expect(availabilityParser.parseModelToPOJO(availabilityModel)).toStrictEqual(availability);
-    });
   });
 
   describe("parsePOJOToModel", () => {
     it("should return availability model", async () => {
-      expect(availabilityParser.parsePOJOToModel(availability)).toStrictEqual(availabilityModel);
+      expect(availabilityParser.parsePOJOToModel(availabilityPOJO)).toStrictEqual(availabilityModel);
+    });
+  });
+
+  describe("parseModelToPOJO", () => {
+    it("should return availability POJO", async () => {
+      expect(availabilityParser.parseModelToPOJO(availabilityModel)).toStrictEqual(availabilityPOJO);
+    });
+  });
+
+  describe("parseModelToPOJOWithSpecificCapabilities", () => {
+    it("should return unit POJO without any capabilities", async () => {
+      expect(availabilityParser.parseModelToPOJOWithSpecificCapabilities(availabilityModel, [])).toStrictEqual(
+        availability
+      );
+    });
+  });
+
+  describe("parseModelToPOJOWithSpecificCapabilities", () => {
+    it("should return unit POJO with content capability", async () => {
+      expect(
+        availabilityParser.parseModelToPOJOWithSpecificCapabilities(availabilityModel, [CapabilityId.Content])
+      ).toStrictEqual({
+        ...availability,
+        ...availabilityContent,
+      });
+    });
+  });
+
+  describe("parseModelToPOJOWithSpecificCapabilities", () => {
+    it("should return unit POJO with pickups capability", async () => {
+      expect(
+        availabilityParser.parseModelToPOJOWithSpecificCapabilities(availabilityModel, [CapabilityId.Pickups])
+      ).toStrictEqual({
+        ...availability,
+        ...availabilityPickups,
+      });
+    });
+  });
+
+  describe("parseModelToPOJOWithSpecificCapabilities", () => {
+    it("should return unit POJO with pricing capability", async () => {
+      expect(
+        availabilityParser.parseModelToPOJOWithSpecificCapabilities(availabilityModel, [CapabilityId.Pricing])
+      ).toStrictEqual({
+        ...availability,
+        ...availabilityPricing,
+      });
+    });
+  });
+
+  describe("parseModelToPOJOWithSpecificCapabilities", () => {
+    it("should return unit POJO with all capabilities", async () => {
+      expect(
+        availabilityParser.parseModelToPOJOWithSpecificCapabilities(availabilityModel, [
+          CapabilityId.Content,
+          CapabilityId.Pickups,
+          CapabilityId.Pricing,
+        ])
+      ).toStrictEqual(availabilityPOJO);
     });
   });
 });

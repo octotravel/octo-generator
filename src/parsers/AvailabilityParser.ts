@@ -1,4 +1,4 @@
-import { Availability } from "@octocloud/types";
+import { Availability, CapabilityId } from "@octocloud/types";
 import { AvailabilityModel } from "../models/availability/AvailabilityModel";
 import { AvailabilityContentModel } from "../models/availability/AvailabilityContentModel";
 import { AvailabilityPickupsModel } from "../models/availability/AvailabilityPickupsModel";
@@ -77,6 +77,27 @@ export class AvailabilityParser {
     this.parseContentModelToPOJO(availability, availabilityModel);
     this.parsePickupsModelToPOJO(availability, availabilityModel);
     this.parsePricingModelToPOJO(availability, availabilityModel);
+
+    return availability;
+  };
+
+  public parseModelToPOJOWithSpecificCapabilities = (
+    availabilityModel: AvailabilityModel,
+    capabilities: CapabilityId[]
+  ): Availability => {
+    const availability = this.parseMainModelToPojo(availabilityModel);
+
+    if (capabilities.includes(CapabilityId.Content)) {
+      this.parseContentModelToPOJO(availability, availabilityModel);
+    }
+
+    if (capabilities.includes(CapabilityId.Pickups)) {
+      this.parsePickupsModelToPOJO(availability, availabilityModel);
+    }
+
+    if (capabilities.includes(CapabilityId.Pricing)) {
+      this.parsePricingModelToPOJO(availability, availabilityModel);
+    }
 
     return availability;
   };
