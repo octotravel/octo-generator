@@ -6,10 +6,12 @@ import { BookingCartModel } from "../models/booking/BookingCartModel";
 import { BookingContentModel } from "../models/booking/BookingContentModel";
 import { BookingPickupsModel } from "../models/booking/BookingPickupsModel";
 import { BookingPricingModel } from "../models/booking/BookingPricingModel";
+import { UnitItemParser } from "./UnitItemParser";
 
 export class BookingParser {
   private readonly productParser = new ProductParser();
   private readonly optionParser = new OptionParser();
+  private readonly unitItemParser = new UnitItemParser();
 
   public parsePOJOToModel = (booking: Booking): BookingModel => {
     return new BookingModel({
@@ -37,7 +39,7 @@ export class BookingParser {
       notes: booking.notes,
       deliveryMethods: booking.deliveryMethods,
       voucher: booking.voucher,
-      unitItems: booking.unitItems,
+      unitItemModels: booking.unitItems.map((unitItem) => this.unitItemParser.parsePOJOToModel(unitItem)),
       bookingCartModel: this.parseCartPOJOToModel(booking),
       bookingContentModel: this.parseContentPOJOToModel(booking),
       bookingPickupsModel: this.parsePickupsPOJOToModel(booking),
@@ -157,6 +159,14 @@ export class BookingParser {
       option = this.optionParser.parseModelToPOJOWithSpecificCapabilities(bookingModel.optionModel, capabilities);
     }
 
+    const unitItems = bookingModel.unitItemModels.map((unitItemModel) => {
+      if (capabilities === undefined) {
+        return this.unitItemParser.parseModelToPOJO(unitItemModel);
+      } else {
+        return this.unitItemParser.parseModelToPOJOWithSpecificCapabilities(unitItemModel, capabilities);
+      }
+    });
+
     return {
       id: bookingModel.id,
       uuid: bookingModel.uuid,
@@ -182,7 +192,7 @@ export class BookingParser {
       notes: bookingModel.notes,
       deliveryMethods: bookingModel.deliveryMethods,
       voucher: bookingModel.voucher,
-      unitItems: bookingModel.unitItems,
+      unitItems: unitItems,
     };
   };
 

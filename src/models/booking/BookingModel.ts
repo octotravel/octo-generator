@@ -4,15 +4,8 @@ import { BookingCartModel } from "./BookingCartModel";
 import { BookingContentModel } from "./BookingContentModel";
 import { BookingPickupsModel } from "./BookingPickupsModel";
 import { BookingPricingModel } from "./BookingPricingModel";
-import {
-  BookingAvailability,
-  BookingStatus,
-  Cancellation,
-  Contact,
-  Ticket,
-  UnitItem,
-  DeliveryMethod,
-} from "@octocloud/types";
+import { BookingAvailability, BookingStatus, Cancellation, Contact, Ticket, DeliveryMethod } from "@octocloud/types";
+import { UnitItemModel } from "../unitItem/UnitItemModel";
 
 export class BookingModel {
   public readonly id: string;
@@ -39,7 +32,7 @@ export class BookingModel {
   public readonly notes: Nullable<string>;
   public readonly deliveryMethods: DeliveryMethod[];
   public readonly voucher: Nullable<Ticket>;
-  public readonly unitItems: UnitItem[];
+  public readonly unitItemModels: UnitItemModel[];
   public readonly bookingCartModel?: BookingCartModel;
   public readonly bookingContentModel?: BookingContentModel;
   public readonly bookingPickupsModel?: BookingPickupsModel;
@@ -70,7 +63,7 @@ export class BookingModel {
     notes,
     deliveryMethods,
     voucher,
-    unitItems,
+    unitItemModels,
     bookingCartModel,
     bookingContentModel,
     bookingPickupsModel,
@@ -100,7 +93,7 @@ export class BookingModel {
     notes: Nullable<string>;
     deliveryMethods: DeliveryMethod[];
     voucher: Nullable<Ticket>;
-    unitItems: UnitItem[];
+    unitItemModels: UnitItemModel[];
     bookingCartModel?: BookingCartModel;
     bookingContentModel?: BookingContentModel;
     bookingPickupsModel?: BookingPickupsModel;
@@ -130,7 +123,7 @@ export class BookingModel {
     this.notes = notes;
     this.deliveryMethods = deliveryMethods;
     this.voucher = voucher;
-    this.unitItems = unitItems;
+    this.unitItemModels = unitItemModels;
     this.bookingCartModel = bookingCartModel;
     this.bookingContentModel = bookingContentModel;
     this.bookingPickupsModel = bookingPickupsModel;

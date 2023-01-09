@@ -24,7 +24,7 @@ interface ProductModelBuilderData {
 const defaultCapabilities: CapabilityId[] = [CapabilityId.Content, CapabilityId.Pricing, CapabilityId.Pickups];
 
 export class ProductModelBuilder {
-  private optionModelBuilder = new OptionModelBuilder();
+  private readonly optionModelBuilder = new OptionModelBuilder();
 
   public build(builderData: ProductModelBuilderData): ProductModel {
     builderData.capabilities ??= defaultCapabilities;

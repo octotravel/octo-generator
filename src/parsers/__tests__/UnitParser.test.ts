@@ -1,53 +1,15 @@
-import { CapabilityId, UnitType } from "@octocloud/types";
-import { UnitModel } from "../../models/unit/UnitModel";
-import { UnitDataProvider } from "../../dataProviders/UnitDataProvider";
+import { CapabilityId } from "@octocloud/types";
 import { UnitParser } from "../UnitParser";
-import { UnitContentModel } from "../../models/unit/UnitContentModel";
-import { PricingDataProvider } from "../../dataProviders/PricingDataProvider";
-import { UnitPricingModel } from "../../models/unit/UnitPricingModel";
+import { UnitTestDataProvider } from "./dataProviders/UnitTestDataProvider";
 
 describe("UnitParser", () => {
   const unitParser = new UnitParser();
 
-  const unit = {
-    id: "id",
-    internalName: "internalName",
-    reference: "reference",
-    type: UnitType.CHILD,
-    restrictions: UnitDataProvider.commonRestrictions,
-    requiredContactFields: [],
-  };
-
-  const unitContent = {
-    title: "title",
-    titlePlural: "titlePlural",
-    subtitle: "subtitle",
-  };
-
-  const unitPricing = {
-    pricing: [PricingDataProvider.adultPricing],
-    pricingFrom: undefined,
-  };
-
-  const unitPOJO = { ...unit, ...unitContent, ...unitPricing };
-
-  const unitModel = new UnitModel({
-    id: unitPOJO.id,
-    internalName: unitPOJO.internalName,
-    reference: unitPOJO.reference,
-    type: unitPOJO.type,
-    restrictions: unitPOJO.restrictions,
-    requiredContactFields: unitPOJO.requiredContactFields,
-    unitContentModel: new UnitContentModel({
-      title: unitPOJO.title,
-      titlePlural: unitPOJO.titlePlural,
-      subtitle: unitPOJO.subtitle,
-    }),
-    unitPricingModel: new UnitPricingModel({
-      pricing: unitPOJO.pricing,
-      pricingFrom: undefined,
-    }),
-  });
+  const unit = UnitTestDataProvider.unit;
+  const unitContent = UnitTestDataProvider.unitContent;
+  const unitPricing = UnitTestDataProvider.unitPricing;
+  const unitPOJO = UnitTestDataProvider.unitPOJO;
+  const unitModel = UnitTestDataProvider.unitModel;
 
   describe("parsePOJOToModel", () => {
     it("should return unit model", async () => {

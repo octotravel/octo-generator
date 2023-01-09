@@ -7,6 +7,8 @@ import { BookingContentModel } from "../models/booking/BookingContentModel";
 import { BookingPickupsModel } from "../models/booking/BookingPickupsModel";
 import { BookingPricingModel } from "../models/booking/BookingPricingModel";
 import { PartialBooking } from "../types/PartialBooking";
+import { UnitItemModel } from "../models/unitItem/UnitItemModel";
+import { UnitItemModelBuilder } from "./UnitItemModelBuilder";
 
 interface BookingModelBuilderData {
   bookingData: PartialBooking;
@@ -23,6 +25,7 @@ const defaultCapabilities: CapabilityId[] = [
 export class BookingModelBuilder {
   private readonly productModelBuilder = new ProductModelBuilder();
   private readonly optionModelBuilder = new OptionModelBuilder();
+  private readonly unitItemModelBuilder = new UnitItemModelBuilder();
 
   public build(builderData: BookingModelBuilderData): BookingModel {
     builderData.capabilities ??= defaultCapabilities;
@@ -78,12 +81,32 @@ export class BookingModelBuilder {
       notes: bookingData.notes ?? null,
       deliveryMethods: bookingData.deliveryMethods ?? [DeliveryMethod.TICKET],
       voucher: bookingData.voucher ?? null,
-      unitItems: bookingData.unitItems ?? [],
+      unitItemModels: this.buildUnitItemModels(builderData),
       bookingCartModel: this.buildCartModel(builderData),
       bookingContentModel: this.buildContentModel(builderData),
       bookingPickupsModel: this.buildPickupModel(builderData),
       bookingPricingModel: this.buildPricingModel(builderData),
     });
+  }
+
+  private buildUnitItemModels(builderData: BookingModelBuilderData): UnitItemModel[] {
+    if (builderData.bookingData.unitItems === undefined) {
+      return [
+        this.unitItemModelBuilder.build({
+          unitItemData: {},
+          capabilities: builderData.capabilities,
+          sourceModel: BookingModel,
+        }),
+      ];
+    }
+
+    return builderData.bookingData.unitItems.map((unitItem) => {
+      return this.unitItemModelBuilder.build({
+        unitItemData: unitItem,
+        capabilities: builderData.capabilities,
+        sourceModel: BookingModel,
+      });
+    }, builderData);
   }
 
   private buildCartModel(builderData: BookingModelBuilderData): BookingCartModel | undefined {

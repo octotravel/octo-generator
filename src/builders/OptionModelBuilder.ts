@@ -21,7 +21,7 @@ const defaultPricingPer: PricingPer = PricingPer.UNIT;
 const defaultCapabilities: CapabilityId[] = [CapabilityId.Content, CapabilityId.Pickups, CapabilityId.Pricing];
 
 export class OptionModelBuilder {
-  private unitModelBuilder = new UnitModelBuilder();
+  private readonly unitModelBuilder = new UnitModelBuilder();
 
   public build(builderData: OptionModelBuilderData): OptionModel {
     builderData.pricingPer ??= defaultPricingPer;

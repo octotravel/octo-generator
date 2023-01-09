@@ -120,7 +120,7 @@ describe("BookingParser", () => {
     notes: bookingPOJO.notes,
     deliveryMethods: bookingPOJO.deliveryMethods,
     voucher: bookingPOJO.voucher,
-    unitItems: bookingPOJO.unitItems,
+    unitItemModels: [],
     bookingCartModel: new BookingCartModel({
       orderId: bookingPOJO.orderId,
       orderReference: bookingPOJO.orderReference,
