@@ -4,7 +4,7 @@ import { PartialUnitItem } from "../types/PartialUnitItem";
 import { UnitModelBuilder } from "./UnitModelBuilder";
 import { UnitItemPricingModel } from "../models/unitItem/UnitItemPricingModel";
 import { UnitModel } from "../models/unit/UnitModel";
-import { RedemptionMethod } from "@octocloud/types/src/types/Product";
+import { RedemptionMethod } from "@octocloud/types";
 import { NullableFactory } from "../factories/NullableFactory";
 
 interface UnitModelBuilderData {

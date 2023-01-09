@@ -1,7 +1,6 @@
-import { CapabilityId } from "@octocloud/types";
+import { CapabilityId, BookingStatus } from "@octocloud/types";
 import { UnitItemParser } from "../UnitItemParser";
 import { UnitTestDataProvider } from "./dataProviders/UnitTestDataProvider";
-import { BookingStatus } from "@octocloud/types/src/types/Booking";
 import { UnitItemModel } from "../../models/unitItem/UnitItemModel";
 import { UnitItemPricingModel } from "../../models/unitItem/UnitItemPricingModel";
 
