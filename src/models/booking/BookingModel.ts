@@ -19,9 +19,7 @@ export class BookingModel {
   public readonly utcExpiresAt: Nullable<string>;
   public readonly utcRedeemedAt: Nullable<string>;
   public readonly utcConfirmedAt: Nullable<string>;
-  public readonly productId: string;
   public readonly productModel: ProductModel;
-  public readonly optionId: string;
   public readonly optionModel: OptionModel;
   public readonly cancellable: boolean;
   public readonly cancellation: Nullable<Cancellation>;
@@ -50,9 +48,7 @@ export class BookingModel {
     utcExpiresAt,
     utcRedeemedAt,
     utcConfirmedAt,
-    productId,
     productModel,
-    optionId,
     optionModel,
     cancellable,
     cancellation,
@@ -80,9 +76,7 @@ export class BookingModel {
     utcExpiresAt: Nullable<string>;
     utcRedeemedAt: Nullable<string>;
     utcConfirmedAt: Nullable<string>;
-    productId: string;
     productModel: ProductModel;
-    optionId: string;
     optionModel: OptionModel;
     cancellable: boolean;
     cancellation: Nullable<Cancellation>;
@@ -110,9 +104,7 @@ export class BookingModel {
     this.utcExpiresAt = utcExpiresAt;
     this.utcRedeemedAt = utcRedeemedAt;
     this.utcConfirmedAt = utcConfirmedAt;
-    this.productId = productId;
     this.productModel = productModel;
-    this.optionId = optionId;
     this.optionModel = optionModel;
     this.cancellable = cancellable;
     this.cancellation = cancellation;
