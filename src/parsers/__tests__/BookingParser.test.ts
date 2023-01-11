@@ -112,7 +112,6 @@ describe("BookingParser", () => {
     cancellable: bookingPOJO.cancellable,
     cancellation: bookingPOJO.cancellation,
     freesale: bookingPOJO.freesale,
-    availabilityId: bookingPOJO.availabilityId,
     availability: bookingPOJO.availability,
     contact: bookingPOJO.contact,
     notes: bookingPOJO.notes,

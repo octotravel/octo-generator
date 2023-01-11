@@ -11,7 +11,7 @@ export class BookingModel {
   public readonly id: string;
   public readonly uuid: string;
   public readonly testMode: boolean;
-  public readonly resellerReference: Nullable<string>;
+  private _resellerReference: Nullable<string>;
   public readonly supplierReference: Nullable<string>;
   public readonly status: BookingStatus;
   public readonly utcCreatedAt: string;
@@ -19,18 +19,17 @@ export class BookingModel {
   public readonly utcExpiresAt: Nullable<string>;
   public readonly utcRedeemedAt: Nullable<string>;
   public readonly utcConfirmedAt: Nullable<string>;
-  public readonly productModel: ProductModel;
-  public readonly optionModel: OptionModel;
+  private _productModel: ProductModel;
+  private _optionModel: OptionModel;
   public readonly cancellable: boolean;
   public readonly cancellation: Nullable<Cancellation>;
   public readonly freesale: boolean;
-  public readonly availabilityId: string;
-  public readonly availability: BookingAvailability;
-  public readonly contact: Contact;
-  public readonly notes: Nullable<string>;
+  private _availability: BookingAvailability;
+  private _contact: Contact;
+  private _notes: Nullable<string>;
   public readonly deliveryMethods: DeliveryMethod[];
   public readonly voucher: Nullable<Ticket>;
-  public readonly unitItemModels: UnitItemModel[];
+  private _unitItemModels: UnitItemModel[];
   public readonly bookingCartModel?: BookingCartModel;
   public readonly bookingContentModel?: BookingContentModel;
   public readonly bookingPickupsModel?: BookingPickupsModel;
@@ -53,7 +52,6 @@ export class BookingModel {
     cancellable,
     cancellation,
     freesale,
-    availabilityId,
     availability,
     contact,
     notes,
@@ -81,7 +79,6 @@ export class BookingModel {
     cancellable: boolean;
     cancellation: Nullable<Cancellation>;
     freesale: boolean;
-    availabilityId: string;
     availability: BookingAvailability;
     contact: Contact;
     notes: Nullable<string>;
@@ -96,7 +93,7 @@ export class BookingModel {
     this.id = id;
     this.uuid = uuid;
     this.testMode = testMode;
-    this.resellerReference = resellerReference;
+    this._resellerReference = resellerReference;
     this.supplierReference = supplierReference;
     this.status = status;
     this.utcCreatedAt = utcCreatedAt;
@@ -104,21 +101,76 @@ export class BookingModel {
     this.utcExpiresAt = utcExpiresAt;
     this.utcRedeemedAt = utcRedeemedAt;
     this.utcConfirmedAt = utcConfirmedAt;
-    this.productModel = productModel;
-    this.optionModel = optionModel;
+    this._productModel = productModel;
+    this._optionModel = optionModel;
     this.cancellable = cancellable;
     this.cancellation = cancellation;
     this.freesale = freesale;
-    this.availabilityId = availabilityId;
-    this.availability = availability;
-    this.contact = contact;
-    this.notes = notes;
+    this._availability = availability;
+    this._contact = contact;
+    this._notes = notes;
     this.deliveryMethods = deliveryMethods;
     this.voucher = voucher;
-    this.unitItemModels = unitItemModels;
+    this._unitItemModels = unitItemModels;
     this.bookingCartModel = bookingCartModel;
     this.bookingContentModel = bookingContentModel;
     this.bookingPickupsModel = bookingPickupsModel;
     this.bookingPricingModel = bookingPricingModel;
+  }
+
+  get resellerReference(): Nullable<string> {
+    return this._resellerReference;
+  }
+
+  set resellerReference(resellerReference: Nullable<string>) {
+    this._resellerReference = resellerReference;
+  }
+
+  get productModel(): ProductModel {
+    return this._productModel;
+  }
+
+  set productModel(productModel: ProductModel) {
+    this._productModel = productModel;
+  }
+
+  get optionModel(): OptionModel {
+    return this._optionModel;
+  }
+
+  set optionModel(optionModel: OptionModel) {
+    this._optionModel = optionModel;
+  }
+
+  get availability(): BookingAvailability {
+    return this._availability;
+  }
+
+  set availability(availability: BookingAvailability) {
+    this._availability = availability;
+  }
+
+  get notes(): Nullable<string> {
+    return this._notes;
+  }
+
+  set notes(notes: Nullable<string>) {
+    this._notes = notes;
+  }
+
+  get unitItemModels(): UnitItemModel[] {
+    return this._unitItemModels;
+  }
+
+  set unitItemModels(unitItemModels: UnitItemModel[]) {
+    this._unitItemModels = unitItemModels;
+  }
+
+  get contact(): Contact {
+    return this._contact;
+  }
+
+  set contact(contact: Contact) {
+    this._contact = contact;
   }
 }

@@ -41,6 +41,13 @@ export class BookingModelBuilder {
       capabilities: builderData.capabilities,
       sourceModel: BookingModel,
     });
+    const availability = bookingData.availability ?? {
+      id: "2023-01-03T09:15:00+01:00",
+      localDateTimeStart: "2023-01-03T09:15:00+01:00",
+      localDateTimeEnd: "2023-01-03T09:39:00+01:00",
+      allDay: false,
+      openingHours: [],
+    };
 
     return new BookingModel({
       id: bookingData.id ?? "id",
@@ -59,14 +66,7 @@ export class BookingModelBuilder {
       cancellable: bookingData.cancellable ?? false,
       cancellation: bookingData.cancellation ?? null,
       freesale: bookingData.freesale ?? false,
-      availabilityId: bookingData.availabilityId ?? "2023-01-03T09:15:00+01:00",
-      availability: bookingData.availability ?? {
-        id: "2023-01-03T09:15:00+01:00",
-        localDateTimeStart: "2023-01-03T09:15:00+01:00",
-        localDateTimeEnd: "2023-01-03T09:39:00+01:00",
-        allDay: false,
-        openingHours: [],
-      },
+      availability: availability,
       contact: bookingData.contact ?? {
         fullName: null,
         firstName: null,
