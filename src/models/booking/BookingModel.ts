@@ -21,8 +21,8 @@ export class BookingModel {
   private _utcConfirmedAt: Nullable<string>;
   private _productModel: ProductModel;
   private _optionModel: OptionModel;
-  public readonly cancellable: boolean;
-  public readonly cancellation: Nullable<Cancellation>;
+  private _cancellable: boolean;
+  private _cancellation: Nullable<Cancellation>;
   public readonly freesale: boolean;
   private _availability: BookingAvailability;
   private _contact: Contact;
@@ -103,8 +103,8 @@ export class BookingModel {
     this._utcConfirmedAt = utcConfirmedAt;
     this._productModel = productModel;
     this._optionModel = optionModel;
-    this.cancellable = cancellable;
-    this.cancellation = cancellation;
+    this._cancellable = cancellable;
+    this._cancellation = cancellation;
     this.freesale = freesale;
     this._availability = availability;
     this._contact = contact;
@@ -180,6 +180,22 @@ export class BookingModel {
 
   set optionModel(optionModel: OptionModel) {
     this._optionModel = optionModel;
+  }
+
+  get cancellable(): boolean {
+    return this._cancellable;
+  }
+
+  set cancellable(cancellable: boolean) {
+    this._cancellable = cancellable;
+  }
+
+  get cancellation(): Nullable<Cancellation> {
+    return this._cancellation;
+  }
+
+  set cancellation(cancellation: Nullable<Cancellation>) {
+    this._cancellation = cancellation;
   }
 
   get availability(): BookingAvailability {
