@@ -13,12 +13,12 @@ export class BookingModel {
   public readonly testMode: boolean;
   private _resellerReference: Nullable<string>;
   public readonly supplierReference: Nullable<string>;
-  public readonly status: BookingStatus;
+  private _status: BookingStatus;
   public readonly utcCreatedAt: string;
-  public readonly utcUpdatedAt: Nullable<string>;
+  private _utcUpdatedAt: Nullable<string>;
   public readonly utcExpiresAt: Nullable<string>;
   public readonly utcRedeemedAt: Nullable<string>;
-  public readonly utcConfirmedAt: Nullable<string>;
+  private _utcConfirmedAt: Nullable<string>;
   private _productModel: ProductModel;
   private _optionModel: OptionModel;
   public readonly cancellable: boolean;
@@ -28,7 +28,7 @@ export class BookingModel {
   private _contact: Contact;
   private _notes: Nullable<string>;
   public readonly deliveryMethods: DeliveryMethod[];
-  public readonly voucher: Nullable<Ticket>;
+  private _voucher: Nullable<Ticket>;
   private _unitItemModels: UnitItemModel[];
   public readonly bookingCartModel?: BookingCartModel;
   public readonly bookingContentModel?: BookingContentModel;
@@ -61,7 +61,7 @@ export class BookingModel {
     bookingCartModel,
     bookingContentModel,
     bookingPickupsModel,
-    bookingPricingModel,
+    bookingPricingModel
   }: {
     id: string;
     uuid: string;
@@ -95,12 +95,12 @@ export class BookingModel {
     this.testMode = testMode;
     this._resellerReference = resellerReference;
     this.supplierReference = supplierReference;
-    this.status = status;
+    this._status = status;
     this.utcCreatedAt = utcCreatedAt;
-    this.utcUpdatedAt = utcUpdatedAt;
+    this._utcUpdatedAt = utcUpdatedAt;
     this.utcExpiresAt = utcExpiresAt;
     this.utcRedeemedAt = utcRedeemedAt;
-    this.utcConfirmedAt = utcConfirmedAt;
+    this._utcConfirmedAt = utcConfirmedAt;
     this._productModel = productModel;
     this._optionModel = optionModel;
     this.cancellable = cancellable;
@@ -110,7 +110,7 @@ export class BookingModel {
     this._contact = contact;
     this._notes = notes;
     this.deliveryMethods = deliveryMethods;
-    this.voucher = voucher;
+    this._voucher = voucher;
     this._unitItemModels = unitItemModels;
     this.bookingCartModel = bookingCartModel;
     this.bookingContentModel = bookingContentModel;
@@ -124,6 +124,30 @@ export class BookingModel {
 
   set resellerReference(resellerReference: Nullable<string>) {
     this._resellerReference = resellerReference;
+  }
+
+  get status(): BookingStatus {
+    return this._status;
+  }
+
+  set status(status: BookingStatus) {
+    this._status = status;
+  }
+
+  get utcUpdatedAt(): Nullable<string> {
+    return this._utcUpdatedAt;
+  }
+
+  set utcUpdatedAt(utcUpdatedAt: Nullable<string>) {
+    this._utcUpdatedAt = utcUpdatedAt;
+  }
+
+  get utcConfirmedAt(): Nullable<string> {
+    return this._utcConfirmedAt;
+  }
+
+  set utcConfirmedAt(utcConfirmedAt: Nullable<string>) {
+    this._utcConfirmedAt = utcConfirmedAt;
   }
 
   get productModel(): ProductModel {
@@ -158,19 +182,27 @@ export class BookingModel {
     this._notes = notes;
   }
 
-  get unitItemModels(): UnitItemModel[] {
-    return this._unitItemModels;
-  }
-
-  set unitItemModels(unitItemModels: UnitItemModel[]) {
-    this._unitItemModels = unitItemModels;
-  }
-
   get contact(): Contact {
     return this._contact;
   }
 
   set contact(contact: Contact) {
     this._contact = contact;
+  }
+
+  get voucher(): Nullable<Ticket> {
+    return this._voucher;
+  }
+
+  set voucher(voucher: Nullable<Ticket>) {
+    this._voucher = voucher;
+  }
+
+  get unitItemModels(): UnitItemModel[] {
+    return this._unitItemModels;
+  }
+
+  set unitItemModels(unitItemModels: UnitItemModel[]) {
+    this._unitItemModels = unitItemModels;
   }
 }
