@@ -16,8 +16,8 @@ export class BookingModel {
   private _status: BookingStatus;
   public readonly utcCreatedAt: string;
   private _utcUpdatedAt: Nullable<string>;
-  public readonly utcExpiresAt: Nullable<string>;
-  public readonly utcRedeemedAt: Nullable<string>;
+  private _utcExpiresAt: Nullable<string>;
+  private _utcRedeemedAt: Nullable<string>;
   private _utcConfirmedAt: Nullable<string>;
   private _productModel: ProductModel;
   private _optionModel: OptionModel;
@@ -61,7 +61,7 @@ export class BookingModel {
     bookingCartModel,
     bookingContentModel,
     bookingPickupsModel,
-    bookingPricingModel
+    bookingPricingModel,
   }: {
     id: string;
     uuid: string;
@@ -98,8 +98,8 @@ export class BookingModel {
     this._status = status;
     this.utcCreatedAt = utcCreatedAt;
     this._utcUpdatedAt = utcUpdatedAt;
-    this.utcExpiresAt = utcExpiresAt;
-    this.utcRedeemedAt = utcRedeemedAt;
+    this._utcExpiresAt = utcExpiresAt;
+    this._utcRedeemedAt = utcRedeemedAt;
     this._utcConfirmedAt = utcConfirmedAt;
     this._productModel = productModel;
     this._optionModel = optionModel;
@@ -140,6 +140,22 @@ export class BookingModel {
 
   set utcUpdatedAt(utcUpdatedAt: Nullable<string>) {
     this._utcUpdatedAt = utcUpdatedAt;
+  }
+
+  get utcExpiresAt(): Nullable<string> {
+    return this._utcExpiresAt;
+  }
+
+  set utcExpiresAt(utcExpiresAt: Nullable<string>) {
+    this._utcExpiresAt = utcExpiresAt;
+  }
+
+  get utcRedeemedAt(): Nullable<string> {
+    return this._utcRedeemedAt;
+  }
+
+  set utcRedeemedAt(utcRedeemedAt: Nullable<string>) {
+    this._utcRedeemedAt = utcRedeemedAt;
   }
 
   get utcConfirmedAt(): Nullable<string> {
