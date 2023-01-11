@@ -19,15 +19,18 @@ import { PartialProduct } from "../types/PartialProduct";
 interface ProductModelBuilderData {
   productData: PartialProduct;
   capabilities?: CapabilityId[];
+  sourceModel?: object;
 }
 
 const defaultCapabilities: CapabilityId[] = [CapabilityId.Content, CapabilityId.Pricing, CapabilityId.Pickups];
+const defaultSourceModel: object = ProductModel;
 
 export class ProductModelBuilder {
   private readonly optionModelBuilder = new OptionModelBuilder();
 
   public build(builderData: ProductModelBuilderData): ProductModel {
     builderData.capabilities ??= defaultCapabilities;
+    builderData.sourceModel ??= defaultSourceModel;
 
     const productData = builderData.productData;
 
@@ -58,7 +61,7 @@ export class ProductModelBuilder {
           optionData: {},
           pricingPer: builderData.productData.pricingPer,
           capabilities: builderData.capabilities,
-          sourceModel: ProductModel,
+          sourceModel: builderData.sourceModel,
         }),
       ];
     }
@@ -70,7 +73,7 @@ export class ProductModelBuilder {
         optionData: optionData,
         pricingPer: builderData.productData.pricingPer,
         capabilities: builderData.capabilities,
-        sourceModel: ProductModel,
+        sourceModel: builderData.sourceModel,
       });
     }, builderData);
   }

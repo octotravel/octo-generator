@@ -34,10 +34,12 @@ export class BookingModelBuilder {
     const productModel = this.productModelBuilder.build({
       productData: bookingData.product ?? {},
       capabilities: builderData.capabilities,
+      sourceModel: BookingModel,
     });
     const optionModel = this.optionModelBuilder.build({
       optionData: bookingData.option ?? {},
       capabilities: builderData.capabilities,
+      sourceModel: BookingModel,
     });
 
     return new BookingModel({
