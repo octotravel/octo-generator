@@ -3,6 +3,7 @@ import { OptionContentModel } from "./OptionContentModel";
 import { OptionPickupsModel } from "././OptionPickupsModel";
 import { OptionPricingModel } from "./OptionPricingModel";
 import { UnitModel } from "../unit/UnitModel";
+import { UndefinedModelError } from "../../errors/UndefinedModelError";
 
 export class OptionModel {
   public readonly id: string;
@@ -65,6 +66,39 @@ export class OptionModel {
     this.optionContentModel = optionContentModel;
     this.optionPickupsModel = optionPickupsModel;
     this.optionPricingModel = optionPricingModel;
+  }
+
+  /**
+   * @throws UndefinedModelError
+   */
+  public getOptionContentModel(): OptionContentModel {
+    if (this.optionContentModel === undefined) {
+      throw UndefinedModelError.create("OptionContentModel", "OptionModel", this.id);
+    }
+
+    return this.optionContentModel;
+  }
+
+  /**
+   * @throws UndefinedModelError
+   */
+  public getOptionPickupsModel(): OptionPickupsModel {
+    if (this.optionPickupsModel === undefined) {
+      throw UndefinedModelError.create("OptionPickupsModel", "OptionModel", this.id);
+    }
+
+    return this.optionPickupsModel;
+  }
+
+  /**
+   * @throws UndefinedModelError
+   */
+  public getOptionPricingModel(): OptionPricingModel {
+    if (this.optionPricingModel === undefined) {
+      throw UndefinedModelError.create("OptionPricingModel", "OptionModel", this.id);
+    }
+
+    return this.optionPricingModel;
   }
 
   public findUnitModelByUnitId(unitId: string): Nullable<UnitModel> {

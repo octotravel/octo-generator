@@ -7,6 +7,7 @@ interface AvailabilityPricingModelFactoryData {
   pricingPer: PricingPer;
   containsUnits?: boolean;
 }
+
 export abstract class AvailabilityPricingModelFactory {
   public static create(factoryData: AvailabilityPricingModelFactoryData): AvailabilityPricingModel {
     let unitPricing = undefined;
