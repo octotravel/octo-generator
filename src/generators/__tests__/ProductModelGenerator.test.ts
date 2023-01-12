@@ -15,7 +15,7 @@ describe("ProductModelGenerator", () => {
 
   describe("generate and validate product model", () => {
     it("should generate valid product model", async () => {
-      const productModel = productModelGenerator.generate({
+      const productModel = productModelGenerator.generateProduct({
         productData: {
           id: "id",
           internalName: "internalName",
@@ -31,7 +31,7 @@ describe("ProductModelGenerator", () => {
     });
 
     it("should generate invalid model", async () => {
-      const productModel = productModelGenerator.generate({
+      const productModel = productModelGenerator.generateProduct({
         productData: {
           id: "",
           internalName: "",

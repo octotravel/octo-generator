@@ -15,7 +15,7 @@ describe("BookingModelBuilder", () => {
       expect(generateBookingModel).toBeInstanceOf(BookingModel);
       expect(generateBookingModel.bookingCartModel).toBeUndefined();
       expect(generateBookingModel.bookingContentModel).toBeUndefined();
-      expect(generateBookingModel.bookingPickupModel).toBeUndefined();
+      expect(generateBookingModel.bookingPickupsModel).toBeUndefined();
       expect(generateBookingModel.bookingPricingModel).toBeUndefined();
     });
 
@@ -28,7 +28,7 @@ describe("BookingModelBuilder", () => {
       expect(generateBookingModel).toBeInstanceOf(BookingModel);
       expect(generateBookingModel.bookingCartModel).toBeDefined();
       expect(generateBookingModel.bookingContentModel).toBeUndefined();
-      expect(generateBookingModel.bookingPickupModel).toBeUndefined();
+      expect(generateBookingModel.bookingPickupsModel).toBeUndefined();
       expect(generateBookingModel.bookingPricingModel).toBeUndefined();
     });
 
@@ -41,7 +41,7 @@ describe("BookingModelBuilder", () => {
       expect(generateBookingModel).toBeInstanceOf(BookingModel);
       expect(generateBookingModel.bookingCartModel).toBeUndefined();
       expect(generateBookingModel.bookingContentModel).toBeDefined();
-      expect(generateBookingModel.bookingPickupModel).toBeUndefined();
+      expect(generateBookingModel.bookingPickupsModel).toBeUndefined();
       expect(generateBookingModel.bookingPricingModel).toBeUndefined();
     });
 
@@ -54,7 +54,7 @@ describe("BookingModelBuilder", () => {
       expect(generateBookingModel).toBeInstanceOf(BookingModel);
       expect(generateBookingModel.bookingCartModel).toBeUndefined();
       expect(generateBookingModel.bookingContentModel).toBeUndefined();
-      expect(generateBookingModel.bookingPickupModel).toBeDefined();
+      expect(generateBookingModel.bookingPickupsModel).toBeDefined();
       expect(generateBookingModel.bookingPricingModel).toBeUndefined();
     });
 
@@ -67,7 +67,7 @@ describe("BookingModelBuilder", () => {
       expect(generateBookingModel).toBeInstanceOf(BookingModel);
       expect(generateBookingModel.bookingCartModel).toBeUndefined();
       expect(generateBookingModel.bookingContentModel).toBeUndefined();
-      expect(generateBookingModel.bookingPickupModel).toBeUndefined();
+      expect(generateBookingModel.bookingPickupsModel).toBeUndefined();
       expect(generateBookingModel.bookingPricingModel).toBeDefined();
     });
 
@@ -80,7 +80,7 @@ describe("BookingModelBuilder", () => {
       expect(generateBookingModel).toBeInstanceOf(BookingModel);
       expect(generateBookingModel.bookingCartModel).toBeDefined();
       expect(generateBookingModel.bookingContentModel).toBeDefined();
-      expect(generateBookingModel.bookingPickupModel).toBeDefined();
+      expect(generateBookingModel.bookingPickupsModel).toBeDefined();
       expect(generateBookingModel.bookingPricingModel).toBeDefined();
     });
   });

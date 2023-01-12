@@ -1,9 +1,10 @@
-import { AvailabilityCalendar, CapabilityId, PricingPer } from "@octocloud/types";
+import { CapabilityId, PricingPer } from "@octocloud/types";
 import { AvailabilityCalendarModelBuilder } from "../builders/AvailabilityCalendarModelBuilder";
 import { AvailabilityCalendarModel } from "../models/availability/AvailabilityCalendarModel";
+import { PartialAvailabilityCalendar } from "../types/PartialAvailabilityCalendar";
 
 interface AvailabilityCalendarGenerateData {
-  availabilityCalendarData: Partial<AvailabilityCalendar>;
+  availabilityCalendarData: PartialAvailabilityCalendar;
   pricingPer?: PricingPer;
   capabilities?: CapabilityId[];
 }
@@ -11,7 +12,9 @@ interface AvailabilityCalendarGenerateData {
 export class AvailabilityCalendarModelGenerator {
   private readonly availabilityCalendarModelBuilder = new AvailabilityCalendarModelBuilder();
 
-  public generate = (availabilityCalendarGenerateData: AvailabilityCalendarGenerateData): AvailabilityCalendarModel => {
+  public generateAvailabilityCalendar = (
+    availabilityCalendarGenerateData: AvailabilityCalendarGenerateData
+  ): AvailabilityCalendarModel => {
     return this.availabilityCalendarModelBuilder.build({
       availabilityCalendarData: availabilityCalendarGenerateData.availabilityCalendarData,
       pricingPer: availabilityCalendarGenerateData.pricingPer,
@@ -19,11 +22,13 @@ export class AvailabilityCalendarModelGenerator {
     });
   };
 
-  public generateMultiple = (
-    availabilityCalendarsGenerateData: AvailabilityCalendarGenerateData[]
+  public generateMultipleAvailabilityCalendars = (
+    availabilityCalendarsData: PartialAvailabilityCalendar[],
+    pricingPer?: PricingPer,
+    capabilities?: CapabilityId[]
   ): AvailabilityCalendarModel[] => {
-    return availabilityCalendarsGenerateData.map((availabilityCalendarGenerateData) => {
-      return this.generate(availabilityCalendarGenerateData);
+    return availabilityCalendarsData.map((availabilityCalendarData) => {
+      return this.generateAvailabilityCalendar({ availabilityCalendarData, pricingPer, capabilities });
     });
   };
 }

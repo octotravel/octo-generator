@@ -1,4 +1,4 @@
-import { Product } from "@octocloud/types";
+import { CapabilityId, Product } from "@octocloud/types";
 import { OptionParser } from "./OptionParser";
 import { ProductModel } from "../models/product/ProductModel";
 
@@ -96,7 +96,41 @@ export class ProductParser {
   };
 
   public parseModelToPOJO = (productModel: ProductModel): Product => {
-    const product: Product = {
+    const product = this.parseMainModelToPojo(productModel);
+
+    this.parseContentModelToPOJO(product, productModel);
+    this.parsePricingModelToPOJO(product, productModel);
+
+    return product;
+  };
+
+  public parseModelToPOJOWithSpecificCapabilities = (
+    productModel: ProductModel,
+    capabilities: CapabilityId[]
+  ): Product => {
+    const product = this.parseMainModelToPojo(productModel, capabilities);
+
+    if (capabilities?.includes(CapabilityId.Content)) {
+      this.parseContentModelToPOJO(product, productModel);
+    }
+
+    if (capabilities?.includes(CapabilityId.Pricing)) {
+      this.parsePricingModelToPOJO(product, productModel);
+    }
+
+    return product;
+  };
+
+  private parseMainModelToPojo = (productModel: ProductModel, capabilities?: CapabilityId[]): Product => {
+    const options = productModel.optionModels.map((optionModel) => {
+      if (capabilities === undefined) {
+        return this.optionParser.parseModelToPOJO(optionModel);
+      } else {
+        return this.optionParser.parseModelToPOJOWithSpecificCapabilities(optionModel, capabilities);
+      }
+    });
+
+    return {
       id: productModel.id,
       internalName: productModel.internalName,
       reference: productModel.reference,
@@ -110,42 +144,48 @@ export class ProductParser {
       deliveryFormats: productModel.deliveryFormats,
       deliveryMethods: productModel.deliveryMethods,
       redemptionMethod: productModel.redemptionMethod,
-      options: productModel.optionModels.map((optionModel) => this.optionParser.parseModelToPOJO(optionModel)),
+      options: options,
     };
+  };
 
-    if (productModel.productContentModel !== undefined) {
-      const productContentModel = productModel.productContentModel;
-
-      product.title = productContentModel.title;
-      product.country = productContentModel.country;
-      product.location = productContentModel.location;
-      product.subtitle = productContentModel.subtitle;
-      product.shortDescription = productContentModel.shortDescription;
-      product.description = productContentModel.description;
-      product.highlights = productContentModel.highlights;
-      product.inclusions = productContentModel.inclusions;
-      product.exclusions = productContentModel.exclusions;
-      product.bookingTerms = productContentModel.bookingTerms;
-      product.redemptionInstructions = productContentModel.redemptionInstructions;
-      product.cancellationPolicy = productContentModel.cancellationPolicy;
-      product.destination = productContentModel.destination;
-      product.categories = productContentModel.categories;
-      product.faqs = productContentModel.faqs;
-      product.coverImageUrl = productContentModel.coverImageUrl;
-      product.bannerImageUrl = productContentModel.bannerImageUrl;
-      product.videoUrl = productContentModel.videoUrl;
-      product.galleryImages = productContentModel.galleryImages;
-      product.bannerImages = productContentModel.bannerImages;
+  private parseContentModelToPOJO = (product: Product, productModel: ProductModel) => {
+    if (productModel.productContentModel === undefined) {
+      return;
     }
 
-    if (productModel.productPricingModel !== undefined) {
-      const productPricingModel = productModel.productPricingModel;
+    const productContentModel = productModel.productContentModel;
 
-      product.defaultCurrency = productPricingModel.defaultCurrency;
-      product.availableCurrencies = productPricingModel.availableCurrencies;
-      product.pricingPer = productPricingModel.pricingPer;
+    product.title = productContentModel.title;
+    product.country = productContentModel.country;
+    product.location = productContentModel.location;
+    product.subtitle = productContentModel.subtitle;
+    product.shortDescription = productContentModel.shortDescription;
+    product.description = productContentModel.description;
+    product.highlights = productContentModel.highlights;
+    product.inclusions = productContentModel.inclusions;
+    product.exclusions = productContentModel.exclusions;
+    product.bookingTerms = productContentModel.bookingTerms;
+    product.redemptionInstructions = productContentModel.redemptionInstructions;
+    product.cancellationPolicy = productContentModel.cancellationPolicy;
+    product.destination = productContentModel.destination;
+    product.categories = productContentModel.categories;
+    product.faqs = productContentModel.faqs;
+    product.coverImageUrl = productContentModel.coverImageUrl;
+    product.bannerImageUrl = productContentModel.bannerImageUrl;
+    product.videoUrl = productContentModel.videoUrl;
+    product.galleryImages = productContentModel.galleryImages;
+    product.bannerImages = productContentModel.bannerImages;
+  };
+
+  private parsePricingModelToPOJO = (product: Product, productModel: ProductModel) => {
+    if (productModel.productPricingModel === undefined) {
+      return;
     }
 
-    return product;
+    const productPricingModel = productModel.productPricingModel;
+
+    product.defaultCurrency = productPricingModel.defaultCurrency;
+    product.availableCurrencies = productPricingModel.availableCurrencies;
+    product.pricingPer = productPricingModel.pricingPer;
   };
 }

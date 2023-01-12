@@ -2,6 +2,7 @@ import { AvailabilityType, DeliveryFormat, DeliveryMethod, RedemptionMethod } fr
 import { OptionModel } from "../option/OptionModel";
 import { ProductContentModel } from "./ProductContentModel";
 import { ProductPricingModel } from "./ProductPricingModel";
+import { UndefinedModelError } from "../../errors/UndefinedModelError";
 
 export class ProductModel {
   public readonly id: string;
@@ -73,6 +74,28 @@ export class ProductModel {
     this.optionModels = optionModels;
     this.productContentModel = productContentModel;
     this.productPricingModel = productPricingModel;
+  }
+
+  /**
+   * @throws UndefinedModelError
+   */
+  public getProductContentModel(): ProductContentModel {
+    if (this.productContentModel === undefined) {
+      throw UndefinedModelError.create("ProductContentModel", "ProductModel", this.id);
+    }
+
+    return this.productContentModel;
+  }
+
+  /**
+   * @throws UndefinedModelError
+   */
+  public getProductPricingModel(): ProductPricingModel {
+    if (this.productPricingModel === undefined) {
+      throw UndefinedModelError.create("ProductPricingModel", "ProductModel", this.id);
+    }
+
+    return this.productPricingModel;
   }
 
   public findOptionModelByOptionId(optionId: string): Nullable<OptionModel> {

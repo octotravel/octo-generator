@@ -1,5 +1,6 @@
 import { PricingDataProvider } from "./PricingDataProvider";
 import { Restrictions, Unit, UnitType } from "@octocloud/types";
+import { PartialUnit } from "../types/PartialUnit";
 
 export class UnitDataProvider {
   public static commonRestrictions: Restrictions = {
@@ -25,7 +26,7 @@ export class UnitDataProvider {
     pricingFrom: [PricingDataProvider.adultPricing],
   };
 
-  public static childUnit: Partial<Unit> = {
+  public static childUnit: PartialUnit = {
     id: "child",
     type: UnitType.CHILD,
     pricing: [PricingDataProvider.childPricing],

@@ -1,4 +1,5 @@
 import { Restrictions, UnitType } from "@octocloud/types";
+import { UndefinedModelError } from "../../errors/UndefinedModelError";
 import { UnitContentModel } from "./UnitContentModel";
 import { UnitPricingModel } from "./UnitPricingModel";
 
@@ -39,6 +40,28 @@ export class UnitModel {
     this.requiredContactFields = requiredContactFields;
     this.unitContentModel = unitContentModel;
     this.unitPricingModel = unitPricingModel;
+  }
+
+  /**
+   * @throws UndefinedModelError
+   */
+  public getOptionContentModel(): UnitContentModel {
+    if (this.unitContentModel === undefined) {
+      throw UndefinedModelError.create("UnitContentModel", "UnitModel", this.id);
+    }
+
+    return this.unitContentModel;
+  }
+
+  /**
+   * @throws UndefinedModelError
+   */
+  public getUnitPricingModel(): UnitPricingModel {
+    if (this.unitPricingModel === undefined) {
+      throw UndefinedModelError.create("UnitPricingModel", "UnitModel", this.id);
+    }
+
+    return this.unitPricingModel;
   }
 
   public isOnBooking(): boolean {

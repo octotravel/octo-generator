@@ -14,7 +14,7 @@ describe("UnitModelGenerator", () => {
 
   describe("generate and validate unit model", () => {
     it("should generate valid unit model", async () => {
-      const unitModel = unitModelGenerator.generate({
+      const unitModel = unitModelGenerator.generateUnit({
         unitData: {
           id: "id",
           type: UnitType.ADULT,
@@ -28,7 +28,7 @@ describe("UnitModelGenerator", () => {
     });
 
     it("should generate invalid unit model", async () => {
-      const unitModel = unitModelGenerator.generate({
+      const unitModel = unitModelGenerator.generateUnit({
         unitData: {
           id: "",
           type: UnitType.ADULT,

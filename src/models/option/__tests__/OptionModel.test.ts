@@ -6,7 +6,7 @@ describe("OptionModel", () => {
 
   describe("findUnitModelByUnitId", () => {
     it("should return unit model", async () => {
-      const optionModel = optionModelGenerator.generate({
+      const optionModel = optionModelGenerator.generateOption({
         optionData: {
           restrictions: {
             minUnits: 0,
@@ -20,7 +20,7 @@ describe("OptionModel", () => {
     });
 
     it("should return null", async () => {
-      const optionModel = optionModelGenerator.generate({
+      const optionModel = optionModelGenerator.generateOption({
         optionData: {
           restrictions: {
             minUnits: 0,

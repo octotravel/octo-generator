@@ -13,9 +13,9 @@ describe("AvailabilityCalendarModelGenerator", () => {
     availabilityType: AvailabilityType.START_TIME,
   });
 
-  describe("generate and validate availability model", () => {
-    it("should generate valid availability model", async () => {
-      const availabilityCalendarModel = availabilityCalendarModelGenerator.generate({
+  describe("generate and validate availability calendar model", () => {
+    it("should generate valid availability calendar model", async () => {
+      const availabilityCalendarModel = availabilityCalendarModelGenerator.generateAvailabilityCalendar({
         availabilityCalendarData: {
           localDate: "2022-12-11",
         },
@@ -27,8 +27,8 @@ describe("AvailabilityCalendarModelGenerator", () => {
       expect(validationErrors).toStrictEqual([]);
     });
 
-    it("should generate invalid availability model", async () => {
-      const availabilityCalendarModel = availabilityCalendarModelGenerator.generate({
+    it("should generate invalid availability calendar model", async () => {
+      const availabilityCalendarModel = availabilityCalendarModelGenerator.generateAvailabilityCalendar({
         availabilityCalendarData: {
           localDate: "",
         },

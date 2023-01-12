@@ -5,7 +5,6 @@ import {
   DeliveryFormat,
   DeliveryMethod,
   PricingPer,
-  Product,
   RedemptionMethod,
 } from "@octocloud/types";
 import { OptionModel } from "../models/option/OptionModel";
@@ -15,19 +14,23 @@ import { TimeZoneDataProvider } from "../dataProviders/TimeZoneDataProvider";
 import { LocaleDataProvider } from "../dataProviders/LocaleDataProvider";
 import { ProductContentModel } from "../models/product/ProductContentModel";
 import { ProductPricingModel } from "../models/product/ProductPricingModel";
+import { PartialProduct } from "../types/PartialProduct";
 
 interface ProductModelBuilderData {
-  productData: Partial<Product>;
+  productData: PartialProduct;
   capabilities?: CapabilityId[];
+  sourceModel?: object;
 }
 
 const defaultCapabilities: CapabilityId[] = [CapabilityId.Content, CapabilityId.Pricing, CapabilityId.Pickups];
+const defaultSourceModel: object = ProductModel;
 
 export class ProductModelBuilder {
-  private optionModelBuilder = new OptionModelBuilder();
+  private readonly optionModelBuilder = new OptionModelBuilder();
 
   public build(builderData: ProductModelBuilderData): ProductModel {
     builderData.capabilities ??= defaultCapabilities;
+    builderData.sourceModel ??= defaultSourceModel;
 
     const productData = builderData.productData;
 
@@ -58,7 +61,7 @@ export class ProductModelBuilder {
           optionData: {},
           pricingPer: builderData.productData.pricingPer,
           capabilities: builderData.capabilities,
-          sourceModel: ProductModel,
+          sourceModel: builderData.sourceModel,
         }),
       ];
     }
@@ -70,7 +73,7 @@ export class ProductModelBuilder {
         optionData: optionData,
         pricingPer: builderData.productData.pricingPer,
         capabilities: builderData.capabilities,
-        sourceModel: ProductModel,
+        sourceModel: builderData.sourceModel,
       });
     }, builderData);
   }

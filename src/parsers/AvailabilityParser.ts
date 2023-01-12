@@ -1,7 +1,7 @@
-import { Availability } from "@octocloud/types";
+import { Availability, CapabilityId } from "@octocloud/types";
 import { AvailabilityModel } from "../models/availability/AvailabilityModel";
 import { AvailabilityContentModel } from "../models/availability/AvailabilityContentModel";
-import { AvailabilityPickupModel } from "../models/availability/AvailabilityPickupModel";
+import { AvailabilityPickupsModel } from "../models/availability/AvailabilityPickupsModel";
 import { AvailabilityPricingModel } from "../models/availability/AvailabilityPricingModel";
 
 export class AvailabilityParser {
@@ -19,7 +19,7 @@ export class AvailabilityParser {
       utcCutoffAt: availability.utcCutoffAt,
       openingHours: availability.openingHours,
       availabilityContentModel: this.parseContentPOJOToModel(availability),
-      availabilityPickupModel: this.parsePickupPOJOToModel(availability),
+      availabilityPickupsModel: this.parsePickupPOJOToModel(availability),
       availabilityPricingModel: this.parsePricingPOJOToModel(availability),
     });
   };
@@ -44,7 +44,7 @@ export class AvailabilityParser {
     });
   };
 
-  private parsePickupPOJOToModel = (availability: Availability): AvailabilityPickupModel | undefined => {
+  private parsePickupPOJOToModel = (availability: Availability): AvailabilityPickupsModel | undefined => {
     if (
       availability.pickupRequired === undefined ||
       availability.pickupAvailable === undefined ||
@@ -53,7 +53,7 @@ export class AvailabilityParser {
       return undefined;
     }
 
-    return new AvailabilityPickupModel({
+    return new AvailabilityPickupsModel({
       pickupRequired: availability.pickupRequired,
       pickupAvailable: availability.pickupAvailable,
       pickupPoints: availability.pickupPoints,
@@ -72,7 +72,38 @@ export class AvailabilityParser {
   };
 
   public parseModelToPOJO = (availabilityModel: AvailabilityModel): Availability => {
-    const availability: Availability = {
+    const availability = this.parseMainModelToPojo(availabilityModel);
+
+    this.parseContentModelToPOJO(availability, availabilityModel);
+    this.parsePickupsModelToPOJO(availability, availabilityModel);
+    this.parsePricingModelToPOJO(availability, availabilityModel);
+
+    return availability;
+  };
+
+  public parseModelToPOJOWithSpecificCapabilities = (
+    availabilityModel: AvailabilityModel,
+    capabilities: CapabilityId[]
+  ): Availability => {
+    const availability = this.parseMainModelToPojo(availabilityModel);
+
+    if (capabilities.includes(CapabilityId.Content)) {
+      this.parseContentModelToPOJO(availability, availabilityModel);
+    }
+
+    if (capabilities.includes(CapabilityId.Pickups)) {
+      this.parsePickupsModelToPOJO(availability, availabilityModel);
+    }
+
+    if (capabilities.includes(CapabilityId.Pricing)) {
+      this.parsePricingModelToPOJO(availability, availabilityModel);
+    }
+
+    return availability;
+  };
+
+  private parseMainModelToPojo = (availabilityModel: AvailabilityModel): Availability => {
+    return {
       id: availabilityModel.id,
       localDateTimeStart: availabilityModel.localDateTimeStart,
       localDateTimeEnd: availabilityModel.localDateTimeEnd,
@@ -85,32 +116,42 @@ export class AvailabilityParser {
       utcCutoffAt: availabilityModel.utcCutoffAt,
       openingHours: availabilityModel.openingHours,
     };
+  };
 
-    if (availabilityModel.availabilityContentModel !== undefined) {
-      const availabilityContentModel = availabilityModel.availabilityContentModel;
-
-      availability.meetingPoint = availabilityContentModel.meetingPoint;
-      availability.meetingPointCoordinates = availabilityContentModel.meetingPointCoordinates;
-      availability.meetingPointLatitude = availabilityContentModel.meetingPointLatitude;
-      availability.meetingPointLongitude = availabilityContentModel.meetingPointLongitude;
-      availability.meetingLocalDateTime = availabilityContentModel.meetingLocalDateTime;
+  private parseContentModelToPOJO = (availability: Availability, availabilityModel: AvailabilityModel) => {
+    if (availabilityModel.availabilityContentModel === undefined) {
+      return;
     }
 
-    if (availabilityModel.availabilityPickupModel !== undefined) {
-      const availabilityPickupModel = availabilityModel.availabilityPickupModel;
+    const availabilityContentModel = availabilityModel.availabilityContentModel;
 
-      availability.pickupRequired = availabilityPickupModel.pickupRequired;
-      availability.pickupAvailable = availabilityPickupModel.pickupAvailable;
-      availability.pickupPoints = availabilityPickupModel.pickupPoints;
+    availability.meetingPoint = availabilityContentModel.meetingPoint;
+    availability.meetingPointCoordinates = availabilityContentModel.meetingPointCoordinates;
+    availability.meetingPointLatitude = availabilityContentModel.meetingPointLatitude;
+    availability.meetingPointLongitude = availabilityContentModel.meetingPointLongitude;
+    availability.meetingLocalDateTime = availabilityContentModel.meetingLocalDateTime;
+  };
+
+  private parsePickupsModelToPOJO = (availability: Availability, availabilityModel: AvailabilityModel) => {
+    if (availabilityModel.availabilityPickupsModel === undefined) {
+      return;
     }
 
-    if (availabilityModel.availabilityPricingModel !== undefined) {
-      const availabilityPricingModel = availabilityModel.availabilityPricingModel;
+    const availabilityPickupsModel = availabilityModel.availabilityPickupsModel;
 
-      availability.unitPricing = availabilityPricingModel.unitPricing;
-      availability.pricing = availabilityPricingModel.pricing;
+    availability.pickupRequired = availabilityPickupsModel.pickupRequired;
+    availability.pickupAvailable = availabilityPickupsModel.pickupAvailable;
+    availability.pickupPoints = availabilityPickupsModel.pickupPoints;
+  };
+
+  private parsePricingModelToPOJO = (availability: Availability, availabilityModel: AvailabilityModel) => {
+    if (availabilityModel.availabilityPricingModel === undefined) {
+      return;
     }
 
-    return availability;
+    const availabilityPricingModel = availabilityModel.availabilityPricingModel;
+
+    availability.unitPricing = availabilityPricingModel.unitPricing;
+    availability.pricing = availabilityPricingModel.pricing;
   };
 }

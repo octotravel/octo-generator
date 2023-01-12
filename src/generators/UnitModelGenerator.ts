@@ -1,10 +1,11 @@
 import { UnitModel } from "../models/unit/UnitModel";
 import { UnitModelBuilder } from "../builders/UnitModelBuilder";
-import { CapabilityId, PricingPer, Unit } from "@octocloud/types";
+import { CapabilityId, PricingPer } from "@octocloud/types";
 import { UnitDataProvider } from "../dataProviders/UnitDataProvider";
+import { PartialUnit } from "../types/PartialUnit";
 
 interface UnitGenerateData {
-  unitData: Partial<Unit>;
+  unitData: PartialUnit;
   pricingPer?: PricingPer;
   capabilities?: CapabilityId[];
 }
@@ -12,7 +13,7 @@ interface UnitGenerateData {
 export class UnitModelGenerator {
   private readonly unitModelBuilder = new UnitModelBuilder();
 
-  public generate = (unitGenerateData: UnitGenerateData): UnitModel => {
+  public generateUnit = (unitGenerateData: UnitGenerateData): UnitModel => {
     return this.unitModelBuilder.build({
       unitData: unitGenerateData.unitData,
       pricingPer: unitGenerateData.pricingPer,
@@ -20,22 +21,28 @@ export class UnitModelGenerator {
     });
   };
 
-  public generateMultiple = (unitGenerateData: UnitGenerateData[]): UnitModel[] => {
-    return unitGenerateData.map((unitGenerateData) => {
+  public generateMultipleUnits = (
+    unitsData: PartialUnit[],
+    pricingPer?: PricingPer,
+    capabilities?: CapabilityId[]
+  ): UnitModel[] => {
+    return unitsData.map((unitData) => {
       return this.unitModelBuilder.build({
-        unitData: unitGenerateData.unitData,
+        unitData,
+        pricingPer,
+        capabilities,
       });
     });
   };
 
   public generateForAdultType = (): UnitModel => {
-    return this.generate({
+    return this.generateUnit({
       unitData: UnitDataProvider.adultUnit,
     });
   };
 
   public generateForChildType = (): UnitModel => {
-    return this.generate({
+    return this.generateUnit({
       unitData: UnitDataProvider.childUnit,
     });
   };

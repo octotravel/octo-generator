@@ -1,4 +1,4 @@
-import { AvailabilityCalendar } from "@octocloud/types";
+import { AvailabilityCalendar, CapabilityId } from "@octocloud/types";
 import { AvailabilityCalendarModel } from "../models/availability/AvailabilityCalendarModel";
 import { AvailabilityCalendarPricingModel } from "../models/availability/AvailabilityCalendarPricingModel";
 
@@ -29,7 +29,28 @@ export class AvailabilityCalendarParser {
   };
 
   public parseModelToPOJO = (availabilityCalendarModel: AvailabilityCalendarModel): AvailabilityCalendar => {
-    const availabilityCalendar: AvailabilityCalendar = {
+    const availabilityCalendar = this.parseMainModelToPojo(availabilityCalendarModel);
+
+    this.parsePricingModelToPOJO(availabilityCalendar, availabilityCalendarModel);
+
+    return availabilityCalendar;
+  };
+
+  public parseModelToPOJOWithSpecificCapabilities = (
+    availabilityCalendarModel: AvailabilityCalendarModel,
+    capabilities: CapabilityId[]
+  ): AvailabilityCalendar => {
+    const availabilityCalendar = this.parseMainModelToPojo(availabilityCalendarModel);
+
+    if (capabilities.includes(CapabilityId.Pricing)) {
+      this.parsePricingModelToPOJO(availabilityCalendar, availabilityCalendarModel);
+    }
+
+    return availabilityCalendar;
+  };
+
+  private parseMainModelToPojo = (availabilityCalendarModel: AvailabilityCalendarModel): AvailabilityCalendar => {
+    return {
       localDate: availabilityCalendarModel.localDate,
       available: availabilityCalendarModel.available,
       status: availabilityCalendarModel.status,
@@ -37,14 +58,19 @@ export class AvailabilityCalendarParser {
       capacity: availabilityCalendarModel.capacity,
       openingHours: availabilityCalendarModel.openingHours,
     };
+  };
 
-    if (availabilityCalendarModel.availabilityCalendarPricingModel !== undefined) {
-      const availabilityCalendarPricingModel = availabilityCalendarModel.availabilityCalendarPricingModel;
-
-      availabilityCalendar.unitPricingFrom = availabilityCalendarPricingModel.unitPricingFrom;
-      availabilityCalendar.pricingFrom = availabilityCalendarPricingModel.pricingFrom;
+  private parsePricingModelToPOJO = (
+    availabilityCalendar: AvailabilityCalendar,
+    availabilityCalendarModel: AvailabilityCalendarModel
+  ) => {
+    if (availabilityCalendarModel.availabilityCalendarPricingModel === undefined) {
+      return;
     }
 
-    return availabilityCalendar;
+    const availabilityCalendarPricingModel = availabilityCalendarModel.availabilityCalendarPricingModel;
+
+    availabilityCalendar.unitPricingFrom = availabilityCalendarPricingModel.unitPricingFrom;
+    availabilityCalendar.pricingFrom = availabilityCalendarPricingModel.pricingFrom;
   };
 }

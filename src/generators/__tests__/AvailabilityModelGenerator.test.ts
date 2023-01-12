@@ -14,7 +14,7 @@ describe("AvailabilityModelGenerator", () => {
 
   describe("generate and validate availability model", () => {
     it("should generate valid availability model", async () => {
-      const availabilityModel = availabilityModelGenerator.generate({
+      const availabilityModel = availabilityModelGenerator.generateAvailability({
         availabilityData: {
           id: "2023-12-01T00:00:00+01:00",
         },
@@ -27,7 +27,7 @@ describe("AvailabilityModelGenerator", () => {
     });
 
     it("should generate invalid availability model", async () => {
-      const availabilityModel = availabilityModelGenerator.generate({
+      const availabilityModel = availabilityModelGenerator.generateAvailability({
         availabilityData: {
           id: "",
         },

@@ -14,7 +14,7 @@ describe("OptionModelGenerator", () => {
 
   describe("generate and validate option model", () => {
     it("should generate valid option model", async () => {
-      const optionModel = optionModelGenerator.generate({
+      const optionModel = optionModelGenerator.generateOption({
         optionData: {
           restrictions: {
             minUnits: 0,
@@ -31,7 +31,7 @@ describe("OptionModelGenerator", () => {
     });
 
     it("should generate invalid option model", async () => {
-      const optionModel = optionModelGenerator.generate({
+      const optionModel = optionModelGenerator.generateOption({
         optionData: {
           id: "",
           restrictions: {

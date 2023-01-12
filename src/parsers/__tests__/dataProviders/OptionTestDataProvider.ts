@@ -4,7 +4,7 @@ import { PricingDataProvider } from "../../../dataProviders/PricingDataProvider"
 import { OptionModel } from "../../../models/option/OptionModel";
 import { UnitModel } from "../../../models/unit/UnitModel";
 import { OptionContentModel } from "../../../models/option/OptionContentModel";
-import { OptionPickupModel } from "../../../models/option/OptionPickupModel";
+import { OptionPickupsModel } from "../../../models/option/./OptionPickupsModel";
 import { OptionPricingModel } from "../../../models/option/OptionPricingModel";
 
 export class OptionTestDataProvider {
@@ -32,6 +32,8 @@ export class OptionTestDataProvider {
         requiredContactFields: [],
       },
     ],
+  };
+  public static optionContent = {
     title: "title",
     subtitle: "subtitle",
     language: "language",
@@ -40,43 +42,53 @@ export class OptionTestDataProvider {
     durationAmount: "durationAmount",
     durationUnit: DurationUnit.HOUR,
     itinerary: null,
+  };
+  public static optionPickups = {
     pickupRequired: false,
     pickupAvailable: false,
     pickupPoints: [],
+  };
+  public static optionPricing = {
     pricing: [PricingDataProvider.adultPricing],
     pricingFrom: undefined,
   };
+  public static optionPOJO = {
+    ...this.option,
+    ...this.optionContent,
+    ...this.optionPickups,
+    ...this.optionPricing,
+  };
 
   public static optionModel = new OptionModel({
-    id: this.option.id,
-    isDefault: this.option.default,
-    internalName: this.option.internalName,
-    reference: this.option.reference,
-    availabilityLocalStartTimes: this.option.availabilityLocalStartTimes,
-    cancellationCutoff: this.option.cancellationCutoff,
-    cancellationCutoffAmount: this.option.cancellationCutoffAmount,
-    cancellationCutoffUnit: this.option.cancellationCutoffUnit,
-    requiredContactFields: this.option.requiredContactFields,
-    restrictions: this.option.restrictions,
-    unitModels: this.option.units.map((unit) => new UnitModel(unit)),
+    id: this.optionPOJO.id,
+    isDefault: this.optionPOJO.default,
+    internalName: this.optionPOJO.internalName,
+    reference: this.optionPOJO.reference,
+    availabilityLocalStartTimes: this.optionPOJO.availabilityLocalStartTimes,
+    cancellationCutoff: this.optionPOJO.cancellationCutoff,
+    cancellationCutoffAmount: this.optionPOJO.cancellationCutoffAmount,
+    cancellationCutoffUnit: this.optionPOJO.cancellationCutoffUnit,
+    requiredContactFields: this.optionPOJO.requiredContactFields,
+    restrictions: this.optionPOJO.restrictions,
+    unitModels: this.optionPOJO.units.map((unit) => new UnitModel(unit)),
     optionContentModel: new OptionContentModel({
-      title: this.option.title,
-      subtitle: this.option.subtitle,
-      language: this.option.language,
-      shortDescription: this.option.shortDescription,
-      duration: this.option.duration,
-      durationAmount: this.option.durationAmount,
-      durationUnit: this.option.durationUnit,
-      itinerary: this.option.itinerary,
+      title: this.optionPOJO.title,
+      subtitle: this.optionPOJO.subtitle,
+      language: this.optionPOJO.language,
+      shortDescription: this.optionPOJO.shortDescription,
+      duration: this.optionPOJO.duration,
+      durationAmount: this.optionPOJO.durationAmount,
+      durationUnit: this.optionPOJO.durationUnit,
+      itinerary: this.optionPOJO.itinerary,
     }),
-    optionPickupModel: new OptionPickupModel({
-      pickupRequired: this.option.pickupRequired,
-      pickupAvailable: this.option.pickupAvailable,
-      pickupPoints: this.option.pickupPoints,
+    optionPickupsModel: new OptionPickupsModel({
+      pickupRequired: this.optionPOJO.pickupRequired,
+      pickupAvailable: this.optionPOJO.pickupAvailable,
+      pickupPoints: this.optionPOJO.pickupPoints,
     }),
     optionPricingModel: new OptionPricingModel({
-      pricing: this.option.pricing,
-      pricingFrom: this.option.pricingFrom,
+      pricing: this.optionPOJO.pricing,
+      pricingFrom: this.optionPOJO.pricingFrom,
     }),
   });
 }
