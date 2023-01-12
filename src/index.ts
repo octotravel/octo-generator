@@ -39,3 +39,17 @@ export * from "./parsers/ProductParser";
 export * from "./parsers/UnitItemParser";
 
 export * from "./parsers/UnitParser";
+
+export * from "./types/PartialAvailability";
+
+export * from "./types/PartialAvailabilityCalendar";
+
+export * from "./types/PartialBooking";
+
+export * from "./types/PartialOption";
+
+export * from "./types/PartialProduct";
+
+export * from "./types/PartialUnit";
+
+export * from "./types/PartialUnitItem";
