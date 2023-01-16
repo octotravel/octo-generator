@@ -5,7 +5,7 @@ import {
   DeliveryFormat,
   DeliveryMethod,
   PricingPer,
-  RedemptionMethod,
+  RedemptionMethod
 } from "@octocloud/types";
 import { OptionModel } from "../models/option/OptionModel";
 import { OptionModelBuilder } from "./OptionModelBuilder";
@@ -46,11 +46,11 @@ export class ProductModelBuilder {
       availabilityRequired: productData.availabilityRequired ?? true,
       availabilityType: productData.availabilityType ?? AvailabilityType.START_TIME,
       deliveryFormats: productData.deliveryFormats ?? [DeliveryFormat.PDF_URL, DeliveryFormat.QRCODE],
-      deliveryMethods: productData.deliveryMethods ?? [DeliveryMethod.TICKET],
+      deliveryMethods: productData.deliveryMethods ?? [DeliveryMethod.TICKET, DeliveryMethod.VOUCHER],
       redemptionMethod: productData.redemptionMethod ?? RedemptionMethod.DIGITAL,
       optionModels: this.buildOptionModels(builderData),
       productContentModel: this.buildContentModel(builderData),
-      productPricingModel: this.buildPricingModel(builderData),
+      productPricingModel: this.buildPricingModel(builderData)
     });
   }
 
@@ -61,8 +61,8 @@ export class ProductModelBuilder {
           optionData: {},
           pricingPer: builderData.productData.pricingPer,
           capabilities: builderData.capabilities,
-          sourceModel: builderData.sourceModel,
-        }),
+          sourceModel: builderData.sourceModel
+        })
       ];
     }
 
@@ -73,7 +73,7 @@ export class ProductModelBuilder {
         optionData: optionData,
         pricingPer: builderData.productData.pricingPer,
         capabilities: builderData.capabilities,
-        sourceModel: builderData.sourceModel,
+        sourceModel: builderData.sourceModel
       });
     }, builderData);
   }
@@ -93,10 +93,10 @@ export class ProductModelBuilder {
         website: null,
         email: null,
         telephone: null,
-        address: null,
+        address: null
       },
       latitude: 0.0,
-      longitude: 0.0,
+      longitude: 0.0
     };
 
     return new ProductContentModel({
@@ -119,7 +119,7 @@ export class ProductModelBuilder {
       bannerImageUrl: productData.bannerImageUrl ?? null,
       videoUrl: productData.videoUrl ?? null,
       galleryImages: productData.galleryImages ?? [],
-      bannerImages: productData.bannerImages ?? [],
+      bannerImages: productData.bannerImages ?? []
     });
   }
 
@@ -133,7 +133,7 @@ export class ProductModelBuilder {
     return new ProductPricingModel({
       defaultCurrency: productData.defaultCurrency ?? Currency.EUR,
       availableCurrencies: productData.availableCurrencies ?? [Currency.EUR],
-      pricingPer: productData.pricingPer ?? PricingPer.UNIT,
+      pricingPer: productData.pricingPer ?? PricingPer.UNIT
     });
   }
 }
