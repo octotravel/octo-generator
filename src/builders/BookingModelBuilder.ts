@@ -19,7 +19,7 @@ const defaultCapabilities: CapabilityId[] = [
   CapabilityId.Cart,
   CapabilityId.Content,
   CapabilityId.Pickups,
-  CapabilityId.Pricing
+  CapabilityId.Pricing,
 ];
 
 export class BookingModelBuilder {
@@ -34,19 +34,19 @@ export class BookingModelBuilder {
     const productModel = this.productModelBuilder.build({
       productData: bookingData.product ?? {},
       capabilities: builderData.capabilities,
-      sourceModel: BookingModel
+      sourceModel: BookingModel,
     });
     const optionModel = this.optionModelBuilder.build({
       optionData: bookingData.option ?? {},
       capabilities: builderData.capabilities,
-      sourceModel: BookingModel
+      sourceModel: BookingModel,
     });
     const availability = bookingData.availability ?? {
       id: "2023-01-03T09:15:00+01:00",
       localDateTimeStart: "2023-01-03T09:15:00+01:00",
       localDateTimeEnd: "2023-01-03T09:39:00+01:00",
       allDay: false,
-      openingHours: []
+      openingHours: [],
     };
 
     return new BookingModel({
@@ -63,7 +63,7 @@ export class BookingModelBuilder {
       utcConfirmedAt: bookingData.utcConfirmedAt ?? "2022-11-28T08:43:38Z",
       productModel: productModel,
       optionModel: optionModel,
-      cancellable: bookingData.cancellable ?? false,
+      cancellable: bookingData.cancellable ?? true,
       cancellation: bookingData.cancellation ?? null,
       freesale: bookingData.freesale ?? false,
       availability: availability,
@@ -76,7 +76,7 @@ export class BookingModelBuilder {
         locales: [],
         postalCode: null,
         country: null,
-        notes: null
+        notes: null,
       },
       notes: bookingData.notes ?? null,
       deliveryMethods: bookingData.deliveryMethods ?? [DeliveryMethod.TICKET],
@@ -85,7 +85,7 @@ export class BookingModelBuilder {
       bookingCartModel: this.buildCartModel(builderData),
       bookingContentModel: this.buildContentModel(builderData),
       bookingPickupsModel: this.buildPickupModel(builderData),
-      bookingPricingModel: this.buildPricingModel(builderData)
+      bookingPricingModel: this.buildPricingModel(builderData),
     });
   }
 
@@ -95,8 +95,8 @@ export class BookingModelBuilder {
         this.unitItemModelBuilder.build({
           unitItemData: {},
           capabilities: builderData.capabilities,
-          sourceModel: BookingModel
-        })
+          sourceModel: BookingModel,
+        }),
       ];
     }
 
@@ -104,7 +104,7 @@ export class BookingModelBuilder {
       return this.unitItemModelBuilder.build({
         unitItemData: unitItem,
         capabilities: builderData.capabilities,
-        sourceModel: BookingModel
+        sourceModel: BookingModel,
       });
     }, builderData);
   }
@@ -119,7 +119,7 @@ export class BookingModelBuilder {
     return new BookingCartModel({
       orderId: bookingData.orderId ?? "orderId",
       orderReference: bookingData.orderReference ?? "orderReference",
-      primary: bookingData.primary ?? false
+      primary: bookingData.primary ?? false,
     });
   }
 
@@ -136,7 +136,7 @@ export class BookingModelBuilder {
       meetingLocalDateTime: bookingData.meetingLocalDateTime ?? null,
       duration: bookingData.duration ?? "duration",
       durationAmount: bookingData.duration ?? "durationAmount",
-      durationUnit: bookingData.duration ?? DurationUnit.HOUR
+      durationUnit: bookingData.duration ?? DurationUnit.HOUR,
     });
   }
 
@@ -152,7 +152,7 @@ export class BookingModelBuilder {
       pickupPointId: bookingData.pickupPointId ?? "pickupPointId",
       pickupHotel: bookingData.pickupHotel ?? null,
       pickupHotelRoom: bookingData.pickupHotelRoom ?? null,
-      pickupPoint: bookingData.pickupPoint ?? null
+      pickupPoint: bookingData.pickupPoint ?? null,
     });
   }
 
@@ -170,8 +170,8 @@ export class BookingModelBuilder {
         net: null,
         currency: Currency.EUR,
         currencyPrecision: 0,
-        includedTaxes: []
-      }
+        includedTaxes: [],
+      },
     });
   }
 }
