@@ -9,6 +9,7 @@ import { BookingPricingModel } from "../models/booking/BookingPricingModel";
 import { PartialBooking } from "../types/PartialBooking";
 import { UnitItemModel } from "../models/unitItem/UnitItemModel";
 import { UnitItemModelBuilder } from "./UnitItemModelBuilder";
+import { DeliveryMethodsDataProvider } from "../dataProviders/DeliveryMethodDataProvider";
 
 interface BookingModelBuilderData {
   bookingData: PartialBooking;
@@ -79,7 +80,7 @@ export class BookingModelBuilder {
         notes: null,
       },
       notes: bookingData.notes ?? null,
-      deliveryMethods: bookingData.deliveryMethods ?? [DeliveryMethod.TICKET],
+      deliveryMethods: bookingData.deliveryMethods ?? DeliveryMethodsDataProvider.defaultDeliveryMethods,
       voucher: bookingData.voucher ?? null,
       unitItemModels: this.buildUnitItemModels(builderData),
       bookingCartModel: this.buildCartModel(builderData),

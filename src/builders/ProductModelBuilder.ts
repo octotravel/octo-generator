@@ -15,6 +15,7 @@ import { LocaleDataProvider } from "../dataProviders/LocaleDataProvider";
 import { ProductContentModel } from "../models/product/ProductContentModel";
 import { ProductPricingModel } from "../models/product/ProductPricingModel";
 import { PartialProduct } from "../types/PartialProduct";
+import { DeliveryMethodsDataProvider } from "../dataProviders/DeliveryMethodDataProvider";
 
 interface ProductModelBuilderData {
   productData: PartialProduct;
@@ -46,7 +47,7 @@ export class ProductModelBuilder {
       availabilityRequired: productData.availabilityRequired ?? true,
       availabilityType: productData.availabilityType ?? AvailabilityType.START_TIME,
       deliveryFormats: productData.deliveryFormats ?? [DeliveryFormat.PDF_URL, DeliveryFormat.QRCODE],
-      deliveryMethods: productData.deliveryMethods ?? [DeliveryMethod.TICKET, DeliveryMethod.VOUCHER],
+      deliveryMethods: productData.deliveryMethods ?? DeliveryMethodsDataProvider.defaultDeliveryMethods,
       redemptionMethod: productData.redemptionMethod ?? RedemptionMethod.DIGITAL,
       optionModels: this.buildOptionModels(builderData),
       productContentModel: this.buildContentModel(builderData),
