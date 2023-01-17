@@ -1,6 +1,7 @@
 import { CapabilityId } from "@octocloud/types";
 import { BookingModelBuilder } from "../BookingModelBuilder";
 import { BookingModel } from "../../models/booking/BookingModel";
+import { AvailabilityDataProvider } from "../../dataProviders/AvailabilityDataProvider";
 
 describe("BookingModelBuilder", () => {
   const bookingModelBuilder = new BookingModelBuilder();
@@ -8,7 +9,9 @@ describe("BookingModelBuilder", () => {
   describe("build", () => {
     it("should build booking model without any capabilities", async () => {
       const generateBookingModel = bookingModelBuilder.build({
-        bookingData: {},
+        bookingData: {
+          availability: AvailabilityDataProvider.availability,
+        },
         capabilities: [],
       });
 
@@ -21,7 +24,9 @@ describe("BookingModelBuilder", () => {
 
     it("should build booking model with cart capability", async () => {
       const generateBookingModel = bookingModelBuilder.build({
-        bookingData: {},
+        bookingData: {
+          availability: AvailabilityDataProvider.availability,
+        },
         capabilities: [CapabilityId.Cart],
       });
 
@@ -34,7 +39,9 @@ describe("BookingModelBuilder", () => {
 
     it("should build booking model with content capability", async () => {
       const generateBookingModel = bookingModelBuilder.build({
-        bookingData: {},
+        bookingData: {
+          availability: AvailabilityDataProvider.availability,
+        },
         capabilities: [CapabilityId.Content],
       });
 
@@ -47,7 +54,9 @@ describe("BookingModelBuilder", () => {
 
     it("should build booking model with pickups capability", async () => {
       const generateBookingModel = bookingModelBuilder.build({
-        bookingData: {},
+        bookingData: {
+          availability: AvailabilityDataProvider.availability,
+        },
         capabilities: [CapabilityId.Pickups],
       });
 
@@ -60,7 +69,9 @@ describe("BookingModelBuilder", () => {
 
     it("should build booking model with pricing capability", async () => {
       const generateBookingModel = bookingModelBuilder.build({
-        bookingData: {},
+        bookingData: {
+          availability: AvailabilityDataProvider.availability,
+        },
         capabilities: [CapabilityId.Pricing],
       });
 
@@ -73,7 +84,9 @@ describe("BookingModelBuilder", () => {
 
     it("should build booking model with all capabilities", async () => {
       const generateBookingModel = bookingModelBuilder.build({
-        bookingData: {},
+        bookingData: {
+          availability: AvailabilityDataProvider.availability,
+        },
         capabilities: [CapabilityId.Cart, CapabilityId.Content, CapabilityId.Pickups, CapabilityId.Pricing],
       });
 

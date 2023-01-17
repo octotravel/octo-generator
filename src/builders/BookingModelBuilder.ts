@@ -49,13 +49,7 @@ export class BookingModelBuilder {
       capabilities: builderData.capabilities,
       sourceModel: BookingModel,
     });
-    const availability = bookingData.availability ?? {
-      id: "2023-01-03T09:15:00+01:00",
-      localDateTimeStart: "2023-01-03T09:15:00+01:00",
-      localDateTimeEnd: "2023-01-03T09:39:00+01:00",
-      allDay: false,
-      openingHours: [],
-    };
+    const availability = bookingData.availability ?? null;
     const deliveryMethods = bookingData.deliveryMethods ?? DeliveryMethodsDataProvider.defaultDeliveryMethods;
     let voucher = bookingData.voucher ?? null;
 
