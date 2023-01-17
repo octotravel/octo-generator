@@ -57,9 +57,9 @@ export class BookingModelBuilder {
       openingHours: [],
     };
     const deliveryMethods = bookingData.deliveryMethods ?? DeliveryMethodsDataProvider.defaultDeliveryMethods;
-    let voucher = bookingData.voucher;
+    let voucher = bookingData.voucher ?? null;
 
-    if (voucher === undefined && deliveryMethods.includes(DeliveryMethod.VOUCHER)) {
+    if ((voucher === undefined || voucher === null) && deliveryMethods.includes(DeliveryMethod.VOUCHER)) {
       voucher = {
         redemptionMethod: RedemptionMethod.DIGITAL,
         utcRedeemedAt: null,
