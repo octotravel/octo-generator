@@ -3,7 +3,6 @@ import {
   CapabilityId,
   Currency,
   DeliveryFormat,
-  DeliveryMethod,
   PricingPer,
   RedemptionMethod,
 } from "@octocloud/types";

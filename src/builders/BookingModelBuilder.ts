@@ -1,4 +1,4 @@
-import { BookingStatus, CapabilityId, Currency, DeliveryMethod, DurationUnit } from "@octocloud/types";
+import { BookingStatus, CapabilityId, Currency, DurationUnit } from "@octocloud/types";
 import { BookingModel } from "../models/booking/BookingModel";
 import { BookingCartModel } from "../models/booking/BookingCartModel";
 import { ProductModelBuilder } from "./ProductModelBuilder";
