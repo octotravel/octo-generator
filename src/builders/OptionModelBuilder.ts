@@ -34,7 +34,7 @@ export class OptionModelBuilder {
       isDefault: optionData.default ?? true,
       internalName: optionData.internalName ?? "DEFAULT",
       reference: optionData.reference ?? null,
-      availabilityLocalStartTimes: optionData.availabilityLocalStartTimes ?? ["00:00"],
+      availabilityLocalStartTimes: optionData.availabilityLocalStartTimes ?? [],
       cancellationCutoff: optionData.cancellationCutoff ?? "0 hours",
       cancellationCutoffAmount: optionData.cancellationCutoffAmount ?? 0,
       cancellationCutoffUnit: optionData.cancellationCutoffUnit ?? "hour",
