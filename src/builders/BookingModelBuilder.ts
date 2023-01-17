@@ -1,4 +1,11 @@
-import { BookingStatus, CapabilityId, Currency, DurationUnit } from "@octocloud/types";
+import {
+  BookingStatus,
+  CapabilityId,
+  Currency,
+  DurationUnit,
+  DeliveryMethod,
+  RedemptionMethod,
+} from "@octocloud/types";
 import { BookingModel } from "../models/booking/BookingModel";
 import { BookingCartModel } from "../models/booking/BookingCartModel";
 import { ProductModelBuilder } from "./ProductModelBuilder";
@@ -49,6 +56,23 @@ export class BookingModelBuilder {
       allDay: false,
       openingHours: [],
     };
+    const deliveryMethods = bookingData.deliveryMethods ?? DeliveryMethodsDataProvider.defaultDeliveryMethods;
+    let voucher = bookingData.voucher;
+
+    if (voucher === undefined && deliveryMethods.includes(DeliveryMethod.VOUCHER)) {
+      voucher = {
+        redemptionMethod: RedemptionMethod.DIGITAL,
+        utcRedeemedAt: null,
+        deliveryOptions: [],
+      };
+    }
+
+    const status = bookingData.status ?? BookingStatus.CONFIRMED;
+    let utcConfirmedAt = bookingData.utcConfirmedAt ?? null;
+
+    if ((utcConfirmedAt === undefined || utcConfirmedAt === null) && status === BookingStatus.CONFIRMED) {
+      utcConfirmedAt = "2022-11-28T08:43:38Z";
+    }
 
     return new BookingModel({
       id: bookingData.id ?? "id",
@@ -56,12 +80,12 @@ export class BookingModelBuilder {
       testMode: bookingData.testMode ?? false,
       resellerReference: bookingData.resellerReference ?? null,
       supplierReference: bookingData.supplierReference ?? null,
-      status: bookingData.status ?? BookingStatus.CONFIRMED,
+      status: status,
       utcCreatedAt: bookingData.utcCreatedAt ?? "2022-11-28T08:43:37Z",
       utcUpdatedAt: bookingData.utcUpdatedAt ?? "2022-11-28T08:43:38Z",
       utcExpiresAt: bookingData.utcExpiresAt ?? null,
       utcRedeemedAt: bookingData.utcRedeemedAt ?? null,
-      utcConfirmedAt: bookingData.utcConfirmedAt ?? "2022-11-28T08:43:38Z",
+      utcConfirmedAt: utcConfirmedAt,
       productModel: productModel,
       optionModel: optionModel,
       cancellable: bookingData.cancellable ?? true,
@@ -80,8 +104,8 @@ export class BookingModelBuilder {
         notes: null,
       },
       notes: bookingData.notes ?? null,
-      deliveryMethods: bookingData.deliveryMethods ?? DeliveryMethodsDataProvider.defaultDeliveryMethods,
-      voucher: bookingData.voucher ?? null,
+      deliveryMethods: deliveryMethods,
+      voucher: voucher,
       unitItemModels: this.buildUnitItemModels(builderData),
       bookingCartModel: this.buildCartModel(builderData),
       bookingContentModel: this.buildContentModel(builderData),
