@@ -34,19 +34,19 @@ export class OptionModelBuilder {
       isDefault: optionData.default ?? true,
       internalName: optionData.internalName ?? "DEFAULT",
       reference: optionData.reference ?? null,
-      availabilityLocalStartTimes: optionData.availabilityLocalStartTimes ?? [],
+      availabilityLocalStartTimes: optionData.availabilityLocalStartTimes ?? ["00:00"],
       cancellationCutoff: optionData.cancellationCutoff ?? "0 hours",
       cancellationCutoffAmount: optionData.cancellationCutoffAmount ?? 0,
       cancellationCutoffUnit: optionData.cancellationCutoffUnit ?? "hour",
       requiredContactFields: optionData.requiredContactFields ?? [],
       restrictions: optionData.restrictions ?? {
         minUnits: 0,
-        maxUnits: null,
+        maxUnits: null
       },
       unitModels: this.buildUnitModels(builderData),
       optionContentModel: this.buildContentModel(builderData),
       optionPickupsModel: this.buildPickupsModel(builderData),
-      optionPricingModel: this.buildPricingModel(builderData),
+      optionPricingModel: this.buildPricingModel(builderData)
     });
   }
 
@@ -60,7 +60,7 @@ export class OptionModelBuilder {
         unitData: unitData,
         pricingPer: builderData.pricingPer,
         capabilities: builderData.capabilities,
-        sourceModel: builderData.sourceModel,
+        sourceModel: builderData.sourceModel
       });
     }, builderData);
   }
@@ -82,7 +82,7 @@ export class OptionModelBuilder {
       durationUnit: optionData.durationUnit ?? DurationUnit.HOUR,
       durationAmount: optionData.durationAmount ?? "0",
       duration: optionData.duration ?? `${durationAmount} ${durationUnit}`,
-      itinerary: optionData.itinerary ?? [],
+      itinerary: optionData.itinerary ?? []
     });
   }
 
@@ -96,7 +96,7 @@ export class OptionModelBuilder {
     return new OptionPickupsModel({
       pickupRequired: optionData.pickupRequired ?? false,
       pickupAvailable: optionData.pickupAvailable ?? false,
-      pickupPoints: optionData.pickupPoints ?? [],
+      pickupPoints: optionData.pickupPoints ?? []
     });
   }
 
@@ -113,12 +113,12 @@ export class OptionModelBuilder {
 
     if (builderData.sourceModel === ProductModel) {
       return new OptionPricingModel({
-        pricingFrom: optionData.pricing,
+        pricingFrom: optionData.pricing
       });
     }
 
     return new OptionPricingModel({
-      pricing: optionData.pricing,
+      pricing: optionData.pricing
     });
   }
 }
