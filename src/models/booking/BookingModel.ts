@@ -6,6 +6,7 @@ import { BookingPickupsModel } from "./BookingPickupsModel";
 import { BookingPricingModel } from "./BookingPricingModel";
 import { BookingAvailability, BookingStatus, Cancellation, Contact, Ticket, DeliveryMethod } from "@octocloud/types";
 import { UnitItemModel } from "../unitItem/UnitItemModel";
+import { UndefinedModelError } from "../../errors/UndefinedModelError";
 
 export class BookingModel {
   public readonly id: string;
@@ -236,5 +237,49 @@ export class BookingModel {
 
   set unitItemModels(unitItemModels: UnitItemModel[]) {
     this._unitItemModels = unitItemModels;
+  }
+
+  /**
+   * @throws UndefinedModelError
+   */
+  public getBookingCartModel(): BookingCartModel {
+    if (this.bookingCartModel === undefined) {
+      throw UndefinedModelError.create("BookingCartModel", "BookingModel", this.id);
+    }
+
+    return this.bookingCartModel;
+  }
+
+  /**
+   * @throws UndefinedModelError
+   */
+  public getBookingPickupsModel(): BookingPickupsModel {
+    if (this.bookingPickupsModel === undefined) {
+      throw UndefinedModelError.create("BookingPickupsModel", "BookingModel", this.id);
+    }
+
+    return this.bookingPickupsModel;
+  }
+
+  /**
+   * @throws UndefinedModelError
+   */
+  public getBookingContentModel(): BookingContentModel {
+    if (this.bookingContentModel === undefined) {
+      throw UndefinedModelError.create("BookingContentModel", "BookingModel", this.id);
+    }
+
+    return this.bookingContentModel;
+  }
+
+  /**
+   * @throws UndefinedModelError
+   */
+  public getBookingPricingModel(): BookingPricingModel {
+    if (this.bookingPricingModel === undefined) {
+      throw UndefinedModelError.create("BookingPricingModel", "BookingModel", this.id);
+    }
+
+    return this.bookingPricingModel;
   }
 }

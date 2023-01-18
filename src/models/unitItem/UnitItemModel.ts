@@ -1,6 +1,7 @@
 import { BookingStatus, Contact, Ticket } from "@octocloud/types";
 import { UnitModel } from "../unit/UnitModel";
 import { UnitItemPricingModel } from "./UnitItemPricingModel";
+import { UndefinedModelError } from "../../errors/UndefinedModelError";
 
 export class UnitItemModel {
   public readonly uuid: string;
@@ -43,5 +44,16 @@ export class UnitItemModel {
     this.contact = contact;
     this.ticket = ticket;
     this.unitItemPricingModel = unitItemPricingModel;
+  }
+
+  /**
+   * @throws UndefinedModelError
+   */
+  public getUnitItemPricingModel(): UnitItemPricingModel {
+    if (this.unitItemPricingModel === undefined) {
+      throw UndefinedModelError.create("UnitItemPricingModel", "UnitItemModel", this.uuid);
+    }
+
+    return this.unitItemPricingModel;
   }
 }
