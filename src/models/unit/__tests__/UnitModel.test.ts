@@ -7,7 +7,7 @@ describe("UnitModel", () => {
 
   describe("isOnBooking", () => {
     it("should return true", async () => {
-      const optionModel = unitModelGenerator.generate({
+      const optionModel = unitModelGenerator.generateUnit({
         unitData: {
           id: "id",
           type: UnitType.ADULT,
@@ -20,7 +20,7 @@ describe("UnitModel", () => {
     });
 
     it("should return false", async () => {
-      const optionModel = unitModelGenerator.generate({
+      const optionModel = unitModelGenerator.generateUnit({
         unitData: {
           id: "id",
           type: UnitType.ADULT,

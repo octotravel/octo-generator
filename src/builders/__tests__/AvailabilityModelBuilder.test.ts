@@ -15,7 +15,7 @@ describe("AvailabilityModelBuilder", () => {
 
       expect(availabilityModel).toBeInstanceOf(AvailabilityModel);
       expect(availabilityModel.availabilityContentModel).toBeUndefined();
-      expect(availabilityModel.availabilityPickupModel).toBeUndefined();
+      expect(availabilityModel.availabilityPickupsModel).toBeUndefined();
       expect(availabilityModel.availabilityPricingModel).toBeUndefined();
     });
 
@@ -28,11 +28,11 @@ describe("AvailabilityModelBuilder", () => {
 
       expect(availabilityModel).toBeInstanceOf(AvailabilityModel);
       expect(availabilityModel.availabilityContentModel).toBeDefined();
-      expect(availabilityModel.availabilityPickupModel).toBeUndefined();
+      expect(availabilityModel.availabilityPickupsModel).toBeUndefined();
       expect(availabilityModel.availabilityPricingModel).toBeUndefined();
     });
 
-    it("should build availability model with pickup capability", async () => {
+    it("should build availability model with pickups capability", async () => {
       const availabilityModel = availabilityModelBuilder.build({
         availabilityData: {},
         pricingPer: PricingPer.BOOKING,
@@ -41,7 +41,7 @@ describe("AvailabilityModelBuilder", () => {
 
       expect(availabilityModel).toBeInstanceOf(AvailabilityModel);
       expect(availabilityModel.availabilityContentModel).toBeUndefined();
-      expect(availabilityModel.availabilityPickupModel).toBeDefined();
+      expect(availabilityModel.availabilityPickupsModel).toBeDefined();
       expect(availabilityModel.availabilityPricingModel).toBeUndefined();
     });
 
@@ -54,7 +54,7 @@ describe("AvailabilityModelBuilder", () => {
 
       expect(availabilityModel).toBeInstanceOf(AvailabilityModel);
       expect(availabilityModel.availabilityContentModel).toBeUndefined();
-      expect(availabilityModel.availabilityPickupModel).toBeUndefined();
+      expect(availabilityModel.availabilityPickupsModel).toBeUndefined();
       expect(availabilityModel.availabilityPricingModel).toBeDefined();
     });
 
@@ -67,7 +67,7 @@ describe("AvailabilityModelBuilder", () => {
 
       expect(availabilityModel).toBeInstanceOf(AvailabilityModel);
       expect(availabilityModel.availabilityContentModel).toBeDefined();
-      expect(availabilityModel.availabilityPickupModel).toBeDefined();
+      expect(availabilityModel.availabilityPickupsModel).toBeDefined();
       expect(availabilityModel.availabilityPricingModel).toBeDefined();
     });
   });

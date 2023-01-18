@@ -2,47 +2,38 @@ import { OptionModel } from "../option/OptionModel";
 import { ProductModel } from "../product/ProductModel";
 import { BookingCartModel } from "./BookingCartModel";
 import { BookingContentModel } from "./BookingContentModel";
-import { BookingPickupModel } from "./BookingPickupModel";
+import { BookingPickupsModel } from "./BookingPickupsModel";
 import { BookingPricingModel } from "./BookingPricingModel";
-import {
-  BookingAvailability,
-  BookingStatus,
-  Cancellation,
-  Contact,
-  Ticket,
-  UnitItem,
-  DeliveryMethod,
-} from "@octocloud/types";
+import { BookingAvailability, BookingStatus, Cancellation, Contact, Ticket, DeliveryMethod } from "@octocloud/types";
+import { UnitItemModel } from "../unitItem/UnitItemModel";
+import { UndefinedModelError } from "../../errors/UndefinedModelError";
 
 export class BookingModel {
   public readonly id: string;
   public readonly uuid: string;
   public readonly testMode: boolean;
-  public readonly resellerReference: Nullable<string>;
+  protected _resellerReference: Nullable<string>;
   public readonly supplierReference: Nullable<string>;
-  public readonly status: BookingStatus;
+  protected _status: BookingStatus;
   public readonly utcCreatedAt: string;
-  public readonly utcUpdatedAt: Nullable<string>;
-  public readonly utcExpiresAt: Nullable<string>;
-  public readonly utcRedeemedAt: Nullable<string>;
-  public readonly utcConfirmedAt: Nullable<string>;
-  public readonly productId: string;
-  public readonly productModel: ProductModel;
-  public readonly optionId: string;
-  public readonly optionModel: OptionModel;
-  public readonly cancellable: boolean;
-  public readonly cancellation: Nullable<Cancellation>;
+  protected _utcUpdatedAt: Nullable<string>;
+  protected _utcExpiresAt: Nullable<string>;
+  protected _utcRedeemedAt: Nullable<string>;
+  protected _utcConfirmedAt: Nullable<string>;
+  protected _productModel: ProductModel;
+  protected _optionModel: OptionModel;
+  protected _cancellable: boolean;
+  protected _cancellation: Nullable<Cancellation>;
   public readonly freesale: boolean;
-  public readonly availabilityId: string;
-  public readonly availability: BookingAvailability;
-  public readonly contact: Contact;
-  public readonly notes: Nullable<string>;
+  protected _availability: BookingAvailability;
+  protected _contact: Contact;
+  protected _notes: Nullable<string>;
   public readonly deliveryMethods: DeliveryMethod[];
-  public readonly voucher: Nullable<Ticket>;
-  public readonly unitItems: UnitItem[];
+  protected _voucher: Nullable<Ticket>;
+  protected _unitItemModels: UnitItemModel[];
   public readonly bookingCartModel?: BookingCartModel;
   public readonly bookingContentModel?: BookingContentModel;
-  public readonly bookingPickupModel?: BookingPickupModel;
+  public readonly bookingPickupsModel?: BookingPickupsModel;
   public readonly bookingPricingModel?: BookingPricingModel;
 
   constructor({
@@ -57,23 +48,20 @@ export class BookingModel {
     utcExpiresAt,
     utcRedeemedAt,
     utcConfirmedAt,
-    productId,
     productModel,
-    optionId,
     optionModel,
     cancellable,
     cancellation,
     freesale,
-    availabilityId,
     availability,
     contact,
     notes,
     deliveryMethods,
     voucher,
-    unitItems,
+    unitItemModels,
     bookingCartModel,
     bookingContentModel,
-    bookingPickupModel,
+    bookingPickupsModel,
     bookingPricingModel,
   }: {
     id: string;
@@ -87,53 +75,211 @@ export class BookingModel {
     utcExpiresAt: Nullable<string>;
     utcRedeemedAt: Nullable<string>;
     utcConfirmedAt: Nullable<string>;
-    productId: string;
     productModel: ProductModel;
-    optionId: string;
     optionModel: OptionModel;
     cancellable: boolean;
     cancellation: Nullable<Cancellation>;
     freesale: boolean;
-    availabilityId: string;
     availability: BookingAvailability;
     contact: Contact;
     notes: Nullable<string>;
     deliveryMethods: DeliveryMethod[];
     voucher: Nullable<Ticket>;
-    unitItems: UnitItem[];
+    unitItemModels: UnitItemModel[];
     bookingCartModel?: BookingCartModel;
     bookingContentModel?: BookingContentModel;
-    bookingPickupModel?: BookingPickupModel;
+    bookingPickupsModel?: BookingPickupsModel;
     bookingPricingModel?: BookingPricingModel;
   }) {
     this.id = id;
     this.uuid = uuid;
     this.testMode = testMode;
-    this.resellerReference = resellerReference;
+    this._resellerReference = resellerReference;
     this.supplierReference = supplierReference;
-    this.status = status;
+    this._status = status;
     this.utcCreatedAt = utcCreatedAt;
-    this.utcUpdatedAt = utcUpdatedAt;
-    this.utcExpiresAt = utcExpiresAt;
-    this.utcRedeemedAt = utcRedeemedAt;
-    this.utcConfirmedAt = utcConfirmedAt;
-    this.productId = productId;
-    this.productModel = productModel;
-    this.optionId = optionId;
-    this.optionModel = optionModel;
-    this.cancellable = cancellable;
-    this.cancellation = cancellation;
+    this._utcUpdatedAt = utcUpdatedAt;
+    this._utcExpiresAt = utcExpiresAt;
+    this._utcRedeemedAt = utcRedeemedAt;
+    this._utcConfirmedAt = utcConfirmedAt;
+    this._productModel = productModel;
+    this._optionModel = optionModel;
+    this._cancellable = cancellable;
+    this._cancellation = cancellation;
     this.freesale = freesale;
-    this.availabilityId = availabilityId;
-    this.availability = availability;
-    this.contact = contact;
-    this.notes = notes;
+    this._availability = availability;
+    this._contact = contact;
+    this._notes = notes;
     this.deliveryMethods = deliveryMethods;
-    this.voucher = voucher;
-    this.unitItems = unitItems;
+    this._voucher = voucher;
+    this._unitItemModels = unitItemModels;
     this.bookingCartModel = bookingCartModel;
     this.bookingContentModel = bookingContentModel;
-    this.bookingPickupModel = bookingPickupModel;
+    this.bookingPickupsModel = bookingPickupsModel;
     this.bookingPricingModel = bookingPricingModel;
+  }
+
+  get resellerReference(): Nullable<string> {
+    return this._resellerReference;
+  }
+
+  set resellerReference(resellerReference: Nullable<string>) {
+    this._resellerReference = resellerReference;
+  }
+
+  get status(): BookingStatus {
+    return this._status;
+  }
+
+  set status(status: BookingStatus) {
+    this._status = status;
+  }
+
+  get utcUpdatedAt(): Nullable<string> {
+    return this._utcUpdatedAt;
+  }
+
+  set utcUpdatedAt(utcUpdatedAt: Nullable<string>) {
+    this._utcUpdatedAt = utcUpdatedAt;
+  }
+
+  get utcExpiresAt(): Nullable<string> {
+    return this._utcExpiresAt;
+  }
+
+  set utcExpiresAt(utcExpiresAt: Nullable<string>) {
+    this._utcExpiresAt = utcExpiresAt;
+  }
+
+  get utcRedeemedAt(): Nullable<string> {
+    return this._utcRedeemedAt;
+  }
+
+  set utcRedeemedAt(utcRedeemedAt: Nullable<string>) {
+    this._utcRedeemedAt = utcRedeemedAt;
+  }
+
+  get utcConfirmedAt(): Nullable<string> {
+    return this._utcConfirmedAt;
+  }
+
+  set utcConfirmedAt(utcConfirmedAt: Nullable<string>) {
+    this._utcConfirmedAt = utcConfirmedAt;
+  }
+
+  get productModel(): ProductModel {
+    return this._productModel;
+  }
+
+  set productModel(productModel: ProductModel) {
+    this._productModel = productModel;
+  }
+
+  get optionModel(): OptionModel {
+    return this._optionModel;
+  }
+
+  set optionModel(optionModel: OptionModel) {
+    this._optionModel = optionModel;
+  }
+
+  get cancellable(): boolean {
+    return this._cancellable;
+  }
+
+  set cancellable(cancellable: boolean) {
+    this._cancellable = cancellable;
+  }
+
+  get cancellation(): Nullable<Cancellation> {
+    return this._cancellation;
+  }
+
+  set cancellation(cancellation: Nullable<Cancellation>) {
+    this._cancellation = cancellation;
+  }
+
+  get availability(): BookingAvailability {
+    return this._availability;
+  }
+
+  set availability(availability: BookingAvailability) {
+    this._availability = availability;
+  }
+
+  get notes(): Nullable<string> {
+    return this._notes;
+  }
+
+  set notes(notes: Nullable<string>) {
+    this._notes = notes;
+  }
+
+  get contact(): Contact {
+    return this._contact;
+  }
+
+  set contact(contact: Contact) {
+    this._contact = contact;
+  }
+
+  get voucher(): Nullable<Ticket> {
+    return this._voucher;
+  }
+
+  set voucher(voucher: Nullable<Ticket>) {
+    this._voucher = voucher;
+  }
+
+  get unitItemModels(): UnitItemModel[] {
+    return this._unitItemModels;
+  }
+
+  set unitItemModels(unitItemModels: UnitItemModel[]) {
+    this._unitItemModels = unitItemModels;
+  }
+
+  /**
+   * @throws UndefinedModelError
+   */
+  public getBookingCartModel(): BookingCartModel {
+    if (this.bookingCartModel === undefined) {
+      throw UndefinedModelError.create("BookingCartModel", "BookingModel", this.id);
+    }
+
+    return this.bookingCartModel;
+  }
+
+  /**
+   * @throws UndefinedModelError
+   */
+  public getBookingPickupsModel(): BookingPickupsModel {
+    if (this.bookingPickupsModel === undefined) {
+      throw UndefinedModelError.create("BookingPickupsModel", "BookingModel", this.id);
+    }
+
+    return this.bookingPickupsModel;
+  }
+
+  /**
+   * @throws UndefinedModelError
+   */
+  public getBookingContentModel(): BookingContentModel {
+    if (this.bookingContentModel === undefined) {
+      throw UndefinedModelError.create("BookingContentModel", "BookingModel", this.id);
+    }
+
+    return this.bookingContentModel;
+  }
+
+  /**
+   * @throws UndefinedModelError
+   */
+  public getBookingPricingModel(): BookingPricingModel {
+    if (this.bookingPricingModel === undefined) {
+      throw UndefinedModelError.create("BookingPricingModel", "BookingModel", this.id);
+    }
+
+    return this.bookingPricingModel;
   }
 }

@@ -1,4 +1,4 @@
-import { Unit } from "@octocloud/types";
+import { CapabilityId, Unit } from "@octocloud/types";
 import { UnitModel } from "../models/unit/UnitModel";
 import { UnitContentModel } from "../models/unit/UnitContentModel";
 import { UnitPricingModel } from "../models/unit/UnitPricingModel";
@@ -41,7 +41,30 @@ export class UnitParser {
   };
 
   public parseModelToPOJO = (unitModel: UnitModel): Unit => {
-    const unit: Unit = {
+    const unit = this.parseMainModelToPojo(unitModel);
+
+    this.parseContentModelToPOJO(unit, unitModel);
+    this.parsePricingModelToPOJO(unit, unitModel);
+
+    return unit;
+  };
+
+  public parseModelToPOJOWithSpecificCapabilities = (unitModel: UnitModel, capabilities: CapabilityId[]): Unit => {
+    const unit = this.parseMainModelToPojo(unitModel);
+
+    if (capabilities?.includes(CapabilityId.Content)) {
+      this.parseContentModelToPOJO(unit, unitModel);
+    }
+
+    if (capabilities?.includes(CapabilityId.Pricing)) {
+      this.parsePricingModelToPOJO(unit, unitModel);
+    }
+
+    return unit;
+  };
+
+  private parseMainModelToPojo = (unitModel: UnitModel): Unit => {
+    return {
       id: unitModel.id,
       internalName: unitModel.internalName,
       reference: unitModel.reference,
@@ -49,18 +72,28 @@ export class UnitParser {
       restrictions: unitModel.restrictions,
       requiredContactFields: unitModel.requiredContactFields,
     };
+  };
 
-    if (unitModel.unitContentModel !== undefined) {
-      unit.title = unitModel.unitContentModel?.title;
-      unit.titlePlural = unitModel.unitContentModel?.titlePlural;
-      unit.subtitle = unitModel.unitContentModel?.subtitle;
+  private parseContentModelToPOJO = (unit: Unit, unitModel: UnitModel) => {
+    if (unitModel.unitContentModel === undefined) {
+      return;
     }
 
-    if (unitModel.unitPricingModel !== undefined) {
-      unit.pricingFrom = unitModel.unitPricingModel?.pricingFrom;
-      unit.pricing = unitModel.unitPricingModel?.pricing;
+    const unitContentModel = unitModel.unitContentModel;
+
+    unit.title = unitContentModel?.title;
+    unit.titlePlural = unitContentModel?.titlePlural;
+    unit.subtitle = unitContentModel?.subtitle;
+  };
+
+  private parsePricingModelToPOJO = (unit: Unit, unitModel: UnitModel) => {
+    if (unitModel.unitPricingModel === undefined) {
+      return;
     }
 
-    return unit;
+    const unitPricingModel = unitModel.unitPricingModel;
+
+    unit.pricingFrom = unitPricingModel?.pricingFrom;
+    unit.pricing = unitPricingModel?.pricing;
   };
 }

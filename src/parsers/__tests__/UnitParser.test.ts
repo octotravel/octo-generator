@@ -1,55 +1,57 @@
-import { UnitType } from "@octocloud/types";
-import { UnitModel } from "../../models/unit/UnitModel";
-import { UnitDataProvider } from "../../dataProviders/UnitDataProvider";
+import { CapabilityId } from "@octocloud/types";
 import { UnitParser } from "../UnitParser";
-import { UnitContentModel } from "../../models/unit/UnitContentModel";
-import { PricingDataProvider } from "../../dataProviders/PricingDataProvider";
-import { UnitPricingModel } from "../../models/unit/UnitPricingModel";
+import { UnitTestDataProvider } from "./dataProviders/UnitTestDataProvider";
 
 describe("UnitParser", () => {
   const unitParser = new UnitParser();
 
-  const unit = {
-    id: "id",
-    internalName: "internalName",
-    reference: "reference",
-    type: UnitType.CHILD,
-    restrictions: UnitDataProvider.commonRestrictions,
-    requiredContactFields: [],
-    title: "title",
-    titlePlural: "titlePlural",
-    subtitle: "subtitle",
-    pricing: [PricingDataProvider.adultPricing],
-    pricingFrom: undefined,
-  };
+  const unit = UnitTestDataProvider.unit;
+  const unitContent = UnitTestDataProvider.unitContent;
+  const unitPricing = UnitTestDataProvider.unitPricing;
+  const unitPOJO = UnitTestDataProvider.unitPOJO;
+  const unitModel = UnitTestDataProvider.unitModel;
 
-  const unitModel = new UnitModel({
-    id: unit.id,
-    internalName: unit.internalName,
-    reference: unit.reference,
-    type: unit.type,
-    restrictions: unit.restrictions,
-    requiredContactFields: unit.requiredContactFields,
-    unitContentModel: new UnitContentModel({
-      title: unit.title,
-      titlePlural: unit.titlePlural,
-      subtitle: unit.subtitle,
-    }),
-    unitPricingModel: new UnitPricingModel({
-      pricing: unit.pricing,
-      pricingFrom: undefined,
-    }),
+  describe("parsePOJOToModel", () => {
+    it("should return unit model", async () => {
+      expect(unitParser.parsePOJOToModel(unitPOJO)).toStrictEqual(unitModel);
+    });
   });
 
   describe("parseModelToPOJO", () => {
     it("should return unit POJO", async () => {
-      expect(unitParser.parseModelToPOJO(unitModel)).toStrictEqual(unit);
+      expect(unitParser.parseModelToPOJO(unitModel)).toStrictEqual(unitPOJO);
     });
   });
 
-  describe("parsePOJOToModel", () => {
-    it("should return unit model", async () => {
-      expect(unitParser.parsePOJOToModel(unit)).toStrictEqual(unitModel);
+  describe("parseModelToPOJOWithSpecificCapabilities", () => {
+    it("should return unit POJO without any capabilities", async () => {
+      expect(unitParser.parseModelToPOJOWithSpecificCapabilities(unitModel, [])).toStrictEqual(unit);
+    });
+  });
+
+  describe("parseModelToPOJOWithSpecificCapabilities", () => {
+    it("should return unit POJO with content capability", async () => {
+      expect(unitParser.parseModelToPOJOWithSpecificCapabilities(unitModel, [CapabilityId.Content])).toStrictEqual({
+        ...unit,
+        ...unitContent,
+      });
+    });
+  });
+
+  describe("parseModelToPOJOWithSpecificCapabilities", () => {
+    it("should return unit POJO with pricing capability", async () => {
+      expect(unitParser.parseModelToPOJOWithSpecificCapabilities(unitModel, [CapabilityId.Pricing])).toStrictEqual({
+        ...unit,
+        ...unitPricing,
+      });
+    });
+  });
+
+  describe("parseModelToPOJOWithSpecificCapabilities", () => {
+    it("should return unit POJO with all capabilities", async () => {
+      expect(
+        unitParser.parseModelToPOJOWithSpecificCapabilities(unitModel, [CapabilityId.Content, CapabilityId.Pricing])
+      ).toStrictEqual(unitPOJO);
     });
   });
 });

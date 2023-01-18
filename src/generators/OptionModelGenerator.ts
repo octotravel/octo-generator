@@ -1,9 +1,10 @@
 import { OptionModelBuilder } from "../builders/OptionModelBuilder";
 import { OptionModel } from "../models/option/OptionModel";
-import { CapabilityId, Option, PricingPer } from "@octocloud/types";
+import { CapabilityId, PricingPer } from "@octocloud/types";
+import { PartialOption } from "../types/PartialOption";
 
 interface OptionGenerateData {
-  optionData: Partial<Option>;
+  optionData: PartialOption;
   pricingPer?: PricingPer;
   capabilities?: CapabilityId[];
 }
@@ -11,7 +12,7 @@ interface OptionGenerateData {
 export class OptionModelGenerator {
   private readonly optionModelBuilder = new OptionModelBuilder();
 
-  public generate = (optionGenerateData: OptionGenerateData): OptionModel => {
+  public generateOption = (optionGenerateData: OptionGenerateData): OptionModel => {
     return this.optionModelBuilder.build({
       optionData: optionGenerateData.optionData,
       pricingPer: optionGenerateData.pricingPer,
@@ -19,9 +20,13 @@ export class OptionModelGenerator {
     });
   };
 
-  public generateMultiple = (optionsGenerateData: OptionGenerateData[]): OptionModel[] => {
-    return optionsGenerateData.map((optionGenerateData) => {
-      return this.generate(optionGenerateData);
+  public generateMultipleOptions = (
+    optionsData: PartialOption[],
+    pricingPer?: PricingPer,
+    capabilities?: CapabilityId[]
+  ): OptionModel[] => {
+    return optionsData.map((optionData) => {
+      return this.generateOption({ optionData, pricingPer, capabilities });
     });
   };
 }

@@ -7,7 +7,7 @@ describe("ProductModel", () => {
 
   describe("findOptionModelByOptionId", () => {
     it("should return option model", async () => {
-      const productModel = productModelGenerator.generate({
+      const productModel = productModelGenerator.generateProduct({
         productData: {
           id: "id",
           internalName: "internalName",
@@ -20,7 +20,7 @@ describe("ProductModel", () => {
     });
 
     it("should return null", async () => {
-      const productModel = productModelGenerator.generate({
+      const productModel = productModelGenerator.generateProduct({
         productData: {
           id: "id",
           internalName: "internalName",

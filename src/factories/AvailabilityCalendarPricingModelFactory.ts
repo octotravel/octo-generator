@@ -7,6 +7,7 @@ interface AvailabilityCalendarPricingModelFactoryData {
   pricingPer: PricingPer;
   containsUnits?: boolean;
 }
+
 export abstract class AvailabilityCalendarPricingModelFactory {
   public static create(factoryData: AvailabilityCalendarPricingModelFactoryData): AvailabilityCalendarPricingModel {
     let unitPricingFrom = undefined;

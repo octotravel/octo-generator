@@ -1,25 +1,26 @@
-import { Booking, CapabilityId } from "@octocloud/types";
+import { CapabilityId } from "@octocloud/types";
 import { BookingModelBuilder } from "../builders/BookingModelBuilder";
 import { BookingModel } from "../models/booking/BookingModel";
+import { PartialBooking } from "../types/PartialBooking";
 
 interface BookingGenerateData {
-  bookingData: Partial<Booking>;
+  bookingData: PartialBooking;
   capabilities?: CapabilityId[];
 }
 
 export class BookingModelGenerator {
   private readonly bookingModelBuilder = new BookingModelBuilder();
 
-  public generate = (bookingGenerateData: BookingGenerateData): BookingModel => {
+  public generateBooking = (bookingGenerateData: BookingGenerateData): BookingModel => {
     return this.bookingModelBuilder.build({
       bookingData: bookingGenerateData.bookingData,
       capabilities: bookingGenerateData.capabilities,
     });
   };
 
-  public generateMultiple = (bookingsGenerateData: BookingGenerateData[]): BookingModel[] => {
-    return bookingsGenerateData.map((bookingGenerateData) => {
-      return this.generate(bookingGenerateData);
+  public generateMultipleBookings = (bookingsData: PartialBooking[], capabilities?: CapabilityId[]): BookingModel[] => {
+    return bookingsData.map((bookingData) => {
+      return this.generateBooking({ bookingData, capabilities });
     });
   };
 }
