@@ -49,7 +49,6 @@ export class BookingModelBuilder {
       capabilities: builderData.capabilities,
       sourceModel: BookingModel,
     });
-    const availability = bookingData.availability ?? null;
     const deliveryMethods = bookingData.deliveryMethods ?? DeliveryMethodsDataProvider.defaultDeliveryMethods;
     let voucher = bookingData.voucher ?? null;
 
@@ -85,7 +84,7 @@ export class BookingModelBuilder {
       cancellable: bookingData.cancellable ?? true,
       cancellation: bookingData.cancellation ?? null,
       freesale: bookingData.freesale ?? false,
-      availability: availability,
+      availability: bookingData.availability,
       contact: bookingData.contact ?? {
         fullName: null,
         firstName: null,
