@@ -1,13 +1,13 @@
 import { DurationUnit, UnitType } from "@octocloud/types";
-import { UnitDataProvider } from "../../../dataProviders/UnitDataProvider";
-import { PricingDataProvider } from "../../../dataProviders/PricingDataProvider";
-import { OptionModel } from "../../../models/option/OptionModel";
-import { UnitModel } from "../../../models/unit/UnitModel";
-import { OptionContentModel } from "../../../models/option/OptionContentModel";
-import { OptionPickupsModel } from "../../../models/option/./OptionPickupsModel";
-import { OptionPricingModel } from "../../../models/option/OptionPricingModel";
+import UnitDataProvider from "../../../dataProviders/UnitDataProvider";
+import PricingDataProvider from "../../../dataProviders/PricingDataProvider";
+import OptionModel from "../../../models/option/OptionModel";
+import UnitModel from "../../../models/unit/UnitModel";
+import OptionContentModel from "../../../models/option/OptionContentModel";
+import OptionPickupsModel from "../../../models/option/OptionPickupsModel";
+import OptionPricingModel from "../../../models/option/OptionPricingModel";
 
-export class OptionTestDataProvider {
+export default class OptionTestDataProvider {
   public static option = {
     id: "id",
     default: true,
@@ -33,6 +33,7 @@ export class OptionTestDataProvider {
       },
     ],
   };
+
   public static optionContent = {
     title: "title",
     subtitle: "subtitle",
@@ -43,15 +44,18 @@ export class OptionTestDataProvider {
     durationUnit: DurationUnit.HOUR,
     itinerary: null,
   };
+
   public static optionPickups = {
     pickupRequired: false,
     pickupAvailable: false,
     pickupPoints: [],
   };
+
   public static optionPricing = {
     pricing: [PricingDataProvider.adultPricing],
     pricingFrom: undefined,
   };
+
   public static optionPOJO = {
     ...this.option,
     ...this.optionContent,

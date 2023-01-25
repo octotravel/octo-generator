@@ -1,6 +1,8 @@
-export class BookingCartModel {
+export default class BookingCartModel {
   public readonly orderId?: string;
+
   public readonly orderReference?: string;
+
   public readonly primary?: boolean;
 
   constructor({ orderId, orderReference, primary }: { orderId?: string; orderReference?: string; primary?: boolean }) {

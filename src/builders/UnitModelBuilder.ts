@@ -1,11 +1,11 @@
-import { UnitModel } from "../models/unit/UnitModel";
 import { CapabilityId, PricingPer, UnitType } from "@octocloud/types";
-import { UnitDataProvider } from "../dataProviders/UnitDataProvider";
-import { UnitContentModel } from "../models/unit/UnitContentModel";
-import { UnitPricingModel } from "../models/unit/UnitPricingModel";
-import { PricingDataProvider } from "../dataProviders/PricingDataProvider";
-import { ProductModel } from "../models/product/ProductModel";
-import { OptionPricingModel } from "../models/option/OptionPricingModel";
+import UnitModel from "../models/unit/UnitModel";
+import UnitDataProvider from "../dataProviders/UnitDataProvider";
+import UnitContentModel from "../models/unit/UnitContentModel";
+import UnitPricingModel from "../models/unit/UnitPricingModel";
+import PricingDataProvider from "../dataProviders/PricingDataProvider";
+import ProductModel from "../models/product/ProductModel";
+import OptionPricingModel from "../models/option/OptionPricingModel";
 import { PartialUnit } from "../types/PartialUnit";
 
 interface UnitModelBuilderData {
@@ -18,12 +18,12 @@ interface UnitModelBuilderData {
 const defaultPricingPer: PricingPer = PricingPer.UNIT;
 const defaultCapabilities: CapabilityId[] = [CapabilityId.Content, CapabilityId.Pricing];
 
-export class UnitModelBuilder {
+export default class UnitModelBuilder {
   public build(builderData: UnitModelBuilderData): UnitModel {
     builderData.pricingPer ??= defaultPricingPer;
     builderData.capabilities ??= defaultCapabilities;
 
-    const unitData = builderData.unitData;
+    const { unitData } = builderData;
 
     return new UnitModel({
       id: unitData.id ?? "id",
@@ -42,7 +42,7 @@ export class UnitModelBuilder {
       return undefined;
     }
 
-    const unitData = builderData.unitData;
+    const { unitData } = builderData;
 
     return new UnitContentModel({
       title: unitData.title ?? "title",
@@ -59,7 +59,7 @@ export class UnitModelBuilder {
       return undefined;
     }
 
-    const unitData = builderData.unitData;
+    const { unitData } = builderData;
     unitData.pricing ??= [PricingDataProvider.adultPricing];
 
     if (builderData.sourceModel === ProductModel) {

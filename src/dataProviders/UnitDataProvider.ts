@@ -1,8 +1,8 @@
-import { PricingDataProvider } from "./PricingDataProvider";
 import { Restrictions, Unit, UnitType } from "@octocloud/types";
+import PricingDataProvider from "./PricingDataProvider";
 import { PartialUnit } from "../types/PartialUnit";
 
-export class UnitDataProvider {
+export default class UnitDataProvider {
   public static commonRestrictions: Restrictions = {
     minAge: 18,
     maxAge: 100,

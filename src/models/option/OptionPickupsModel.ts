@@ -1,8 +1,10 @@
 import { PickupPoint } from "@octocloud/types";
 
-export class OptionPickupsModel {
+export default class OptionPickupsModel {
   public readonly pickupRequired: boolean;
+
   public readonly pickupAvailable: boolean;
+
   public readonly pickupPoints: Array<PickupPoint>;
 
   constructor({

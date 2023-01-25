@@ -1,8 +1,8 @@
 import { CapabilityId, PricingPer } from "@octocloud/types";
-import { OptionModelBuilder } from "../OptionModelBuilder";
-import { OptionModel } from "../../models/option/OptionModel";
-import { OptionDataProvider } from "../../dataProviders/OptionDataProvider";
-import { ProductModel } from "../../models/product/ProductModel";
+import OptionModelBuilder from "../OptionModelBuilder";
+import OptionModel from "../../models/option/OptionModel";
+import OptionDataProvider from "../../dataProviders/OptionDataProvider";
+import ProductModel from "../../models/product/ProductModel";
 
 describe("OptionModelBuilder", () => {
   const optionModelBuilder = new OptionModelBuilder();

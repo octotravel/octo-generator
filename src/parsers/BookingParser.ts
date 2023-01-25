@@ -1,20 +1,22 @@
 import { Booking, CapabilityId } from "@octocloud/types";
-import { BookingModel } from "../models/booking/BookingModel";
-import { ProductParser } from "./ProductParser";
-import { OptionParser } from "./OptionParser";
-import { BookingCartModel } from "../models/booking/BookingCartModel";
-import { BookingContentModel } from "../models/booking/BookingContentModel";
-import { BookingPickupsModel } from "../models/booking/BookingPickupsModel";
-import { BookingPricingModel } from "../models/booking/BookingPricingModel";
-import { UnitItemParser } from "./UnitItemParser";
+import BookingModel from "../models/booking/BookingModel";
+import ProductParser from "./ProductParser";
+import OptionParser from "./OptionParser";
+import BookingCartModel from "../models/booking/BookingCartModel";
+import BookingContentModel from "../models/booking/BookingContentModel";
+import BookingPickupsModel from "../models/booking/BookingPickupsModel";
+import BookingPricingModel from "../models/booking/BookingPricingModel";
+import UnitItemParser from "./UnitItemParser";
 
-export class BookingParser {
+export default class BookingParser {
   private readonly productParser = new ProductParser();
+
   private readonly optionParser = new OptionParser();
+
   private readonly unitItemParser = new UnitItemParser();
 
-  public parsePOJOToModel = (booking: Booking): BookingModel => {
-    return new BookingModel({
+  public parsePOJOToModel = (booking: Booking): BookingModel =>
+    new BookingModel({
       id: booking.id,
       uuid: booking.uuid,
       testMode: booking.testMode,
@@ -42,7 +44,6 @@ export class BookingParser {
       bookingPickupsModel: this.parsePickupsPOJOToModel(booking),
       bookingPricingModel: this.parsePricingPOJOToModel(booking),
     });
-  };
 
   private parseCartPOJOToModel = (booking: Booking): BookingCartModel | undefined => {
     if (booking.orderId === undefined || booking.orderReference === undefined || booking.primary === undefined) {
@@ -159,9 +160,8 @@ export class BookingParser {
     const unitItems = bookingModel.unitItemModels.map((unitItemModel) => {
       if (capabilities === undefined) {
         return this.unitItemParser.parseModelToPOJO(unitItemModel);
-      } else {
-        return this.unitItemParser.parseModelToPOJOWithSpecificCapabilities(unitItemModel, capabilities);
       }
+      return this.unitItemParser.parseModelToPOJOWithSpecificCapabilities(unitItemModel, capabilities);
     });
 
     return {
@@ -177,9 +177,9 @@ export class BookingParser {
       utcRedeemedAt: bookingModel.utcRedeemedAt,
       utcConfirmedAt: bookingModel.utcConfirmedAt,
       productId: bookingModel.productModel.id,
-      product: product,
+      product,
       optionId: bookingModel.optionModel.id,
-      option: option,
+      option,
       cancellable: bookingModel.cancellable,
       cancellation: bookingModel.cancellation,
       freesale: bookingModel.freesale,
@@ -189,7 +189,7 @@ export class BookingParser {
       notes: bookingModel.notes,
       deliveryMethods: bookingModel.deliveryMethods,
       voucher: bookingModel.voucher,
-      unitItems: unitItems,
+      unitItems,
     };
   };
 
@@ -198,7 +198,7 @@ export class BookingParser {
       return;
     }
 
-    const bookingCartModel = bookingModel.bookingCartModel;
+    const { bookingCartModel } = bookingModel;
 
     booking.orderId = bookingCartModel.orderId;
     booking.orderReference = bookingCartModel.orderReference;
@@ -210,7 +210,7 @@ export class BookingParser {
       return;
     }
 
-    const bookingContentModel = bookingModel.bookingContentModel;
+    const { bookingContentModel } = bookingModel;
 
     booking.meetingPoint = bookingContentModel.meetingPoint;
     booking.meetingPointCoordinates = bookingContentModel.meetingPointCoordinates;
@@ -225,7 +225,7 @@ export class BookingParser {
       return;
     }
 
-    const bookingPickupsModel = bookingModel.bookingPickupsModel;
+    const { bookingPickupsModel } = bookingModel;
 
     booking.pickupRequested = bookingPickupsModel.pickupRequested;
     booking.pickupPointId = bookingPickupsModel.pickupPointId;

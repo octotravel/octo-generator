@@ -1,9 +1,14 @@
-export class BookingContentModel {
+export default class BookingContentModel {
   public readonly meetingPoint?: Nullable<string>;
+
   public readonly meetingPointCoordinates?: Nullable<[number]>;
+
   public readonly meetingLocalDateTime?: Nullable<string>;
+
   public readonly duration?: string;
+
   public readonly durationAmount?: string;
+
   public readonly durationUnit?: string;
 
   constructor({

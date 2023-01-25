@@ -1,13 +1,19 @@
 import { AvailabilityStatus, OpeningHours } from "@octocloud/types";
-import { AvailabilityCalendarPricingModel } from "./AvailabilityCalendarPricingModel";
+import AvailabilityCalendarPricingModel from "./AvailabilityCalendarPricingModel";
 
-export class AvailabilityCalendarModel {
+export default class AvailabilityCalendarModel {
   public readonly localDate: string;
+
   public readonly available: boolean;
+
   public readonly status: AvailabilityStatus;
+
   public readonly vacancies: Nullable<number>;
+
   public readonly capacity: Nullable<number>;
+
   public readonly openingHours: OpeningHours[];
+
   public readonly availabilityCalendarPricingModel?: AvailabilityCalendarPricingModel;
 
   constructor({

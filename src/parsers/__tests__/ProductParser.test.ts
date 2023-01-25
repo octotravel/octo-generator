@@ -1,14 +1,14 @@
-import { ProductParser } from "../ProductParser";
-import { ProductTestDataProvider } from "./dataProviders/ProductTestDataProvider";
 import { CapabilityId } from "@octocloud/types";
+import ProductParser from "../ProductParser";
+import ProductTestDataProvider from "./dataProviders/ProductTestDataProvider";
 
 describe("ProductParser", () => {
   const productParser = new ProductParser();
-  const product = ProductTestDataProvider.product;
-  const productContent = ProductTestDataProvider.productContent;
-  const productPricing = ProductTestDataProvider.productPricing;
-  const productPOJO = ProductTestDataProvider.productPOJO;
-  const productModel = ProductTestDataProvider.productModel;
+  const { product } = ProductTestDataProvider;
+  const { productContent } = ProductTestDataProvider;
+  const { productPricing } = ProductTestDataProvider;
+  const { productPOJO } = ProductTestDataProvider;
+  const { productModel } = ProductTestDataProvider;
 
   describe("parsePOJOToModel", () => {
     it("should return option model", async () => {

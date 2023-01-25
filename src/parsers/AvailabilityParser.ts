@@ -1,12 +1,12 @@
 import { Availability, CapabilityId } from "@octocloud/types";
-import { AvailabilityModel } from "../models/availability/AvailabilityModel";
-import { AvailabilityContentModel } from "../models/availability/AvailabilityContentModel";
-import { AvailabilityPickupsModel } from "../models/availability/AvailabilityPickupsModel";
-import { AvailabilityPricingModel } from "../models/availability/AvailabilityPricingModel";
+import AvailabilityModel from "../models/availability/AvailabilityModel";
+import AvailabilityContentModel from "../models/availability/AvailabilityContentModel";
+import AvailabilityPickupsModel from "../models/availability/AvailabilityPickupsModel";
+import AvailabilityPricingModel from "../models/availability/AvailabilityPricingModel";
 
-export class AvailabilityParser {
-  public parsePOJOToModel = (availability: Availability): AvailabilityModel => {
-    return new AvailabilityModel({
+export default class AvailabilityParser {
+  public parsePOJOToModel = (availability: Availability): AvailabilityModel =>
+    new AvailabilityModel({
       id: availability.id,
       localDateTimeStart: availability.localDateTimeStart,
       localDateTimeEnd: availability.localDateTimeEnd,
@@ -22,7 +22,6 @@ export class AvailabilityParser {
       availabilityPickupsModel: this.parsePickupPOJOToModel(availability),
       availabilityPricingModel: this.parsePricingPOJOToModel(availability),
     });
-  };
 
   private parseContentPOJOToModel = (availability: Availability): AvailabilityContentModel | undefined => {
     if (
@@ -102,28 +101,26 @@ export class AvailabilityParser {
     return availability;
   };
 
-  private parseMainModelToPojo = (availabilityModel: AvailabilityModel): Availability => {
-    return {
-      id: availabilityModel.id,
-      localDateTimeStart: availabilityModel.localDateTimeStart,
-      localDateTimeEnd: availabilityModel.localDateTimeEnd,
-      allDay: availabilityModel.allDay,
-      available: availabilityModel.available,
-      status: availabilityModel.status,
-      vacancies: availabilityModel.vacancies,
-      capacity: availabilityModel.capacity,
-      maxUnits: availabilityModel.maxUnits,
-      utcCutoffAt: availabilityModel.utcCutoffAt,
-      openingHours: availabilityModel.openingHours,
-    };
-  };
+  private parseMainModelToPojo = (availabilityModel: AvailabilityModel): Availability => ({
+    id: availabilityModel.id,
+    localDateTimeStart: availabilityModel.localDateTimeStart,
+    localDateTimeEnd: availabilityModel.localDateTimeEnd,
+    allDay: availabilityModel.allDay,
+    available: availabilityModel.available,
+    status: availabilityModel.status,
+    vacancies: availabilityModel.vacancies,
+    capacity: availabilityModel.capacity,
+    maxUnits: availabilityModel.maxUnits,
+    utcCutoffAt: availabilityModel.utcCutoffAt,
+    openingHours: availabilityModel.openingHours,
+  });
 
   private parseContentModelToPOJO = (availability: Availability, availabilityModel: AvailabilityModel) => {
     if (availabilityModel.availabilityContentModel === undefined) {
       return;
     }
 
-    const availabilityContentModel = availabilityModel.availabilityContentModel;
+    const { availabilityContentModel } = availabilityModel;
 
     availability.meetingPoint = availabilityContentModel.meetingPoint;
     availability.meetingPointCoordinates = availabilityContentModel.meetingPointCoordinates;
@@ -137,7 +134,7 @@ export class AvailabilityParser {
       return;
     }
 
-    const availabilityPickupsModel = availabilityModel.availabilityPickupsModel;
+    const { availabilityPickupsModel } = availabilityModel;
 
     availability.pickupRequired = availabilityPickupsModel.pickupRequired;
     availability.pickupAvailable = availabilityPickupsModel.pickupAvailable;
@@ -149,7 +146,7 @@ export class AvailabilityParser {
       return;
     }
 
-    const availabilityPricingModel = availabilityModel.availabilityPricingModel;
+    const { availabilityPricingModel } = availabilityModel;
 
     availability.unitPricing = availabilityPricingModel.unitPricing;
     availability.pricing = availabilityPricingModel.pricing;

@@ -1,7 +1,7 @@
 import { CapabilityId } from "@octocloud/types";
 import { UnitItemValidator } from "@octocloud/validators";
-import { UnitItemModelGenerator } from "../UnitItemModelGenerator";
-import { UnitItemParser } from "../../parsers/UnitItemParser";
+import UnitItemModelGenerator from "../UnitItemModelGenerator";
+import UnitItemParser from "../../parsers/UnitItemParser";
 
 describe("UnitItemModelGenerator", () => {
   const unitItemModelGenerator = new UnitItemModelGenerator();
@@ -9,7 +9,7 @@ describe("UnitItemModelGenerator", () => {
   const capabilities = [CapabilityId.Pricing];
   const unitItemValidator = new UnitItemValidator({
     path: "",
-    capabilities: capabilities,
+    capabilities,
   });
 
   describe("generate and validate unit item model", () => {
@@ -19,7 +19,7 @@ describe("UnitItemModelGenerator", () => {
           uuid: "uuid",
           ticket: null,
         },
-        capabilities: capabilities,
+        capabilities,
       });
       const unitItem = unitItemParser.parseModelToPOJO(unitItemModel);
       const validationErrors = unitItemValidator.validate(unitItem);
@@ -33,7 +33,7 @@ describe("UnitItemModelGenerator", () => {
           uuid: "",
           ticket: null,
         },
-        capabilities: capabilities,
+        capabilities,
       });
       const unitItem = unitItemParser.parseModelToPOJO(unitItemModel);
       const validationErrors = unitItemValidator.validate(unitItem);

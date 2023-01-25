@@ -1,15 +1,15 @@
 import { CapabilityId } from "@octocloud/types";
 import { BookingValidator } from "@octocloud/validators";
-import { BookingParser } from "../../parsers/BookingParser";
-import { BookingModelGenerator } from "../BookingModelGenerator";
-import { AvailabilityDataProvider } from "../../dataProviders/AvailabilityDataProvider";
+import BookingParser from "../../parsers/BookingParser";
+import BookingModelGenerator from "../BookingModelGenerator";
+import AvailabilityDataProvider from "../../dataProviders/AvailabilityDataProvider";
 
 describe("BookingModelGenerator", () => {
   const bookingModelGenerator = new BookingModelGenerator();
   const bookingParser = new BookingParser();
   const capabilities = [CapabilityId.Cart, CapabilityId.Content, CapabilityId.Pickups, CapabilityId.Pricing];
   const bookingValidator = new BookingValidator({
-    capabilities: capabilities,
+    capabilities,
   });
 
   describe("generate and validate booking model", () => {
@@ -19,7 +19,7 @@ describe("BookingModelGenerator", () => {
           id: "id",
           availability: AvailabilityDataProvider.availability,
         },
-        capabilities: capabilities,
+        capabilities,
       });
       const unit = bookingParser.parseModelToPOJO(bookingModel);
       const validationErrors = bookingValidator.validate(unit);
@@ -33,7 +33,7 @@ describe("BookingModelGenerator", () => {
           id: "",
           availability: AvailabilityDataProvider.availability,
         },
-        capabilities: capabilities,
+        capabilities,
       });
       const unit = bookingParser.parseModelToPOJO(unitModel);
       const validationErrors = bookingValidator.validate(unit);

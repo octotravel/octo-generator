@@ -1,10 +1,10 @@
 import { AvailabilityCalendar, CapabilityId } from "@octocloud/types";
-import { AvailabilityCalendarModel } from "../models/availability/AvailabilityCalendarModel";
-import { AvailabilityCalendarPricingModel } from "../models/availability/AvailabilityCalendarPricingModel";
+import AvailabilityCalendarModel from "../models/availability/AvailabilityCalendarModel";
+import AvailabilityCalendarPricingModel from "../models/availability/AvailabilityCalendarPricingModel";
 
-export class AvailabilityCalendarParser {
-  public parsePOJOToModel = (availabilityCalendar: AvailabilityCalendar): AvailabilityCalendarModel => {
-    return new AvailabilityCalendarModel({
+export default class AvailabilityCalendarParser {
+  public parsePOJOToModel = (availabilityCalendar: AvailabilityCalendar): AvailabilityCalendarModel =>
+    new AvailabilityCalendarModel({
       localDate: availabilityCalendar.localDate,
       available: availabilityCalendar.available,
       status: availabilityCalendar.status,
@@ -13,7 +13,6 @@ export class AvailabilityCalendarParser {
       openingHours: availabilityCalendar.openingHours,
       availabilityCalendarPricingModel: this.parsePricingPOJOToModel(availabilityCalendar),
     });
-  };
 
   private parsePricingPOJOToModel = (
     availabilityCalendar: AvailabilityCalendar
@@ -49,16 +48,14 @@ export class AvailabilityCalendarParser {
     return availabilityCalendar;
   };
 
-  private parseMainModelToPojo = (availabilityCalendarModel: AvailabilityCalendarModel): AvailabilityCalendar => {
-    return {
-      localDate: availabilityCalendarModel.localDate,
-      available: availabilityCalendarModel.available,
-      status: availabilityCalendarModel.status,
-      vacancies: availabilityCalendarModel.vacancies,
-      capacity: availabilityCalendarModel.capacity,
-      openingHours: availabilityCalendarModel.openingHours,
-    };
-  };
+  private parseMainModelToPojo = (availabilityCalendarModel: AvailabilityCalendarModel): AvailabilityCalendar => ({
+    localDate: availabilityCalendarModel.localDate,
+    available: availabilityCalendarModel.available,
+    status: availabilityCalendarModel.status,
+    vacancies: availabilityCalendarModel.vacancies,
+    capacity: availabilityCalendarModel.capacity,
+    openingHours: availabilityCalendarModel.openingHours,
+  });
 
   private parsePricingModelToPOJO = (
     availabilityCalendar: AvailabilityCalendar,
@@ -68,7 +65,7 @@ export class AvailabilityCalendarParser {
       return;
     }
 
-    const availabilityCalendarPricingModel = availabilityCalendarModel.availabilityCalendarPricingModel;
+    const { availabilityCalendarPricingModel } = availabilityCalendarModel;
 
     availabilityCalendar.unitPricingFrom = availabilityCalendarPricingModel.unitPricingFrom;
     availabilityCalendar.pricingFrom = availabilityCalendarPricingModel.pricingFrom;

@@ -1,11 +1,10 @@
-import { BookingStatus, CapabilityId } from "@octocloud/types";
-import { UnitItemModel } from "../models/unitItem/UnitItemModel";
+import { BookingStatus, CapabilityId, RedemptionMethod } from "@octocloud/types";
+import UnitItemModel from "../models/unitItem/UnitItemModel";
 import { PartialUnitItem } from "../types/PartialUnitItem";
-import { UnitModelBuilder } from "./UnitModelBuilder";
-import { UnitItemPricingModel } from "../models/unitItem/UnitItemPricingModel";
-import { UnitModel } from "../models/unit/UnitModel";
-import { RedemptionMethod } from "@octocloud/types";
-import { NullableFactory } from "../factories/NullableFactory";
+import UnitModelBuilder from "./UnitModelBuilder";
+import UnitItemPricingModel from "../models/unitItem/UnitItemPricingModel";
+import UnitModel from "../models/unit/UnitModel";
+import NullableFactory from "../factories/NullableFactory";
 
 interface UnitModelBuilderData {
   unitItemData: PartialUnitItem;
@@ -15,13 +14,13 @@ interface UnitModelBuilderData {
 
 const defaultCapabilities: CapabilityId[] = [CapabilityId.Pricing];
 
-export class UnitItemModelBuilder {
+export default class UnitItemModelBuilder {
   private readonly unitModelBuilder = new UnitModelBuilder();
 
   public build(builderData: UnitModelBuilderData): UnitItemModel {
     builderData.capabilities ??= defaultCapabilities;
 
-    const unitItemData = builderData.unitItemData;
+    const { unitItemData } = builderData;
     const unitModel = this.unitModelBuilder.build({
       unitData: builderData.unitItemData.unit ?? {},
       capabilities: builderData.capabilities,
@@ -32,7 +31,7 @@ export class UnitItemModelBuilder {
       uuid: unitItemData.uuid ?? "10ea9ebd-a4f2-419e-808d-b0e111137a96",
       resellerReference: unitItemData.resellerReference ?? null,
       supplierReference: unitItemData.supplierReference ?? null,
-      unitModel: unitModel,
+      unitModel,
       status: unitItemData.status ?? BookingStatus.CANCELLED,
       utcRedeemedAt: unitItemData.utcRedeemedAt ?? null,
       contact: unitItemData.contact ?? {
@@ -63,7 +62,7 @@ export class UnitItemModelBuilder {
       return undefined;
     }
 
-    const unitItemData = builderData.unitItemData;
+    const { unitItemData } = builderData;
     let pricing = unitItemData.pricing ?? undefined;
 
     if (unitItemData.pricing === undefined && unitModel.unitPricingModel?.pricing !== undefined) {
@@ -71,7 +70,7 @@ export class UnitItemModelBuilder {
     }
 
     return new UnitItemPricingModel({
-      pricing: pricing,
+      pricing,
     });
   }
 }

@@ -1,13 +1,13 @@
 import { CapabilityId, BookingStatus } from "@octocloud/types";
-import { UnitItemParser } from "../UnitItemParser";
-import { UnitTestDataProvider } from "./dataProviders/UnitTestDataProvider";
-import { UnitItemModel } from "../../models/unitItem/UnitItemModel";
-import { UnitItemPricingModel } from "../../models/unitItem/UnitItemPricingModel";
+import UnitItemParser from "../UnitItemParser";
+import UnitTestDataProvider from "./dataProviders/UnitTestDataProvider";
+import UnitItemModel from "../../models/unitItem/UnitItemModel";
+import UnitItemPricingModel from "../../models/unitItem/UnitItemPricingModel";
 
 describe("UnitItemParser", () => {
   const unitItemParser = new UnitItemParser();
-  const unitPOJO = UnitTestDataProvider.unitPOJO;
-  const unitModel = UnitTestDataProvider.unitModel;
+  const { unitPOJO } = UnitTestDataProvider;
+  const { unitModel } = UnitTestDataProvider;
   const unitItem = {
     uuid: "10ea9ebd-a4f2-419e-808d-b0e111137a96",
     resellerReference: null,
@@ -41,7 +41,7 @@ describe("UnitItemParser", () => {
     uuid: unitItemPOJO.uuid,
     resellerReference: unitItemPOJO.resellerReference,
     supplierReference: unitItemPOJO.supplierReference,
-    unitModel: unitModel,
+    unitModel,
     status: unitItemPOJO.status,
     utcRedeemedAt: unitItemPOJO.utcRedeemedAt,
     contact: unitItemPOJO.contact,

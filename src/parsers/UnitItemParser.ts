@@ -1,12 +1,13 @@
 import { CapabilityId, UnitItem } from "@octocloud/types";
-import { UnitItemModel } from "../models/unitItem/UnitItemModel";
-import { UnitParser } from "./UnitParser";
-import { UnitItemPricingModel } from "../models/unitItem/UnitItemPricingModel";
+import UnitItemModel from "../models/unitItem/UnitItemModel";
+import UnitParser from "./UnitParser";
+import UnitItemPricingModel from "../models/unitItem/UnitItemPricingModel";
 
-export class UnitItemParser {
+export default class UnitItemParser {
   private readonly unitParser: UnitParser = new UnitParser();
-  public parsePOJOToModel = (unitItem: UnitItem): UnitItemModel => {
-    return new UnitItemModel({
+
+  public parsePOJOToModel = (unitItem: UnitItem): UnitItemModel =>
+    new UnitItemModel({
       uuid: unitItem.uuid,
       resellerReference: unitItem.resellerReference,
       supplierReference: unitItem.supplierReference,
@@ -17,7 +18,6 @@ export class UnitItemParser {
       ticket: unitItem.ticket,
       unitItemPricingModel: this.parseUnitItemPricingPOJOToModel(unitItem),
     });
-  };
 
   private parseUnitItemPricingPOJOToModel = (unitItem: UnitItem): UnitItemPricingModel | undefined => {
     if (unitItem.pricing === undefined) {
@@ -64,7 +64,7 @@ export class UnitItemParser {
       resellerReference: unitItemModel.resellerReference,
       supplierReference: unitItemModel.supplierReference,
       unitId: unitItemModel.unitModel.id,
-      unit: unit,
+      unit,
       status: unitItemModel.status,
       utcRedeemedAt: unitItemModel.utcRedeemedAt,
       contact: unitItemModel.contact,

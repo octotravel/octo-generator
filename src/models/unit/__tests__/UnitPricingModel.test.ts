@@ -1,4 +1,4 @@
-import { UnitPricingModel } from "../UnitPricingModel";
+import UnitPricingModel from "../UnitPricingModel";
 
 describe("UnitPricingModel", () => {
   describe("constructor", () => {

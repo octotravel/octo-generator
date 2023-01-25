@@ -1,11 +1,11 @@
 import { CapabilityId, Unit } from "@octocloud/types";
-import { UnitModel } from "../models/unit/UnitModel";
-import { UnitContentModel } from "../models/unit/UnitContentModel";
-import { UnitPricingModel } from "../models/unit/UnitPricingModel";
+import UnitModel from "../models/unit/UnitModel";
+import UnitContentModel from "../models/unit/UnitContentModel";
+import UnitPricingModel from "../models/unit/UnitPricingModel";
 
-export class UnitParser {
-  public parsePOJOToModel = (unit: Unit): UnitModel => {
-    return new UnitModel({
+export default class UnitParser {
+  public parsePOJOToModel = (unit: Unit): UnitModel =>
+    new UnitModel({
       id: unit.id,
       internalName: unit.internalName,
       reference: unit.reference,
@@ -15,7 +15,6 @@ export class UnitParser {
       unitContentModel: this.parseUnitContentPOJOToModel(unit),
       unitPricingModel: this.parseUnitPricingPOJOToModel(unit),
     });
-  };
 
   private parseUnitContentPOJOToModel = (unit: Unit): UnitContentModel | undefined => {
     if (unit.title === undefined || unit.titlePlural === undefined || unit.subtitle === undefined) {
@@ -63,23 +62,21 @@ export class UnitParser {
     return unit;
   };
 
-  private parseMainModelToPojo = (unitModel: UnitModel): Unit => {
-    return {
-      id: unitModel.id,
-      internalName: unitModel.internalName,
-      reference: unitModel.reference,
-      type: unitModel.type,
-      restrictions: unitModel.restrictions,
-      requiredContactFields: unitModel.requiredContactFields,
-    };
-  };
+  private parseMainModelToPojo = (unitModel: UnitModel): Unit => ({
+    id: unitModel.id,
+    internalName: unitModel.internalName,
+    reference: unitModel.reference,
+    type: unitModel.type,
+    restrictions: unitModel.restrictions,
+    requiredContactFields: unitModel.requiredContactFields,
+  });
 
   private parseContentModelToPOJO = (unit: Unit, unitModel: UnitModel) => {
     if (unitModel.unitContentModel === undefined) {
       return;
     }
 
-    const unitContentModel = unitModel.unitContentModel;
+    const { unitContentModel } = unitModel;
 
     unit.title = unitContentModel?.title;
     unit.titlePlural = unitContentModel?.titlePlural;
@@ -91,7 +88,7 @@ export class UnitParser {
       return;
     }
 
-    const unitPricingModel = unitModel.unitPricingModel;
+    const { unitPricingModel } = unitModel;
 
     unit.pricingFrom = unitPricingModel?.pricingFrom;
     unit.pricing = unitPricingModel?.pricing;

@@ -1,15 +1,15 @@
 import { CapabilityId, Product } from "@octocloud/types";
-import { OptionParser } from "./OptionParser";
-import { ProductModel } from "../models/product/ProductModel";
+import OptionParser from "./OptionParser";
+import ProductModel from "../models/product/ProductModel";
 
-import { ProductContentModel } from "../models/product/ProductContentModel";
-import { ProductPricingModel } from "../models/product/ProductPricingModel";
+import ProductContentModel from "../models/product/ProductContentModel";
+import ProductPricingModel from "../models/product/ProductPricingModel";
 
-export class ProductParser {
+export default class ProductParser {
   private readonly optionParser = new OptionParser();
 
-  public parsePOJOToModel = (product: Product): ProductModel => {
-    return new ProductModel({
+  public parsePOJOToModel = (product: Product): ProductModel =>
+    new ProductModel({
       id: product.id,
       internalName: product.internalName,
       reference: product.reference,
@@ -27,7 +27,6 @@ export class ProductParser {
       productContentModel: this.parseContentPOJOToModel(product),
       productPricingModel: this.parsePricingPOJOToModel(product),
     });
-  };
 
   private parseContentPOJOToModel = (product: Product): ProductContentModel | undefined => {
     if (
@@ -125,9 +124,8 @@ export class ProductParser {
     const options = productModel.optionModels.map((optionModel) => {
       if (capabilities === undefined) {
         return this.optionParser.parseModelToPOJO(optionModel);
-      } else {
-        return this.optionParser.parseModelToPOJOWithSpecificCapabilities(optionModel, capabilities);
       }
+      return this.optionParser.parseModelToPOJOWithSpecificCapabilities(optionModel, capabilities);
     });
 
     return {
@@ -144,7 +142,7 @@ export class ProductParser {
       deliveryFormats: productModel.deliveryFormats,
       deliveryMethods: productModel.deliveryMethods,
       redemptionMethod: productModel.redemptionMethod,
-      options: options,
+      options,
     };
   };
 
@@ -153,7 +151,7 @@ export class ProductParser {
       return;
     }
 
-    const productContentModel = productModel.productContentModel;
+    const { productContentModel } = productModel;
 
     product.title = productContentModel.title;
     product.country = productContentModel.country;
@@ -182,7 +180,7 @@ export class ProductParser {
       return;
     }
 
-    const productPricingModel = productModel.productPricingModel;
+    const { productPricingModel } = productModel;
 
     product.defaultCurrency = productPricingModel.defaultCurrency;
     product.availableCurrencies = productPricingModel.availableCurrencies;

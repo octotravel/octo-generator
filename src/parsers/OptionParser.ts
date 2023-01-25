@@ -1,15 +1,15 @@
 import { CapabilityId, Option } from "@octocloud/types";
-import { OptionModel } from "../models/option/OptionModel";
-import { UnitParser } from "./UnitParser";
-import { OptionContentModel } from "../models/option/OptionContentModel";
-import { OptionPickupsModel } from "../models/option/./OptionPickupsModel";
-import { OptionPricingModel } from "../models/option/OptionPricingModel";
+import OptionModel from "../models/option/OptionModel";
+import UnitParser from "./UnitParser";
+import OptionContentModel from "../models/option/OptionContentModel";
+import OptionPickupsModel from "../models/option/OptionPickupsModel";
+import OptionPricingModel from "../models/option/OptionPricingModel";
 
-export class OptionParser {
+export default class OptionParser {
   private readonly unitParser = new UnitParser();
 
-  public parsePOJOToModel = (option: Option): OptionModel => {
-    return new OptionModel({
+  public parsePOJOToModel = (option: Option): OptionModel =>
+    new OptionModel({
       id: option.id,
       isDefault: option.default,
       internalName: option.internalName,
@@ -25,7 +25,6 @@ export class OptionParser {
       optionPickupsModel: this.parseOptionPickupsPOJOToModel(option),
       optionPricingModel: this.parseOptionPricingPOJOToModel(option),
     });
-  };
 
   private parseOptionContentPOJOToModel = (option: Option): OptionContentModel | undefined => {
     if (
@@ -115,9 +114,8 @@ export class OptionParser {
     const units = optionModel.unitModels.map((unitModel) => {
       if (capabilities === undefined) {
         return this.unitParser.parseModelToPOJO(unitModel);
-      } else {
-        return this.unitParser.parseModelToPOJOWithSpecificCapabilities(unitModel, capabilities);
       }
+      return this.unitParser.parseModelToPOJOWithSpecificCapabilities(unitModel, capabilities);
     });
 
     return {
@@ -131,7 +129,7 @@ export class OptionParser {
       cancellationCutoffUnit: optionModel.cancellationCutoffUnit,
       requiredContactFields: optionModel.requiredContactFields,
       restrictions: optionModel.restrictions,
-      units: units,
+      units,
     };
   };
 
@@ -140,7 +138,7 @@ export class OptionParser {
       return;
     }
 
-    const optionContentModel = optionModel.optionContentModel;
+    const { optionContentModel } = optionModel;
 
     option.title = optionContentModel.title;
     option.subtitle = optionContentModel.subtitle;
@@ -169,7 +167,7 @@ export class OptionParser {
       return;
     }
 
-    const optionPricingModel = optionModel.optionPricingModel;
+    const { optionPricingModel } = optionModel;
 
     option.pricingFrom = optionPricingModel.pricingFrom;
     option.pricing = optionPricingModel.pricing;

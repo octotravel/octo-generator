@@ -1,8 +1,12 @@
-export class AvailabilityContentModel {
+export default class AvailabilityContentModel {
   public readonly meetingPoint: Nullable<string>;
+
   public readonly meetingPointCoordinates: Nullable<[number]>;
+
   public readonly meetingPointLatitude: Nullable<number>;
+
   public readonly meetingPointLongitude: Nullable<number>;
+
   public readonly meetingLocalDateTime: Nullable<string>;
 
   constructor({

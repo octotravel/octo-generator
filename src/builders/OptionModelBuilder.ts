@@ -1,13 +1,13 @@
 import { CapabilityId, DurationUnit, PricingPer } from "@octocloud/types";
-import { UnitModelBuilder } from "./UnitModelBuilder";
-import { OptionModel } from "../models/option/OptionModel";
-import { OptionContentModel } from "../models/option/OptionContentModel";
-import { OptionPickupsModel } from "../models/option/./OptionPickupsModel";
-import { OptionPricingModel } from "../models/option/OptionPricingModel";
-import { PricingDataProvider } from "../dataProviders/PricingDataProvider";
-import { UnitModel } from "../models/unit/UnitModel";
-import { LocaleDataProvider } from "../dataProviders/LocaleDataProvider";
-import { ProductModel } from "../models/product/ProductModel";
+import UnitModelBuilder from "./UnitModelBuilder";
+import OptionModel from "../models/option/OptionModel";
+import OptionContentModel from "../models/option/OptionContentModel";
+import OptionPickupsModel from "../models/option/OptionPickupsModel";
+import OptionPricingModel from "../models/option/OptionPricingModel";
+import PricingDataProvider from "../dataProviders/PricingDataProvider";
+import UnitModel from "../models/unit/UnitModel";
+import LocaleDataProvider from "../dataProviders/LocaleDataProvider";
+import ProductModel from "../models/product/ProductModel";
 import { PartialOption } from "../types/PartialOption";
 
 interface OptionModelBuilderData {
@@ -20,14 +20,14 @@ interface OptionModelBuilderData {
 const defaultPricingPer: PricingPer = PricingPer.UNIT;
 const defaultCapabilities: CapabilityId[] = [CapabilityId.Content, CapabilityId.Pickups, CapabilityId.Pricing];
 
-export class OptionModelBuilder {
+export default class OptionModelBuilder {
   private readonly unitModelBuilder = new UnitModelBuilder();
 
   public build(builderData: OptionModelBuilderData): OptionModel {
     builderData.pricingPer ??= defaultPricingPer;
     builderData.capabilities ??= defaultCapabilities;
 
-    const optionData = builderData.optionData;
+    const { optionData } = builderData;
 
     return new OptionModel({
       id: optionData.id ?? "DEFAULT",
@@ -55,14 +55,16 @@ export class OptionModelBuilder {
       return [];
     }
 
-    return builderData.optionData.units.map((unitData) => {
-      return this.unitModelBuilder.build({
-        unitData: unitData,
-        pricingPer: builderData.pricingPer,
-        capabilities: builderData.capabilities,
-        sourceModel: builderData.sourceModel,
-      });
-    }, builderData);
+    return builderData.optionData.units.map(
+      (unitData) =>
+        this.unitModelBuilder.build({
+          unitData,
+          pricingPer: builderData.pricingPer,
+          capabilities: builderData.capabilities,
+          sourceModel: builderData.sourceModel,
+        }),
+      builderData
+    );
   }
 
   private buildContentModel(builderData: OptionModelBuilderData): OptionContentModel | undefined {
@@ -70,7 +72,7 @@ export class OptionModelBuilder {
       return undefined;
     }
 
-    const optionData = builderData.optionData;
+    const { optionData } = builderData;
     const durationUnit = optionData.durationUnit ?? DurationUnit.HOUR;
     const durationAmount = optionData.durationAmount ?? "0";
 
@@ -91,7 +93,7 @@ export class OptionModelBuilder {
       return undefined;
     }
 
-    const optionData = builderData.optionData;
+    const { optionData } = builderData;
 
     return new OptionPickupsModel({
       pickupRequired: optionData.pickupRequired ?? false,
@@ -108,7 +110,7 @@ export class OptionModelBuilder {
       return undefined;
     }
 
-    const optionData = builderData.optionData;
+    const { optionData } = builderData;
     optionData.pricing ??= [PricingDataProvider.adultPricing];
 
     if (builderData.sourceModel === ProductModel) {

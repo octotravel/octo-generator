@@ -6,15 +6,15 @@ import {
   PricingPer,
   RedemptionMethod,
 } from "@octocloud/types";
-import { OptionModel } from "../models/option/OptionModel";
-import { OptionModelBuilder } from "./OptionModelBuilder";
-import { ProductModel } from "../models/product/ProductModel";
-import { TimeZoneDataProvider } from "../dataProviders/TimeZoneDataProvider";
-import { LocaleDataProvider } from "../dataProviders/LocaleDataProvider";
-import { ProductContentModel } from "../models/product/ProductContentModel";
-import { ProductPricingModel } from "../models/product/ProductPricingModel";
+import OptionModel from "../models/option/OptionModel";
+import OptionModelBuilder from "./OptionModelBuilder";
+import ProductModel from "../models/product/ProductModel";
+import TimeZoneDataProvider from "../dataProviders/TimeZoneDataProvider";
+import LocaleDataProvider from "../dataProviders/LocaleDataProvider";
+import ProductContentModel from "../models/product/ProductContentModel";
+import ProductPricingModel from "../models/product/ProductPricingModel";
 import { PartialProduct } from "../types/PartialProduct";
-import { DeliveryMethodsDataProvider } from "../dataProviders/DeliveryMethodDataProvider";
+import DeliveryMethodsDataProvider from "../dataProviders/DeliveryMethodDataProvider";
 
 interface ProductModelBuilderData {
   productData: PartialProduct;
@@ -25,14 +25,14 @@ interface ProductModelBuilderData {
 const defaultCapabilities: CapabilityId[] = [CapabilityId.Content, CapabilityId.Pricing, CapabilityId.Pickups];
 const defaultSourceModel: object = ProductModel;
 
-export class ProductModelBuilder {
+export default class ProductModelBuilder {
   private readonly optionModelBuilder = new OptionModelBuilder();
 
   public build(builderData: ProductModelBuilderData): ProductModel {
     builderData.capabilities ??= defaultCapabilities;
     builderData.sourceModel ??= defaultSourceModel;
 
-    const productData = builderData.productData;
+    const { productData } = builderData;
 
     return new ProductModel({
       id: productData.id ?? "id",
@@ -70,7 +70,7 @@ export class ProductModelBuilder {
       optionData.default ??= index === 0;
 
       return this.optionModelBuilder.build({
-        optionData: optionData,
+        optionData,
         pricingPer: builderData.productData.pricingPer,
         capabilities: builderData.capabilities,
         sourceModel: builderData.sourceModel,
@@ -83,7 +83,7 @@ export class ProductModelBuilder {
       return undefined;
     }
 
-    const productData = builderData.productData;
+    const { productData } = builderData;
     const destination = productData.destination ?? {
       id: "id",
       default: true,
@@ -128,7 +128,7 @@ export class ProductModelBuilder {
       return undefined;
     }
 
-    const productData = builderData.productData;
+    const { productData } = builderData;
 
     return new ProductPricingModel({
       defaultCurrency: productData.defaultCurrency ?? Currency.EUR,

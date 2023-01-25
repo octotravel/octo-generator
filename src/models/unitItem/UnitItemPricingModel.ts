@@ -1,6 +1,6 @@
 import { Pricing } from "@octocloud/types";
 
-export class UnitItemPricingModel {
+export default class UnitItemPricingModel {
   public readonly pricing?: Pricing;
 
   constructor({ pricing }: { pricing?: Pricing }) {

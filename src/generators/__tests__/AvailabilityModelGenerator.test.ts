@@ -1,7 +1,7 @@
 import { CapabilityId } from "@octocloud/types";
 import { AvailabilityValidator } from "@octocloud/validators";
-import { AvailabilityModelGenerator } from "../AvailabilityModelGenerator";
-import { AvailabilityParser } from "../../parsers/AvailabilityParser";
+import AvailabilityModelGenerator from "../AvailabilityModelGenerator";
+import AvailabilityParser from "../../parsers/AvailabilityParser";
 
 describe("AvailabilityModelGenerator", () => {
   const availabilityModelGenerator = new AvailabilityModelGenerator();
@@ -9,7 +9,7 @@ describe("AvailabilityModelGenerator", () => {
   const capabilities = [CapabilityId.Content, CapabilityId.Pricing, CapabilityId.Pickups];
   const availabilityValidator = new AvailabilityValidator({
     path: "",
-    capabilities: capabilities,
+    capabilities,
   });
 
   describe("generate and validate availability model", () => {
@@ -18,7 +18,7 @@ describe("AvailabilityModelGenerator", () => {
         availabilityData: {
           id: "2023-12-01T00:00:00+01:00",
         },
-        capabilities: capabilities,
+        capabilities,
       });
       const availability = availabilityParser.parseModelToPOJO(availabilityModel);
       const validationErrors = availabilityValidator.validate(availability);
@@ -31,7 +31,7 @@ describe("AvailabilityModelGenerator", () => {
         availabilityData: {
           id: "",
         },
-        capabilities: capabilities,
+        capabilities,
       });
       const availability = availabilityParser.parseModelToPOJO(availabilityModel);
       const validationErrors = availabilityValidator.validate(availability);
