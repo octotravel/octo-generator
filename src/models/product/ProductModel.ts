@@ -1,25 +1,40 @@
 import { AvailabilityType, DeliveryFormat, DeliveryMethod, RedemptionMethod } from "@octocloud/types";
-import { OptionModel } from "../option/OptionModel";
-import { ProductContentModel } from "./ProductContentModel";
-import { ProductPricingModel } from "./ProductPricingModel";
-import { UndefinedModelError } from "../../errors/UndefinedModelError";
+import OptionModel from "../option/OptionModel";
+import ProductContentModel from "./ProductContentModel";
+import ProductPricingModel from "./ProductPricingModel";
+import UndefinedModelError from "../../errors/UndefinedModelError";
 
-export class ProductModel {
+export default class ProductModel {
   public readonly id: string;
+
   public readonly internalName: string;
+
   public readonly reference: Nullable<string>;
+
   public readonly locale: string;
+
   public readonly timeZone: string;
+
   public readonly allowFreesale: boolean;
+
   public readonly instantConfirmation: boolean;
+
   public readonly instantDelivery: boolean;
+
   public readonly availabilityRequired: boolean;
+
   public readonly availabilityType: AvailabilityType;
+
   public readonly deliveryFormats: Array<DeliveryFormat>;
+
   public readonly deliveryMethods: Array<DeliveryMethod>;
+
   public readonly redemptionMethod: RedemptionMethod;
+
   public readonly optionModels: Array<OptionModel>;
+
   public readonly productContentModel?: ProductContentModel;
+
   public readonly productPricingModel?: ProductPricingModel;
 
   constructor({

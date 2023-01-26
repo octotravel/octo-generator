@@ -1,39 +1,64 @@
-import { OptionModel } from "../option/OptionModel";
-import { ProductModel } from "../product/ProductModel";
-import { BookingCartModel } from "./BookingCartModel";
-import { BookingContentModel } from "./BookingContentModel";
-import { BookingPickupsModel } from "./BookingPickupsModel";
-import { BookingPricingModel } from "./BookingPricingModel";
 import { BookingAvailability, BookingStatus, Cancellation, Contact, Ticket, DeliveryMethod } from "@octocloud/types";
-import { UnitItemModel } from "../unitItem/UnitItemModel";
-import { UndefinedModelError } from "../../errors/UndefinedModelError";
+import OptionModel from "../option/OptionModel";
+import ProductModel from "../product/ProductModel";
+import BookingCartModel from "./BookingCartModel";
+import BookingContentModel from "./BookingContentModel";
+import BookingPickupsModel from "./BookingPickupsModel";
+import BookingPricingModel from "./BookingPricingModel";
+import UnitItemModel from "../unitItem/UnitItemModel";
+import UndefinedModelError from "../../errors/UndefinedModelError";
 
-export class BookingModel {
+export default class BookingModel {
   public readonly id: string;
+
   public readonly uuid: string;
+
   public readonly testMode: boolean;
+
   protected _resellerReference: Nullable<string>;
+
   public readonly supplierReference: Nullable<string>;
+
   protected _status: BookingStatus;
+
   public readonly utcCreatedAt: string;
+
   protected _utcUpdatedAt: Nullable<string>;
+
   protected _utcExpiresAt: Nullable<string>;
+
   protected _utcRedeemedAt: Nullable<string>;
+
   protected _utcConfirmedAt: Nullable<string>;
+
   protected _productModel: ProductModel;
+
   protected _optionModel: OptionModel;
+
   protected _cancellable: boolean;
+
   protected _cancellation: Nullable<Cancellation>;
+
   public readonly freesale: boolean;
+
   protected _availability: BookingAvailability;
+
   protected _contact: Contact;
+
   protected _notes: Nullable<string>;
+
   public readonly deliveryMethods: DeliveryMethod[];
+
   protected _voucher: Nullable<Ticket>;
+
   protected _unitItemModels: UnitItemModel[];
+
   public readonly bookingCartModel?: BookingCartModel;
+
   public readonly bookingContentModel?: BookingContentModel;
+
   public readonly bookingPickupsModel?: BookingPickupsModel;
+
   public readonly bookingPricingModel?: BookingPricingModel;
 
   constructor({

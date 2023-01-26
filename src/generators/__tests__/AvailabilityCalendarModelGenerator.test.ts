@@ -1,7 +1,7 @@
 import { AvailabilityType, CapabilityId } from "@octocloud/types";
 import { AvailabilityCalendarValidator } from "@octocloud/validators";
-import { AvailabilityCalendarParser } from "../../parsers/AvailabilityCalendarParser";
-import { AvailabilityCalendarModelGenerator } from "../AvailabilityCalendarModelGenerator";
+import AvailabilityCalendarParser from "../../parsers/AvailabilityCalendarParser";
+import AvailabilityCalendarModelGenerator from "../AvailabilityCalendarModelGenerator";
 
 describe("AvailabilityCalendarModelGenerator", () => {
   const availabilityCalendarModelGenerator = new AvailabilityCalendarModelGenerator();
@@ -9,7 +9,7 @@ describe("AvailabilityCalendarModelGenerator", () => {
   const capabilities = [CapabilityId.Pricing];
   const availabilityCalendarValidator = new AvailabilityCalendarValidator({
     path: "",
-    capabilities: capabilities,
+    capabilities,
     availabilityType: AvailabilityType.START_TIME,
   });
 
@@ -19,7 +19,7 @@ describe("AvailabilityCalendarModelGenerator", () => {
         availabilityCalendarData: {
           localDate: "2022-12-11",
         },
-        capabilities: capabilities,
+        capabilities,
       });
       const availabilityCalendar = availabilityCalendarParser.parseModelToPOJO(availabilityCalendarModel);
       const validationErrors = availabilityCalendarValidator.validate(availabilityCalendar);
@@ -32,7 +32,7 @@ describe("AvailabilityCalendarModelGenerator", () => {
         availabilityCalendarData: {
           localDate: "",
         },
-        capabilities: capabilities,
+        capabilities,
       });
       const availabilityCalendar = availabilityCalendarParser.parseModelToPOJO(availabilityCalendarModel);
       const validationErrors = availabilityCalendarValidator.validate(availabilityCalendar);

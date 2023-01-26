@@ -1,7 +1,7 @@
-import { UnitModelGenerator } from "../UnitModelGenerator";
 import { CapabilityId, UnitType } from "@octocloud/types";
 import { UnitValidator } from "@octocloud/validators";
-import { UnitParser } from "../../parsers/UnitParser";
+import UnitModelGenerator from "../UnitModelGenerator";
+import UnitParser from "../../parsers/UnitParser";
 
 describe("UnitModelGenerator", () => {
   const unitModelGenerator = new UnitModelGenerator();
@@ -9,7 +9,7 @@ describe("UnitModelGenerator", () => {
   const capabilities = [CapabilityId.Content, CapabilityId.Pricing];
   const unitValidator = new UnitValidator({
     path: "",
-    capabilities: capabilities,
+    capabilities,
   });
 
   describe("generate and validate unit model", () => {
@@ -19,7 +19,7 @@ describe("UnitModelGenerator", () => {
           id: "id",
           type: UnitType.ADULT,
         },
-        capabilities: capabilities,
+        capabilities,
       });
       const unit = unitParser.parseModelToPOJO(unitModel);
       const validationErrors = unitValidator.validate(unit);
@@ -33,7 +33,7 @@ describe("UnitModelGenerator", () => {
           id: "",
           type: UnitType.ADULT,
         },
-        capabilities: capabilities,
+        capabilities,
       });
       const unit = unitParser.parseModelToPOJO(unitModel);
       const validationErrors = unitValidator.validate(unit);

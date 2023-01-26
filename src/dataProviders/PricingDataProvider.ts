@@ -1,6 +1,6 @@
 import { Currency, Pricing, PricingUnit } from "@octocloud/types";
 
-export class PricingDataProvider {
+export default class PricingDataProvider {
   public static adultPricing: Pricing = {
     original: 1000,
     retail: 1000,

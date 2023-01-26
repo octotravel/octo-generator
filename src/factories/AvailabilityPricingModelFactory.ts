@@ -1,5 +1,5 @@
 import { Pricing, PricingPer, PricingUnit } from "@octocloud/types";
-import { AvailabilityPricingModel } from "../models/availability/AvailabilityPricingModel";
+import AvailabilityPricingModel from "../models/availability/AvailabilityPricingModel";
 
 interface AvailabilityPricingModelFactoryData {
   unitPricing?: PricingUnit[];
@@ -8,10 +8,10 @@ interface AvailabilityPricingModelFactoryData {
   containsUnits?: boolean;
 }
 
-export abstract class AvailabilityPricingModelFactory {
+export default abstract class AvailabilityPricingModelFactory {
   public static create(factoryData: AvailabilityPricingModelFactoryData): AvailabilityPricingModel {
-    let unitPricing = undefined;
-    let pricing = undefined;
+    let unitPricing;
+    let pricing;
 
     if (factoryData.pricingPer === PricingPer.BOOKING || factoryData.containsUnits === true) {
       pricing = factoryData.pricing;
@@ -22,8 +22,8 @@ export abstract class AvailabilityPricingModelFactory {
     }
 
     return new AvailabilityPricingModel({
-      unitPricing: unitPricing,
-      pricing: pricing,
+      unitPricing,
+      pricing,
     });
   }
 }

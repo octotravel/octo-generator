@@ -1,22 +1,35 @@
 import { AvailabilityStatus, OpeningHours } from "@octocloud/types";
-import { AvailabilityContentModel } from "./AvailabilityContentModel";
-import { AvailabilityPickupsModel } from "./AvailabilityPickupsModel";
-import { AvailabilityPricingModel } from "./AvailabilityPricingModel";
+import AvailabilityContentModel from "./AvailabilityContentModel";
+import AvailabilityPickupsModel from "./AvailabilityPickupsModel";
+import AvailabilityPricingModel from "./AvailabilityPricingModel";
 
-export class AvailabilityModel {
+export default class AvailabilityModel {
   public readonly id: string;
+
   public readonly localDateTimeStart: string;
+
   public readonly localDateTimeEnd: string;
+
   public readonly allDay: boolean;
+
   public readonly available: boolean;
+
   public readonly status: AvailabilityStatus;
+
   public readonly vacancies: Nullable<number>;
+
   public readonly capacity: Nullable<number>;
+
   public readonly maxUnits: Nullable<number>;
+
   public readonly utcCutoffAt: string;
+
   public readonly openingHours: OpeningHours[];
+
   public readonly availabilityContentModel?: AvailabilityContentModel;
+
   public readonly availabilityPickupsModel?: AvailabilityPickupsModel;
+
   public readonly availabilityPricingModel?: AvailabilityPricingModel;
 
   constructor({

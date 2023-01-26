@@ -1,25 +1,44 @@
 import { Category, Destination, FAQ, Image } from "@octocloud/types";
 
-export class ProductContentModel {
+export default class ProductContentModel {
   public readonly title: string;
+
   public readonly country: string;
+
   public readonly location: Nullable<string>;
+
   public readonly subtitle: Nullable<string>;
+
   public readonly shortDescription: Nullable<string>;
+
   public readonly description: Nullable<string>;
+
   public readonly highlights: Array<string>;
+
   public readonly inclusions: Array<string>;
+
   public readonly exclusions: Array<string>;
+
   public readonly bookingTerms: Nullable<string>;
+
   public readonly redemptionInstructions: Nullable<string>;
+
   public readonly cancellationPolicy: Nullable<string>;
+
   public readonly destination: Destination;
+
   public readonly categories: Array<Category>;
+
   public readonly faqs: Array<FAQ>;
+
   public readonly coverImageUrl: Nullable<string>;
+
   public readonly bannerImageUrl: Nullable<string>;
+
   public readonly videoUrl: Nullable<string>;
+
   public readonly galleryImages: Array<Image>;
+
   public readonly bannerImages: Array<Image>;
 
   constructor({

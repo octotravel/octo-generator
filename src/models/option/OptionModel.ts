@@ -1,24 +1,37 @@
 import { ContactField, UnitRestrictions } from "@octocloud/types";
-import { OptionContentModel } from "./OptionContentModel";
-import { OptionPickupsModel } from "././OptionPickupsModel";
-import { OptionPricingModel } from "./OptionPricingModel";
-import { UnitModel } from "../unit/UnitModel";
-import { UndefinedModelError } from "../../errors/UndefinedModelError";
+import OptionContentModel from "./OptionContentModel";
+import OptionPickupsModel from "./OptionPickupsModel";
+import OptionPricingModel from "./OptionPricingModel";
+import UnitModel from "../unit/UnitModel";
+import UndefinedModelError from "../../errors/UndefinedModelError";
 
-export class OptionModel {
+export default class OptionModel {
   public readonly id: string;
+
   public readonly isDefault: boolean;
+
   public readonly internalName: string;
+
   public readonly reference: Nullable<string>;
+
   public readonly availabilityLocalStartTimes: Array<string>;
+
   public readonly cancellationCutoff: string;
+
   public readonly cancellationCutoffAmount: number;
+
   public readonly cancellationCutoffUnit: string;
+
   public readonly requiredContactFields: Array<ContactField>;
+
   public readonly restrictions: UnitRestrictions;
+
   public readonly unitModels: Array<UnitModel>;
+
   public readonly optionContentModel?: OptionContentModel;
+
   public readonly optionPickupsModel?: OptionPickupsModel;
+
   public readonly optionPricingModel?: OptionPricingModel;
 
   constructor({

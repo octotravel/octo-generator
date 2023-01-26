@@ -6,15 +6,15 @@ import {
   PricingPer,
   RedemptionMethod,
 } from "@octocloud/types";
-import { LocaleDataProvider } from "../../../dataProviders/LocaleDataProvider";
-import { TimeZoneDataProvider } from "../../../dataProviders/TimeZoneDataProvider";
-import { ProductModel } from "../../../models/product/ProductModel";
-import { OptionModel } from "../../../models/option/OptionModel";
-import { UnitModel } from "../../../models/unit/UnitModel";
-import { ProductContentModel } from "../../../models/product/ProductContentModel";
-import { ProductPricingModel } from "../../../models/product/ProductPricingModel";
+import LocaleDataProvider from "../../../dataProviders/LocaleDataProvider";
+import TimeZoneDataProvider from "../../../dataProviders/TimeZoneDataProvider";
+import ProductModel from "../../../models/product/ProductModel";
+import OptionModel from "../../../models/option/OptionModel";
+import UnitModel from "../../../models/unit/UnitModel";
+import ProductContentModel from "../../../models/product/ProductContentModel";
+import ProductPricingModel from "../../../models/product/ProductPricingModel";
 
-export class ProductTestDataProvider {
+export default class ProductTestDataProvider {
   public static product = {
     id: "id",
     internalName: "internalName",
@@ -48,6 +48,7 @@ export class ProductTestDataProvider {
       },
     ],
   };
+
   public static productContent = {
     title: "title",
     country: "country",
@@ -83,11 +84,13 @@ export class ProductTestDataProvider {
     galleryImages: [],
     bannerImages: [],
   };
+
   public static productPricing = {
     defaultCurrency: Currency.EUR,
     availableCurrencies: [Currency.EUR],
     pricingPer: PricingPer.UNIT,
   };
+
   public static productPOJO = {
     ...this.product,
     ...this.productContent,

@@ -1,4 +1,5 @@
 import { DeliveryMethod } from "@octocloud/types";
-export class DeliveryMethodsDataProvider {
+
+export default class DeliveryMethodsDataProvider {
   public static defaultDeliveryMethods = [DeliveryMethod.TICKET, DeliveryMethod.VOUCHER];
 }

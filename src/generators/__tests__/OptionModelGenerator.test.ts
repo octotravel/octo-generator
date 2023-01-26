@@ -1,7 +1,7 @@
 import { CapabilityId } from "@octocloud/types";
 import { OptionValidator } from "@octocloud/validators";
-import { OptionParser } from "../../parsers/OptionParser";
-import { OptionModelGenerator } from "../OptionModelGenerator";
+import OptionParser from "../../parsers/OptionParser";
+import OptionModelGenerator from "../OptionModelGenerator";
 
 describe("OptionModelGenerator", () => {
   const optionModelGenerator = new OptionModelGenerator();
@@ -9,7 +9,7 @@ describe("OptionModelGenerator", () => {
   const capabilities = [CapabilityId.Content, CapabilityId.Pickups, CapabilityId.Pricing];
   const optionValidator = new OptionValidator({
     path: "",
-    capabilities: capabilities,
+    capabilities,
   });
 
   describe("generate and validate option model", () => {
@@ -22,7 +22,7 @@ describe("OptionModelGenerator", () => {
           },
           units: [],
         },
-        capabilities: capabilities,
+        capabilities,
       });
       const option = optionParser.parseModelToPOJO(optionModel);
       const validationErrors = optionValidator.validate(option);
@@ -40,7 +40,7 @@ describe("OptionModelGenerator", () => {
           },
           units: [],
         },
-        capabilities: capabilities,
+        capabilities,
       });
       const option = optionParser.parseModelToPOJO(optionModel);
       const validationErrors = optionValidator.validate(option);

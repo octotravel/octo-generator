@@ -1,13 +1,20 @@
 import { DurationUnit, Itinerary } from "@octocloud/types";
 
-export class OptionContentModel {
+export default class OptionContentModel {
   public readonly title: string;
+
   public readonly subtitle: Nullable<string>;
+
   public readonly language: string;
+
   public readonly shortDescription: Nullable<string>;
+
   public readonly duration: string;
+
   public readonly durationAmount: string;
+
   public readonly durationUnit: DurationUnit;
+
   public readonly itinerary: Nullable<Itinerary[]>;
 
   constructor({

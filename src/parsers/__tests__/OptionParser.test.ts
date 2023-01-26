@@ -1,15 +1,15 @@
-import { OptionParser } from "../OptionParser";
-import { OptionTestDataProvider } from "./dataProviders/OptionTestDataProvider";
 import { CapabilityId } from "@octocloud/types";
+import OptionParser from "../OptionParser";
+import OptionTestDataProvider from "./dataProviders/OptionTestDataProvider";
 
 describe("OptionParser", () => {
   const optionParser = new OptionParser();
-  const option = OptionTestDataProvider.option;
-  const optionContent = OptionTestDataProvider.optionContent;
-  const optionPickups = OptionTestDataProvider.optionPickups;
-  const optionPricing = OptionTestDataProvider.optionPricing;
-  const optionPOJO = OptionTestDataProvider.optionPOJO;
-  const optionModel = OptionTestDataProvider.optionModel;
+  const { option } = OptionTestDataProvider;
+  const { optionContent } = OptionTestDataProvider;
+  const { optionPickups } = OptionTestDataProvider;
+  const { optionPricing } = OptionTestDataProvider;
+  const { optionPOJO } = OptionTestDataProvider;
+  const { optionModel } = OptionTestDataProvider;
 
   describe("parsePOJOToModel", () => {
     it("should return option model", async () => {

@@ -6,17 +6,17 @@ import {
   DeliveryMethod,
   RedemptionMethod,
 } from "@octocloud/types";
-import { BookingModel } from "../models/booking/BookingModel";
-import { BookingCartModel } from "../models/booking/BookingCartModel";
-import { ProductModelBuilder } from "./ProductModelBuilder";
-import { OptionModelBuilder } from "./OptionModelBuilder";
-import { BookingContentModel } from "../models/booking/BookingContentModel";
-import { BookingPickupsModel } from "../models/booking/BookingPickupsModel";
-import { BookingPricingModel } from "../models/booking/BookingPricingModel";
+import BookingModel from "../models/booking/BookingModel";
+import BookingCartModel from "../models/booking/BookingCartModel";
+import ProductModelBuilder from "./ProductModelBuilder";
+import OptionModelBuilder from "./OptionModelBuilder";
+import BookingContentModel from "../models/booking/BookingContentModel";
+import BookingPickupsModel from "../models/booking/BookingPickupsModel";
+import BookingPricingModel from "../models/booking/BookingPricingModel";
 import { PartialBooking } from "../types/PartialBooking";
-import { UnitItemModel } from "../models/unitItem/UnitItemModel";
-import { UnitItemModelBuilder } from "./UnitItemModelBuilder";
-import { DeliveryMethodsDataProvider } from "../dataProviders/DeliveryMethodDataProvider";
+import UnitItemModel from "../models/unitItem/UnitItemModel";
+import UnitItemModelBuilder from "./UnitItemModelBuilder";
+import DeliveryMethodsDataProvider from "../dataProviders/DeliveryMethodDataProvider";
 
 interface BookingModelBuilderData {
   bookingData: PartialBooking;
@@ -30,15 +30,17 @@ const defaultCapabilities: CapabilityId[] = [
   CapabilityId.Pricing,
 ];
 
-export class BookingModelBuilder {
+export default class BookingModelBuilder {
   private readonly productModelBuilder = new ProductModelBuilder();
+
   private readonly optionModelBuilder = new OptionModelBuilder();
+
   private readonly unitItemModelBuilder = new UnitItemModelBuilder();
 
   public build(builderData: BookingModelBuilderData): BookingModel {
     builderData.capabilities ??= defaultCapabilities;
 
-    const bookingData = builderData.bookingData;
+    const { bookingData } = builderData;
     const productModel = this.productModelBuilder.build({
       productData: bookingData.product ?? {},
       capabilities: builderData.capabilities,
@@ -73,14 +75,14 @@ export class BookingModelBuilder {
       testMode: bookingData.testMode ?? false,
       resellerReference: bookingData.resellerReference ?? null,
       supplierReference: bookingData.supplierReference ?? null,
-      status: status,
+      status,
       utcCreatedAt: bookingData.utcCreatedAt ?? "2022-11-28T08:43:37Z",
       utcUpdatedAt: bookingData.utcUpdatedAt ?? "2022-11-28T08:43:38Z",
       utcExpiresAt: bookingData.utcExpiresAt ?? null,
       utcRedeemedAt: bookingData.utcRedeemedAt ?? null,
-      utcConfirmedAt: utcConfirmedAt,
-      productModel: productModel,
-      optionModel: optionModel,
+      utcConfirmedAt,
+      productModel,
+      optionModel,
       cancellable: bookingData.cancellable ?? true,
       cancellation: bookingData.cancellation ?? null,
       freesale: bookingData.freesale ?? false,
@@ -97,8 +99,8 @@ export class BookingModelBuilder {
         notes: null,
       },
       notes: bookingData.notes ?? null,
-      deliveryMethods: deliveryMethods,
-      voucher: voucher,
+      deliveryMethods,
+      voucher,
       unitItemModels: this.buildUnitItemModels(builderData),
       bookingCartModel: this.buildCartModel(builderData),
       bookingContentModel: this.buildContentModel(builderData),
@@ -118,13 +120,15 @@ export class BookingModelBuilder {
       ];
     }
 
-    return builderData.bookingData.unitItems.map((unitItem) => {
-      return this.unitItemModelBuilder.build({
-        unitItemData: unitItem,
-        capabilities: builderData.capabilities,
-        sourceModel: BookingModel,
-      });
-    }, builderData);
+    return builderData.bookingData.unitItems.map(
+      (unitItem) =>
+        this.unitItemModelBuilder.build({
+          unitItemData: unitItem,
+          capabilities: builderData.capabilities,
+          sourceModel: BookingModel,
+        }),
+      builderData
+    );
   }
 
   private buildCartModel(builderData: BookingModelBuilderData): BookingCartModel | undefined {
@@ -132,7 +136,7 @@ export class BookingModelBuilder {
       return undefined;
     }
 
-    const bookingData = builderData.bookingData;
+    const { bookingData } = builderData;
 
     return new BookingCartModel({
       orderId: bookingData.orderId ?? "orderId",
@@ -146,7 +150,7 @@ export class BookingModelBuilder {
       return undefined;
     }
 
-    const bookingData = builderData.bookingData;
+    const { bookingData } = builderData;
 
     return new BookingContentModel({
       meetingPoint: bookingData.meetingPoint ?? null,
@@ -163,7 +167,7 @@ export class BookingModelBuilder {
       return undefined;
     }
 
-    const bookingData = builderData.bookingData;
+    const { bookingData } = builderData;
 
     return new BookingPickupsModel({
       pickupRequested: bookingData.pickupRequested ?? false,
@@ -179,7 +183,7 @@ export class BookingModelBuilder {
       return undefined;
     }
 
-    const bookingData = builderData.bookingData;
+    const { bookingData } = builderData;
 
     return new BookingPricingModel({
       pricing: bookingData.pricing ?? {

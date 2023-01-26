@@ -1,5 +1,5 @@
 import { Pricing, PricingPer, PricingUnit } from "@octocloud/types";
-import { AvailabilityCalendarPricingModel } from "../models/availability/AvailabilityCalendarPricingModel";
+import AvailabilityCalendarPricingModel from "../models/availability/AvailabilityCalendarPricingModel";
 
 interface AvailabilityCalendarPricingModelFactoryData {
   unitPricing?: PricingUnit[];
@@ -8,10 +8,10 @@ interface AvailabilityCalendarPricingModelFactoryData {
   containsUnits?: boolean;
 }
 
-export abstract class AvailabilityCalendarPricingModelFactory {
+export default abstract class AvailabilityCalendarPricingModelFactory {
   public static create(factoryData: AvailabilityCalendarPricingModelFactoryData): AvailabilityCalendarPricingModel {
-    let unitPricingFrom = undefined;
-    let pricingFrom = undefined;
+    let unitPricingFrom;
+    let pricingFrom;
 
     if (factoryData.pricingPer === PricingPer.UNIT) {
       unitPricingFrom = factoryData.unitPricing;
@@ -22,8 +22,8 @@ export abstract class AvailabilityCalendarPricingModelFactory {
     }
 
     return new AvailabilityCalendarPricingModel({
-      unitPricingFrom: unitPricingFrom,
-      pricingFrom: pricingFrom,
+      unitPricingFrom,
+      pricingFrom,
     });
   }
 }

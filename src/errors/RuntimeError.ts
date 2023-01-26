@@ -1,1 +1,1 @@
-export class RuntimeError extends Error {}
+export default class RuntimeError extends Error {}

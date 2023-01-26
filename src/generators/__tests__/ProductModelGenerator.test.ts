@@ -1,8 +1,8 @@
 import { CapabilityId, DeliveryMethod } from "@octocloud/types";
 import { ProductValidator } from "@octocloud/validators";
-import { ProductModelGenerator } from "../ProductModelGenerator";
-import { ProductParser } from "../../parsers/ProductParser";
-import { OptionDataProvider } from "../../dataProviders/OptionDataProvider";
+import ProductModelGenerator from "../ProductModelGenerator";
+import ProductParser from "../../parsers/ProductParser";
+import OptionDataProvider from "../../dataProviders/OptionDataProvider";
 
 describe("ProductModelGenerator", () => {
   const productModelGenerator = new ProductModelGenerator();
@@ -10,7 +10,7 @@ describe("ProductModelGenerator", () => {
   const capabilities = [CapabilityId.Content, CapabilityId.Pricing];
   const productValidator = new ProductValidator({
     path: "",
-    capabilities: capabilities,
+    capabilities,
   });
 
   describe("generate and validate product model", () => {
@@ -22,7 +22,7 @@ describe("ProductModelGenerator", () => {
           deliveryMethods: [DeliveryMethod.VOUCHER, DeliveryMethod.TICKET],
           options: [OptionDataProvider.defaultOption],
         },
-        capabilities: capabilities,
+        capabilities,
       });
       const product = productParser.parseModelToPOJO(productModel);
       const validationErrors = productValidator.validate(product);
@@ -38,7 +38,7 @@ describe("ProductModelGenerator", () => {
           deliveryMethods: [DeliveryMethod.VOUCHER, DeliveryMethod.TICKET],
           options: [],
         },
-        capabilities: capabilities,
+        capabilities,
       });
       const product = productParser.parseModelToPOJO(productModel);
       const validationErrors = productValidator.validate(product);

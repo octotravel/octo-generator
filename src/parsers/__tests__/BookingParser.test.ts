@@ -1,17 +1,17 @@
-import { BookingParser } from "../BookingParser";
-import { BookingModel } from "../../models/booking/BookingModel";
-import { ProductTestDataProvider } from "./dataProviders/ProductTestDataProvider";
-import { OptionTestDataProvider } from "./dataProviders/OptionTestDataProvider";
 import { Currency, DurationUnit, DeliveryMethod, BookingStatus, CapabilityId } from "@octocloud/types";
-import { BookingCartModel } from "../../models/booking/BookingCartModel";
-import { BookingContentModel } from "../../models/booking/BookingContentModel";
-import { BookingPickupsModel } from "../../models/booking/BookingPickupsModel";
-import { BookingPricingModel } from "../../models/booking/BookingPricingModel";
+import BookingParser from "../BookingParser";
+import BookingModel from "../../models/booking/BookingModel";
+import ProductTestDataProvider from "./dataProviders/ProductTestDataProvider";
+import OptionTestDataProvider from "./dataProviders/OptionTestDataProvider";
+import BookingCartModel from "../../models/booking/BookingCartModel";
+import BookingContentModel from "../../models/booking/BookingContentModel";
+import BookingPickupsModel from "../../models/booking/BookingPickupsModel";
+import BookingPricingModel from "../../models/booking/BookingPricingModel";
 
 describe("BookingParser", () => {
   const bookingParser = new BookingParser();
-  const productPOJO = ProductTestDataProvider.productPOJO;
-  const optionPOJO = OptionTestDataProvider.optionPOJO;
+  const { productPOJO } = ProductTestDataProvider;
+  const { optionPOJO } = OptionTestDataProvider;
   const booking = {
     id: "be9c948c-e170-4de2-8367-053830ce4a40",
     uuid: "45464f1d-e958-4bb4-921f-43afcb71004a",
@@ -93,8 +93,8 @@ describe("BookingParser", () => {
     ...bookingPricing,
   };
 
-  const productModel = ProductTestDataProvider.productModel;
-  const optionModel = OptionTestDataProvider.optionModel;
+  const { productModel } = ProductTestDataProvider;
+  const { optionModel } = OptionTestDataProvider;
   const bookingModel = new BookingModel({
     id: bookingPOJO.id,
     uuid: bookingPOJO.uuid,
@@ -107,8 +107,8 @@ describe("BookingParser", () => {
     utcExpiresAt: bookingPOJO.utcExpiresAt,
     utcRedeemedAt: bookingPOJO.utcRedeemedAt,
     utcConfirmedAt: bookingPOJO.utcConfirmedAt,
-    productModel: productModel,
-    optionModel: optionModel,
+    productModel,
+    optionModel,
     cancellable: bookingPOJO.cancellable,
     cancellation: bookingPOJO.cancellation,
     freesale: bookingPOJO.freesale,

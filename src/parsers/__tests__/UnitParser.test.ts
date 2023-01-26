@@ -1,15 +1,15 @@
 import { CapabilityId } from "@octocloud/types";
-import { UnitParser } from "../UnitParser";
-import { UnitTestDataProvider } from "./dataProviders/UnitTestDataProvider";
+import UnitParser from "../UnitParser";
+import UnitTestDataProvider from "./dataProviders/UnitTestDataProvider";
 
 describe("UnitParser", () => {
   const unitParser = new UnitParser();
 
-  const unit = UnitTestDataProvider.unit;
-  const unitContent = UnitTestDataProvider.unitContent;
-  const unitPricing = UnitTestDataProvider.unitPricing;
-  const unitPOJO = UnitTestDataProvider.unitPOJO;
-  const unitModel = UnitTestDataProvider.unitModel;
+  const { unit } = UnitTestDataProvider;
+  const { unitContent } = UnitTestDataProvider;
+  const { unitPricing } = UnitTestDataProvider;
+  const { unitPOJO } = UnitTestDataProvider;
+  const { unitModel } = UnitTestDataProvider;
 
   describe("parsePOJOToModel", () => {
     it("should return unit model", async () => {

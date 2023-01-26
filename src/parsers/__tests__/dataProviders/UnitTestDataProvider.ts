@@ -1,11 +1,11 @@
 import { UnitType } from "@octocloud/types";
-import { UnitDataProvider } from "../../../dataProviders/UnitDataProvider";
-import { PricingDataProvider } from "../../../dataProviders/PricingDataProvider";
-import { UnitModel } from "../../../models/unit/UnitModel";
-import { UnitContentModel } from "../../../models/unit/UnitContentModel";
-import { UnitPricingModel } from "../../../models/unit/UnitPricingModel";
+import PricingDataProvider from "../../../dataProviders/PricingDataProvider";
+import UnitModel from "../../../models/unit/UnitModel";
+import UnitContentModel from "../../../models/unit/UnitContentModel";
+import UnitPricingModel from "../../../models/unit/UnitPricingModel";
+import UnitDataProvider from "../../../dataProviders/UnitDataProvider";
 
-export class UnitTestDataProvider {
+export default class UnitTestDataProvider {
   static unit = {
     id: "id",
     internalName: "internalName",

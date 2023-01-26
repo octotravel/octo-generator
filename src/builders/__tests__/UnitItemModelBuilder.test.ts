@@ -1,6 +1,6 @@
 import { CapabilityId } from "@octocloud/types";
-import { UnitItemModel } from "../../models/unitItem/UnitItemModel";
-import { UnitItemModelBuilder } from "../UnitItemModelBuilder";
+import UnitItemModel from "../../models/unitItem/UnitItemModel";
+import UnitItemModelBuilder from "../UnitItemModelBuilder";
 
 describe("UnitItemModelBuilder", () => {
   const unitItemModelBuilder = new UnitItemModelBuilder();

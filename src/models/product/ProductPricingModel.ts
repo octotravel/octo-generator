@@ -1,8 +1,10 @@
 import { PricingPer } from "@octocloud/types";
 
-export class ProductPricingModel {
+export default class ProductPricingModel {
   public readonly defaultCurrency: string;
+
   public readonly availableCurrencies: Array<string>;
+
   public readonly pricingPer: PricingPer;
 
   constructor({
