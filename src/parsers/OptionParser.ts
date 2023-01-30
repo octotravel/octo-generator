@@ -93,7 +93,7 @@ export default class OptionParser {
     optionModel: OptionModel,
     capabilities: CapabilityId[]
   ): Option => {
-    const option = this.parseMainModelToPojo(optionModel);
+    const option = this.parseMainModelToPojo(optionModel, capabilities);
 
     if (capabilities?.includes(CapabilityId.Content)) {
       this.parseContentModelToPOJO(option, optionModel);
