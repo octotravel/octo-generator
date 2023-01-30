@@ -1,7 +1,6 @@
 import { OrderStatus } from "@octocloud/types";
 import OrderParser from "../OrderParser";
 import OrderModel from "../../models/order/OrderModel";
-import BookingTestDataProvider from "./dataProviders/BookingTestDataProvider";
 
 describe("OrderParser", () => {
   const orderParser = new OrderParser();
@@ -15,7 +14,7 @@ describe("OrderParser", () => {
     utcExpiresAt: "2023-01-03T00:00:00+01:00",
     utcConfirmedAt: "2023-02-03T00:00:00+01:00",
     cancellable: true,
-    bookings: [BookingTestDataProvider.booking],
+    bookings: [],
     contact: {
       fullName: null,
       firstName: null,
@@ -43,7 +42,7 @@ describe("OrderParser", () => {
     utcExpiresAt: orderPOJO.utcExpiresAt,
     utcConfirmedAt: orderPOJO.utcConfirmedAt,
     cancellable: orderPOJO.cancellable,
-    bookingModels: [BookingTestDataProvider.bookingModel],
+    bookingModels: [],
     contact: orderPOJO.contact,
     termsAccepted: orderPOJO.termsAccepted,
     pricing: orderPOJO.pricing,
