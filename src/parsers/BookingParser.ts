@@ -1,14 +1,14 @@
 import { Booking, CapabilityId } from "@octocloud/types";
-import BookingModel from "../models/booking/BookingModel";
-import ProductParser from "./ProductParser";
-import OptionParser from "./OptionParser";
-import BookingCartModel from "../models/booking/BookingCartModel";
-import BookingContentModel from "../models/booking/BookingContentModel";
-import BookingPickupsModel from "../models/booking/BookingPickupsModel";
-import BookingPricingModel from "../models/booking/BookingPricingModel";
-import UnitItemParser from "./UnitItemParser";
+import { BookingModel } from "../models/booking/BookingModel";
+import { ProductParser } from "./ProductParser";
+import { OptionParser } from "./OptionParser";
+import { BookingCartModel } from "../models/booking/BookingCartModel";
+import { BookingContentModel } from "../models/booking/BookingContentModel";
+import { BookingPickupsModel } from "../models/booking/BookingPickupsModel";
+import { BookingPricingModel } from "../models/booking/BookingPricingModel";
+import { UnitItemParser } from "./UnitItemParser";
 
-export default class BookingParser {
+export class BookingParser {
   private readonly productParser = new ProductParser();
 
   private readonly optionParser = new OptionParser();

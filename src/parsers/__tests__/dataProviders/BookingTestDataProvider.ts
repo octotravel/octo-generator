@@ -1,13 +1,13 @@
 import { BookingStatus, Currency, DeliveryMethod, DurationUnit } from "@octocloud/types";
-import OptionTestDataProvider from "./OptionTestDataProvider";
-import ProductTestDataProvider from "./ProductTestDataProvider";
-import BookingCartModel from "../../../models/booking/BookingCartModel";
-import BookingContentModel from "../../../models/booking/BookingContentModel";
-import BookingModel from "../../../models/booking/BookingModel";
-import BookingPickupsModel from "../../../models/booking/BookingPickupsModel";
-import BookingPricingModel from "../../../models/booking/BookingPricingModel";
+import { OptionTestDataProvider } from "./OptionTestDataProvider";
+import { ProductTestDataProvider } from "./ProductTestDataProvider";
+import { BookingCartModel } from "../../../models/booking/BookingCartModel";
+import { BookingContentModel } from "../../../models/booking/BookingContentModel";
+import { BookingModel } from "../../../models/booking/BookingModel";
+import { BookingPickupsModel } from "../../../models/booking/BookingPickupsModel";
+import { BookingPricingModel } from "../../../models/booking/BookingPricingModel";
 
-export default class BookingTestDataProvider {
+export class BookingTestDataProvider {
   public static booking = {
     id: "be9c948c-e170-4de2-8367-053830ce4a40",
     uuid: "45464f1d-e958-4bb4-921f-43afcb71004a",

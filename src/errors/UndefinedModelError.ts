@@ -1,6 +1,6 @@
-import RuntimeError from "./RuntimeError";
+import { RuntimeError } from "./RuntimeError";
 
-export default class UndefinedModelError extends RuntimeError {
+export class UndefinedModelError extends RuntimeError {
   public readonly modelName: string;
 
   public readonly parentModelName: string;

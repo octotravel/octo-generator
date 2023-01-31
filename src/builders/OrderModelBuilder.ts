@@ -1,9 +1,9 @@
 import { CapabilityId, OrderStatus } from "@octocloud/types";
-import BookingModelBuilder from "./BookingModelBuilder";
+import { BookingModelBuilder } from "./BookingModelBuilder";
 import { PartialOrder } from "../types/PartialOrder";
-import OrderModel from "../models/order/OrderModel";
-import DateFormatter from "../common/DateFormatter";
-import BookingModel from "../models/booking/BookingModel";
+import { OrderModel } from "../models/order/OrderModel";
+import { DateFormatter } from "../common/DateFormatter";
+import { BookingModel } from "../models/booking/BookingModel";
 
 interface OrderModelBuilderData {
   orderData: PartialOrder;
@@ -12,7 +12,7 @@ interface OrderModelBuilderData {
 
 const defaultCapabilities: CapabilityId[] = [];
 
-export default class OrderModelBuilder {
+export class OrderModelBuilder {
   private readonly bookingModelBuilder = new BookingModelBuilder();
 
   public build(builderData: OrderModelBuilderData): OrderModel {

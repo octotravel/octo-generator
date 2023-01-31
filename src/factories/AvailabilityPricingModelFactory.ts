@@ -1,5 +1,5 @@
 import { Pricing, PricingPer, PricingUnit } from "@octocloud/types";
-import AvailabilityPricingModel from "../models/availability/AvailabilityPricingModel";
+import { AvailabilityPricingModel } from "../models/availability/AvailabilityPricingModel";
 
 interface AvailabilityPricingModelFactoryData {
   unitPricing?: PricingUnit[];
@@ -8,7 +8,7 @@ interface AvailabilityPricingModelFactoryData {
   containsUnits?: boolean;
 }
 
-export default abstract class AvailabilityPricingModelFactory {
+export abstract class AvailabilityPricingModelFactory {
   public static create(factoryData: AvailabilityPricingModelFactoryData): AvailabilityPricingModel {
     let unitPricing;
     let pricing;

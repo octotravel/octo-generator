@@ -1,7 +1,7 @@
 import { DurationUnit, Option } from "@octocloud/types";
-import PricingDataProvider from "./PricingDataProvider";
+import { PricingDataProvider } from "./PricingDataProvider";
 
-export default class OptionDataProvider {
+export class OptionDataProvider {
   public static defaultOption: Option = {
     id: "DEFAULT",
     default: true,

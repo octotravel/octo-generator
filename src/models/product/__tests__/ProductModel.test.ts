@@ -1,6 +1,6 @@
-import ProductModelGenerator from "../../../generators/ProductModelGenerator";
-import OptionModel from "../../option/OptionModel";
-import OptionDataProvider from "../../../dataProviders/OptionDataProvider";
+import { ProductModelGenerator } from "../../../generators/ProductModelGenerator";
+import { OptionModel } from "../../option/OptionModel";
+import { OptionDataProvider } from "../../../dataProviders/OptionDataProvider";
 
 describe("ProductModel", () => {
   const productModelGenerator = new ProductModelGenerator();

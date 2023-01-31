@@ -1,7 +1,7 @@
 import { CapabilityId, PricingPer } from "@octocloud/types";
-import UnitModel from "../models/unit/UnitModel";
-import UnitModelBuilder from "../builders/UnitModelBuilder";
-import UnitDataProvider from "../dataProviders/UnitDataProvider";
+import { UnitModel } from "../models/unit/UnitModel";
+import { UnitModelBuilder } from "../builders/UnitModelBuilder";
+import { UnitDataProvider } from "../dataProviders/UnitDataProvider";
 import { PartialUnit } from "../types/PartialUnit";
 
 interface UnitGenerateData {
@@ -10,7 +10,7 @@ interface UnitGenerateData {
   capabilities?: CapabilityId[];
 }
 
-export default class UnitModelGenerator {
+export class UnitModelGenerator {
   private readonly unitModelBuilder = new UnitModelBuilder();
 
   public generateUnit = (unitGenerateData: UnitGenerateData): UnitModel =>

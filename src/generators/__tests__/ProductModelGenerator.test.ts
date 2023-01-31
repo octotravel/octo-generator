@@ -1,8 +1,8 @@
 import { CapabilityId, DeliveryMethod } from "@octocloud/types";
 import { ProductValidator } from "@octocloud/validators";
-import ProductModelGenerator from "../ProductModelGenerator";
-import ProductParser from "../../parsers/ProductParser";
-import OptionDataProvider from "../../dataProviders/OptionDataProvider";
+import { ProductModelGenerator } from "../ProductModelGenerator";
+import { ProductParser } from "../../parsers/ProductParser";
+import { OptionDataProvider } from "../../dataProviders/OptionDataProvider";
 
 describe("ProductModelGenerator", () => {
   const productModelGenerator = new ProductModelGenerator();

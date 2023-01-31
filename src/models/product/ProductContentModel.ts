@@ -1,6 +1,6 @@
 import { Category, Destination, FAQ, Image } from "@octocloud/types";
 
-export default class ProductContentModel {
+export class ProductContentModel {
   public readonly title: string;
 
   public readonly country: string;

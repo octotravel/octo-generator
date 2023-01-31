@@ -1,6 +1,6 @@
 import { Question } from "@octocloud/types";
 
-export default class ProductQuestionsModel {
+export class ProductQuestionsModel {
   public readonly questions?: Question[];
 
   constructor({ questions }: { questions?: Question[] }) {

@@ -1,8 +1,8 @@
 import { CapabilityId, BookingStatus } from "@octocloud/types";
-import UnitItemParser from "../UnitItemParser";
-import UnitTestDataProvider from "./dataProviders/UnitTestDataProvider";
-import UnitItemModel from "../../models/unitItem/UnitItemModel";
-import UnitItemPricingModel from "../../models/unitItem/UnitItemPricingModel";
+import { UnitItemParser } from "../UnitItemParser";
+import { UnitTestDataProvider } from "./dataProviders/UnitTestDataProvider";
+import { UnitItemModel } from "../../models/unitItem/UnitItemModel";
+import { UnitItemPricingModel } from "../../models/unitItem/UnitItemPricingModel";
 
 describe("UnitItemParser", () => {
   const unitItemParser = new UnitItemParser();

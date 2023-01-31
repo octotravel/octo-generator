@@ -1,7 +1,7 @@
 import { CapabilityId } from "@octocloud/types";
-import BookingModelBuilder from "../BookingModelBuilder";
-import BookingModel from "../../models/booking/BookingModel";
-import AvailabilityDataProvider from "../../dataProviders/AvailabilityDataProvider";
+import { BookingModelBuilder } from "../BookingModelBuilder";
+import { BookingModel } from "../../models/booking/BookingModel";
+import { AvailabilityDataProvider } from "../../dataProviders/AvailabilityDataProvider";
 
 describe("BookingModelBuilder", () => {
   const bookingModelBuilder = new BookingModelBuilder();

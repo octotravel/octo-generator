@@ -1,6 +1,6 @@
 import { Pricing } from "@octocloud/types";
 
-export default class OptionPricingModel {
+export class OptionPricingModel {
   public readonly pricingFrom?: Array<Pricing>;
 
   public readonly pricing?: Array<Pricing>;

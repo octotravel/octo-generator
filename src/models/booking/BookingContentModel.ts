@@ -1,4 +1,4 @@
-export default class BookingContentModel {
+export class BookingContentModel {
   public readonly meetingPoint?: Nullable<string>;
 
   public readonly meetingPointCoordinates?: Nullable<[number]>;

@@ -1,13 +1,13 @@
 import { CapabilityId, DurationUnit, PricingPer } from "@octocloud/types";
-import UnitModelBuilder from "./UnitModelBuilder";
-import OptionModel from "../models/option/OptionModel";
-import OptionContentModel from "../models/option/OptionContentModel";
-import OptionPickupsModel from "../models/option/OptionPickupsModel";
-import OptionPricingModel from "../models/option/OptionPricingModel";
-import PricingDataProvider from "../dataProviders/PricingDataProvider";
-import UnitModel from "../models/unit/UnitModel";
-import LocaleDataProvider from "../dataProviders/LocaleDataProvider";
-import ProductModel from "../models/product/ProductModel";
+import { UnitModelBuilder } from "./UnitModelBuilder";
+import { OptionModel } from "../models/option/OptionModel";
+import { OptionContentModel } from "../models/option/OptionContentModel";
+import { OptionPickupsModel } from "../models/option/OptionPickupsModel";
+import { OptionPricingModel } from "../models/option/OptionPricingModel";
+import { PricingDataProvider } from "../dataProviders/PricingDataProvider";
+import { UnitModel } from "../models/unit/UnitModel";
+import { LocaleDataProvider } from "../dataProviders/LocaleDataProvider";
+import { ProductModel } from "../models/product/ProductModel";
 import { PartialOption } from "../types/PartialOption";
 
 interface OptionModelBuilderData {
@@ -20,7 +20,7 @@ interface OptionModelBuilderData {
 const defaultPricingPer: PricingPer = PricingPer.UNIT;
 const defaultCapabilities: CapabilityId[] = [CapabilityId.Content, CapabilityId.Pickups, CapabilityId.Pricing];
 
-export default class OptionModelBuilder {
+export class OptionModelBuilder {
   private readonly unitModelBuilder = new UnitModelBuilder();
 
   public build(builderData: OptionModelBuilderData): OptionModel {

@@ -1,7 +1,7 @@
 import { CapabilityId } from "@octocloud/types";
 import { AvailabilityValidator } from "@octocloud/validators";
-import AvailabilityModelGenerator from "../AvailabilityModelGenerator";
-import AvailabilityParser from "../../parsers/AvailabilityParser";
+import { AvailabilityModelGenerator } from "../AvailabilityModelGenerator";
+import { AvailabilityParser } from "../../parsers/AvailabilityParser";
 
 describe("AvailabilityModelGenerator", () => {
   const availabilityModelGenerator = new AvailabilityModelGenerator();

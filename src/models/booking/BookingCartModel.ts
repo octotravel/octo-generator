@@ -1,4 +1,4 @@
-export default class BookingCartModel {
+export class BookingCartModel {
   public readonly orderId?: string;
 
   public readonly orderReference?: string;

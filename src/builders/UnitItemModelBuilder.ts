@@ -1,10 +1,10 @@
 import { BookingStatus, CapabilityId, RedemptionMethod } from "@octocloud/types";
-import UnitItemModel from "../models/unitItem/UnitItemModel";
+import { UnitItemModel } from "../models/unitItem/UnitItemModel";
 import { PartialUnitItem } from "../types/PartialUnitItem";
-import UnitModelBuilder from "./UnitModelBuilder";
-import UnitItemPricingModel from "../models/unitItem/UnitItemPricingModel";
-import UnitModel from "../models/unit/UnitModel";
-import NullableFactory from "../factories/NullableFactory";
+import { UnitModelBuilder } from "./UnitModelBuilder";
+import { UnitItemPricingModel } from "../models/unitItem/UnitItemPricingModel";
+import { UnitModel } from "../models/unit/UnitModel";
+import { NullableFactory } from "../factories/NullableFactory";
 
 interface UnitModelBuilderData {
   unitItemData: PartialUnitItem;
@@ -14,7 +14,7 @@ interface UnitModelBuilderData {
 
 const defaultCapabilities: CapabilityId[] = [CapabilityId.Pricing];
 
-export default class UnitItemModelBuilder {
+export class UnitItemModelBuilder {
   private readonly unitModelBuilder = new UnitModelBuilder();
 
   public build(builderData: UnitModelBuilderData): UnitItemModel {

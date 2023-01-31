@@ -1,8 +1,8 @@
 import { CapabilityId } from "@octocloud/types";
 import { BookingValidator } from "@octocloud/validators";
-import BookingParser from "../../parsers/BookingParser";
-import BookingModelGenerator from "../BookingModelGenerator";
-import AvailabilityDataProvider from "../../dataProviders/AvailabilityDataProvider";
+import { BookingParser } from "../../parsers/BookingParser";
+import { BookingModelGenerator } from "../BookingModelGenerator";
+import { AvailabilityDataProvider } from "../../dataProviders/AvailabilityDataProvider";
 
 describe("BookingModelGenerator", () => {
   const bookingModelGenerator = new BookingModelGenerator();

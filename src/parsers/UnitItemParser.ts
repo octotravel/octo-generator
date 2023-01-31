@@ -1,9 +1,9 @@
 import { CapabilityId, UnitItem } from "@octocloud/types";
-import UnitItemModel from "../models/unitItem/UnitItemModel";
-import UnitParser from "./UnitParser";
-import UnitItemPricingModel from "../models/unitItem/UnitItemPricingModel";
+import { UnitItemModel } from "../models/unitItem/UnitItemModel";
+import { UnitParser } from "./UnitParser";
+import { UnitItemPricingModel } from "../models/unitItem/UnitItemPricingModel";
 
-export default class UnitItemParser {
+export class UnitItemParser {
   private readonly unitParser: UnitParser = new UnitParser();
 
   public parsePOJOToModel = (unitItem: UnitItem): UnitItemModel =>

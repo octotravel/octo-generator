@@ -1,13 +1,13 @@
 import { CapabilityId } from "@octocloud/types";
-import ProductModel from "../models/product/ProductModel";
-import ProductModelBuilder from "../builders/ProductModelBuilder";
+import { ProductModel } from "../models/product/ProductModel";
+import { ProductModelBuilder } from "../builders/ProductModelBuilder";
 import { PartialProduct } from "../types/PartialProduct";
 
 interface ProductGeneratorData {
   productData: PartialProduct;
   capabilities?: CapabilityId[];
 }
-export default class ProductModelGenerator {
+export class ProductModelGenerator {
   private readonly productModelBuilder = new ProductModelBuilder();
 
   public generateProduct = (productGeneratorData: ProductGeneratorData): ProductModel =>

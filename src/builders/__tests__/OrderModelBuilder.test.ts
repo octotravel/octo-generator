@@ -1,5 +1,5 @@
-import OrderModelBuilder from "../OrderModelBuilder";
-import OrderModel from "../../models/order/OrderModel";
+import { OrderModelBuilder } from "../OrderModelBuilder";
+import { OrderModel } from "../../models/order/OrderModel";
 
 describe("OrderModelBuilder", () => {
   const orderModelBuilder = new OrderModelBuilder();

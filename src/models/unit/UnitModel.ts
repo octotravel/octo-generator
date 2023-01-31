@@ -1,9 +1,9 @@
 import { Restrictions, UnitType } from "@octocloud/types";
-import UndefinedModelError from "../../errors/UndefinedModelError";
-import UnitContentModel from "./UnitContentModel";
-import UnitPricingModel from "./UnitPricingModel";
+import { UndefinedModelError } from "../../errors/UndefinedModelError";
+import { UnitContentModel } from "./UnitContentModel";
+import { UnitPricingModel } from "./UnitPricingModel";
 
-export default class UnitModel {
+export class UnitModel {
   public readonly id: string;
 
   public readonly internalName: string;

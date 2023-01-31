@@ -1,3 +1,3 @@
-export default class LocaleDataProvider {
+export class LocaleDataProvider {
   public static en = "en";
 }

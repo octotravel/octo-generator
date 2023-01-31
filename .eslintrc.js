@@ -15,6 +15,7 @@ module.exports = {
     "unused-imports/no-unused-imports": "error",
     curly: "error",
     "class-methods-use-this": "off",
+    "import/prefer-default-export": "off",
     "import/extensions": "off",
     "no-param-reassign": "off",
     "no-underscore-dangle": "off",

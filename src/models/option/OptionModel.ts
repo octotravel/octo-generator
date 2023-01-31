@@ -1,11 +1,11 @@
 import { ContactField, UnitRestrictions } from "@octocloud/types";
-import OptionContentModel from "./OptionContentModel";
-import OptionPickupsModel from "./OptionPickupsModel";
-import OptionPricingModel from "./OptionPricingModel";
-import UnitModel from "../unit/UnitModel";
-import UndefinedModelError from "../../errors/UndefinedModelError";
+import { OptionContentModel } from "./OptionContentModel";
+import { OptionPickupsModel } from "./OptionPickupsModel";
+import { OptionPricingModel } from "./OptionPricingModel";
+import { UnitModel } from "../unit/UnitModel";
+import { UndefinedModelError } from "../../errors/UndefinedModelError";
 
-export default class OptionModel {
+export class OptionModel {
   public readonly id: string;
 
   public readonly isDefault: boolean;

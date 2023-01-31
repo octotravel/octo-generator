@@ -1,6 +1,6 @@
 import { CapabilityId } from "@octocloud/types";
-import UnitParser from "../UnitParser";
-import UnitTestDataProvider from "./dataProviders/UnitTestDataProvider";
+import { UnitParser } from "../UnitParser";
+import { UnitTestDataProvider } from "./dataProviders/UnitTestDataProvider";
 
 describe("UnitParser", () => {
   const unitParser = new UnitParser();

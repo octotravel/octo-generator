@@ -1,8 +1,8 @@
 import { AvailabilityCalendar, CapabilityId } from "@octocloud/types";
-import AvailabilityCalendarModel from "../models/availability/AvailabilityCalendarModel";
-import AvailabilityCalendarPricingModel from "../models/availability/AvailabilityCalendarPricingModel";
+import { AvailabilityCalendarModel } from "../models/availability/AvailabilityCalendarModel";
+import { AvailabilityCalendarPricingModel } from "../models/availability/AvailabilityCalendarPricingModel";
 
-export default class AvailabilityCalendarParser {
+export class AvailabilityCalendarParser {
   public parsePOJOToModel = (availabilityCalendar: AvailabilityCalendar): AvailabilityCalendarModel =>
     new AvailabilityCalendarModel({
       localDate: availabilityCalendar.localDate,

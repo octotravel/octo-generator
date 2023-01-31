@@ -1,4 +1,4 @@
-import OptionPricingModel from "../OptionPricingModel";
+import { OptionPricingModel } from "../OptionPricingModel";
 
 describe("OptionPricingModel", () => {
   describe("constructor", () => {

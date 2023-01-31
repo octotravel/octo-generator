@@ -1,6 +1,6 @@
 import { Pricing, PricingUnit } from "@octocloud/types";
 
-export default class AvailabilityCalendarPricingModel {
+export class AvailabilityCalendarPricingModel {
   public readonly unitPricingFrom?: PricingUnit[];
 
   public readonly pricingFrom?: Pricing;

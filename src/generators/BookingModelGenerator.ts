@@ -1,6 +1,6 @@
 import { CapabilityId } from "@octocloud/types";
-import BookingModelBuilder from "../builders/BookingModelBuilder";
-import BookingModel from "../models/booking/BookingModel";
+import { BookingModelBuilder } from "../builders/BookingModelBuilder";
+import { BookingModel } from "../models/booking/BookingModel";
 import { PartialBooking } from "../types/PartialBooking";
 
 interface BookingGenerateData {
@@ -8,7 +8,7 @@ interface BookingGenerateData {
   capabilities?: CapabilityId[];
 }
 
-export default class BookingModelGenerator {
+export class BookingModelGenerator {
   private readonly bookingModelBuilder = new BookingModelBuilder();
 
   public generateBooking = (bookingGenerateData: BookingGenerateData): BookingModel =>

@@ -1,4 +1,4 @@
-export default class AvailabilityContentModel {
+export class AvailabilityContentModel {
   public readonly meetingPoint: Nullable<string>;
 
   public readonly meetingPointCoordinates: Nullable<[number]>;

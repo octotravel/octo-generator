@@ -1,9 +1,9 @@
 import { AvailabilityStatus, OpeningHours } from "@octocloud/types";
-import AvailabilityContentModel from "./AvailabilityContentModel";
-import AvailabilityPickupsModel from "./AvailabilityPickupsModel";
-import AvailabilityPricingModel from "./AvailabilityPricingModel";
+import { AvailabilityContentModel } from "./AvailabilityContentModel";
+import { AvailabilityPickupsModel } from "./AvailabilityPickupsModel";
+import { AvailabilityPricingModel } from "./AvailabilityPricingModel";
 
-export default class AvailabilityModel {
+export class AvailabilityModel {
   public readonly id: string;
 
   public readonly localDateTimeStart: string;

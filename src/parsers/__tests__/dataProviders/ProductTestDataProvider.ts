@@ -6,16 +6,16 @@ import {
   PricingPer,
   RedemptionMethod,
 } from "@octocloud/types";
-import LocaleDataProvider from "../../../dataProviders/LocaleDataProvider";
-import TimeZoneDataProvider from "../../../dataProviders/TimeZoneDataProvider";
-import ProductModel from "../../../models/product/ProductModel";
-import OptionModel from "../../../models/option/OptionModel";
-import UnitModel from "../../../models/unit/UnitModel";
-import ProductContentModel from "../../../models/product/ProductContentModel";
-import ProductPricingModel from "../../../models/product/ProductPricingModel";
-import ProductQuestionsModel from "../../../models/product/ProductQuestionsModel";
+import { LocaleDataProvider } from "../../../dataProviders/LocaleDataProvider";
+import { TimeZoneDataProvider } from "../../../dataProviders/TimeZoneDataProvider";
+import { ProductModel } from "../../../models/product/ProductModel";
+import { OptionModel } from "../../../models/option/OptionModel";
+import { UnitModel } from "../../../models/unit/UnitModel";
+import { ProductContentModel } from "../../../models/product/ProductContentModel";
+import { ProductPricingModel } from "../../../models/product/ProductPricingModel";
+import { ProductQuestionsModel } from "../../../models/product/ProductQuestionsModel";
 
-export default class ProductTestDataProvider {
+export class ProductTestDataProvider {
   public static product = {
     id: "id",
     internalName: "internalName",

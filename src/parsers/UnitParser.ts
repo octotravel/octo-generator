@@ -1,9 +1,9 @@
 import { CapabilityId, Unit } from "@octocloud/types";
-import UnitModel from "../models/unit/UnitModel";
-import UnitContentModel from "../models/unit/UnitContentModel";
-import UnitPricingModel from "../models/unit/UnitPricingModel";
+import { UnitModel } from "../models/unit/UnitModel";
+import { UnitContentModel } from "../models/unit/UnitContentModel";
+import { UnitPricingModel } from "../models/unit/UnitPricingModel";
 
-export default class UnitParser {
+export class UnitParser {
   public parsePOJOToModel = (unit: Unit): UnitModel =>
     new UnitModel({
       id: unit.id,

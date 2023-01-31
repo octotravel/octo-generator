@@ -1,12 +1,12 @@
 import { Currency, DurationUnit, DeliveryMethod, BookingStatus, CapabilityId } from "@octocloud/types";
-import BookingParser from "../BookingParser";
-import BookingModel from "../../models/booking/BookingModel";
-import ProductTestDataProvider from "./dataProviders/ProductTestDataProvider";
-import OptionTestDataProvider from "./dataProviders/OptionTestDataProvider";
-import BookingCartModel from "../../models/booking/BookingCartModel";
-import BookingContentModel from "../../models/booking/BookingContentModel";
-import BookingPickupsModel from "../../models/booking/BookingPickupsModel";
-import BookingPricingModel from "../../models/booking/BookingPricingModel";
+import { BookingParser } from "../BookingParser";
+import { BookingModel } from "../../models/booking/BookingModel";
+import { ProductTestDataProvider } from "./dataProviders/ProductTestDataProvider";
+import { OptionTestDataProvider } from "./dataProviders/OptionTestDataProvider";
+import { BookingCartModel } from "../../models/booking/BookingCartModel";
+import { BookingContentModel } from "../../models/booking/BookingContentModel";
+import { BookingPickupsModel } from "../../models/booking/BookingPickupsModel";
+import { BookingPricingModel } from "../../models/booking/BookingPricingModel";
 
 describe("BookingParser", () => {
   const bookingParser = new BookingParser();

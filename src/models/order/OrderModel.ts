@@ -1,7 +1,7 @@
 import { Contact, OrderStatus, Pricing } from "@octocloud/types";
-import BookingModel from "../booking/BookingModel";
+import { BookingModel } from "../booking/BookingModel";
 
-export default class OrderModel {
+export class OrderModel {
   public readonly id: string;
 
   public readonly testMode: boolean;

@@ -1,6 +1,6 @@
 import { CapabilityId, PricingPer } from "@octocloud/types";
-import OptionModelBuilder from "../builders/OptionModelBuilder";
-import OptionModel from "../models/option/OptionModel";
+import { OptionModelBuilder } from "../builders/OptionModelBuilder";
+import { OptionModel } from "../models/option/OptionModel";
 import { PartialOption } from "../types/PartialOption";
 
 interface OptionGenerateData {
@@ -9,7 +9,7 @@ interface OptionGenerateData {
   capabilities?: CapabilityId[];
 }
 
-export default class OptionModelGenerator {
+export class OptionModelGenerator {
   private readonly optionModelBuilder = new OptionModelBuilder();
 
   public generateOption = (optionGenerateData: OptionGenerateData): OptionModel =>

@@ -6,16 +6,16 @@ import {
   PricingPer,
   RedemptionMethod,
 } from "@octocloud/types";
-import OptionModel from "../models/option/OptionModel";
-import OptionModelBuilder from "./OptionModelBuilder";
-import ProductModel from "../models/product/ProductModel";
-import TimeZoneDataProvider from "../dataProviders/TimeZoneDataProvider";
-import LocaleDataProvider from "../dataProviders/LocaleDataProvider";
-import ProductContentModel from "../models/product/ProductContentModel";
-import ProductPricingModel from "../models/product/ProductPricingModel";
+import { OptionModel } from "../models/option/OptionModel";
+import { OptionModelBuilder } from "./OptionModelBuilder";
+import { ProductModel } from "../models/product/ProductModel";
+import { TimeZoneDataProvider } from "../dataProviders/TimeZoneDataProvider";
+import { LocaleDataProvider } from "../dataProviders/LocaleDataProvider";
+import { ProductContentModel } from "../models/product/ProductContentModel";
+import { ProductPricingModel } from "../models/product/ProductPricingModel";
 import { PartialProduct } from "../types/PartialProduct";
-import DeliveryMethodsDataProvider from "../dataProviders/DeliveryMethodDataProvider";
-import ProductQuestionsModel from "../models/product/ProductQuestionsModel";
+import { DeliveryMethodsDataProvider } from "../dataProviders/DeliveryMethodDataProvider";
+import { ProductQuestionsModel } from "../models/product/ProductQuestionsModel";
 
 interface ProductModelBuilderData {
   productData: PartialProduct;
@@ -31,7 +31,7 @@ const defaultCapabilities: CapabilityId[] = [
 ];
 const defaultSourceModel: object = ProductModel;
 
-export default class ProductModelBuilder {
+export class ProductModelBuilder {
   private readonly optionModelBuilder = new OptionModelBuilder();
 
   public build(builderData: ProductModelBuilderData): ProductModel {

@@ -1,9 +1,9 @@
 import { BookingStatus, Contact, Ticket } from "@octocloud/types";
-import UnitModel from "../unit/UnitModel";
-import UnitItemPricingModel from "./UnitItemPricingModel";
-import UndefinedModelError from "../../errors/UndefinedModelError";
+import { UnitModel } from "../unit/UnitModel";
+import { UnitItemPricingModel } from "./UnitItemPricingModel";
+import { UndefinedModelError } from "../../errors/UndefinedModelError";
 
-export default class UnitItemModel {
+export class UnitItemModel {
   public readonly uuid: string;
 
   public readonly resellerReference: Nullable<string>;

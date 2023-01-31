@@ -1,6 +1,6 @@
 import { PickupPoint } from "@octocloud/types";
 
-export default class OptionPickupsModel {
+export class OptionPickupsModel {
   public readonly pickupRequired: boolean;
 
   public readonly pickupAvailable: boolean;

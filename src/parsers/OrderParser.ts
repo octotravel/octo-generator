@@ -1,8 +1,8 @@
 import { CapabilityId, Order } from "@octocloud/types";
-import BookingParser from "./BookingParser";
-import OrderModel from "../models/order/OrderModel";
+import { BookingParser } from "./BookingParser";
+import { OrderModel } from "../models/order/OrderModel";
 
-export default class OrderParser {
+export class OrderParser {
   private readonly bookingParser = new BookingParser();
 
   public parsePOJOToModel = (order: Order): OrderModel =>

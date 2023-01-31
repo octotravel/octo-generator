@@ -6,17 +6,17 @@ import {
   DeliveryMethod,
   RedemptionMethod,
 } from "@octocloud/types";
-import BookingModel from "../models/booking/BookingModel";
-import BookingCartModel from "../models/booking/BookingCartModel";
-import ProductModelBuilder from "./ProductModelBuilder";
-import OptionModelBuilder from "./OptionModelBuilder";
-import BookingContentModel from "../models/booking/BookingContentModel";
-import BookingPickupsModel from "../models/booking/BookingPickupsModel";
-import BookingPricingModel from "../models/booking/BookingPricingModel";
+import { BookingModel } from "../models/booking/BookingModel";
+import { BookingCartModel } from "../models/booking/BookingCartModel";
+import { ProductModelBuilder } from "./ProductModelBuilder";
+import { OptionModelBuilder } from "./OptionModelBuilder";
+import { BookingContentModel } from "../models/booking/BookingContentModel";
+import { BookingPickupsModel } from "../models/booking/BookingPickupsModel";
+import { BookingPricingModel } from "../models/booking/BookingPricingModel";
 import { PartialBooking } from "../types/PartialBooking";
-import UnitItemModel from "../models/unitItem/UnitItemModel";
-import UnitItemModelBuilder from "./UnitItemModelBuilder";
-import DeliveryMethodsDataProvider from "../dataProviders/DeliveryMethodDataProvider";
+import { UnitItemModel } from "../models/unitItem/UnitItemModel";
+import { UnitItemModelBuilder } from "./UnitItemModelBuilder";
+import { DeliveryMethodsDataProvider } from "../dataProviders/DeliveryMethodDataProvider";
 
 interface BookingModelBuilderData {
   bookingData: PartialBooking;
@@ -31,7 +31,7 @@ const defaultCapabilities: CapabilityId[] = [
   CapabilityId.Questions,
 ];
 
-export default class BookingModelBuilder {
+export class BookingModelBuilder {
   private readonly productModelBuilder = new ProductModelBuilder();
 
   private readonly optionModelBuilder = new OptionModelBuilder();

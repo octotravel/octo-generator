@@ -1,9 +1,9 @@
 import { AvailabilityStatus, CapabilityId, PricingPer } from "@octocloud/types";
-import PricingDataProvider from "../dataProviders/PricingDataProvider";
-import DateFormatter from "../common/DateFormatter";
-import AvailabilityCalendarModel from "../models/availability/AvailabilityCalendarModel";
-import AvailabilityCalendarPricingModel from "../models/availability/AvailabilityCalendarPricingModel";
-import AvailabilityCalendarPricingModelFactory from "../factories/AvailabilityCalendarPricingModelFactory";
+import { PricingDataProvider } from "../dataProviders/PricingDataProvider";
+import { DateFormatter } from "../common/DateFormatter";
+import { AvailabilityCalendarModel } from "../models/availability/AvailabilityCalendarModel";
+import { AvailabilityCalendarPricingModel } from "../models/availability/AvailabilityCalendarPricingModel";
+import { AvailabilityCalendarPricingModelFactory } from "../factories/AvailabilityCalendarPricingModelFactory";
 import { PartialAvailabilityCalendar } from "../types/PartialAvailabilityCalendar";
 
 interface AvailabilityCalendarModelBuilderData {
@@ -15,7 +15,7 @@ interface AvailabilityCalendarModelBuilderData {
 const defaultPricingPer: PricingPer = PricingPer.UNIT;
 const defaultCapabilities: CapabilityId[] = [CapabilityId.Pricing];
 
-export default class AvailabilityCalendarModelBuilder {
+export class AvailabilityCalendarModelBuilder {
   public build(builderData: AvailabilityCalendarModelBuilderData): AvailabilityCalendarModel {
     builderData.pricingPer ??= defaultPricingPer;
     builderData.capabilities ??= defaultCapabilities;

@@ -1,4 +1,4 @@
-export default class UnitContentModel {
+export class UnitContentModel {
   public readonly title: string;
 
   public readonly titlePlural: string;

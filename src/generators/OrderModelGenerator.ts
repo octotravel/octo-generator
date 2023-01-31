@@ -1,14 +1,14 @@
 import { CapabilityId } from "@octocloud/types";
 import { PartialOrder } from "../types/PartialOrder";
-import OrderModelBuilder from "../builders/OrderModelBuilder";
-import OrderModel from "../models/order/OrderModel";
+import { OrderModelBuilder } from "../builders/OrderModelBuilder";
+import { OrderModel } from "../models/order/OrderModel";
 
 interface OrderGenerateData {
   orderData: PartialOrder;
   capabilities?: CapabilityId[];
 }
 
-export default class OrderModelGenerator {
+export class OrderModelGenerator {
   private readonly orderModelBuilder = new OrderModelBuilder();
 
   public generateOrder = (orderGenerateData: OrderGenerateData): OrderModel =>

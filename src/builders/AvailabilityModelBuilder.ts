@@ -1,13 +1,13 @@
 import { AvailabilityStatus, CapabilityId, PricingPer } from "@octocloud/types";
 import { addDays } from "date-fns";
-import PricingDataProvider from "../dataProviders/PricingDataProvider";
-import AvailabilityModel from "../models/availability/AvailabilityModel";
-import AvailabilityContentModel from "../models/availability/AvailabilityContentModel";
-import AvailabilityPricingModel from "../models/availability/AvailabilityPricingModel";
-import AvailabilityPickupsModel from "../models/availability/AvailabilityPickupsModel";
-import DateFormatter from "../common/DateFormatter";
-import TimeZoneDataProvider from "../dataProviders/TimeZoneDataProvider";
-import AvailabilityPricingModelFactory from "../factories/AvailabilityPricingModelFactory";
+import { PricingDataProvider } from "../dataProviders/PricingDataProvider";
+import { AvailabilityModel } from "../models/availability/AvailabilityModel";
+import { AvailabilityContentModel } from "../models/availability/AvailabilityContentModel";
+import { AvailabilityPricingModel } from "../models/availability/AvailabilityPricingModel";
+import { AvailabilityPickupsModel } from "../models/availability/AvailabilityPickupsModel";
+import { DateFormatter } from "../common/DateFormatter";
+import { TimeZoneDataProvider } from "../dataProviders/TimeZoneDataProvider";
+import { AvailabilityPricingModelFactory } from "../factories/AvailabilityPricingModelFactory";
 import { PartialAvailability } from "../types/PartialAvailability";
 
 interface AvailabilityModelBuilderData {
@@ -19,7 +19,7 @@ interface AvailabilityModelBuilderData {
 const defaultPricingPer: PricingPer = PricingPer.UNIT;
 const defaultCapabilities: CapabilityId[] = [CapabilityId.Content, CapabilityId.Pricing, CapabilityId.Pickups];
 
-export default class AvailabilityModelBuilder {
+export class AvailabilityModelBuilder {
   public build(builderData: AvailabilityModelBuilderData): AvailabilityModel {
     builderData.pricingPer ??= defaultPricingPer;
     builderData.capabilities ??= defaultCapabilities;

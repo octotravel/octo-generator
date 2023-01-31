@@ -1,6 +1,6 @@
 import { CapabilityId } from "@octocloud/types";
-import ProductParser from "../ProductParser";
-import ProductTestDataProvider from "./dataProviders/ProductTestDataProvider";
+import { ProductParser } from "../ProductParser";
+import { ProductTestDataProvider } from "./dataProviders/ProductTestDataProvider";
 
 describe("ProductParser", () => {
   const productParser = new ProductParser();

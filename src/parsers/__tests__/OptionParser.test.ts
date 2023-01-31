@@ -1,6 +1,6 @@
 import { CapabilityId } from "@octocloud/types";
-import OptionParser from "../OptionParser";
-import OptionTestDataProvider from "./dataProviders/OptionTestDataProvider";
+import { OptionParser } from "../OptionParser";
+import { OptionTestDataProvider } from "./dataProviders/OptionTestDataProvider";
 
 describe("OptionParser", () => {
   const optionParser = new OptionParser();

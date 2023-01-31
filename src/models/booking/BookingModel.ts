@@ -1,14 +1,14 @@
 import { BookingAvailability, BookingStatus, Cancellation, Contact, Ticket, DeliveryMethod } from "@octocloud/types";
-import OptionModel from "../option/OptionModel";
-import ProductModel from "../product/ProductModel";
-import BookingCartModel from "./BookingCartModel";
-import BookingContentModel from "./BookingContentModel";
-import BookingPickupsModel from "./BookingPickupsModel";
-import BookingPricingModel from "./BookingPricingModel";
-import UnitItemModel from "../unitItem/UnitItemModel";
-import UndefinedModelError from "../../errors/UndefinedModelError";
+import { OptionModel } from "../option/OptionModel";
+import { ProductModel } from "../product/ProductModel";
+import { BookingCartModel } from "./BookingCartModel";
+import { BookingContentModel } from "./BookingContentModel";
+import { BookingPickupsModel } from "./BookingPickupsModel";
+import { BookingPricingModel } from "./BookingPricingModel";
+import { UnitItemModel } from "../unitItem/UnitItemModel";
+import { UndefinedModelError } from "../../errors/UndefinedModelError";
 
-export default class BookingModel {
+export class BookingModel {
   public readonly id: string;
 
   public readonly uuid: string;

@@ -1,6 +1,6 @@
 import { CapabilityId, PricingPer } from "@octocloud/types";
-import AvailabilityModelBuilder from "../builders/AvailabilityModelBuilder";
-import AvailabilityModel from "../models/availability/AvailabilityModel";
+import { AvailabilityModelBuilder } from "../builders/AvailabilityModelBuilder";
+import { AvailabilityModel } from "../models/availability/AvailabilityModel";
 import { PartialAvailability } from "../types/PartialAvailability";
 
 interface AvailabilityGenerateData {
@@ -9,7 +9,7 @@ interface AvailabilityGenerateData {
   capabilities?: CapabilityId[];
 }
 
-export default class AvailabilityModelGenerator {
+export class AvailabilityModelGenerator {
   private readonly availabilityModelBuilder = new AvailabilityModelBuilder();
 
   public generateAvailability = (availabilityGenerateData: AvailabilityGenerateData): AvailabilityModel =>

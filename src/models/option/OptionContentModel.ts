@@ -1,6 +1,6 @@
 import { DurationUnit, Itinerary } from "@octocloud/types";
 
-export default class OptionContentModel {
+export class OptionContentModel {
   public readonly title: string;
 
   public readonly subtitle: Nullable<string>;

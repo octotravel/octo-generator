@@ -1,6 +1,6 @@
 import format from "date-fns-tz/format";
 
-export default class DateFormatter {
+export class DateFormatter {
   public static formatAsAvailabilityId = (date: Date, timeZone: string): string =>
     format(date, "yyyy-MM-dd'T'HH:mm:ssxxx", {
       timeZone,

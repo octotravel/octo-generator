@@ -1,7 +1,7 @@
 import { CapabilityId } from "@octocloud/types";
 import { UnitItemValidator } from "@octocloud/validators";
-import UnitItemModelGenerator from "../UnitItemModelGenerator";
-import UnitItemParser from "../../parsers/UnitItemParser";
+import { UnitItemModelGenerator } from "../UnitItemModelGenerator";
+import { UnitItemParser } from "../../parsers/UnitItemParser";
 
 describe("UnitItemModelGenerator", () => {
   const unitItemModelGenerator = new UnitItemModelGenerator();

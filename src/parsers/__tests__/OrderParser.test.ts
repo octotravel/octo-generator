@@ -1,6 +1,6 @@
 import { OrderStatus } from "@octocloud/types";
-import OrderParser from "../OrderParser";
-import OrderModel from "../../models/order/OrderModel";
+import { OrderParser } from "../OrderParser";
+import { OrderModel } from "../../models/order/OrderModel";
 
 describe("OrderParser", () => {
   const orderParser = new OrderParser();

@@ -1,11 +1,11 @@
 import { CapabilityId, PricingPer, UnitType } from "@octocloud/types";
-import UnitModel from "../models/unit/UnitModel";
-import UnitDataProvider from "../dataProviders/UnitDataProvider";
-import UnitContentModel from "../models/unit/UnitContentModel";
-import UnitPricingModel from "../models/unit/UnitPricingModel";
-import PricingDataProvider from "../dataProviders/PricingDataProvider";
-import ProductModel from "../models/product/ProductModel";
-import OptionPricingModel from "../models/option/OptionPricingModel";
+import { UnitModel } from "../models/unit/UnitModel";
+import { UnitDataProvider } from "../dataProviders/UnitDataProvider";
+import { UnitContentModel } from "../models/unit/UnitContentModel";
+import { UnitPricingModel } from "../models/unit/UnitPricingModel";
+import { PricingDataProvider } from "../dataProviders/PricingDataProvider";
+import { ProductModel } from "../models/product/ProductModel";
+import { OptionPricingModel } from "../models/option/OptionPricingModel";
 import { PartialUnit } from "../types/PartialUnit";
 
 interface UnitModelBuilderData {
@@ -18,7 +18,7 @@ interface UnitModelBuilderData {
 const defaultPricingPer: PricingPer = PricingPer.UNIT;
 const defaultCapabilities: CapabilityId[] = [CapabilityId.Content, CapabilityId.Pricing];
 
-export default class UnitModelBuilder {
+export class UnitModelBuilder {
   public build(builderData: UnitModelBuilderData): UnitModel {
     builderData.pricingPer ??= defaultPricingPer;
     builderData.capabilities ??= defaultCapabilities;

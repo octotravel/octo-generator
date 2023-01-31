@@ -1,7 +1,7 @@
 import { CapabilityId } from "@octocloud/types";
 import { OptionValidator } from "@octocloud/validators";
-import OptionParser from "../../parsers/OptionParser";
-import OptionModelGenerator from "../OptionModelGenerator";
+import { OptionParser } from "../../parsers/OptionParser";
+import { OptionModelGenerator } from "../OptionModelGenerator";
 
 describe("OptionModelGenerator", () => {
   const optionModelGenerator = new OptionModelGenerator();

@@ -1,12 +1,11 @@
 import { CapabilityId, Product } from "@octocloud/types";
-import OptionParser from "./OptionParser";
-import ProductModel from "../models/product/ProductModel";
+import { OptionParser } from "./OptionParser";
+import { ProductModel } from "../models/product/ProductModel";
+import { ProductContentModel } from "../models/product/ProductContentModel";
+import { ProductPricingModel } from "../models/product/ProductPricingModel";
+import { ProductQuestionsModel } from "../models/product/ProductQuestionsModel";
 
-import ProductContentModel from "../models/product/ProductContentModel";
-import ProductPricingModel from "../models/product/ProductPricingModel";
-import ProductQuestionsModel from "../models/product/ProductQuestionsModel";
-
-export default class ProductParser {
+export class ProductParser {
   private readonly optionParser = new OptionParser();
 
   public parsePOJOToModel = (product: Product): ProductModel =>
