@@ -28,6 +28,7 @@ const defaultCapabilities: CapabilityId[] = [
   CapabilityId.Content,
   CapabilityId.Pickups,
   CapabilityId.Pricing,
+  CapabilityId.Questions,
 ];
 
 export default class BookingModelBuilder {

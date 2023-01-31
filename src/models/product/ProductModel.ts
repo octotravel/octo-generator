@@ -3,6 +3,7 @@ import OptionModel from "../option/OptionModel";
 import ProductContentModel from "./ProductContentModel";
 import ProductPricingModel from "./ProductPricingModel";
 import UndefinedModelError from "../../errors/UndefinedModelError";
+import ProductQuestionsModel from "./ProductQuestionsModel";
 
 export default class ProductModel {
   public readonly id: string;
@@ -37,6 +38,8 @@ export default class ProductModel {
 
   public readonly productPricingModel?: ProductPricingModel;
 
+  public readonly productQuestionsModel?: ProductQuestionsModel;
+
   constructor({
     id,
     internalName,
@@ -54,6 +57,7 @@ export default class ProductModel {
     optionModels,
     productContentModel,
     productPricingModel,
+    productQuestionsModel,
   }: {
     id: string;
     internalName: string;
@@ -71,6 +75,7 @@ export default class ProductModel {
     optionModels: Array<OptionModel>;
     productContentModel?: ProductContentModel;
     productPricingModel?: ProductPricingModel;
+    productQuestionsModel?: ProductQuestionsModel;
   }) {
     this.id = id;
     this.internalName = internalName;
@@ -89,6 +94,7 @@ export default class ProductModel {
     this.optionModels = optionModels;
     this.productContentModel = productContentModel;
     this.productPricingModel = productPricingModel;
+    this.productQuestionsModel = productQuestionsModel;
   }
 
   /**
@@ -111,6 +117,17 @@ export default class ProductModel {
     }
 
     return this.productPricingModel;
+  }
+
+  /**
+   * @throws UndefinedModelError
+   */
+  public getProductQuestionsModel(): ProductQuestionsModel {
+    if (this.productQuestionsModel === undefined) {
+      throw UndefinedModelError.create("ProductQuestionsModel", "ProductModel", this.id);
+    }
+
+    return this.productQuestionsModel;
   }
 
   public findOptionModelByOptionId(optionId: string): Nullable<OptionModel> {

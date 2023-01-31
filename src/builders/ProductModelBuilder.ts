@@ -15,6 +15,7 @@ import ProductContentModel from "../models/product/ProductContentModel";
 import ProductPricingModel from "../models/product/ProductPricingModel";
 import { PartialProduct } from "../types/PartialProduct";
 import DeliveryMethodsDataProvider from "../dataProviders/DeliveryMethodDataProvider";
+import ProductQuestionsModel from "../models/product/ProductQuestionsModel";
 
 interface ProductModelBuilderData {
   productData: PartialProduct;
@@ -22,7 +23,12 @@ interface ProductModelBuilderData {
   sourceModel?: object;
 }
 
-const defaultCapabilities: CapabilityId[] = [CapabilityId.Content, CapabilityId.Pricing, CapabilityId.Pickups];
+const defaultCapabilities: CapabilityId[] = [
+  CapabilityId.Content,
+  CapabilityId.Pricing,
+  CapabilityId.Pickups,
+  CapabilityId.Questions,
+];
 const defaultSourceModel: object = ProductModel;
 
 export default class ProductModelBuilder {
@@ -51,6 +57,7 @@ export default class ProductModelBuilder {
       optionModels: this.buildOptionModels(builderData),
       productContentModel: this.buildContentModel(builderData),
       productPricingModel: this.buildPricingModel(builderData),
+      productQuestionsModel: this.buildQuestionsModel(builderData),
     });
   }
 
@@ -134,6 +141,18 @@ export default class ProductModelBuilder {
       defaultCurrency: productData.defaultCurrency ?? Currency.EUR,
       availableCurrencies: productData.availableCurrencies ?? [Currency.EUR],
       pricingPer: productData.pricingPer ?? PricingPer.UNIT,
+    });
+  }
+
+  private buildQuestionsModel(builderData: ProductModelBuilderData): ProductQuestionsModel | undefined {
+    if (builderData.capabilities?.includes(CapabilityId.Questions) === false) {
+      return undefined;
+    }
+
+    const { productData } = builderData;
+
+    return new ProductQuestionsModel({
+      questions: productData.questions ?? [],
     });
   }
 }

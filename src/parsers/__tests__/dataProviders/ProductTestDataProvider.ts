@@ -13,6 +13,7 @@ import OptionModel from "../../../models/option/OptionModel";
 import UnitModel from "../../../models/unit/UnitModel";
 import ProductContentModel from "../../../models/product/ProductContentModel";
 import ProductPricingModel from "../../../models/product/ProductPricingModel";
+import ProductQuestionsModel from "../../../models/product/ProductQuestionsModel";
 
 export default class ProductTestDataProvider {
   public static product = {
@@ -91,10 +92,15 @@ export default class ProductTestDataProvider {
     pricingPer: PricingPer.UNIT,
   };
 
+  public static productQuestions = {
+    questions: [],
+  };
+
   public static productPOJO = {
     ...this.product,
     ...this.productContent,
     ...this.productPricing,
+    ...this.productQuestions,
   };
 
   public static productModel = new ProductModel({
@@ -153,6 +159,9 @@ export default class ProductTestDataProvider {
       defaultCurrency: this.productPOJO.defaultCurrency,
       availableCurrencies: this.productPOJO.availableCurrencies,
       pricingPer: this.productPOJO.pricingPer,
+    }),
+    productQuestionsModel: new ProductQuestionsModel({
+      questions: this.productPOJO.questions,
     }),
   });
 }

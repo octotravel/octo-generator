@@ -15,6 +15,7 @@ describe("ProductModelBuilder", () => {
       expect(productModel).toBeInstanceOf(ProductModel);
       expect(productModel.productContentModel).toBeUndefined();
       expect(productModel.productPricingModel).toBeUndefined();
+      expect(productModel.productQuestionsModel).toBeUndefined();
     });
 
     it("should build product model with content capability", async () => {
@@ -26,6 +27,7 @@ describe("ProductModelBuilder", () => {
       expect(productModel).toBeInstanceOf(ProductModel);
       expect(productModel.productContentModel).toBeDefined();
       expect(productModel.productPricingModel).toBeUndefined();
+      expect(productModel.productQuestionsModel).toBeUndefined();
     });
 
     it("should build product model with pricing capability", async () => {
@@ -37,17 +39,31 @@ describe("ProductModelBuilder", () => {
       expect(productModel).toBeInstanceOf(ProductModel);
       expect(productModel.productContentModel).toBeUndefined();
       expect(productModel.productPricingModel).toBeDefined();
+      expect(productModel.productQuestionsModel).toBeUndefined();
+    });
+
+    it("should build product model with questions capability", async () => {
+      const productModel = productModelBuilder.build({
+        productData: ProductDataProvider.defaultProduct,
+        capabilities: [CapabilityId.Questions],
+      });
+
+      expect(productModel).toBeInstanceOf(ProductModel);
+      expect(productModel.productContentModel).toBeUndefined();
+      expect(productModel.productPricingModel).toBeUndefined();
+      expect(productModel.productQuestionsModel).toBeDefined();
     });
 
     it("should build product model with all capabilities", async () => {
       const productModel = productModelBuilder.build({
         productData: ProductDataProvider.defaultProduct,
-        capabilities: [CapabilityId.Content, CapabilityId.Pricing],
+        capabilities: [CapabilityId.Content, CapabilityId.Pricing, CapabilityId.Questions],
       });
 
       expect(productModel).toBeInstanceOf(ProductModel);
       expect(productModel.productContentModel).toBeDefined();
       expect(productModel.productPricingModel).toBeDefined();
+      expect(productModel.productQuestionsModel).toBeDefined();
     });
   });
 });

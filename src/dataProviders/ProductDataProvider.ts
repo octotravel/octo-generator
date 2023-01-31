@@ -10,5 +10,6 @@ export default class ProductDataProvider {
     defaultCurrency: Currency.EUR,
     availableCurrencies: [Currency.EUR],
     pricingPer: PricingPer.UNIT,
+    questions: [],
   };
 }
