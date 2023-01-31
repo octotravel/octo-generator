@@ -4,6 +4,7 @@ import ProductModel from "../models/product/ProductModel";
 
 import ProductContentModel from "../models/product/ProductContentModel";
 import ProductPricingModel from "../models/product/ProductPricingModel";
+import ProductQuestionsModel from "../models/product/ProductQuestionsModel";
 
 export default class ProductParser {
   private readonly optionParser = new OptionParser();
@@ -26,6 +27,7 @@ export default class ProductParser {
       optionModels: product.options.map((option) => this.optionParser.parsePOJOToModel(option)),
       productContentModel: this.parseContentPOJOToModel(product),
       productPricingModel: this.parsePricingPOJOToModel(product),
+      productQuestionsModel: this.parseQuestionsPOJOToModel(product),
     });
 
   private parseContentPOJOToModel = (product: Product): ProductContentModel | undefined => {
@@ -94,11 +96,22 @@ export default class ProductParser {
     });
   };
 
+  private parseQuestionsPOJOToModel = (product: Product): ProductQuestionsModel | undefined => {
+    if (product.questions === undefined) {
+      return undefined;
+    }
+
+    return new ProductQuestionsModel({
+      questions: product.questions,
+    });
+  };
+
   public parseModelToPOJO = (productModel: ProductModel): Product => {
     const product = this.parseMainModelToPojo(productModel);
 
     this.parseContentModelToPOJO(product, productModel);
     this.parsePricingModelToPOJO(product, productModel);
+    this.parseQuestionsModelToPOJO(product, productModel);
 
     return product;
   };
@@ -115,6 +128,10 @@ export default class ProductParser {
 
     if (capabilities?.includes(CapabilityId.Pricing)) {
       this.parsePricingModelToPOJO(product, productModel);
+    }
+
+    if (capabilities?.includes(CapabilityId.Questions)) {
+      this.parseQuestionsModelToPOJO(product, productModel);
     }
 
     return product;
@@ -185,5 +202,15 @@ export default class ProductParser {
     product.defaultCurrency = productPricingModel.defaultCurrency;
     product.availableCurrencies = productPricingModel.availableCurrencies;
     product.pricingPer = productPricingModel.pricingPer;
+  };
+
+  private parseQuestionsModelToPOJO = (product: Product, productModel: ProductModel) => {
+    if (productModel.productQuestionsModel === undefined) {
+      return;
+    }
+
+    const { productQuestionsModel } = productModel;
+
+    product.questions = productQuestionsModel?.questions;
   };
 }

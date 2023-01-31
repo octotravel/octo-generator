@@ -19,6 +19,7 @@ module.exports = {
     "no-param-reassign": "off",
     "no-underscore-dangle": "off",
     "prefer-destructuring": "off",
+    "object-shorthand": "off",
   },
   env: {
     jest: true,

@@ -1,7 +1,8 @@
-import { Unit, Option } from "@octocloud/types";
+import { Option } from "@octocloud/types";
+import { PartialUnit } from "./PartialUnit";
 
 export type PartialOption = Partial<
   Omit<Option, "units"> & {
-    units: Array<Partial<Unit>>;
+    units: Array<PartialUnit>;
   }
 >;

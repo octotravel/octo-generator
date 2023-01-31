@@ -250,6 +250,7 @@ describe("BookingParser", () => {
             CapabilityId.Content,
             CapabilityId.Pickups,
             CapabilityId.Pricing,
+            CapabilityId.Questions,
           ])
         ).toStrictEqual(bookingPOJO);
       });

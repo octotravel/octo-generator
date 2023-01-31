@@ -7,6 +7,7 @@ describe("ProductParser", () => {
   const { product } = ProductTestDataProvider;
   const { productContent } = ProductTestDataProvider;
   const { productPricing } = ProductTestDataProvider;
+  const { productQuestions } = ProductTestDataProvider;
   const { productPOJO } = ProductTestDataProvider;
   const { productModel } = ProductTestDataProvider;
 
@@ -51,11 +52,23 @@ describe("ProductParser", () => {
   });
 
   describe("parseModelToPOJOWithSpecificCapabilities", () => {
+    it("should return unit POJO with questions capability", async () => {
+      expect(
+        productParser.parseModelToPOJOWithSpecificCapabilities(productModel, [CapabilityId.Questions])
+      ).toStrictEqual({
+        ...product,
+        ...productQuestions,
+      });
+    });
+  });
+
+  describe("parseModelToPOJOWithSpecificCapabilities", () => {
     it("should return unit POJO with all capabilities", async () => {
       expect(
         productParser.parseModelToPOJOWithSpecificCapabilities(productModel, [
           CapabilityId.Content,
           CapabilityId.Pricing,
+          CapabilityId.Questions,
         ])
       ).toStrictEqual(productPOJO);
     });
