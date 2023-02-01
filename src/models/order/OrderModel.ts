@@ -12,11 +12,11 @@ export class OrderModel {
 
   protected _status: OrderStatus;
 
-  protected _utcExpiresAt: string;
+  protected _utcExpiresAt: Nullable<string>;
 
   protected _utcConfirmedAt: Nullable<string>;
 
-  public readonly cancellable: boolean;
+  protected _cancellable: boolean;
 
   public readonly bookingModels: Array<BookingModel>;
 
@@ -72,7 +72,7 @@ export class OrderModel {
     this._status = status;
     this._utcExpiresAt = utcExpiresAt;
     this._utcConfirmedAt = utcConfirmedAt;
-    this.cancellable = cancellable;
+    this._cancellable = cancellable;
     this.bookingModels = bookingModels;
     this._contact = contact;
     this.termsAccepted = termsAccepted;
@@ -90,11 +90,11 @@ export class OrderModel {
     this._status = status;
   }
 
-  get utcExpiresAt(): string {
+  get utcExpiresAt(): Nullable<string> {
     return this._utcExpiresAt;
   }
 
-  set utcExpiresAt(utcExpiresAt: string) {
+  set utcExpiresAt(utcExpiresAt: Nullable<string>) {
     this._utcExpiresAt = utcExpiresAt;
   }
 
@@ -104,6 +104,14 @@ export class OrderModel {
 
   set utcConfirmedAt(utcConfirmedAt: Nullable<string>) {
     this._utcConfirmedAt = utcConfirmedAt;
+  }
+
+  get cancellable(): boolean {
+    return this._cancellable;
+  }
+
+  set cancellable(cancellable: boolean) {
+    this._cancellable = cancellable;
   }
 
   get contact(): Contact {
