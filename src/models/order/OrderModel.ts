@@ -10,17 +10,17 @@ export class OrderModel {
 
   public readonly settlementMethod: string;
 
-  public readonly status: OrderStatus;
+  protected _status: OrderStatus;
 
-  public readonly utcExpiresAt: string;
+  protected _utcExpiresAt: string;
 
-  public readonly utcConfirmedAt: Nullable<string>;
+  protected _utcConfirmedAt: Nullable<string>;
 
   public readonly cancellable: boolean;
 
   public readonly bookingModels: Array<BookingModel>;
 
-  public readonly contact: Contact;
+  protected _contact: Contact;
 
   public readonly termsAccepted?: boolean;
 
@@ -69,17 +69,49 @@ export class OrderModel {
     this.testMode = testMode;
     this.supplierReference = supplierReference;
     this.settlementMethod = settlementMethod;
-    this.status = status;
-    this.utcExpiresAt = utcExpiresAt;
-    this.utcConfirmedAt = utcConfirmedAt;
+    this._status = status;
+    this._utcExpiresAt = utcExpiresAt;
+    this._utcConfirmedAt = utcConfirmedAt;
     this.cancellable = cancellable;
     this.bookingModels = bookingModels;
-    this.contact = contact;
+    this._contact = contact;
     this.termsAccepted = termsAccepted;
     this.pricing = pricing;
     this.offerCombinations = offerCombinations;
     this.cardPayment = cardPayment;
     this.returnUrl = returnUrl;
+  }
+
+  get status(): OrderStatus {
+    return this._status;
+  }
+
+  set status(status: OrderStatus) {
+    this._status = status;
+  }
+
+  get utcExpiresAt(): string {
+    return this._utcExpiresAt;
+  }
+
+  set utcExpiresAt(utcExpiresAt: string) {
+    this._utcExpiresAt = utcExpiresAt;
+  }
+
+  get utcConfirmedAt(): Nullable<string> {
+    return this._utcConfirmedAt;
+  }
+
+  set utcConfirmedAt(utcConfirmedAt: Nullable<string>) {
+    this._utcConfirmedAt = utcConfirmedAt;
+  }
+
+  get contact(): Contact {
+    return this._contact;
+  }
+
+  set contact(contact: Contact) {
+    this._contact = contact;
   }
 
   public findBookingModelByBookingId(bookingId: string): Nullable<BookingModel> {
