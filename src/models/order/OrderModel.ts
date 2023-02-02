@@ -54,7 +54,7 @@ export class OrderModel {
     supplierReference: string;
     settlementMethod: string;
     status: OrderStatus;
-    utcExpiresAt: string;
+    utcExpiresAt: Nullable<string>;
     utcConfirmedAt: Nullable<string>;
     cancellable: boolean;
     bookingModels: Array<BookingModel>;
