@@ -18,7 +18,7 @@ export class OrderModel {
 
   protected _cancellable: boolean;
 
-  public readonly bookingModels: Array<BookingModel>;
+  protected _bookingModels: Array<BookingModel>;
 
   protected _contact: Contact;
 
@@ -73,7 +73,7 @@ export class OrderModel {
     this._utcExpiresAt = utcExpiresAt;
     this._utcConfirmedAt = utcConfirmedAt;
     this._cancellable = cancellable;
-    this.bookingModels = bookingModels;
+    this._bookingModels = bookingModels;
     this._contact = contact;
     this.termsAccepted = termsAccepted;
     this.pricing = pricing;
@@ -120,6 +120,14 @@ export class OrderModel {
 
   set contact(contact: Contact) {
     this._contact = contact;
+  }
+
+  get bookingModels(): Array<BookingModel> {
+    return this._bookingModels;
+  }
+
+  set bookingModels(bookingModels: Array<BookingModel>) {
+    this._bookingModels = bookingModels;
   }
 
   public findBookingModelByBookingId(bookingId: string): Nullable<BookingModel> {
