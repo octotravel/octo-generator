@@ -1,13 +1,29 @@
 export class BookingCartModel {
-  public readonly orderId?: string;
+  protected _orderId?: string;
 
   public readonly orderReference?: string;
 
-  public readonly primary?: boolean;
+  protected _primary?: boolean;
 
   constructor({ orderId, orderReference, primary }: { orderId?: string; orderReference?: string; primary?: boolean }) {
-    this.orderId = orderId;
+    this._orderId = orderId;
     this.orderReference = orderReference;
-    this.primary = primary;
+    this._primary = primary;
+  }
+
+  get orderId(): string | undefined {
+    return this._orderId;
+  }
+
+  set orderId(orderId: string | undefined) {
+    this._orderId = orderId;
+  }
+
+  get primary(): boolean | undefined {
+    return this._primary;
+  }
+
+  set primary(primary: boolean | undefined) {
+    this._primary = primary;
   }
 }
