@@ -53,7 +53,7 @@ export class BookingModel {
 
   protected _unitItemModels: UnitItemModel[];
 
-  public readonly bookingCartModel?: BookingCartModel;
+  protected _bookingCartModel?: BookingCartModel;
 
   public readonly bookingContentModel?: BookingContentModel;
 
@@ -138,7 +138,7 @@ export class BookingModel {
     this.deliveryMethods = deliveryMethods;
     this._voucher = voucher;
     this._unitItemModels = unitItemModels;
-    this.bookingCartModel = bookingCartModel;
+    this._bookingCartModel = bookingCartModel;
     this.bookingContentModel = bookingContentModel;
     this.bookingPickupsModel = bookingPickupsModel;
     this.bookingPricingModel = bookingPricingModel;
@@ -262,6 +262,14 @@ export class BookingModel {
 
   set unitItemModels(unitItemModels: UnitItemModel[]) {
     this._unitItemModels = unitItemModels;
+  }
+
+  get bookingCartModel(): BookingCartModel | undefined {
+    return this._bookingCartModel;
+  }
+
+  set bookingCartModel(bookingCartModel: BookingCartModel | undefined) {
+    this._bookingCartModel = bookingCartModel;
   }
 
   /**
