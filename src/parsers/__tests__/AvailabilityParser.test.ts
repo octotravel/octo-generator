@@ -5,9 +5,12 @@ import { AvailabilityContentModel } from "../../models/availability/Availability
 import { AvailabilityPricingModel } from "../../models/availability/AvailabilityPricingModel";
 import { AvailabilityPickupsModel } from "../../models/availability/AvailabilityPickupsModel";
 import { PricingDataProvider } from "../../dataProviders/PricingDataProvider";
+import { OfferTestDataProvider } from "./dataProviders/OfferTestDataProvider";
+import { AvailabilityOffersModel } from "../../models/availability/AvailabilityOffersModel";
 
 describe("AvailabilityParser", () => {
   const availabilityParser = new AvailabilityParser();
+  const { offerPOJO } = OfferTestDataProvider;
   const availability = {
     id: "2023-12-01T00:00:00+01:00",
     localDateTimeStart: "2023-12-01T00:00:00+01:00",
@@ -33,6 +36,12 @@ describe("AvailabilityParser", () => {
     meetingPointLongitude: null,
     meetingLocalDateTime: null,
   };
+  const availabilityOffers = {
+    offerCode: "offerCode",
+    offerTitle: "offerTitle",
+    offers: [],
+    offer: offerPOJO,
+  };
   const availabilityPickups = {
     pickupAvailable: false,
     pickupRequired: false,
@@ -45,9 +54,11 @@ describe("AvailabilityParser", () => {
   const availabilityPOJO = {
     ...availability,
     ...availabilityContent,
+    ...availabilityOffers,
     ...availabilityPickups,
     ...availabilityPricing,
   };
+  const { offerModel } = OfferTestDataProvider;
   const availabilityModel = new AvailabilityModel({
     id: availabilityPOJO.id,
     localDateTimeStart: availabilityPOJO.localDateTimeStart,
@@ -66,6 +77,12 @@ describe("AvailabilityParser", () => {
       meetingPointLatitude: availabilityPOJO.meetingPointLatitude,
       meetingPointLongitude: availabilityPOJO.meetingPointLongitude,
       meetingLocalDateTime: availabilityPOJO.meetingLocalDateTime,
+    }),
+    availabilityOffersModel: new AvailabilityOffersModel({
+      offerCode: availabilityOffers.offerCode,
+      offerTitle: availabilityOffers.offerTitle,
+      offerModels: [],
+      offerModel: offerModel,
     }),
     availabilityPricingModel: new AvailabilityPricingModel({
       unitPricing: availabilityPOJO.unitPricing,
@@ -110,6 +127,17 @@ describe("AvailabilityParser", () => {
   });
 
   describe("parseModelToPOJOWithSpecificCapabilities", () => {
+    it("should return unit POJO with offers capability", async () => {
+      expect(
+        availabilityParser.parseModelToPOJOWithSpecificCapabilities(availabilityModel, [CapabilityId.Offers])
+      ).toStrictEqual({
+        ...availability,
+        ...availabilityOffers,
+      });
+    });
+  });
+
+  describe("parseModelToPOJOWithSpecificCapabilities", () => {
     it("should return unit POJO with pickups capability", async () => {
       expect(
         availabilityParser.parseModelToPOJOWithSpecificCapabilities(availabilityModel, [CapabilityId.Pickups])
@@ -136,6 +164,7 @@ describe("AvailabilityParser", () => {
       expect(
         availabilityParser.parseModelToPOJOWithSpecificCapabilities(availabilityModel, [
           CapabilityId.Content,
+          CapabilityId.Offers,
           CapabilityId.Pickups,
           CapabilityId.Pricing,
         ])

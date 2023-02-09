@@ -13,7 +13,6 @@ module.exports = {
     "@typescript-eslint/ban-ts-comment": "warn",
     "new-cap": "error",
     "unused-imports/no-unused-imports": "error",
-    curly: "error",
     "class-methods-use-this": "off",
     "import/prefer-default-export": "off",
     "import/extensions": "off",
@@ -21,6 +20,8 @@ module.exports = {
     "no-underscore-dangle": "off",
     "prefer-destructuring": "off",
     "object-shorthand": "off",
+    curly: "error",
+    quotes: ["error", "double"],
   },
   env: {
     jest: true,

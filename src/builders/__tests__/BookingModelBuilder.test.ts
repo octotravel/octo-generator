@@ -18,6 +18,7 @@ describe("BookingModelBuilder", () => {
       expect(generateBookingModel).toBeInstanceOf(BookingModel);
       expect(generateBookingModel.bookingCartModel).toBeUndefined();
       expect(generateBookingModel.bookingContentModel).toBeUndefined();
+      expect(generateBookingModel.bookingOffersModel).toBeUndefined();
       expect(generateBookingModel.bookingPickupsModel).toBeUndefined();
       expect(generateBookingModel.bookingPricingModel).toBeUndefined();
     });
@@ -33,6 +34,7 @@ describe("BookingModelBuilder", () => {
       expect(generateBookingModel).toBeInstanceOf(BookingModel);
       expect(generateBookingModel.bookingCartModel).toBeDefined();
       expect(generateBookingModel.bookingContentModel).toBeUndefined();
+      expect(generateBookingModel.bookingOffersModel).toBeUndefined();
       expect(generateBookingModel.bookingPickupsModel).toBeUndefined();
       expect(generateBookingModel.bookingPricingModel).toBeUndefined();
     });
@@ -48,6 +50,23 @@ describe("BookingModelBuilder", () => {
       expect(generateBookingModel).toBeInstanceOf(BookingModel);
       expect(generateBookingModel.bookingCartModel).toBeUndefined();
       expect(generateBookingModel.bookingContentModel).toBeDefined();
+      expect(generateBookingModel.bookingOffersModel).toBeUndefined();
+      expect(generateBookingModel.bookingPickupsModel).toBeUndefined();
+      expect(generateBookingModel.bookingPricingModel).toBeUndefined();
+    });
+
+    it("should build booking model with offers capability", async () => {
+      const generateBookingModel = bookingModelBuilder.build({
+        bookingData: {
+          availability: AvailabilityDataProvider.availability,
+        },
+        capabilities: [CapabilityId.Offers],
+      });
+
+      expect(generateBookingModel).toBeInstanceOf(BookingModel);
+      expect(generateBookingModel.bookingCartModel).toBeUndefined();
+      expect(generateBookingModel.bookingContentModel).toBeUndefined();
+      expect(generateBookingModel.bookingOffersModel).toBeDefined();
       expect(generateBookingModel.bookingPickupsModel).toBeUndefined();
       expect(generateBookingModel.bookingPricingModel).toBeUndefined();
     });
@@ -78,6 +97,7 @@ describe("BookingModelBuilder", () => {
       expect(generateBookingModel).toBeInstanceOf(BookingModel);
       expect(generateBookingModel.bookingCartModel).toBeUndefined();
       expect(generateBookingModel.bookingContentModel).toBeUndefined();
+      expect(generateBookingModel.bookingOffersModel).toBeUndefined();
       expect(generateBookingModel.bookingPickupsModel).toBeUndefined();
       expect(generateBookingModel.bookingPricingModel).toBeDefined();
     });
@@ -87,12 +107,19 @@ describe("BookingModelBuilder", () => {
         bookingData: {
           availability: AvailabilityDataProvider.availability,
         },
-        capabilities: [CapabilityId.Cart, CapabilityId.Content, CapabilityId.Pickups, CapabilityId.Pricing],
+        capabilities: [
+          CapabilityId.Cart,
+          CapabilityId.Content,
+          CapabilityId.Offers,
+          CapabilityId.Pickups,
+          CapabilityId.Pricing,
+        ],
       });
 
       expect(generateBookingModel).toBeInstanceOf(BookingModel);
       expect(generateBookingModel.bookingCartModel).toBeDefined();
       expect(generateBookingModel.bookingContentModel).toBeDefined();
+      expect(generateBookingModel.bookingOffersModel).toBeDefined();
       expect(generateBookingModel.bookingPickupsModel).toBeDefined();
       expect(generateBookingModel.bookingPricingModel).toBeDefined();
     });

@@ -11,12 +11,14 @@ interface OrderGenerateData {
 export class OrderModelGenerator {
   private readonly orderModelBuilder = new OrderModelBuilder();
 
-  public generateOrder = (orderGenerateData: OrderGenerateData): OrderModel =>
-    this.orderModelBuilder.build({
+  public generateOrder(orderGenerateData: OrderGenerateData): OrderModel {
+    return this.orderModelBuilder.build({
       orderData: orderGenerateData.orderData,
       capabilities: orderGenerateData.capabilities,
     });
+  }
 
-  public generateMultipleOptions = (ordersData: PartialOrder[], capabilities?: CapabilityId[]): OrderModel[] =>
-    ordersData.map((orderData) => this.generateOrder({ orderData, capabilities }));
+  public generateMultipleOrders(ordersData: PartialOrder[], capabilities?: CapabilityId[]): OrderModel[] {
+    return ordersData.map((orderData) => this.generateOrder({ orderData, capabilities }));
+  }
 }

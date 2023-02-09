@@ -3,8 +3,12 @@ import { AvailabilityModel } from "../models/availability/AvailabilityModel";
 import { AvailabilityContentModel } from "../models/availability/AvailabilityContentModel";
 import { AvailabilityPickupsModel } from "../models/availability/AvailabilityPickupsModel";
 import { AvailabilityPricingModel } from "../models/availability/AvailabilityPricingModel";
+import { OfferParser } from "./OfferParser";
+import { AvailabilityOffersModel } from "../models/availability/AvailabilityOffersModel";
 
 export class AvailabilityParser {
+  private readonly offerParser = new OfferParser();
+
   public parsePOJOToModel = (availability: Availability): AvailabilityModel =>
     new AvailabilityModel({
       id: availability.id,
@@ -19,6 +23,7 @@ export class AvailabilityParser {
       utcCutoffAt: availability.utcCutoffAt,
       openingHours: availability.openingHours,
       availabilityContentModel: this.parseContentPOJOToModel(availability),
+      availabilityOffersModel: this.parseOffersPOJOToModel(availability),
       availabilityPickupsModel: this.parsePickupPOJOToModel(availability),
       availabilityPricingModel: this.parsePricingPOJOToModel(availability),
     });
@@ -40,6 +45,24 @@ export class AvailabilityParser {
       meetingPointLatitude: availability.meetingPointLatitude,
       meetingPointLongitude: availability.meetingPointLongitude,
       meetingLocalDateTime: availability.meetingLocalDateTime,
+    });
+  };
+
+  private parseOffersPOJOToModel = (availability: Availability): AvailabilityOffersModel | undefined => {
+    if (
+      availability.offerCode === undefined ||
+      availability.offerTitle === undefined ||
+      availability.offers === undefined ||
+      availability.offer === undefined
+    ) {
+      return undefined;
+    }
+
+    return new AvailabilityOffersModel({
+      offerCode: availability.offerCode,
+      offerTitle: availability.offerTitle,
+      offerModels: availability.offers.map((offer) => this.offerParser.parsePOJOToModel(offer)),
+      offerModel: this.offerParser.parsePOJOToModel(availability.offer),
     });
   };
 
@@ -74,6 +97,7 @@ export class AvailabilityParser {
     const availability = this.parseMainModelToPojo(availabilityModel);
 
     this.parseContentModelToPOJO(availability, availabilityModel);
+    this.parseOffersModelToPOJO(availability, availabilityModel);
     this.parsePickupsModelToPOJO(availability, availabilityModel);
     this.parsePricingModelToPOJO(availability, availabilityModel);
 
@@ -88,6 +112,10 @@ export class AvailabilityParser {
 
     if (capabilities.includes(CapabilityId.Content)) {
       this.parseContentModelToPOJO(availability, availabilityModel);
+    }
+
+    if (capabilities.includes(CapabilityId.Offers)) {
+      this.parseOffersModelToPOJO(availability, availabilityModel);
     }
 
     if (capabilities.includes(CapabilityId.Pickups)) {
@@ -127,6 +155,21 @@ export class AvailabilityParser {
     availability.meetingPointLatitude = availabilityContentModel.meetingPointLatitude;
     availability.meetingPointLongitude = availabilityContentModel.meetingPointLongitude;
     availability.meetingLocalDateTime = availabilityContentModel.meetingLocalDateTime;
+  };
+
+  private parseOffersModelToPOJO = (availability: Availability, availabilityModel: AvailabilityModel) => {
+    if (availabilityModel.availabilityOffersModel === undefined) {
+      return;
+    }
+
+    const { availabilityOffersModel } = availabilityModel;
+
+    availability.offerCode = availabilityOffersModel.offerCode;
+    availability.offerTitle = availabilityOffersModel.offerTitle;
+    availability.offers = availabilityOffersModel.offerModels.map((offerModel) =>
+      this.offerParser.parseModelToPOJO(offerModel)
+    );
+    availability.offer = this.offerParser.parseModelToPOJO(availabilityOffersModel.offerModel);
   };
 
   private parsePickupsModelToPOJO = (availability: Availability, availabilityModel: AvailabilityModel) => {

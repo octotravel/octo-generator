@@ -17,6 +17,8 @@ import { PartialBooking } from "../types/PartialBooking";
 import { UnitItemModel } from "../models/unitItem/UnitItemModel";
 import { UnitItemModelBuilder } from "./UnitItemModelBuilder";
 import { DeliveryMethodsDataProvider } from "../dataProviders/DeliveryMethodDataProvider";
+import { BookingOffersModel } from "../models/booking/BookingOffersModel";
+import { OfferModelBuilder } from "./OfferModelBuilder";
 
 interface BookingModelBuilderData {
   bookingData: PartialBooking;
@@ -26,6 +28,7 @@ interface BookingModelBuilderData {
 const defaultCapabilities: CapabilityId[] = [
   CapabilityId.Cart,
   CapabilityId.Content,
+  CapabilityId.Offers,
   CapabilityId.Pickups,
   CapabilityId.Pricing,
   CapabilityId.Questions,
@@ -33,6 +36,8 @@ const defaultCapabilities: CapabilityId[] = [
 
 export class BookingModelBuilder {
   private readonly productModelBuilder = new ProductModelBuilder();
+
+  private readonly offerModelBuilder = new OfferModelBuilder();
 
   private readonly optionModelBuilder = new OptionModelBuilder();
 
@@ -105,6 +110,7 @@ export class BookingModelBuilder {
       unitItemModels: this.buildUnitItemModels(builderData),
       bookingCartModel: this.buildCartModel(builderData),
       bookingContentModel: this.buildContentModel(builderData),
+      bookingOffersModel: this.buildOffersModel(builderData),
       bookingPickupsModel: this.buildPickupModel(builderData),
       bookingPricingModel: this.buildPricingModel(builderData),
     });
@@ -160,6 +166,24 @@ export class BookingModelBuilder {
       duration: bookingData.duration ?? "duration",
       durationAmount: bookingData.duration ?? "durationAmount",
       durationUnit: bookingData.duration ?? DurationUnit.HOUR,
+    });
+  }
+
+  private buildOffersModel(builderData: BookingModelBuilderData): BookingOffersModel | undefined {
+    if (builderData.capabilities?.includes(CapabilityId.Offers) === false) {
+      return undefined;
+    }
+
+    const { bookingData } = builderData;
+
+    return new BookingOffersModel({
+      offerCode: bookingData.offerCode ?? "offerCode",
+      offerTitle: bookingData.offerTitle ?? "offerTitle",
+      offerComparisons: bookingData.offerComparisons ?? [],
+      offerIsCombination: bookingData.offerIsCombination ?? false,
+      offerModels:
+        builderData.bookingData.offers?.map((offer) => this.offerModelBuilder.build({ offerData: offer })) ?? [],
+      offerModel: this.offerModelBuilder.build({ offerData: bookingData.offer ?? {} }),
     });
   }
 

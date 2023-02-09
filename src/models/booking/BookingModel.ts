@@ -7,6 +7,7 @@ import { BookingPickupsModel } from "./BookingPickupsModel";
 import { BookingPricingModel } from "./BookingPricingModel";
 import { UnitItemModel } from "../unitItem/UnitItemModel";
 import { UndefinedModelError } from "../../errors/UndefinedModelError";
+import { BookingOffersModel } from "./BookingOffersModel";
 
 export class BookingModel {
   public readonly id: string;
@@ -57,6 +58,8 @@ export class BookingModel {
 
   public readonly bookingContentModel?: BookingContentModel;
 
+  public readonly bookingOffersModel?: BookingOffersModel;
+
   public readonly bookingPickupsModel?: BookingPickupsModel;
 
   public readonly bookingPricingModel?: BookingPricingModel;
@@ -86,6 +89,7 @@ export class BookingModel {
     unitItemModels,
     bookingCartModel,
     bookingContentModel,
+    bookingOffersModel,
     bookingPickupsModel,
     bookingPricingModel,
   }: {
@@ -113,6 +117,7 @@ export class BookingModel {
     unitItemModels: UnitItemModel[];
     bookingCartModel?: BookingCartModel;
     bookingContentModel?: BookingContentModel;
+    bookingOffersModel?: BookingOffersModel;
     bookingPickupsModel?: BookingPickupsModel;
     bookingPricingModel?: BookingPricingModel;
   }) {
@@ -140,6 +145,7 @@ export class BookingModel {
     this._unitItemModels = unitItemModels;
     this._bookingCartModel = bookingCartModel;
     this.bookingContentModel = bookingContentModel;
+    this.bookingOffersModel = bookingOffersModel;
     this.bookingPickupsModel = bookingPickupsModel;
     this.bookingPricingModel = bookingPricingModel;
   }
@@ -286,23 +292,34 @@ export class BookingModel {
   /**
    * @throws UndefinedModelError
    */
-  public getBookingPickupsModel(): BookingPickupsModel {
-    if (this.bookingPickupsModel === undefined) {
-      throw UndefinedModelError.create("BookingPickupsModel", "BookingModel", this.id);
-    }
-
-    return this.bookingPickupsModel;
-  }
-
-  /**
-   * @throws UndefinedModelError
-   */
   public getBookingContentModel(): BookingContentModel {
     if (this.bookingContentModel === undefined) {
       throw UndefinedModelError.create("BookingContentModel", "BookingModel", this.id);
     }
 
     return this.bookingContentModel;
+  }
+
+  /**
+   * @throws UndefinedModelError
+   */
+  public getBookingOffersModel(): BookingOffersModel {
+    if (this.bookingOffersModel === undefined) {
+      throw UndefinedModelError.create("BookingOffersModel", "BookingModel", this.id);
+    }
+
+    return this.bookingOffersModel;
+  }
+
+  /**
+   * @throws UndefinedModelError
+   */
+  public getBookingPickupsModel(): BookingPickupsModel {
+    if (this.bookingPickupsModel === undefined) {
+      throw UndefinedModelError.create("BookingPickupsModel", "BookingModel", this.id);
+    }
+
+    return this.bookingPickupsModel;
   }
 
   /**

@@ -4,6 +4,8 @@ export * from "./generators/AvailabilityModelGenerator";
 
 export * from "./generators/BookingModelGenerator";
 
+export * from "./generators/OfferModelGenerator";
+
 export * from "./generators/OptionModelGenerator";
 
 export * from "./generators/OrderModelGenerator";
@@ -14,13 +16,13 @@ export * from "./generators/UnitItemModelGenerator";
 
 export * from "./generators/UnitModelGenerator";
 
-export * from "./parsers/AvailabilityCalendarParser";
-
 export * from "./models/availability/AvailabilityCalendarModel";
 
 export * from "./models/availability/AvailabilityModel";
 
 export * from "./models/booking/BookingModel";
+
+export * from "./models/offer/OfferModel";
 
 export * from "./models/option/OptionModel";
 
@@ -34,7 +36,11 @@ export * from "./models/unit/UnitModel";
 
 export * from "./parsers/AvailabilityParser";
 
+export * from "./parsers/AvailabilityCalendarParser";
+
 export * from "./parsers/BookingParser";
+
+export * from "./parsers/OfferParser";
 
 export * from "./parsers/OptionParser";
 
@@ -51,6 +57,8 @@ export * from "./types/PartialAvailability";
 export * from "./types/PartialAvailabilityCalendar";
 
 export * from "./types/PartialBooking";
+
+export * from "./types/PartialOffer";
 
 export * from "./types/PartialOption";
 

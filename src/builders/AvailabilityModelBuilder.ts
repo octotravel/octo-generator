@@ -9,6 +9,8 @@ import { DateFormatter } from "../common/DateFormatter";
 import { TimeZoneDataProvider } from "../dataProviders/TimeZoneDataProvider";
 import { AvailabilityPricingModelFactory } from "../factories/AvailabilityPricingModelFactory";
 import { PartialAvailability } from "../types/PartialAvailability";
+import { AvailabilityOffersModel } from "../models/availability/AvailabilityOffersModel";
+import { OfferModelBuilder } from "./OfferModelBuilder";
 
 interface AvailabilityModelBuilderData {
   availabilityData: PartialAvailability;
@@ -17,9 +19,16 @@ interface AvailabilityModelBuilderData {
 }
 
 const defaultPricingPer: PricingPer = PricingPer.UNIT;
-const defaultCapabilities: CapabilityId[] = [CapabilityId.Content, CapabilityId.Pricing, CapabilityId.Pickups];
+const defaultCapabilities: CapabilityId[] = [
+  CapabilityId.Content,
+  CapabilityId.Pricing,
+  CapabilityId.Offers,
+  CapabilityId.Pickups,
+];
 
 export class AvailabilityModelBuilder {
+  private readonly offerModelBuilder = new OfferModelBuilder();
+
   public build(builderData: AvailabilityModelBuilderData): AvailabilityModel {
     builderData.pricingPer ??= defaultPricingPer;
     builderData.capabilities ??= defaultCapabilities;
@@ -50,8 +59,9 @@ export class AvailabilityModelBuilder {
       utcCutoffAt: availabilityData.utcCutoffAt ?? DateFormatter.formatToUtcDate(date),
       openingHours: availabilityData.openingHours ?? [],
       availabilityContentModel: this.buildContentModel(builderData),
-      availabilityPricingModel: this.buildPricingModel(builderData),
+      availabilityOffersModel: this.buildOffersModel(builderData),
       availabilityPickupsModel: this.buildPickupModel(builderData),
+      availabilityPricingModel: this.buildPricingModel(builderData),
     });
   }
 
@@ -71,15 +81,19 @@ export class AvailabilityModelBuilder {
     });
   }
 
-  private buildPricingModel(builderData: AvailabilityModelBuilderData): AvailabilityPricingModel | undefined {
-    if (builderData.capabilities?.includes(CapabilityId.Pricing) === false) {
+  private buildOffersModel(builderData: AvailabilityModelBuilderData): AvailabilityOffersModel | undefined {
+    if (builderData.capabilities?.includes(CapabilityId.Offers) === false) {
       return undefined;
     }
 
-    return AvailabilityPricingModelFactory.create({
-      unitPricing: builderData.availabilityData.unitPricing ?? [PricingDataProvider.unitPricing],
-      pricing: builderData.availabilityData.pricing ?? PricingDataProvider.adultPricing,
-      pricingPer: PricingPer.BOOKING,
+    const { availabilityData } = builderData;
+
+    return new AvailabilityOffersModel({
+      offerCode: availabilityData.offerCode ?? "offerCode",
+      offerTitle: availabilityData.offerTitle ?? "offerTitle",
+      offerModels:
+        builderData.availabilityData.offers?.map((offer) => this.offerModelBuilder.build({ offerData: offer })) ?? [],
+      offerModel: this.offerModelBuilder.build({ offerData: availabilityData.offer ?? {} }),
     });
   }
 
@@ -94,6 +108,18 @@ export class AvailabilityModelBuilder {
       pickupRequired: availabilityData.pickupRequired ?? false,
       pickupAvailable: availabilityData.pickupAvailable ?? false,
       pickupPoints: availabilityData.pickupPoints ?? [],
+    });
+  }
+
+  private buildPricingModel(builderData: AvailabilityModelBuilderData): AvailabilityPricingModel | undefined {
+    if (builderData.capabilities?.includes(CapabilityId.Pricing) === false) {
+      return undefined;
+    }
+
+    return AvailabilityPricingModelFactory.create({
+      unitPricing: builderData.availabilityData.unitPricing ?? [PricingDataProvider.unitPricing],
+      pricing: builderData.availabilityData.pricing ?? PricingDataProvider.adultPricing,
+      pricingPer: PricingPer.BOOKING,
     });
   }
 }
