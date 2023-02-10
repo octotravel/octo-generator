@@ -1,10 +1,16 @@
+import { Offer } from "@octocloud/types";
 import { OfferModelBuilder } from "../builders/OfferModelBuilder";
+import { OfferModel } from "../models/offer/OfferModel";
+import { OfferParser } from "../parsers/OfferParser";
 
 export abstract class OfferPresets {
   private static readonly offerModelBuilder: OfferModelBuilder = new OfferModelBuilder();
 
-  public static tenPercentOff = this.offerModelBuilder.build({
+  private static readonly offerParser: OfferParser = new OfferParser();
+
+  public static readonly TEN_PERCENT_OFF_MODEL: OfferModel = this.offerModelBuilder.build({
     offerData: {
+      code: "promotion_395fa759-8c9b-467b-9914-603d0d533405",
       title: "10% OFF",
       description: "Winter Special 10% off",
       netDiscount: "COMMISSION",
@@ -17,4 +23,6 @@ export abstract class OfferPresets {
       },
     },
   });
+
+  public static readonly TEN_PERCENT_OFF_POJO: Offer = this.offerParser.parseModelToPOJO(this.TEN_PERCENT_OFF_MODEL);
 }
