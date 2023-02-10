@@ -1,3 +1,4 @@
+import { UuidFactory } from "../factories/UuidFactory";
 import { OfferModel } from "../models/offer/OfferModel";
 import { PartialOffer } from "../types/PartialOffer";
 
@@ -10,10 +11,10 @@ export class OfferModelBuilder {
     const { offerData } = builderData;
 
     return new OfferModel({
-      title: offerData.title ?? "offerTitle",
-      code: offerData.code ?? "offerCode",
+      title: offerData.title ?? "amazing offer",
+      code: offerData.code ?? `promotion/${UuidFactory.create()}`,
       description: offerData.description ?? null,
-      netDiscount: offerData.netDiscount ?? null,
+      netDiscount: offerData.netDiscount ?? "null",
       restrictions: offerData.restrictions ?? {
         minUnits: null,
         maxUnits: null,
