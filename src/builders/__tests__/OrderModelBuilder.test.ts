@@ -6,12 +6,12 @@ describe("OrderModelBuilder", () => {
 
   describe("build", () => {
     it("should build order model without any capabilities", async () => {
-      const generatedUnitModel = orderModelBuilder.build({
+      const generatedOrderModel = orderModelBuilder.build({
         orderData: {},
         capabilities: [],
       });
 
-      expect(generatedUnitModel).toBeInstanceOf(OrderModel);
+      expect(generatedOrderModel).toBeInstanceOf(OrderModel);
     });
   });
 });

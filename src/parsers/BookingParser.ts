@@ -7,9 +7,13 @@ import { BookingContentModel } from "../models/booking/BookingContentModel";
 import { BookingPickupsModel } from "../models/booking/BookingPickupsModel";
 import { BookingPricingModel } from "../models/booking/BookingPricingModel";
 import { UnitItemParser } from "./UnitItemParser";
+import { OfferParser } from "./OfferParser";
+import { BookingOffersModel } from "../models/booking/BookingOffersModel";
 
 export class BookingParser {
   private readonly productParser = new ProductParser();
+
+  private readonly offerParser = new OfferParser();
 
   private readonly optionParser = new OptionParser();
 
@@ -41,6 +45,7 @@ export class BookingParser {
       unitItemModels: booking.unitItems.map((unitItem) => this.unitItemParser.parsePOJOToModel(unitItem)),
       bookingCartModel: this.parseCartPOJOToModel(booking),
       bookingContentModel: this.parseContentPOJOToModel(booking),
+      bookingOffersModel: this.parseOffersPOJOToModel(booking),
       bookingPickupsModel: this.parsePickupsPOJOToModel(booking),
       bookingPricingModel: this.parsePricingPOJOToModel(booking),
     });
@@ -79,6 +84,28 @@ export class BookingParser {
     });
   };
 
+  private parseOffersPOJOToModel = (booking: Booking): BookingOffersModel | undefined => {
+    if (
+      booking.offerCode === undefined ||
+      booking.offerTitle === undefined ||
+      booking.offerComparisons === undefined ||
+      booking.offerIsCombination === undefined ||
+      booking.offers === undefined ||
+      booking.offer === undefined
+    ) {
+      return undefined;
+    }
+
+    return new BookingOffersModel({
+      offerCode: booking.offerCode,
+      offerTitle: booking.offerTitle,
+      offerComparisons: booking.offerComparisons,
+      offerIsCombination: booking.offerIsCombination,
+      offerModels: booking.offers.map((offer) => this.offerParser.parsePOJOToModel(offer)),
+      offerModel: this.offerParser.parsePOJOToModel(booking.offer),
+    });
+  };
+
   private parsePickupsPOJOToModel = (booking: Booking): BookingPickupsModel | undefined => {
     if (
       booking.pickupRequested === undefined ||
@@ -114,6 +141,7 @@ export class BookingParser {
 
     this.parseCartModelToPOJO(booking, bookingModel);
     this.parseContentModelToPOJO(booking, bookingModel);
+    this.parseOffersModelToPOJO(booking, bookingModel);
     this.parsePickupsModelToPOJO(booking, bookingModel);
     this.parsePricingModelToPOJO(booking, bookingModel);
 
@@ -132,6 +160,10 @@ export class BookingParser {
 
     if (capabilities.includes(CapabilityId.Content)) {
       this.parseContentModelToPOJO(booking, bookingModel);
+    }
+
+    if (capabilities.includes(CapabilityId.Offers)) {
+      this.parseOffersModelToPOJO(booking, bookingModel);
     }
 
     if (capabilities.includes(CapabilityId.Pickups)) {
@@ -218,6 +250,21 @@ export class BookingParser {
     booking.duration = bookingContentModel.duration;
     booking.durationAmount = bookingContentModel.durationAmount;
     booking.durationUnit = bookingContentModel.durationUnit;
+  };
+
+  private parseOffersModelToPOJO = (booking: Booking, bookingModel: BookingModel) => {
+    if (bookingModel.bookingOffersModel === undefined) {
+      return;
+    }
+
+    const { bookingOffersModel } = bookingModel;
+
+    booking.offerCode = bookingOffersModel.offerCode;
+    booking.offerTitle = bookingOffersModel.offerTitle;
+    booking.offerComparisons = bookingOffersModel.offerComparisons;
+    booking.offerIsCombination = bookingOffersModel.offerIsCombination;
+    booking.offers = bookingOffersModel.offerModels.map((offerModel) => this.offerParser.parseModelToPOJO(offerModel));
+    booking.offer = this.offerParser.parseModelToPOJO(bookingOffersModel.offerModel);
   };
 
   private parsePickupsModelToPOJO = (booking: Booking, bookingModel: BookingModel) => {

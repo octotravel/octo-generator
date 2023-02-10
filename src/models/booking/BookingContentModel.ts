@@ -19,12 +19,12 @@ export class BookingContentModel {
     durationAmount,
     durationUnit,
   }: {
-    meetingPoint?: Nullable<string>;
-    meetingPointCoordinates?: Nullable<[number]>;
-    meetingLocalDateTime?: Nullable<string>;
-    duration?: string;
-    durationAmount?: string;
-    durationUnit?: string;
+    meetingPoint: Nullable<string>;
+    meetingPointCoordinates: Nullable<[number]>;
+    meetingLocalDateTime: Nullable<string>;
+    duration: string;
+    durationAmount: string;
+    durationUnit: string;
   }) {
     this.meetingPoint = meetingPoint;
     this.meetingPointCoordinates = meetingPointCoordinates;

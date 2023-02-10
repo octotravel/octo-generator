@@ -1,15 +1,15 @@
 import { PickupPoint } from "@octocloud/types";
 
 export class BookingPickupsModel {
-  public readonly pickupRequested?: boolean;
+  public readonly pickupRequested: boolean;
 
-  public readonly pickupPointId?: Nullable<string>;
+  public readonly pickupPointId: Nullable<string>;
 
-  public readonly pickupHotel?: Nullable<string>;
+  public readonly pickupHotel: Nullable<string>;
 
-  public readonly pickupHotelRoom?: Nullable<string>;
+  public readonly pickupHotelRoom: Nullable<string>;
 
-  public readonly pickupPoint?: Nullable<PickupPoint>;
+  public readonly pickupPoint: Nullable<PickupPoint>;
 
   constructor({
     pickupRequested,
@@ -18,11 +18,11 @@ export class BookingPickupsModel {
     pickupHotelRoom,
     pickupPoint,
   }: {
-    pickupRequested?: boolean;
-    pickupPointId?: Nullable<string>;
-    pickupHotel?: Nullable<string>;
-    pickupHotelRoom?: Nullable<string>;
-    pickupPoint?: Nullable<PickupPoint>;
+    pickupRequested: boolean;
+    pickupPointId: Nullable<string>;
+    pickupHotel: Nullable<string>;
+    pickupHotelRoom: Nullable<string>;
+    pickupPoint: Nullable<PickupPoint>;
   }) {
     this.pickupRequested = pickupRequested;
     this.pickupPointId = pickupPointId;

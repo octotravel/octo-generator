@@ -2,6 +2,7 @@ import { AvailabilityStatus, OpeningHours } from "@octocloud/types";
 import { AvailabilityContentModel } from "./AvailabilityContentModel";
 import { AvailabilityPickupsModel } from "./AvailabilityPickupsModel";
 import { AvailabilityPricingModel } from "./AvailabilityPricingModel";
+import { AvailabilityOffersModel } from "./AvailabilityOffersModel";
 
 export class AvailabilityModel {
   public readonly id: string;
@@ -30,6 +31,8 @@ export class AvailabilityModel {
 
   public readonly availabilityPickupsModel?: AvailabilityPickupsModel;
 
+  public readonly availabilityOffersModel?: AvailabilityOffersModel;
+
   public readonly availabilityPricingModel?: AvailabilityPricingModel;
 
   constructor({
@@ -46,6 +49,7 @@ export class AvailabilityModel {
     openingHours,
     availabilityContentModel,
     availabilityPickupsModel,
+    availabilityOffersModel,
     availabilityPricingModel,
   }: {
     id: string;
@@ -61,6 +65,7 @@ export class AvailabilityModel {
     openingHours: OpeningHours[];
     availabilityContentModel?: AvailabilityContentModel;
     availabilityPickupsModel?: AvailabilityPickupsModel;
+    availabilityOffersModel?: AvailabilityOffersModel;
     availabilityPricingModel?: AvailabilityPricingModel;
   }) {
     this.id = id;
@@ -76,6 +81,7 @@ export class AvailabilityModel {
     this.openingHours = openingHours;
     this.availabilityContentModel = availabilityContentModel;
     this.availabilityPickupsModel = availabilityPickupsModel;
+    this.availabilityOffersModel = availabilityOffersModel;
     this.availabilityPricingModel = availabilityPricingModel;
   }
 }

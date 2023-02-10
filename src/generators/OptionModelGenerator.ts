@@ -12,16 +12,19 @@ interface OptionGenerateData {
 export class OptionModelGenerator {
   private readonly optionModelBuilder = new OptionModelBuilder();
 
-  public generateOption = (optionGenerateData: OptionGenerateData): OptionModel =>
-    this.optionModelBuilder.build({
+  public generateOption(optionGenerateData: OptionGenerateData): OptionModel {
+    return this.optionModelBuilder.build({
       optionData: optionGenerateData.optionData,
       pricingPer: optionGenerateData.pricingPer,
       capabilities: optionGenerateData.capabilities,
     });
+  }
 
-  public generateMultipleOptions = (
+  public generateMultipleOptions(
     optionsData: PartialOption[],
     pricingPer?: PricingPer,
     capabilities?: CapabilityId[]
-  ): OptionModel[] => optionsData.map((optionData) => this.generateOption({ optionData, pricingPer, capabilities }));
+  ): OptionModel[] {
+    return optionsData.map((optionData) => this.generateOption({ optionData, pricingPer, capabilities }));
+  }
 }

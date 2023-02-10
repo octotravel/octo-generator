@@ -11,12 +11,14 @@ interface BookingGenerateData {
 export class BookingModelGenerator {
   private readonly bookingModelBuilder = new BookingModelBuilder();
 
-  public generateBooking = (bookingGenerateData: BookingGenerateData): BookingModel =>
-    this.bookingModelBuilder.build({
+  public generateBooking(bookingGenerateData: BookingGenerateData): BookingModel {
+    return this.bookingModelBuilder.build({
       bookingData: bookingGenerateData.bookingData,
       capabilities: bookingGenerateData.capabilities,
     });
+  }
 
-  public generateMultipleBookings = (bookingsData: PartialBooking[], capabilities?: CapabilityId[]): BookingModel[] =>
-    bookingsData.map((bookingData) => this.generateBooking({ bookingData, capabilities }));
+  public generateMultipleBookings(bookingsData: PartialBooking[], capabilities?: CapabilityId[]): BookingModel[] {
+    return bookingsData.map((bookingData) => this.generateBooking({ bookingData, capabilities }));
+  }
 }

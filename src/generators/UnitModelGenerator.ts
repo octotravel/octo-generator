@@ -13,33 +13,37 @@ interface UnitGenerateData {
 export class UnitModelGenerator {
   private readonly unitModelBuilder = new UnitModelBuilder();
 
-  public generateUnit = (unitGenerateData: UnitGenerateData): UnitModel =>
-    this.unitModelBuilder.build({
+  public generateUnit(unitGenerateData: UnitGenerateData): UnitModel {
+    return this.unitModelBuilder.build({
       unitData: unitGenerateData.unitData,
       pricingPer: unitGenerateData.pricingPer,
       capabilities: unitGenerateData.capabilities,
     });
+  }
 
-  public generateMultipleUnits = (
+  public generateMultipleUnits(
     unitsData: PartialUnit[],
     pricingPer?: PricingPer,
     capabilities?: CapabilityId[]
-  ): UnitModel[] =>
-    unitsData.map((unitData) =>
+  ): UnitModel[] {
+    return unitsData.map((unitData) =>
       this.unitModelBuilder.build({
         unitData,
         pricingPer,
         capabilities,
       })
     );
+  }
 
-  public generateForAdultType = (): UnitModel =>
-    this.generateUnit({
+  public generateForAdultType(): UnitModel {
+    return this.generateUnit({
       unitData: UnitDataProvider.adultUnit,
     });
+  }
 
-  public generateForChildType = (): UnitModel =>
-    this.generateUnit({
+  public generateForChildType(): UnitModel {
+    return this.generateUnit({
       unitData: UnitDataProvider.childUnit,
     });
+  }
 }

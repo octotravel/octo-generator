@@ -1,4 +1,4 @@
-import { Contact, OrderStatus, Pricing } from "@octocloud/types";
+import { Contact, OfferCombination, OrderStatus, Pricing } from "@octocloud/types";
 import { BookingModel } from "../booking/BookingModel";
 
 export class OrderModel {
@@ -61,8 +61,8 @@ export class OrderModel {
     contact: Contact;
     termsAccepted?: boolean;
     pricing?: Pricing;
-    offerCombinations?: any[];
-    cardPayment?: any;
+    offerCombinations?: OfferCombination[];
+    cardPayment?: unknown;
     returnUrl?: string;
   }) {
     this.id = id;

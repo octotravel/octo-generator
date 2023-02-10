@@ -7,11 +7,15 @@ import { BookingCartModel } from "../../models/booking/BookingCartModel";
 import { BookingContentModel } from "../../models/booking/BookingContentModel";
 import { BookingPickupsModel } from "../../models/booking/BookingPickupsModel";
 import { BookingPricingModel } from "../../models/booking/BookingPricingModel";
+import { OfferTestDataProvider } from "./dataProviders/OfferTestDataProvider";
+import { BookingOffersModel } from "../../models/booking/BookingOffersModel";
 
 describe("BookingParser", () => {
   const bookingParser = new BookingParser();
   const { productPOJO } = ProductTestDataProvider;
+  const { offerPOJO } = OfferTestDataProvider;
   const { optionPOJO } = OptionTestDataProvider;
+
   const booking = {
     id: "be9c948c-e170-4de2-8367-053830ce4a40",
     uuid: "45464f1d-e958-4bb4-921f-43afcb71004a",
@@ -68,6 +72,14 @@ describe("BookingParser", () => {
     durationAmount: "durationAmount",
     durationUnit: DurationUnit.HOUR,
   };
+  const bookingOffers = {
+    offerCode: "offerCode",
+    offerTitle: "offerTitle",
+    offerComparisons: [],
+    offerIsCombination: false,
+    offers: [],
+    offer: offerPOJO,
+  };
   const bookingPickups = {
     pickupRequested: false,
     pickupPointId: null,
@@ -89,11 +101,13 @@ describe("BookingParser", () => {
     ...booking,
     ...bookingCart,
     ...bookingContent,
+    ...bookingOffers,
     ...bookingPickups,
     ...bookingPricing,
   };
 
   const { productModel } = ProductTestDataProvider;
+  const { offerModel } = OfferTestDataProvider;
   const { optionModel } = OptionTestDataProvider;
   const bookingModel = new BookingModel({
     id: bookingPOJO.id,
@@ -130,6 +144,14 @@ describe("BookingParser", () => {
       duration: bookingPOJO.duration,
       durationAmount: bookingPOJO.durationAmount,
       durationUnit: bookingPOJO.durationUnit,
+    }),
+    bookingOffersModel: new BookingOffersModel({
+      offerCode: bookingOffers.offerCode,
+      offerTitle: bookingOffers.offerTitle,
+      offerComparisons: bookingOffers.offerComparisons,
+      offerIsCombination: bookingOffers.offerIsCombination,
+      offerModels: [],
+      offerModel: offerModel,
     }),
     bookingPickupsModel: new BookingPickupsModel({
       pickupRequested: bookingPOJO.pickupRequested,
@@ -186,7 +208,7 @@ describe("BookingParser", () => {
     });
 
     describe("parseModelToPOJOWithSpecificCapabilities", () => {
-      it("should return unit POJO with pickups capability", async () => {
+      it("should return unit POJO with content capability", async () => {
         expect(
           bookingParser.parseModelToPOJOWithSpecificCapabilities(bookingModel, [CapabilityId.Content])
         ).toStrictEqual(
@@ -194,6 +216,25 @@ describe("BookingParser", () => {
             ...{
               ...booking,
               ...bookingContent,
+            },
+            ...{
+              product: expect.anything(),
+              option: expect.anything(),
+            },
+          })
+        );
+      });
+    });
+
+    describe("parseModelToPOJOWithSpecificCapabilities", () => {
+      it("should return unit POJO with offers capability", async () => {
+        expect(
+          bookingParser.parseModelToPOJOWithSpecificCapabilities(bookingModel, [CapabilityId.Offers])
+        ).toStrictEqual(
+          expect.objectContaining({
+            ...{
+              ...booking,
+              ...bookingOffers,
             },
             ...{
               product: expect.anything(),
@@ -248,6 +289,7 @@ describe("BookingParser", () => {
           bookingParser.parseModelToPOJOWithSpecificCapabilities(bookingModel, [
             CapabilityId.Cart,
             CapabilityId.Content,
+            CapabilityId.Offers,
             CapabilityId.Pickups,
             CapabilityId.Pricing,
             CapabilityId.Questions,
