@@ -1,4 +1,13 @@
-import { Booking, CapabilityId } from "@octocloud/types";
+import {
+  Booking,
+  BookingCart,
+  BookingContent,
+  BookingOffers,
+  BookingPickup,
+  BookingPricing,
+  CapabilityId,
+  BookingQuestions,
+} from "@octocloud/types";
 import { BookingModel } from "../models/booking/BookingModel";
 import { ProductParser } from "./ProductParser";
 import { OptionParser } from "./OptionParser";
@@ -9,6 +18,7 @@ import { BookingPricingModel } from "../models/booking/BookingPricingModel";
 import { UnitItemParser } from "./UnitItemParser";
 import { OfferParser } from "./OfferParser";
 import { BookingOffersModel } from "../models/booking/BookingOffersModel";
+import { BookingQuestionsModel } from "../models/booking/BookingQuestionsModel";
 
 export class BookingParser {
   private readonly productParser = new ProductParser();
@@ -19,8 +29,8 @@ export class BookingParser {
 
   private readonly unitItemParser = new UnitItemParser();
 
-  public parsePOJOToModel = (booking: Booking): BookingModel =>
-    new BookingModel({
+  public parsePOJOToModel(booking: Booking): BookingModel {
+    return new BookingModel({
       id: booking.id,
       uuid: booking.uuid,
       testMode: booking.testMode,
@@ -48,136 +58,166 @@ export class BookingParser {
       bookingOffersModel: this.parseOffersPOJOToModel(booking),
       bookingPickupsModel: this.parsePickupsPOJOToModel(booking),
       bookingPricingModel: this.parsePricingPOJOToModel(booking),
+      bookingQuestionsModel: this.parseQuestionsPOJOToModel(booking),
     });
+  }
 
-  private parseCartPOJOToModel = (booking: Booking): BookingCartModel | undefined => {
-    if (booking.orderId === undefined || booking.orderReference === undefined || booking.primary === undefined) {
+  public parseCartPOJOToModel(bookingCart: BookingCart): BookingCartModel | undefined {
+    if (
+      bookingCart.orderId === undefined ||
+      bookingCart.orderReference === undefined ||
+      bookingCart.primary === undefined
+    ) {
       return undefined;
     }
 
     return new BookingCartModel({
-      orderId: booking.orderId,
-      orderReference: booking.orderReference,
-      primary: booking.primary,
+      orderId: bookingCart.orderId,
+      orderReference: bookingCart.orderReference,
+      primary: bookingCart.primary,
     });
-  };
+  }
 
-  private parseContentPOJOToModel = (booking: Booking): BookingContentModel | undefined => {
+  public parseContentPOJOToModel(bookingContent: BookingContent): BookingContentModel | undefined {
     if (
-      booking.meetingPoint === undefined ||
-      booking.meetingPointCoordinates === undefined ||
-      booking.meetingLocalDateTime === undefined ||
-      booking.duration === undefined ||
-      booking.durationAmount === undefined ||
-      booking.durationUnit === undefined
+      bookingContent.meetingPoint === undefined ||
+      bookingContent.meetingPointCoordinates === undefined ||
+      bookingContent.meetingLocalDateTime === undefined ||
+      bookingContent.duration === undefined ||
+      bookingContent.durationAmount === undefined ||
+      bookingContent.durationUnit === undefined
     ) {
       return undefined;
     }
 
     return new BookingContentModel({
-      meetingPoint: booking.meetingPoint,
-      meetingPointCoordinates: booking.meetingPointCoordinates,
-      meetingLocalDateTime: booking.meetingLocalDateTime,
-      duration: booking.duration,
-      durationAmount: booking.durationAmount,
-      durationUnit: booking.durationUnit,
+      meetingPoint: bookingContent.meetingPoint,
+      meetingPointCoordinates: bookingContent.meetingPointCoordinates,
+      meetingLocalDateTime: bookingContent.meetingLocalDateTime,
+      duration: bookingContent.duration,
+      durationAmount: bookingContent.durationAmount,
+      durationUnit: bookingContent.durationUnit,
     });
-  };
+  }
 
-  private parseOffersPOJOToModel = (booking: Booking): BookingOffersModel | undefined => {
+  public parseOffersPOJOToModel(bookingOffers: BookingOffers): BookingOffersModel | undefined {
     if (
-      booking.offerCode === undefined ||
-      booking.offerTitle === undefined ||
-      booking.offerComparisons === undefined ||
-      booking.offerIsCombination === undefined ||
-      booking.offers === undefined ||
-      booking.offer === undefined
+      bookingOffers.offerCode === undefined ||
+      bookingOffers.offerTitle === undefined ||
+      bookingOffers.offerComparisons === undefined ||
+      bookingOffers.offerIsCombination === undefined ||
+      bookingOffers.offers === undefined ||
+      bookingOffers.offer === undefined
     ) {
       return undefined;
     }
 
     return new BookingOffersModel({
-      offerCode: booking.offerCode,
-      offerTitle: booking.offerTitle,
-      offerComparisons: booking.offerComparisons,
-      offerIsCombination: booking.offerIsCombination,
-      offerModels: booking.offers.map((offer) => this.offerParser.parsePOJOToModel(offer)),
-      offerModel: this.offerParser.parsePOJOToModel(booking.offer),
+      offerCode: bookingOffers.offerCode,
+      offerTitle: bookingOffers.offerTitle,
+      offerComparisons: bookingOffers.offerComparisons,
+      offerIsCombination: bookingOffers.offerIsCombination,
+      offerModels: bookingOffers.offers.map((offer) => this.offerParser.parsePOJOToModel(offer)),
+      offerModel: this.offerParser.parsePOJOToModel(bookingOffers.offer),
     });
-  };
+  }
 
-  private parsePickupsPOJOToModel = (booking: Booking): BookingPickupsModel | undefined => {
+  public parsePickupsPOJOToModel(bookingPickups: BookingPickup): BookingPickupsModel | undefined {
     if (
-      booking.pickupRequested === undefined ||
-      booking.pickupPointId === undefined ||
-      booking.pickupHotel === undefined ||
-      booking.pickupHotelRoom === undefined ||
-      booking.pickupPoint === undefined
+      bookingPickups.pickupRequested === undefined ||
+      bookingPickups.pickupPointId === undefined ||
+      bookingPickups.pickupHotel === undefined ||
+      bookingPickups.pickupHotelRoom === undefined ||
+      bookingPickups.pickupPoint === undefined
     ) {
       return undefined;
     }
 
     return new BookingPickupsModel({
-      pickupRequested: booking.pickupRequested,
-      pickupPointId: booking.pickupPointId,
-      pickupHotel: booking.pickupHotel,
-      pickupHotelRoom: booking.pickupHotelRoom,
-      pickupPoint: booking.pickupPoint,
+      pickupRequested: bookingPickups.pickupRequested,
+      pickupPointId: bookingPickups.pickupPointId,
+      pickupHotel: bookingPickups.pickupHotel,
+      pickupHotelRoom: bookingPickups.pickupHotelRoom,
+      pickupPoint: bookingPickups.pickupPoint,
     });
-  };
+  }
 
-  private parsePricingPOJOToModel = (booking: Booking): BookingPricingModel | undefined => {
-    if (booking.pricing === undefined) {
+  public parsePricingPOJOToModel(bookingPricing: BookingPricing): BookingPricingModel | undefined {
+    if (bookingPricing.pricing === undefined) {
       return undefined;
     }
 
     return new BookingPricingModel({
-      pricing: booking.pricing,
+      pricing: bookingPricing.pricing,
     });
-  };
+  }
 
-  public parseModelToPOJO = (bookingModel: BookingModel): Booking => {
-    const booking = this.parseMainModelToPojo(bookingModel);
+  public parseQuestionsPOJOToModel(bookingQuestions: BookingQuestions): BookingQuestionsModel | undefined {
+    if (bookingQuestions.questionAswers === undefined) {
+      return undefined;
+    }
 
-    this.parseCartModelToPOJO(booking, bookingModel);
-    this.parseContentModelToPOJO(booking, bookingModel);
-    this.parseOffersModelToPOJO(booking, bookingModel);
-    this.parsePickupsModelToPOJO(booking, bookingModel);
-    this.parsePricingModelToPOJO(booking, bookingModel);
+    return new BookingQuestionsModel({
+      questionAswers: bookingQuestions.questionAswers,
+    });
+  }
 
-    return booking;
-  };
+  public parseModelToPOJO(bookingModel: BookingModel): Booking {
+    return Object.assign(
+      this.parseMainModelToPojo(bookingModel),
+      this.parseCartModelToPOJO(bookingModel.bookingCartModel),
+      this.parseContentModelToPOJO(bookingModel.bookingContentModel),
+      this.parseOffersModelToPOJO(bookingModel.bookingOffersModel),
+      this.parsePickupsModelToPOJO(bookingModel.bookingPickupsModel),
+      this.parsePricingModelToPOJO(bookingModel.bookingPricingModel),
+      this.parseQuestionsModelToPOJO(bookingModel.bookingQuestionsModel)
+    );
+  }
 
-  public parseModelToPOJOWithSpecificCapabilities = (
-    bookingModel: BookingModel,
-    capabilities: CapabilityId[]
-  ): Booking => {
-    const booking = this.parseMainModelToPojo(bookingModel, capabilities);
+  public parseModelToPOJOWithSpecificCapabilities(bookingModel: BookingModel, capabilities: CapabilityId[]): Booking {
+    let bookingCart;
+    let bookingContent;
+    let bookingOffers;
+    let bookingPickups;
+    let bookingPricing;
+    let bookingQuestions;
 
     if (capabilities.includes(CapabilityId.Cart)) {
-      this.parseCartModelToPOJO(booking, bookingModel);
+      bookingCart = this.parseCartModelToPOJO(bookingModel.bookingCartModel);
     }
 
     if (capabilities.includes(CapabilityId.Content)) {
-      this.parseContentModelToPOJO(booking, bookingModel);
+      bookingContent = this.parseContentModelToPOJO(bookingModel.bookingContentModel);
     }
 
     if (capabilities.includes(CapabilityId.Offers)) {
-      this.parseOffersModelToPOJO(booking, bookingModel);
+      bookingOffers = this.parseOffersModelToPOJO(bookingModel.bookingOffersModel);
     }
 
     if (capabilities.includes(CapabilityId.Pickups)) {
-      this.parsePickupsModelToPOJO(booking, bookingModel);
+      bookingPickups = this.parsePickupsModelToPOJO(bookingModel.bookingPickupsModel);
     }
 
     if (capabilities.includes(CapabilityId.Pricing)) {
-      this.parsePricingModelToPOJO(booking, bookingModel);
+      bookingPricing = this.parsePricingModelToPOJO(bookingModel.bookingPricingModel);
     }
 
-    return booking;
-  };
+    if (capabilities.includes(CapabilityId.Pricing)) {
+      bookingQuestions = this.parseQuestionsModelToPOJO(bookingModel.bookingQuestionsModel);
+    }
 
-  private parseMainModelToPojo = (bookingModel: BookingModel, capabilities?: CapabilityId[]): Booking => {
+    return Object.assign(
+      this.parseMainModelToPojo(bookingModel, capabilities),
+      bookingCart,
+      bookingContent,
+      bookingOffers,
+      bookingPickups,
+      bookingPricing,
+      bookingQuestions
+    );
+  }
+
+  private parseMainModelToPojo(bookingModel: BookingModel, capabilities?: CapabilityId[]): Booking {
     let product;
     let option;
 
@@ -223,70 +263,81 @@ export class BookingParser {
       voucher: bookingModel.voucher,
       unitItems,
     };
-  };
+  }
 
-  private parseCartModelToPOJO = (booking: Booking, bookingModel: BookingModel) => {
-    if (bookingModel.bookingCartModel === undefined) {
-      return;
+  public parseCartModelToPOJO(bookingCartModel?: BookingCartModel): BookingCart {
+    if (bookingCartModel === undefined) {
+      return {};
     }
 
-    const { bookingCartModel } = bookingModel;
+    return {
+      orderId: bookingCartModel.orderId,
+      orderReference: bookingCartModel.orderReference,
+      primary: bookingCartModel.primary,
+    };
+  }
 
-    booking.orderId = bookingCartModel.orderId;
-    booking.orderReference = bookingCartModel.orderReference;
-    booking.primary = bookingCartModel.primary;
-  };
-
-  private parseContentModelToPOJO = (booking: Booking, bookingModel: BookingModel) => {
-    if (bookingModel.bookingContentModel === undefined) {
-      return;
+  public parseContentModelToPOJO(bookingContentModel?: BookingContentModel): BookingContent {
+    if (bookingContentModel === undefined) {
+      return {};
     }
 
-    const { bookingContentModel } = bookingModel;
+    return {
+      meetingPoint: bookingContentModel.meetingPoint,
+      meetingPointCoordinates: bookingContentModel.meetingPointCoordinates,
+      meetingLocalDateTime: bookingContentModel.meetingLocalDateTime,
+      duration: bookingContentModel.duration,
+      durationAmount: bookingContentModel.durationAmount,
+      durationUnit: bookingContentModel.durationUnit,
+    };
+  }
 
-    booking.meetingPoint = bookingContentModel.meetingPoint;
-    booking.meetingPointCoordinates = bookingContentModel.meetingPointCoordinates;
-    booking.meetingLocalDateTime = bookingContentModel.meetingLocalDateTime;
-    booking.duration = bookingContentModel.duration;
-    booking.durationAmount = bookingContentModel.durationAmount;
-    booking.durationUnit = bookingContentModel.durationUnit;
-  };
-
-  private parseOffersModelToPOJO = (booking: Booking, bookingModel: BookingModel) => {
-    if (bookingModel.bookingOffersModel === undefined) {
-      return;
+  public parseOffersModelToPOJO(bookingOffersModel?: BookingOffersModel): BookingOffers {
+    if (bookingOffersModel === undefined) {
+      return {};
     }
 
-    const { bookingOffersModel } = bookingModel;
+    return {
+      offerCode: bookingOffersModel.offerCode,
+      offerTitle: bookingOffersModel.offerTitle,
+      offerComparisons: bookingOffersModel.offerComparisons,
+      offerIsCombination: bookingOffersModel.offerIsCombination,
+      offers: bookingOffersModel.offerModels.map((offerModel) => this.offerParser.parseModelToPOJO(offerModel)),
+      offer: this.offerParser.parseModelToPOJO(bookingOffersModel.offerModel),
+    };
+  }
 
-    booking.offerCode = bookingOffersModel.offerCode;
-    booking.offerTitle = bookingOffersModel.offerTitle;
-    booking.offerComparisons = bookingOffersModel.offerComparisons;
-    booking.offerIsCombination = bookingOffersModel.offerIsCombination;
-    booking.offers = bookingOffersModel.offerModels.map((offerModel) => this.offerParser.parseModelToPOJO(offerModel));
-    booking.offer = this.offerParser.parseModelToPOJO(bookingOffersModel.offerModel);
-  };
-
-  private parsePickupsModelToPOJO = (booking: Booking, bookingModel: BookingModel) => {
-    if (bookingModel.bookingPickupsModel === undefined) {
-      return;
+  public parsePickupsModelToPOJO(bookingPickupsModel?: BookingPickupsModel): BookingPickup {
+    if (bookingPickupsModel === undefined) {
+      return {};
     }
 
-    const { bookingPickupsModel } = bookingModel;
+    return {
+      pickupRequested: bookingPickupsModel.pickupRequested,
+      pickupPointId: bookingPickupsModel.pickupPointId,
+      pickupHotel: bookingPickupsModel.pickupHotel,
+      pickupHotelRoom: bookingPickupsModel.pickupHotelRoom,
+      pickupPoint: bookingPickupsModel.pickupPoint,
+    };
+  }
 
-    booking.pickupRequested = bookingPickupsModel.pickupRequested;
-    booking.pickupPointId = bookingPickupsModel.pickupPointId;
-    booking.pickupHotel = bookingPickupsModel.pickupHotel;
-    booking.pickupHotelRoom = bookingPickupsModel.pickupHotelRoom;
-    booking.pickupHotelRoom = bookingPickupsModel.pickupHotelRoom;
-    booking.pickupPoint = bookingPickupsModel.pickupPoint;
-  };
-
-  private parsePricingModelToPOJO = (booking: Booking, bookingModel: BookingModel) => {
-    if (bookingModel.bookingPricingModel === undefined) {
-      return;
+  public parsePricingModelToPOJO(bookingPricingModel?: BookingPricingModel): BookingPricing {
+    if (bookingPricingModel === undefined) {
+      return {};
     }
 
-    booking.pricing = bookingModel.bookingPricingModel.pricing;
-  };
+    return {
+      pricing: bookingPricingModel.pricing,
+    };
+  }
+
+  public parseQuestionsModelToPOJO(bookingQuestionsModel?: BookingQuestionsModel): BookingQuestions {
+    if (bookingQuestionsModel === undefined) {
+      return {};
+    }
+
+    return {
+      questionAswers: bookingQuestionsModel.questionAswers,
+    };
+  }
 }

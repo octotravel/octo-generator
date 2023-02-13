@@ -102,54 +102,47 @@ export class AvailabilityParser {
   }
 
   public parseModelToPOJO(availabilityModel: AvailabilityModel): Availability {
-    const availability = this.parseMainModelToPojo(availabilityModel);
-
-    Object.assign(
-      availability,
+    return Object.assign(
+      this.parseMainModelToPojo(availabilityModel),
       this.parseContentModelToPOJO(availabilityModel.availabilityContentModel),
       this.parseOffersModelToPOJO(availabilityModel.availabilityOffersModel),
       this.parsePickupsModelToPOJO(availabilityModel.availabilityPickupsModel),
       this.parsePricingModelToPOJO(availabilityModel.availabilityPricingModel)
     );
-
-    return availability;
   }
 
   public parseModelToPOJOWithSpecificCapabilities = (
     availabilityModel: AvailabilityModel,
     capabilities: CapabilityId[]
   ): Availability => {
-    const availability = this.parseMainModelToPojo(availabilityModel);
-    let availabilityContentModel;
-    let availabilityOffersModel;
-    let availabilityPickupsModel;
-    let availabilityPricingModel;
+    let availabilityContent;
+    let availabilityOffers;
+    let availabilityPickups;
+    let availabilityPricing;
 
     if (capabilities.includes(CapabilityId.Content)) {
-      availabilityContentModel = this.parseContentModelToPOJO(availabilityModel.availabilityContentModel);
+      availabilityContent = this.parseContentModelToPOJO(availabilityModel.availabilityContentModel);
     }
 
     if (capabilities.includes(CapabilityId.Offers)) {
-      availabilityOffersModel = this.parseOffersModelToPOJO(availabilityModel.availabilityOffersModel);
+      availabilityOffers = this.parseOffersModelToPOJO(availabilityModel.availabilityOffersModel);
     }
 
     if (capabilities.includes(CapabilityId.Pickups)) {
-      availabilityPickupsModel = this.parsePickupsModelToPOJO(availabilityModel.availabilityPickupsModel);
+      availabilityPickups = this.parsePickupsModelToPOJO(availabilityModel.availabilityPickupsModel);
     }
 
     if (capabilities.includes(CapabilityId.Pricing)) {
-      availabilityPricingModel = this.parsePricingModelToPOJO(availabilityModel.availabilityPricingModel);
+      availabilityPricing = this.parsePricingModelToPOJO(availabilityModel.availabilityPricingModel);
     }
 
-    Object.assign(
-      availability,
-      availabilityContentModel,
-      availabilityOffersModel,
-      availabilityPickupsModel,
-      availabilityPricingModel
+    return Object.assign(
+      this.parseMainModelToPojo(availabilityModel),
+      availabilityContent,
+      availabilityOffers,
+      availabilityPickups,
+      availabilityPricing
     );
-
-    return availability;
   };
 
   private parseMainModelToPojo(availabilityModel: AvailabilityModel): Availability {

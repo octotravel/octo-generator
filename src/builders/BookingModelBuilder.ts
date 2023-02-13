@@ -19,6 +19,7 @@ import { UnitItemModelBuilder } from "./UnitItemModelBuilder";
 import { DeliveryMethodsDataProvider } from "../dataProviders/DeliveryMethodDataProvider";
 import { BookingOffersModel } from "../models/booking/BookingOffersModel";
 import { OfferModelBuilder } from "./OfferModelBuilder";
+import { BookingQuestionsModel } from "../models/booking/BookingQuestionsModel";
 
 interface BookingModelBuilderData {
   bookingData: PartialBooking;
@@ -113,6 +114,7 @@ export class BookingModelBuilder {
       bookingOffersModel: this.buildOffersModel(builderData),
       bookingPickupsModel: this.buildPickupModel(builderData),
       bookingPricingModel: this.buildPricingModel(builderData),
+      bookingQuestionsModel: this.buildQuestionsModel(builderData),
     });
   }
 
@@ -219,6 +221,18 @@ export class BookingModelBuilder {
         currencyPrecision: 0,
         includedTaxes: [],
       },
+    });
+  }
+
+  private buildQuestionsModel(builderData: BookingModelBuilderData): BookingQuestionsModel | undefined {
+    if (builderData.capabilities?.includes(CapabilityId.Questions) === false) {
+      return undefined;
+    }
+
+    const { bookingData } = builderData;
+
+    return new BookingQuestionsModel({
+      questionAswers: bookingData.questionAswers ?? [],
     });
   }
 }

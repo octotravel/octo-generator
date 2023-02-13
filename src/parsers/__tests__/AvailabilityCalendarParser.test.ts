@@ -1,4 +1,4 @@
-import { AvailabilityStatus, CapabilityId } from "@octocloud/types";
+import { AvailabilityStatus, CapabilityId, AvailabilityCalendar, AvailabilityCalendarPricing } from "@octocloud/types";
 import { PricingDataProvider } from "../../dataProviders/PricingDataProvider";
 import { AvailabilityCalendarModel } from "../../models/availability/AvailabilityCalendarModel";
 import { AvailabilityCalendarPricingModel } from "../../models/availability/AvailabilityCalendarPricingModel";
@@ -7,7 +7,7 @@ import { AvailabilityCalendarParser } from "../AvailabilityCalendarParser";
 describe("AvailabilityCalendarParser", () => {
   const availabilityCalendarParser = new AvailabilityCalendarParser();
 
-  const availabilityCalendar = {
+  const availabilityCalendar: AvailabilityCalendar = {
     localDate: "2022-12-11",
     available: false,
     status: AvailabilityStatus.CLOSED,
@@ -20,11 +20,11 @@ describe("AvailabilityCalendarParser", () => {
       },
     ],
   };
-  const availabilityCalendarPricing = {
+  const availabilityCalendarPricing: AvailabilityCalendarPricing = {
     unitPricingFrom: [PricingDataProvider.unitPricing],
     pricingFrom: PricingDataProvider.adultPricing,
   };
-  const availabilityCalendarPOJO = {
+  const availabilityCalendarPOJO: AvailabilityCalendar = {
     ...availabilityCalendar,
     ...availabilityCalendarPricing,
   };
