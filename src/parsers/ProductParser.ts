@@ -1,4 +1,4 @@
-import { CapabilityId, Product } from "@octocloud/types";
+import { CapabilityId, Product, ProductContent, ProductPricing, ProductQuestions } from "@octocloud/types";
 import { OptionParser } from "./OptionParser";
 import { ProductModel } from "../models/product/ProductModel";
 import { ProductContentModel } from "../models/product/ProductContentModel";
@@ -8,8 +8,8 @@ import { ProductQuestionsModel } from "../models/product/ProductQuestionsModel";
 export class ProductParser {
   private readonly optionParser = new OptionParser();
 
-  public parsePOJOToModel = (product: Product): ProductModel =>
-    new ProductModel({
+  public parsePOJOToModel(product: Product): ProductModel {
+    return new ProductModel({
       id: product.id,
       internalName: product.internalName,
       reference: product.reference,
@@ -28,115 +28,119 @@ export class ProductParser {
       productPricingModel: this.parsePricingPOJOToModel(product),
       productQuestionsModel: this.parseQuestionsPOJOToModel(product),
     });
+  }
 
-  private parseContentPOJOToModel = (product: Product): ProductContentModel | undefined => {
+  public parseContentPOJOToModel(productContent: ProductContent): ProductContentModel | undefined {
     if (
-      product.title === undefined ||
-      product.country === undefined ||
-      product.location === undefined ||
-      product.subtitle === undefined ||
-      product.shortDescription === undefined ||
-      product.description === undefined ||
-      product.highlights === undefined ||
-      product.inclusions === undefined ||
-      product.exclusions === undefined ||
-      product.bookingTerms === undefined ||
-      product.redemptionInstructions === undefined ||
-      product.cancellationPolicy === undefined ||
-      product.destination === undefined ||
-      product.categories === undefined ||
-      product.faqs === undefined ||
-      product.coverImageUrl === undefined ||
-      product.bannerImageUrl === undefined ||
-      product.videoUrl === undefined ||
-      product.galleryImages === undefined ||
-      product.bannerImages === undefined
+      productContent.title === undefined ||
+      productContent.country === undefined ||
+      productContent.location === undefined ||
+      productContent.subtitle === undefined ||
+      productContent.shortDescription === undefined ||
+      productContent.description === undefined ||
+      productContent.highlights === undefined ||
+      productContent.inclusions === undefined ||
+      productContent.exclusions === undefined ||
+      productContent.bookingTerms === undefined ||
+      productContent.redemptionInstructions === undefined ||
+      productContent.cancellationPolicy === undefined ||
+      productContent.destination === undefined ||
+      productContent.categories === undefined ||
+      productContent.faqs === undefined ||
+      productContent.coverImageUrl === undefined ||
+      productContent.bannerImageUrl === undefined ||
+      productContent.videoUrl === undefined ||
+      productContent.galleryImages === undefined ||
+      productContent.bannerImages === undefined
     ) {
       return undefined;
     }
 
     return new ProductContentModel({
-      title: product.title,
-      country: product.country,
-      location: product.location,
-      subtitle: product.subtitle,
-      shortDescription: product.shortDescription,
-      description: product.description,
-      highlights: product.highlights,
-      inclusions: product.inclusions,
-      exclusions: product.exclusions,
-      bookingTerms: product.bookingTerms,
-      redemptionInstructions: product.redemptionInstructions,
-      cancellationPolicy: product.cancellationPolicy,
-      destination: product.destination,
-      categories: product.categories,
-      faqs: product.faqs,
-      coverImageUrl: product.coverImageUrl,
-      bannerImageUrl: product.bannerImageUrl,
-      videoUrl: product.videoUrl,
-      galleryImages: product.galleryImages,
-      bannerImages: product.bannerImages,
+      title: productContent.title,
+      country: productContent.country,
+      location: productContent.location,
+      subtitle: productContent.subtitle,
+      shortDescription: productContent.shortDescription,
+      description: productContent.description,
+      highlights: productContent.highlights,
+      inclusions: productContent.inclusions,
+      exclusions: productContent.exclusions,
+      bookingTerms: productContent.bookingTerms,
+      redemptionInstructions: productContent.redemptionInstructions,
+      cancellationPolicy: productContent.cancellationPolicy,
+      destination: productContent.destination,
+      categories: productContent.categories,
+      faqs: productContent.faqs,
+      coverImageUrl: productContent.coverImageUrl,
+      bannerImageUrl: productContent.bannerImageUrl,
+      videoUrl: productContent.videoUrl,
+      galleryImages: productContent.galleryImages,
+      bannerImages: productContent.bannerImages,
     });
-  };
+  }
 
-  private parsePricingPOJOToModel = (product: Product): ProductPricingModel | undefined => {
+  public parsePricingPOJOToModel(productPricing: ProductPricing): ProductPricingModel | undefined {
     if (
-      product.defaultCurrency === undefined ||
-      product.availableCurrencies === undefined ||
-      product.pricingPer === undefined
+      productPricing.defaultCurrency === undefined ||
+      productPricing.availableCurrencies === undefined ||
+      productPricing.pricingPer === undefined
     ) {
       return undefined;
     }
 
     return new ProductPricingModel({
-      defaultCurrency: product.defaultCurrency,
-      availableCurrencies: product.availableCurrencies,
-      pricingPer: product.pricingPer,
+      defaultCurrency: productPricing.defaultCurrency,
+      availableCurrencies: productPricing.availableCurrencies,
+      pricingPer: productPricing.pricingPer,
     });
-  };
+  }
 
-  private parseQuestionsPOJOToModel = (product: Product): ProductQuestionsModel | undefined => {
-    if (product.questions === undefined) {
+  public parseQuestionsPOJOToModel(productQuestions: ProductQuestions): ProductQuestionsModel | undefined {
+    if (productQuestions.questions === undefined) {
       return undefined;
     }
 
     return new ProductQuestionsModel({
-      questions: product.questions,
+      questions: productQuestions.questions,
     });
-  };
+  }
 
-  public parseModelToPOJO = (productModel: ProductModel): Product => {
-    const product = this.parseMainModelToPojo(productModel);
+  public parseModelToPOJO(productModel: ProductModel): Product {
+    return Object.assign(
+      this.parseMainModelToPojo(productModel),
+      this.parseContentModelToPOJO(productModel.productContentModel),
+      this.parsePricingModelToPOJO(productModel.productPricingModel),
+      this.parseQuestionsModelToPOJO(productModel.productQuestionsModel)
+    );
+  }
 
-    this.parseContentModelToPOJO(product, productModel);
-    this.parsePricingModelToPOJO(product, productModel);
-    this.parseQuestionsModelToPOJO(product, productModel);
-
-    return product;
-  };
-
-  public parseModelToPOJOWithSpecificCapabilities = (
-    productModel: ProductModel,
-    capabilities: CapabilityId[]
-  ): Product => {
-    const product = this.parseMainModelToPojo(productModel, capabilities);
+  public parseModelToPOJOWithSpecificCapabilities(productModel: ProductModel, capabilities: CapabilityId[]): Product {
+    let productContent;
+    let productPricing;
+    let productQuestion;
 
     if (capabilities?.includes(CapabilityId.Content)) {
-      this.parseContentModelToPOJO(product, productModel);
+      productContent = this.parseContentModelToPOJO(productModel.productContentModel);
     }
 
     if (capabilities?.includes(CapabilityId.Pricing)) {
-      this.parsePricingModelToPOJO(product, productModel);
+      productPricing = this.parsePricingModelToPOJO(productModel.productPricingModel);
     }
 
     if (capabilities?.includes(CapabilityId.Questions)) {
-      this.parseQuestionsModelToPOJO(product, productModel);
+      productQuestion = this.parseQuestionsModelToPOJO(productModel.productQuestionsModel);
     }
 
-    return product;
-  };
+    return Object.assign(
+      this.parseMainModelToPojo(productModel, capabilities),
+      productContent,
+      productPricing,
+      productQuestion
+    );
+  }
 
-  private parseMainModelToPojo = (productModel: ProductModel, capabilities?: CapabilityId[]): Product => {
+  private parseMainModelToPojo(productModel: ProductModel, capabilities?: CapabilityId[]): Product {
     const options = productModel.optionModels.map((optionModel) => {
       if (capabilities === undefined) {
         return this.optionParser.parseModelToPOJO(optionModel);
@@ -160,56 +164,56 @@ export class ProductParser {
       redemptionMethod: productModel.redemptionMethod,
       options,
     };
-  };
+  }
 
-  private parseContentModelToPOJO = (product: Product, productModel: ProductModel) => {
-    if (productModel.productContentModel === undefined) {
-      return;
+  public parseContentModelToPOJO(productContentModel?: ProductContentModel): ProductContent {
+    if (productContentModel === undefined) {
+      return {};
     }
 
-    const { productContentModel } = productModel;
+    return {
+      title: productContentModel.title,
+      country: productContentModel.country,
+      location: productContentModel.location,
+      subtitle: productContentModel.subtitle,
+      shortDescription: productContentModel.shortDescription,
+      description: productContentModel.description,
+      highlights: productContentModel.highlights,
+      inclusions: productContentModel.inclusions,
+      exclusions: productContentModel.exclusions,
+      bookingTerms: productContentModel.bookingTerms,
+      redemptionInstructions: productContentModel.redemptionInstructions,
+      cancellationPolicy: productContentModel.cancellationPolicy,
+      destination: productContentModel.destination,
+      categories: productContentModel.categories,
+      faqs: productContentModel.faqs,
+      coverImageUrl: productContentModel.coverImageUrl,
+      bannerImageUrl: productContentModel.bannerImageUrl,
+      videoUrl: productContentModel.videoUrl,
+      galleryImages: productContentModel.galleryImages,
+      bannerImages: productContentModel.bannerImages,
+    };
+  }
 
-    product.title = productContentModel.title;
-    product.country = productContentModel.country;
-    product.location = productContentModel.location;
-    product.subtitle = productContentModel.subtitle;
-    product.shortDescription = productContentModel.shortDescription;
-    product.description = productContentModel.description;
-    product.highlights = productContentModel.highlights;
-    product.inclusions = productContentModel.inclusions;
-    product.exclusions = productContentModel.exclusions;
-    product.bookingTerms = productContentModel.bookingTerms;
-    product.redemptionInstructions = productContentModel.redemptionInstructions;
-    product.cancellationPolicy = productContentModel.cancellationPolicy;
-    product.destination = productContentModel.destination;
-    product.categories = productContentModel.categories;
-    product.faqs = productContentModel.faqs;
-    product.coverImageUrl = productContentModel.coverImageUrl;
-    product.bannerImageUrl = productContentModel.bannerImageUrl;
-    product.videoUrl = productContentModel.videoUrl;
-    product.galleryImages = productContentModel.galleryImages;
-    product.bannerImages = productContentModel.bannerImages;
-  };
-
-  private parsePricingModelToPOJO = (product: Product, productModel: ProductModel) => {
-    if (productModel.productPricingModel === undefined) {
-      return;
+  public parsePricingModelToPOJO(productPricingModel?: ProductPricingModel): ProductPricing {
+    if (productPricingModel === undefined) {
+      return {};
     }
 
-    const { productPricingModel } = productModel;
+    return {
+      defaultCurrency: productPricingModel.defaultCurrency,
+      availableCurrencies: productPricingModel.availableCurrencies,
+      pricingPer: productPricingModel.pricingPer,
+    };
+  }
 
-    product.defaultCurrency = productPricingModel.defaultCurrency;
-    product.availableCurrencies = productPricingModel.availableCurrencies;
-    product.pricingPer = productPricingModel.pricingPer;
-  };
-
-  private parseQuestionsModelToPOJO = (product: Product, productModel: ProductModel) => {
-    if (productModel.productQuestionsModel === undefined) {
-      return;
+  private parseQuestionsModelToPOJO(productQuestionsModel?: ProductQuestionsModel): ProductQuestions {
+    if (productQuestionsModel === undefined) {
+      return {};
     }
 
-    const { productQuestionsModel } = productModel;
-
-    product.questions = productQuestionsModel?.questions;
-  };
+    return {
+      questions: productQuestionsModel?.questions,
+    };
+  }
 }

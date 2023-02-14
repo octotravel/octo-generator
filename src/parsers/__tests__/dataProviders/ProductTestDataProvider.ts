@@ -4,6 +4,10 @@ import {
   DeliveryFormat,
   DeliveryMethod,
   PricingPer,
+  Product,
+  ProductContent,
+  ProductPricing,
+  ProductQuestions,
   RedemptionMethod,
 } from "@octocloud/types";
 import { LocaleDataProvider } from "../../../dataProviders/LocaleDataProvider";
@@ -16,7 +20,7 @@ import { ProductPricingModel } from "../../../models/product/ProductPricingModel
 import { ProductQuestionsModel } from "../../../models/product/ProductQuestionsModel";
 
 export class ProductTestDataProvider {
-  public static product = {
+  public static product: Product = {
     id: "id",
     internalName: "internalName",
     reference: null,
@@ -50,7 +54,7 @@ export class ProductTestDataProvider {
     ],
   };
 
-  public static productContent = {
+  public static productContent: Required<ProductContent> = {
     title: "title",
     country: "country",
     location: "location",
@@ -86,17 +90,17 @@ export class ProductTestDataProvider {
     bannerImages: [],
   };
 
-  public static productPricing = {
+  public static productPricing: Required<ProductPricing> = {
     defaultCurrency: Currency.EUR,
     availableCurrencies: [Currency.EUR],
     pricingPer: PricingPer.UNIT,
   };
 
-  public static productQuestions = {
+  public static productQuestions: Required<ProductQuestions> = {
     questions: [],
   };
 
-  public static productPOJO = {
+  public static productPOJO: Required<Product> = {
     ...this.product,
     ...this.productContent,
     ...this.productPricing,
