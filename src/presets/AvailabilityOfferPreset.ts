@@ -1,6 +1,6 @@
 import { AvailabilityOffers } from "@octocloud/types";
 import { AvailabilityOffersModel } from "../models/availability/AvailabilityOffersModel";
-import { OfferPresets } from "./OfferPresets";
+import { OfferPresets } from "./OfferPreset";
 import { AvailabilityParser } from "../parsers/AvailabilityParser";
 
 export abstract class AvailabilityOfferPresets {
