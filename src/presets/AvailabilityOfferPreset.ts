@@ -3,7 +3,7 @@ import { AvailabilityOffersModel } from "../models/availability/AvailabilityOffe
 import { OfferPresets } from "./OfferPreset";
 import { AvailabilityParser } from "../parsers/AvailabilityParser";
 
-export abstract class AvailabilityOfferPresets {
+export abstract class AvailabilityOfferPreset {
   private static readonly availabilityOfferParser: AvailabilityParser = new AvailabilityParser();
 
   private static readonly offerModel = OfferPresets.TEN_PERCENT_OFF_MODEL;

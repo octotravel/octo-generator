@@ -3,7 +3,7 @@ import { OfferModelBuilder } from "../builders/OfferModelBuilder";
 import { OfferModel } from "../models/offer/OfferModel";
 import { OfferParser } from "../parsers/OfferParser";
 
-export abstract class OfferPresets {
+export abstract class OfferPreset {
   private static readonly offerModelBuilder: OfferModelBuilder = new OfferModelBuilder();
 
   private static readonly offerParser: OfferParser = new OfferParser();
