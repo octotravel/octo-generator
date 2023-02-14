@@ -8,6 +8,7 @@ import { BookingPricingModel } from "./BookingPricingModel";
 import { UnitItemModel } from "../unitItem/UnitItemModel";
 import { UndefinedModelError } from "../../errors/UndefinedModelError";
 import { BookingOffersModel } from "./BookingOffersModel";
+import { BookingQuestionsModel } from "./BookingQuestionsModel";
 
 export class BookingModel {
   public readonly id: string;
@@ -64,6 +65,8 @@ export class BookingModel {
 
   public readonly bookingPricingModel?: BookingPricingModel;
 
+  public readonly bookingQuestionsModel?: BookingQuestionsModel;
+
   constructor({
     id,
     uuid,
@@ -92,6 +95,7 @@ export class BookingModel {
     bookingOffersModel,
     bookingPickupsModel,
     bookingPricingModel,
+    bookingQuestionsModel,
   }: {
     id: string;
     uuid: string;
@@ -120,6 +124,7 @@ export class BookingModel {
     bookingOffersModel?: BookingOffersModel;
     bookingPickupsModel?: BookingPickupsModel;
     bookingPricingModel?: BookingPricingModel;
+    bookingQuestionsModel?: BookingQuestionsModel;
   }) {
     this.id = id;
     this.uuid = uuid;
@@ -148,6 +153,7 @@ export class BookingModel {
     this.bookingOffersModel = bookingOffersModel;
     this.bookingPickupsModel = bookingPickupsModel;
     this.bookingPricingModel = bookingPricingModel;
+    this.bookingQuestionsModel = bookingQuestionsModel;
   }
 
   get resellerReference(): Nullable<string> {
@@ -331,5 +337,16 @@ export class BookingModel {
     }
 
     return this.bookingPricingModel;
+  }
+
+  /**
+   * @throws UndefinedModelError
+   */
+  public getBookingQuestionsModel(): BookingQuestionsModel {
+    if (this.bookingQuestionsModel === undefined) {
+      throw UndefinedModelError.create("BookingPricingModel", "BookingModel", this.id);
+    }
+
+    return this.bookingQuestionsModel;
   }
 }

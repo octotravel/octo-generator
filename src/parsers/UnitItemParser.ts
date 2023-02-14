@@ -1,4 +1,4 @@
-import { CapabilityId, UnitItem } from "@octocloud/types";
+import { CapabilityId, UnitItem, UnitItemPricing } from "@octocloud/types";
 import { UnitItemModel } from "../models/unitItem/UnitItemModel";
 import { UnitParser } from "./UnitParser";
 import { UnitItemPricingModel } from "../models/unitItem/UnitItemPricingModel";
@@ -6,8 +6,8 @@ import { UnitItemPricingModel } from "../models/unitItem/UnitItemPricingModel";
 export class UnitItemParser {
   private readonly unitParser: UnitParser = new UnitParser();
 
-  public parsePOJOToModel = (unitItem: UnitItem): UnitItemModel =>
-    new UnitItemModel({
+  public parsePOJOToModel(unitItem: UnitItem): UnitItemModel {
+    return new UnitItemModel({
       uuid: unitItem.uuid,
       resellerReference: unitItem.resellerReference,
       supplierReference: unitItem.supplierReference,
@@ -18,39 +18,39 @@ export class UnitItemParser {
       ticket: unitItem.ticket,
       unitItemPricingModel: this.parseUnitItemPricingPOJOToModel(unitItem),
     });
+  }
 
-  private parseUnitItemPricingPOJOToModel = (unitItem: UnitItem): UnitItemPricingModel | undefined => {
-    if (unitItem.pricing === undefined) {
+  public parseUnitItemPricingPOJOToModel(unitItemPricing: UnitItemPricing): UnitItemPricingModel | undefined {
+    if (unitItemPricing.pricing === undefined) {
       return undefined;
     }
 
     return new UnitItemPricingModel({
-      pricing: unitItem.pricing,
+      pricing: unitItemPricing.pricing,
     });
-  };
+  }
 
-  public parseModelToPOJO = (unitItemModel: UnitItemModel): UnitItem => {
-    const unitItem = this.parseMainModelToPojo(unitItemModel);
+  public parseModelToPOJO(unitItemModel: UnitItemModel): UnitItem {
+    return Object.assign(
+      this.parseMainModelToPojo(unitItemModel),
+      this.parsePricingModelToPOJO(unitItemModel.unitItemPricingModel)
+    );
+  }
 
-    this.parsePricingModelToPOJO(unitItem, unitItemModel);
-
-    return unitItem;
-  };
-
-  public parseModelToPOJOWithSpecificCapabilities = (
+  public parseModelToPOJOWithSpecificCapabilities(
     unitItemModel: UnitItemModel,
     capabilities: CapabilityId[]
-  ): UnitItem => {
-    const unitItem = this.parseMainModelToPojo(unitItemModel);
+  ): UnitItem {
+    let unitItemPricing;
 
-    if (capabilities?.includes(CapabilityId.Pricing)) {
-      this.parsePricingModelToPOJO(unitItem, unitItemModel);
+    if (capabilities.includes(CapabilityId.Pricing)) {
+      unitItemPricing = this.parsePricingModelToPOJO(unitItemModel.unitItemPricingModel);
     }
 
-    return unitItem;
-  };
+    return Object.assign(this.parseMainModelToPojo(unitItemModel, capabilities), unitItemPricing);
+  }
 
-  private parseMainModelToPojo = (unitItemModel: UnitItemModel, capabilities?: CapabilityId[]): UnitItem => {
+  private parseMainModelToPojo(unitItemModel: UnitItemModel, capabilities?: CapabilityId[]): UnitItem {
     let unit;
 
     if (capabilities === undefined) {
@@ -70,13 +70,15 @@ export class UnitItemParser {
       contact: unitItemModel.contact,
       ticket: unitItemModel.ticket,
     };
-  };
+  }
 
-  private parsePricingModelToPOJO = (unitItem: UnitItem, unitItemModel: UnitItemModel) => {
-    if (unitItemModel.unitItemPricingModel === undefined) {
-      return;
+  public parsePricingModelToPOJO(unitItemPricingModel?: UnitItemPricingModel): UnitItemPricing {
+    if (unitItemPricingModel === undefined) {
+      return {};
     }
 
-    unitItem.pricing = unitItemModel.unitItemPricingModel?.pricing;
-  };
+    return {
+      pricing: unitItemPricingModel.pricing,
+    };
+  }
 }

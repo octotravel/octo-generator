@@ -1,4 +1,17 @@
-import { Currency, DurationUnit, DeliveryMethod, BookingStatus, CapabilityId } from "@octocloud/types";
+import {
+  Currency,
+  DurationUnit,
+  DeliveryMethod,
+  BookingStatus,
+  CapabilityId,
+  Booking,
+  BookingCart,
+  BookingContent,
+  BookingOffers,
+  BookingPickup,
+  BookingPricing,
+  BookingQuestions,
+} from "@octocloud/types";
 import { BookingParser } from "../BookingParser";
 import { BookingModel } from "../../models/booking/BookingModel";
 import { ProductTestDataProvider } from "./dataProviders/ProductTestDataProvider";
@@ -9,6 +22,7 @@ import { BookingPickupsModel } from "../../models/booking/BookingPickupsModel";
 import { BookingPricingModel } from "../../models/booking/BookingPricingModel";
 import { OfferTestDataProvider } from "./dataProviders/OfferTestDataProvider";
 import { BookingOffersModel } from "../../models/booking/BookingOffersModel";
+import { BookingQuestionsModel } from "../../models/booking/BookingQuestionsModel";
 
 describe("BookingParser", () => {
   const bookingParser = new BookingParser();
@@ -16,7 +30,7 @@ describe("BookingParser", () => {
   const { offerPOJO } = OfferTestDataProvider;
   const { optionPOJO } = OptionTestDataProvider;
 
-  const booking = {
+  const booking: Booking = {
     id: "be9c948c-e170-4de2-8367-053830ce4a40",
     uuid: "45464f1d-e958-4bb4-921f-43afcb71004a",
     testMode: false,
@@ -59,12 +73,12 @@ describe("BookingParser", () => {
     voucher: null,
     unitItems: [],
   };
-  const bookingCart = {
+  const bookingCart: Required<BookingCart> = {
     orderId: "orderId",
     orderReference: "orderReference",
     primary: false,
   };
-  const bookingContent = {
+  const bookingContent: Required<BookingContent> = {
     meetingPoint: null,
     meetingPointCoordinates: null,
     meetingLocalDateTime: null,
@@ -72,7 +86,7 @@ describe("BookingParser", () => {
     durationAmount: "durationAmount",
     durationUnit: DurationUnit.HOUR,
   };
-  const bookingOffers = {
+  const bookingOffers: Required<BookingOffers> = {
     offerCode: "offerCode",
     offerTitle: "offerTitle",
     offerComparisons: [],
@@ -80,14 +94,14 @@ describe("BookingParser", () => {
     offers: [],
     offer: offerPOJO,
   };
-  const bookingPickups = {
+  const bookingPickups: Required<BookingPickup> = {
     pickupRequested: false,
     pickupPointId: null,
     pickupHotel: null,
     pickupHotelRoom: null,
     pickupPoint: null,
   };
-  const bookingPricing = {
+  const bookingPricing: Required<BookingPricing> = {
     pricing: {
       original: 0,
       retail: 0,
@@ -97,13 +111,17 @@ describe("BookingParser", () => {
       includedTaxes: [],
     },
   };
-  const bookingPOJO = {
+  const bookingQuestions: Required<BookingQuestions> = {
+    questionAswers: [],
+  };
+  const bookingPOJO: Required<Booking> = {
     ...booking,
     ...bookingCart,
     ...bookingContent,
     ...bookingOffers,
     ...bookingPickups,
     ...bookingPricing,
+    ...bookingQuestions,
   };
 
   const { productModel } = ProductTestDataProvider;
@@ -162,6 +180,9 @@ describe("BookingParser", () => {
     }),
     bookingPricingModel: new BookingPricingModel({
       pricing: bookingPOJO.pricing,
+    }),
+    bookingQuestionsModel: new BookingQuestionsModel({
+      questionAswers: bookingPOJO.questionAswers,
     }),
   });
 
@@ -289,6 +310,7 @@ describe("BookingParser", () => {
           bookingParser.parseModelToPOJOWithSpecificCapabilities(bookingModel, [
             CapabilityId.Cart,
             CapabilityId.Content,
+            CapabilityId.Google,
             CapabilityId.Offers,
             CapabilityId.Pickups,
             CapabilityId.Pricing,

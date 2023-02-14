@@ -12,7 +12,7 @@ export class OfferModelBuilder {
 
     return new OfferModel({
       title: offerData.title ?? "amazing offer",
-      code: offerData.code ?? `promotion/${UuidFactory.create()}`,
+      code: offerData.code ?? `promotion_${UuidFactory.create()}`,
       description: offerData.description ?? null,
       netDiscount: offerData.netDiscount ?? "null",
       restrictions: offerData.restrictions ?? {

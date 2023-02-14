@@ -1,4 +1,12 @@
-import { AvailabilityStatus, CapabilityId } from "@octocloud/types";
+import {
+  Availability,
+  AvailabilityStatus,
+  CapabilityId,
+  AvailabilityContent,
+  AvailabilityOffers,
+  AvailabilityPickup,
+  AvailabilityPricing,
+} from "@octocloud/types";
 import { AvailabilityParser } from "../AvailabilityParser";
 import { AvailabilityModel } from "../../models/availability/AvailabilityModel";
 import { AvailabilityContentModel } from "../../models/availability/AvailabilityContentModel";
@@ -11,7 +19,7 @@ import { AvailabilityOffersModel } from "../../models/availability/AvailabilityO
 describe("AvailabilityParser", () => {
   const availabilityParser = new AvailabilityParser();
   const { offerPOJO } = OfferTestDataProvider;
-  const availability = {
+  const availability: Availability = {
     id: "2023-12-01T00:00:00+01:00",
     localDateTimeStart: "2023-12-01T00:00:00+01:00",
     localDateTimeEnd: "2023-12-01T00:00:00+01:00",
@@ -29,29 +37,29 @@ describe("AvailabilityParser", () => {
       },
     ],
   };
-  const availabilityContent = {
+  const availabilityContent: Required<AvailabilityContent> = {
     meetingPoint: null,
     meetingPointCoordinates: null,
     meetingPointLatitude: null,
     meetingPointLongitude: null,
     meetingLocalDateTime: null,
   };
-  const availabilityOffers = {
+  const availabilityOffers: Required<AvailabilityOffers> = {
     offerCode: "offerCode",
     offerTitle: "offerTitle",
     offers: [],
     offer: offerPOJO,
   };
-  const availabilityPickups = {
+  const availabilityPickups: Required<AvailabilityPickup> = {
     pickupAvailable: false,
     pickupRequired: false,
     pickupPoints: [],
   };
-  const availabilityPricing = {
+  const availabilityPricing: Required<AvailabilityPricing> = {
     unitPricing: [PricingDataProvider.unitPricing],
     pricing: PricingDataProvider.adultPricing,
   };
-  const availabilityPOJO = {
+  const availabilityPOJO: Required<Availability> = {
     ...availability,
     ...availabilityContent,
     ...availabilityOffers,

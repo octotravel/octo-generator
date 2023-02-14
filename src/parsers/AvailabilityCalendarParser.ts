@@ -1,10 +1,10 @@
-import { AvailabilityCalendar, CapabilityId } from "@octocloud/types";
+import { AvailabilityCalendar, AvailabilityCalendarPricing, CapabilityId } from "@octocloud/types";
 import { AvailabilityCalendarModel } from "../models/availability/AvailabilityCalendarModel";
 import { AvailabilityCalendarPricingModel } from "../models/availability/AvailabilityCalendarPricingModel";
 
 export class AvailabilityCalendarParser {
-  public parsePOJOToModel = (availabilityCalendar: AvailabilityCalendar): AvailabilityCalendarModel =>
-    new AvailabilityCalendarModel({
+  public parsePOJOToModel(availabilityCalendar: AvailabilityCalendar): AvailabilityCalendarModel {
+    return new AvailabilityCalendarModel({
       localDate: availabilityCalendar.localDate,
       available: availabilityCalendar.available,
       status: availabilityCalendar.status,
@@ -13,40 +13,52 @@ export class AvailabilityCalendarParser {
       openingHours: availabilityCalendar.openingHours,
       availabilityCalendarPricingModel: this.parsePricingPOJOToModel(availabilityCalendar),
     });
+  }
 
-  private parsePricingPOJOToModel = (
-    availabilityCalendar: AvailabilityCalendar
-  ): AvailabilityCalendarPricingModel | undefined => {
-    if (availabilityCalendar.unitPricingFrom === undefined && availabilityCalendar.pricingFrom === undefined) {
+  public parsePricingPOJOToModel(
+    availabilityCalendarPricing: AvailabilityCalendarPricing
+  ): AvailabilityCalendarPricingModel | undefined {
+    if (
+      availabilityCalendarPricing.unitPricingFrom === undefined &&
+      availabilityCalendarPricing.pricingFrom === undefined
+    ) {
       return undefined;
     }
 
     return new AvailabilityCalendarPricingModel({
-      unitPricingFrom: availabilityCalendar.unitPricingFrom,
-      pricingFrom: availabilityCalendar.pricingFrom,
+      unitPricingFrom: availabilityCalendarPricing.unitPricingFrom,
+      pricingFrom: availabilityCalendarPricing.pricingFrom,
     });
-  };
+  }
 
-  public parseModelToPOJO = (availabilityCalendarModel: AvailabilityCalendarModel): AvailabilityCalendar => {
+  public parseModelToPOJO(availabilityCalendarModel: AvailabilityCalendarModel): AvailabilityCalendar {
     const availabilityCalendar = this.parseMainModelToPojo(availabilityCalendarModel);
 
-    this.parsePricingModelToPOJO(availabilityCalendar, availabilityCalendarModel);
+    Object.assign(
+      availabilityCalendar,
+      this.parsePricingModelToPOJO(availabilityCalendarModel.availabilityCalendarPricingModel)
+    );
 
     return availabilityCalendar;
-  };
+  }
 
-  public parseModelToPOJOWithSpecificCapabilities = (
+  public parseModelToPOJOWithSpecificCapabilities(
     availabilityCalendarModel: AvailabilityCalendarModel,
     capabilities: CapabilityId[]
-  ): AvailabilityCalendar => {
+  ): AvailabilityCalendar {
     const availabilityCalendar = this.parseMainModelToPojo(availabilityCalendarModel);
+    let availabilityCalendarPricing;
 
     if (capabilities.includes(CapabilityId.Pricing)) {
-      this.parsePricingModelToPOJO(availabilityCalendar, availabilityCalendarModel);
+      availabilityCalendarPricing = this.parsePricingModelToPOJO(
+        availabilityCalendarModel.availabilityCalendarPricingModel
+      );
     }
 
+    Object.assign(availabilityCalendar, availabilityCalendarPricing);
+
     return availabilityCalendar;
-  };
+  }
 
   private parseMainModelToPojo = (availabilityCalendarModel: AvailabilityCalendarModel): AvailabilityCalendar => ({
     localDate: availabilityCalendarModel.localDate,
@@ -57,17 +69,16 @@ export class AvailabilityCalendarParser {
     openingHours: availabilityCalendarModel.openingHours,
   });
 
-  private parsePricingModelToPOJO = (
-    availabilityCalendar: AvailabilityCalendar,
-    availabilityCalendarModel: AvailabilityCalendarModel
-  ) => {
-    if (availabilityCalendarModel.availabilityCalendarPricingModel === undefined) {
-      return;
+  public parsePricingModelToPOJO(
+    availabilityCalendarPricingModel?: AvailabilityCalendarPricingModel
+  ): AvailabilityCalendarPricing {
+    if (availabilityCalendarPricingModel === undefined) {
+      return {};
     }
 
-    const { availabilityCalendarPricingModel } = availabilityCalendarModel;
-
-    availabilityCalendar.unitPricingFrom = availabilityCalendarPricingModel.unitPricingFrom;
-    availabilityCalendar.pricingFrom = availabilityCalendarPricingModel.pricingFrom;
-  };
+    return {
+      unitPricingFrom: availabilityCalendarPricingModel.unitPricingFrom,
+      pricingFrom: availabilityCalendarPricingModel.pricingFrom,
+    };
+  }
 }

@@ -21,6 +21,7 @@ describe("BookingModelBuilder", () => {
       expect(generateBookingModel.bookingOffersModel).toBeUndefined();
       expect(generateBookingModel.bookingPickupsModel).toBeUndefined();
       expect(generateBookingModel.bookingPricingModel).toBeUndefined();
+      expect(generateBookingModel.bookingQuestionsModel).toBeUndefined();
     });
 
     it("should build booking model with cart capability", async () => {
@@ -37,6 +38,7 @@ describe("BookingModelBuilder", () => {
       expect(generateBookingModel.bookingOffersModel).toBeUndefined();
       expect(generateBookingModel.bookingPickupsModel).toBeUndefined();
       expect(generateBookingModel.bookingPricingModel).toBeUndefined();
+      expect(generateBookingModel.bookingQuestionsModel).toBeUndefined();
     });
 
     it("should build booking model with content capability", async () => {
@@ -53,6 +55,7 @@ describe("BookingModelBuilder", () => {
       expect(generateBookingModel.bookingOffersModel).toBeUndefined();
       expect(generateBookingModel.bookingPickupsModel).toBeUndefined();
       expect(generateBookingModel.bookingPricingModel).toBeUndefined();
+      expect(generateBookingModel.bookingQuestionsModel).toBeUndefined();
     });
 
     it("should build booking model with offers capability", async () => {
@@ -69,6 +72,7 @@ describe("BookingModelBuilder", () => {
       expect(generateBookingModel.bookingOffersModel).toBeDefined();
       expect(generateBookingModel.bookingPickupsModel).toBeUndefined();
       expect(generateBookingModel.bookingPricingModel).toBeUndefined();
+      expect(generateBookingModel.bookingQuestionsModel).toBeUndefined();
     });
 
     it("should build booking model with pickups capability", async () => {
@@ -82,8 +86,10 @@ describe("BookingModelBuilder", () => {
       expect(generateBookingModel).toBeInstanceOf(BookingModel);
       expect(generateBookingModel.bookingCartModel).toBeUndefined();
       expect(generateBookingModel.bookingContentModel).toBeUndefined();
+      expect(generateBookingModel.bookingOffersModel).toBeUndefined();
       expect(generateBookingModel.bookingPickupsModel).toBeDefined();
       expect(generateBookingModel.bookingPricingModel).toBeUndefined();
+      expect(generateBookingModel.bookingQuestionsModel).toBeUndefined();
     });
 
     it("should build booking model with pricing capability", async () => {
@@ -100,6 +106,24 @@ describe("BookingModelBuilder", () => {
       expect(generateBookingModel.bookingOffersModel).toBeUndefined();
       expect(generateBookingModel.bookingPickupsModel).toBeUndefined();
       expect(generateBookingModel.bookingPricingModel).toBeDefined();
+      expect(generateBookingModel.bookingQuestionsModel).toBeUndefined();
+    });
+
+    it("should build booking model with questions capability", async () => {
+      const generateBookingModel = bookingModelBuilder.build({
+        bookingData: {
+          availability: AvailabilityDataProvider.availability,
+        },
+        capabilities: [CapabilityId.Questions],
+      });
+
+      expect(generateBookingModel).toBeInstanceOf(BookingModel);
+      expect(generateBookingModel.bookingCartModel).toBeUndefined();
+      expect(generateBookingModel.bookingContentModel).toBeUndefined();
+      expect(generateBookingModel.bookingOffersModel).toBeUndefined();
+      expect(generateBookingModel.bookingPickupsModel).toBeUndefined();
+      expect(generateBookingModel.bookingPricingModel).toBeUndefined();
+      expect(generateBookingModel.bookingQuestionsModel).toBeDefined();
     });
 
     it("should build booking model with all capabilities", async () => {
@@ -113,6 +137,7 @@ describe("BookingModelBuilder", () => {
           CapabilityId.Offers,
           CapabilityId.Pickups,
           CapabilityId.Pricing,
+          CapabilityId.Questions,
         ],
       });
 
@@ -122,6 +147,7 @@ describe("BookingModelBuilder", () => {
       expect(generateBookingModel.bookingOffersModel).toBeDefined();
       expect(generateBookingModel.bookingPickupsModel).toBeDefined();
       expect(generateBookingModel.bookingPricingModel).toBeDefined();
+      expect(generateBookingModel.bookingQuestionsModel).toBeDefined();
     });
   });
 });

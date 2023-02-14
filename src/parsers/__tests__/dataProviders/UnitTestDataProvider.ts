@@ -1,4 +1,4 @@
-import { UnitType } from "@octocloud/types";
+import { UnitType, Unit, UnitPricing, UnitContent } from "@octocloud/types";
 import { PricingDataProvider } from "../../../dataProviders/PricingDataProvider";
 import { UnitModel } from "../../../models/unit/UnitModel";
 import { UnitContentModel } from "../../../models/unit/UnitContentModel";
@@ -6,7 +6,7 @@ import { UnitPricingModel } from "../../../models/unit/UnitPricingModel";
 import { UnitDataProvider } from "../../../dataProviders/UnitDataProvider";
 
 export class UnitTestDataProvider {
-  static unit = {
+  static unit: Unit = {
     id: "id",
     internalName: "internalName",
     reference: "reference",
@@ -15,18 +15,18 @@ export class UnitTestDataProvider {
     requiredContactFields: [],
   };
 
-  static unitContent = {
+  static unitContent: Required<UnitContent> = {
     title: "title",
     titlePlural: "titlePlural",
     subtitle: "subtitle",
   };
 
-  static unitPricing = {
+  static unitPricing: UnitPricing = {
     pricing: [PricingDataProvider.adultPricing],
     pricingFrom: undefined,
   };
 
-  static unitPOJO = { ...this.unit, ...this.unitContent, ...this.unitPricing };
+  static unitPOJO: Unit = { ...this.unit, ...this.unitContent, ...this.unitPricing };
 
   static unitModel = new UnitModel({
     id: this.unitPOJO.id,
@@ -36,9 +36,9 @@ export class UnitTestDataProvider {
     restrictions: this.unitPOJO.restrictions,
     requiredContactFields: this.unitPOJO.requiredContactFields,
     unitContentModel: new UnitContentModel({
-      title: this.unitPOJO.title,
-      titlePlural: this.unitPOJO.titlePlural,
-      subtitle: this.unitPOJO.subtitle,
+      title: this.unitContent.title,
+      titlePlural: this.unitContent.titlePlural,
+      subtitle: this.unitContent.subtitle,
     }),
     unitPricingModel: new UnitPricingModel({
       pricing: this.unitPOJO.pricing,

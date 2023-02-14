@@ -1,4 +1,11 @@
-import { Availability, CapabilityId } from "@octocloud/types";
+import {
+  Availability,
+  AvailabilityContent,
+  CapabilityId,
+  AvailabilityOffers,
+  AvailabilityPickup,
+  AvailabilityPricing,
+} from "@octocloud/types";
 import { AvailabilityModel } from "../models/availability/AvailabilityModel";
 import { AvailabilityContentModel } from "../models/availability/AvailabilityContentModel";
 import { AvailabilityPickupsModel } from "../models/availability/AvailabilityPickupsModel";
@@ -9,8 +16,8 @@ import { AvailabilityOffersModel } from "../models/availability/AvailabilityOffe
 export class AvailabilityParser {
   private readonly offerParser = new OfferParser();
 
-  public parsePOJOToModel = (availability: Availability): AvailabilityModel =>
-    new AvailabilityModel({
+  public parsePOJOToModel(availability: Availability): AvailabilityModel {
+    return new AvailabilityModel({
       id: availability.id,
       localDateTimeStart: availability.localDateTimeStart,
       localDateTimeEnd: availability.localDateTimeEnd,
@@ -27,171 +34,180 @@ export class AvailabilityParser {
       availabilityPickupsModel: this.parsePickupPOJOToModel(availability),
       availabilityPricingModel: this.parsePricingPOJOToModel(availability),
     });
+  }
 
-  private parseContentPOJOToModel = (availability: Availability): AvailabilityContentModel | undefined => {
+  public parseContentPOJOToModel(availabilityContent: AvailabilityContent): AvailabilityContentModel | undefined {
     if (
-      availability.meetingPoint === undefined ||
-      availability.meetingPointCoordinates === undefined ||
-      availability.meetingPointLatitude === undefined ||
-      availability.meetingPointLongitude === undefined ||
-      availability.meetingLocalDateTime === undefined
+      availabilityContent.meetingPoint === undefined ||
+      availabilityContent.meetingPointCoordinates === undefined ||
+      availabilityContent.meetingPointLatitude === undefined ||
+      availabilityContent.meetingPointLongitude === undefined ||
+      availabilityContent.meetingLocalDateTime === undefined
     ) {
       return undefined;
     }
 
     return new AvailabilityContentModel({
-      meetingPoint: availability.meetingPoint,
-      meetingPointCoordinates: availability.meetingPointCoordinates,
-      meetingPointLatitude: availability.meetingPointLatitude,
-      meetingPointLongitude: availability.meetingPointLongitude,
-      meetingLocalDateTime: availability.meetingLocalDateTime,
+      meetingPoint: availabilityContent.meetingPoint,
+      meetingPointCoordinates: availabilityContent.meetingPointCoordinates,
+      meetingPointLatitude: availabilityContent.meetingPointLatitude,
+      meetingPointLongitude: availabilityContent.meetingPointLongitude,
+      meetingLocalDateTime: availabilityContent.meetingLocalDateTime,
     });
-  };
+  }
 
-  private parseOffersPOJOToModel = (availability: Availability): AvailabilityOffersModel | undefined => {
+  public parseOffersPOJOToModel(availabilityOffers: AvailabilityOffers): AvailabilityOffersModel | undefined {
     if (
-      availability.offerCode === undefined ||
-      availability.offerTitle === undefined ||
-      availability.offers === undefined ||
-      availability.offer === undefined
+      availabilityOffers.offerCode === undefined ||
+      availabilityOffers.offerTitle === undefined ||
+      availabilityOffers.offers === undefined ||
+      availabilityOffers.offer === undefined
     ) {
       return undefined;
     }
 
     return new AvailabilityOffersModel({
-      offerCode: availability.offerCode,
-      offerTitle: availability.offerTitle,
-      offerModels: availability.offers.map((offer) => this.offerParser.parsePOJOToModel(offer)),
-      offerModel: this.offerParser.parsePOJOToModel(availability.offer),
+      offerCode: availabilityOffers.offerCode,
+      offerTitle: availabilityOffers.offerTitle,
+      offerModels: availabilityOffers.offers.map((offer) => this.offerParser.parsePOJOToModel(offer)),
+      offerModel: this.offerParser.parsePOJOToModel(availabilityOffers.offer),
     });
-  };
+  }
 
-  private parsePickupPOJOToModel = (availability: Availability): AvailabilityPickupsModel | undefined => {
+  public parsePickupPOJOToModel(availabilityPickup: AvailabilityPickup): AvailabilityPickupsModel | undefined {
     if (
-      availability.pickupRequired === undefined ||
-      availability.pickupAvailable === undefined ||
-      availability.pickupPoints === undefined
+      availabilityPickup.pickupRequired === undefined ||
+      availabilityPickup.pickupAvailable === undefined ||
+      availabilityPickup.pickupPoints === undefined
     ) {
       return undefined;
     }
 
     return new AvailabilityPickupsModel({
-      pickupRequired: availability.pickupRequired,
-      pickupAvailable: availability.pickupAvailable,
-      pickupPoints: availability.pickupPoints,
+      pickupRequired: availabilityPickup.pickupRequired,
+      pickupAvailable: availabilityPickup.pickupAvailable,
+      pickupPoints: availabilityPickup.pickupPoints,
     });
-  };
+  }
 
-  private parsePricingPOJOToModel = (availability: Availability): AvailabilityPricingModel | undefined => {
-    if (availability.unitPricing === undefined || availability.pricing === undefined) {
+  public parsePricingPOJOToModel(availabilityPricing: AvailabilityPricing): AvailabilityPricingModel | undefined {
+    if (availabilityPricing.unitPricing === undefined || availabilityPricing.pricing === undefined) {
       return undefined;
     }
 
     return new AvailabilityPricingModel({
-      unitPricing: availability.unitPricing,
-      pricing: availability.pricing,
+      unitPricing: availabilityPricing.unitPricing,
+      pricing: availabilityPricing.pricing,
     });
-  };
+  }
 
-  public parseModelToPOJO = (availabilityModel: AvailabilityModel): Availability => {
-    const availability = this.parseMainModelToPojo(availabilityModel);
-
-    this.parseContentModelToPOJO(availability, availabilityModel);
-    this.parseOffersModelToPOJO(availability, availabilityModel);
-    this.parsePickupsModelToPOJO(availability, availabilityModel);
-    this.parsePricingModelToPOJO(availability, availabilityModel);
-
-    return availability;
-  };
+  public parseModelToPOJO(availabilityModel: AvailabilityModel): Availability {
+    return Object.assign(
+      this.parseMainModelToPojo(availabilityModel),
+      this.parseContentModelToPOJO(availabilityModel.availabilityContentModel),
+      this.parseOffersModelToPOJO(availabilityModel.availabilityOffersModel),
+      this.parsePickupsModelToPOJO(availabilityModel.availabilityPickupsModel),
+      this.parsePricingModelToPOJO(availabilityModel.availabilityPricingModel)
+    );
+  }
 
   public parseModelToPOJOWithSpecificCapabilities = (
     availabilityModel: AvailabilityModel,
     capabilities: CapabilityId[]
   ): Availability => {
-    const availability = this.parseMainModelToPojo(availabilityModel);
+    let availabilityContent;
+    let availabilityOffers;
+    let availabilityPickups;
+    let availabilityPricing;
 
     if (capabilities.includes(CapabilityId.Content)) {
-      this.parseContentModelToPOJO(availability, availabilityModel);
+      availabilityContent = this.parseContentModelToPOJO(availabilityModel.availabilityContentModel);
     }
 
     if (capabilities.includes(CapabilityId.Offers)) {
-      this.parseOffersModelToPOJO(availability, availabilityModel);
+      availabilityOffers = this.parseOffersModelToPOJO(availabilityModel.availabilityOffersModel);
     }
 
     if (capabilities.includes(CapabilityId.Pickups)) {
-      this.parsePickupsModelToPOJO(availability, availabilityModel);
+      availabilityPickups = this.parsePickupsModelToPOJO(availabilityModel.availabilityPickupsModel);
     }
 
     if (capabilities.includes(CapabilityId.Pricing)) {
-      this.parsePricingModelToPOJO(availability, availabilityModel);
+      availabilityPricing = this.parsePricingModelToPOJO(availabilityModel.availabilityPricingModel);
     }
 
-    return availability;
-  };
-
-  private parseMainModelToPojo = (availabilityModel: AvailabilityModel): Availability => ({
-    id: availabilityModel.id,
-    localDateTimeStart: availabilityModel.localDateTimeStart,
-    localDateTimeEnd: availabilityModel.localDateTimeEnd,
-    allDay: availabilityModel.allDay,
-    available: availabilityModel.available,
-    status: availabilityModel.status,
-    vacancies: availabilityModel.vacancies,
-    capacity: availabilityModel.capacity,
-    maxUnits: availabilityModel.maxUnits,
-    utcCutoffAt: availabilityModel.utcCutoffAt,
-    openingHours: availabilityModel.openingHours,
-  });
-
-  private parseContentModelToPOJO = (availability: Availability, availabilityModel: AvailabilityModel) => {
-    if (availabilityModel.availabilityContentModel === undefined) {
-      return;
-    }
-
-    const { availabilityContentModel } = availabilityModel;
-
-    availability.meetingPoint = availabilityContentModel.meetingPoint;
-    availability.meetingPointCoordinates = availabilityContentModel.meetingPointCoordinates;
-    availability.meetingPointLatitude = availabilityContentModel.meetingPointLatitude;
-    availability.meetingPointLongitude = availabilityContentModel.meetingPointLongitude;
-    availability.meetingLocalDateTime = availabilityContentModel.meetingLocalDateTime;
-  };
-
-  private parseOffersModelToPOJO = (availability: Availability, availabilityModel: AvailabilityModel) => {
-    if (availabilityModel.availabilityOffersModel === undefined) {
-      return;
-    }
-
-    const { availabilityOffersModel } = availabilityModel;
-
-    availability.offerCode = availabilityOffersModel.offerCode;
-    availability.offerTitle = availabilityOffersModel.offerTitle;
-    availability.offers = availabilityOffersModel.offerModels.map((offerModel) =>
-      this.offerParser.parseModelToPOJO(offerModel)
+    return Object.assign(
+      this.parseMainModelToPojo(availabilityModel),
+      availabilityContent,
+      availabilityOffers,
+      availabilityPickups,
+      availabilityPricing
     );
-    availability.offer = this.offerParser.parseModelToPOJO(availabilityOffersModel.offerModel);
   };
 
-  private parsePickupsModelToPOJO = (availability: Availability, availabilityModel: AvailabilityModel) => {
-    if (availabilityModel.availabilityPickupsModel === undefined) {
-      return;
+  private parseMainModelToPojo(availabilityModel: AvailabilityModel): Availability {
+    return {
+      id: availabilityModel.id,
+      localDateTimeStart: availabilityModel.localDateTimeStart,
+      localDateTimeEnd: availabilityModel.localDateTimeEnd,
+      allDay: availabilityModel.allDay,
+      available: availabilityModel.available,
+      status: availabilityModel.status,
+      vacancies: availabilityModel.vacancies,
+      capacity: availabilityModel.capacity,
+      maxUnits: availabilityModel.maxUnits,
+      utcCutoffAt: availabilityModel.utcCutoffAt,
+      openingHours: availabilityModel.openingHours,
+    };
+  }
+
+  public parseContentModelToPOJO(availabilityContentModel?: AvailabilityContentModel): AvailabilityContent {
+    if (availabilityContentModel === undefined) {
+      return {};
     }
 
-    const { availabilityPickupsModel } = availabilityModel;
+    return {
+      meetingPoint: availabilityContentModel.meetingPoint,
+      meetingPointCoordinates: availabilityContentModel.meetingPointCoordinates,
+      meetingPointLatitude: availabilityContentModel.meetingPointLatitude,
+      meetingPointLongitude: availabilityContentModel.meetingPointLongitude,
+      meetingLocalDateTime: availabilityContentModel.meetingLocalDateTime,
+    };
+  }
 
-    availability.pickupRequired = availabilityPickupsModel.pickupRequired;
-    availability.pickupAvailable = availabilityPickupsModel.pickupAvailable;
-    availability.pickupPoints = availabilityPickupsModel.pickupPoints;
-  };
-
-  private parsePricingModelToPOJO = (availability: Availability, availabilityModel: AvailabilityModel) => {
-    if (availabilityModel.availabilityPricingModel === undefined) {
-      return;
+  public parseOffersModelToPOJO(availabilityOffersModel?: AvailabilityOffersModel): AvailabilityOffers {
+    if (availabilityOffersModel === undefined) {
+      return {};
     }
 
-    const { availabilityPricingModel } = availabilityModel;
+    return {
+      offerCode: availabilityOffersModel.offerCode,
+      offerTitle: availabilityOffersModel.offerTitle,
+      offers: availabilityOffersModel.offerModels.map((offerModel) => this.offerParser.parseModelToPOJO(offerModel)),
+      offer: this.offerParser.parseModelToPOJO(availabilityOffersModel.offerModel),
+    };
+  }
 
-    availability.unitPricing = availabilityPricingModel.unitPricing;
-    availability.pricing = availabilityPricingModel.pricing;
-  };
+  public parsePickupsModelToPOJO(availabilityPickupsModel?: AvailabilityPickupsModel): AvailabilityPickup {
+    if (availabilityPickupsModel === undefined) {
+      return {};
+    }
+
+    return {
+      pickupRequired: availabilityPickupsModel.pickupRequired,
+      pickupAvailable: availabilityPickupsModel.pickupAvailable,
+      pickupPoints: availabilityPickupsModel.pickupPoints,
+    };
+  }
+
+  public parsePricingModelToPOJO(availabilityPricingModel?: AvailabilityPricingModel): AvailabilityPricing {
+    if (availabilityPricingModel === undefined) {
+      return {};
+    }
+
+    return {
+      unitPricing: availabilityPricingModel.unitPricing,
+      pricing: availabilityPricingModel.pricing,
+    };
+  }
 }

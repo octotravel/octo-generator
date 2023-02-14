@@ -1,11 +1,11 @@
-import { CapabilityId, Unit } from "@octocloud/types";
+import { CapabilityId, Unit, UnitContent, UnitPricing } from "@octocloud/types";
 import { UnitModel } from "../models/unit/UnitModel";
 import { UnitContentModel } from "../models/unit/UnitContentModel";
 import { UnitPricingModel } from "../models/unit/UnitPricingModel";
 
 export class UnitParser {
-  public parsePOJOToModel = (unit: Unit): UnitModel =>
-    new UnitModel({
+  public parsePOJOToModel(unit: Unit): UnitModel {
+    return new UnitModel({
       id: unit.id,
       internalName: unit.internalName,
       reference: unit.reference,
@@ -15,82 +15,89 @@ export class UnitParser {
       unitContentModel: this.parseUnitContentPOJOToModel(unit),
       unitPricingModel: this.parseUnitPricingPOJOToModel(unit),
     });
+  }
 
-  private parseUnitContentPOJOToModel = (unit: Unit): UnitContentModel | undefined => {
-    if (unit.title === undefined || unit.titlePlural === undefined || unit.subtitle === undefined) {
+  public parseUnitContentPOJOToModel(unitContent: UnitContent): UnitContentModel | undefined {
+    if (
+      unitContent.title === undefined ||
+      unitContent.titlePlural === undefined ||
+      unitContent.subtitle === undefined
+    ) {
       return undefined;
     }
 
     return new UnitContentModel({
-      title: unit.title,
-      titlePlural: unit.titlePlural,
-      subtitle: unit.subtitle,
+      title: unitContent.title,
+      titlePlural: unitContent.titlePlural,
+      subtitle: unitContent.subtitle,
     });
-  };
+  }
 
-  private parseUnitPricingPOJOToModel = (unit: Unit): UnitPricingModel | undefined => {
-    if (unit.pricingFrom === undefined && unit.pricing === undefined) {
+  public parseUnitPricingPOJOToModel(unitPricing: UnitPricing): UnitPricingModel | undefined {
+    if (unitPricing.pricingFrom === undefined && unitPricing.pricing === undefined) {
       return undefined;
     }
 
     return new UnitPricingModel({
-      pricingFrom: unit.pricingFrom,
-      pricing: unit.pricing,
+      pricingFrom: unitPricing.pricingFrom,
+      pricing: unitPricing.pricing,
     });
-  };
+  }
 
-  public parseModelToPOJO = (unitModel: UnitModel): Unit => {
-    const unit = this.parseMainModelToPojo(unitModel);
+  public parseModelToPOJO(unitModel: UnitModel): Unit {
+    return Object.assign(
+      this.parseMainModelToPojo(unitModel),
+      this.parseContentModelToPOJO(unitModel.unitContentModel),
+      this.parsePricingModelToPOJO(unitModel.unitPricingModel)
+    );
+  }
 
-    this.parseContentModelToPOJO(unit, unitModel);
-    this.parsePricingModelToPOJO(unit, unitModel);
-
-    return unit;
-  };
-
-  public parseModelToPOJOWithSpecificCapabilities = (unitModel: UnitModel, capabilities: CapabilityId[]): Unit => {
-    const unit = this.parseMainModelToPojo(unitModel);
+  public parseModelToPOJOWithSpecificCapabilities(unitModel: UnitModel, capabilities: CapabilityId[]): Unit {
+    let unitContent;
+    let unitPricing;
 
     if (capabilities?.includes(CapabilityId.Content)) {
-      this.parseContentModelToPOJO(unit, unitModel);
+      unitContent = this.parseContentModelToPOJO(unitModel.unitContentModel);
     }
 
     if (capabilities?.includes(CapabilityId.Pricing)) {
-      this.parsePricingModelToPOJO(unit, unitModel);
+      unitPricing = this.parsePricingModelToPOJO(unitModel.unitPricingModel);
     }
 
-    return unit;
-  };
+    return Object.assign(this.parseMainModelToPojo(unitModel), unitContent, unitPricing);
+  }
 
-  private parseMainModelToPojo = (unitModel: UnitModel): Unit => ({
-    id: unitModel.id,
-    internalName: unitModel.internalName,
-    reference: unitModel.reference,
-    type: unitModel.type,
-    restrictions: unitModel.restrictions,
-    requiredContactFields: unitModel.requiredContactFields,
-  });
+  private parseMainModelToPojo(unitModel: UnitModel): Unit {
+    return {
+      id: unitModel.id,
+      internalName: unitModel.internalName,
+      reference: unitModel.reference,
+      type: unitModel.type,
+      restrictions: unitModel.restrictions,
+      requiredContactFields: unitModel.requiredContactFields,
+    };
+  }
 
-  private parseContentModelToPOJO = (unit: Unit, unitModel: UnitModel) => {
-    if (unitModel.unitContentModel === undefined) {
-      return;
+  public parseContentModelToPOJO(unitContentModel?: UnitContentModel): UnitContent {
+    if (unitContentModel === undefined) {
+      return {};
     }
 
-    const { unitContentModel } = unitModel;
+    return {
+      title: unitContentModel?.title,
+      titlePlural: unitContentModel?.titlePlural,
+      subtitle: unitContentModel?.subtitle,
+    };
+  }
 
-    unit.title = unitContentModel?.title;
-    unit.titlePlural = unitContentModel?.titlePlural;
-    unit.subtitle = unitContentModel?.subtitle;
-  };
-
-  private parsePricingModelToPOJO = (unit: Unit, unitModel: UnitModel) => {
-    if (unitModel.unitPricingModel === undefined) {
-      return;
+  public parsePricingModelToPOJO(unitPricingModel?: UnitPricingModel): UnitPricing {
+    if (unitPricingModel === undefined) {
+      return {};
     }
 
-    const { unitPricingModel } = unitModel;
-
-    unit.pricingFrom = unitPricingModel?.pricingFrom;
-    unit.pricing = unitPricingModel?.pricing;
-  };
+    return {
+      pricingFrom: unitPricingModel.pricingFrom,
+      pricing: unitPricingModel.pricing,
+    };
+  }
 }

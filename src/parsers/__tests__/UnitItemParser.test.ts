@@ -1,4 +1,4 @@
-import { CapabilityId, BookingStatus } from "@octocloud/types";
+import { CapabilityId, BookingStatus, UnitItem, UnitItemPricing } from "@octocloud/types";
 import { UnitItemParser } from "../UnitItemParser";
 import { UnitTestDataProvider } from "./dataProviders/UnitTestDataProvider";
 import { UnitItemModel } from "../../models/unitItem/UnitItemModel";
@@ -8,7 +8,7 @@ describe("UnitItemParser", () => {
   const unitItemParser = new UnitItemParser();
   const { unitPOJO } = UnitTestDataProvider;
   const { unitModel } = UnitTestDataProvider;
-  const unitItem = {
+  const unitItem: UnitItem = {
     uuid: "10ea9ebd-a4f2-419e-808d-b0e111137a96",
     resellerReference: null,
     supplierReference: null,
@@ -29,10 +29,10 @@ describe("UnitItemParser", () => {
     },
     ticket: null,
   };
-  const unitItemPricing = {
-    pricing: unitPOJO.pricing[0],
+  const unitItemPricing: Required<UnitItemPricing> = {
+    pricing: unitPOJO.pricing![0],
   };
-  const unitItemPOJO = {
+  const unitItemPOJO: Required<UnitItem> = {
     ...unitItem,
     ...unitItemPricing,
   };
@@ -65,7 +65,14 @@ describe("UnitItemParser", () => {
 
   describe("parseModelToPOJOWithPricingCapatibility", () => {
     it("should return unit item POJO without pricing capability", async () => {
-      expect(unitItemParser.parseModelToPOJOWithSpecificCapabilities(unitItemModel, [])).toStrictEqual(unitItem);
+      expect(unitItemParser.parseModelToPOJOWithSpecificCapabilities(unitItemModel, [])).toStrictEqual(
+        expect.objectContaining({
+          ...unitItem,
+          ...{
+            unit: expect.anything(),
+          },
+        })
+      );
     });
   });
 
@@ -73,10 +80,17 @@ describe("UnitItemParser", () => {
     it("should return unit POJO with pricing capability", async () => {
       expect(
         unitItemParser.parseModelToPOJOWithSpecificCapabilities(unitItemModel, [CapabilityId.Pricing])
-      ).toStrictEqual({
-        ...unitItem,
-        ...unitItemPricing,
-      });
+      ).toStrictEqual(
+        expect.objectContaining({
+          ...{
+            ...unitItem,
+            ...unitItemPricing,
+          },
+          ...{
+            unit: expect.anything(),
+          },
+        })
+      );
     });
   });
 });

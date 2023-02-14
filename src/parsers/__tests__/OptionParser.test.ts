@@ -6,6 +6,7 @@ describe("OptionParser", () => {
   const optionParser = new OptionParser();
   const { option } = OptionTestDataProvider;
   const { optionContent } = OptionTestDataProvider;
+  const { optionGoogle } = OptionTestDataProvider;
   const { optionPickups } = OptionTestDataProvider;
   const { optionPricing } = OptionTestDataProvider;
   const { optionPOJO } = OptionTestDataProvider;
@@ -39,6 +40,15 @@ describe("OptionParser", () => {
   });
 
   describe("parseModelToPOJOWithSpecificCapabilities", () => {
+    it("should return unit POJO with google capability", async () => {
+      expect(optionParser.parseModelToPOJOWithSpecificCapabilities(optionModel, [CapabilityId.Google])).toStrictEqual({
+        ...option,
+        ...optionGoogle,
+      });
+    });
+  });
+
+  describe("parseModelToPOJOWithSpecificCapabilities", () => {
     it("should return unit POJO with pickups capability", async () => {
       expect(optionParser.parseModelToPOJOWithSpecificCapabilities(optionModel, [CapabilityId.Pickups])).toStrictEqual({
         ...option,
@@ -61,6 +71,7 @@ describe("OptionParser", () => {
       expect(
         optionParser.parseModelToPOJOWithSpecificCapabilities(optionModel, [
           CapabilityId.Content,
+          CapabilityId.Google,
           CapabilityId.Pickups,
           CapabilityId.Pricing,
         ])

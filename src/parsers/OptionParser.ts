@@ -1,15 +1,16 @@
-import { CapabilityId, Option } from "@octocloud/types";
+import { CapabilityId, Option, OptionContent, OptionPickup, OptionPricing, OptionGoogle } from "@octocloud/types";
 import { OptionModel } from "../models/option/OptionModel";
 import { UnitParser } from "./UnitParser";
 import { OptionContentModel } from "../models/option/OptionContentModel";
 import { OptionPickupsModel } from "../models/option/OptionPickupsModel";
 import { OptionPricingModel } from "../models/option/OptionPricingModel";
+import { OptionGoogleModel } from "../models/option/OptionGoogleModel";
 
 export class OptionParser {
   private readonly unitParser = new UnitParser();
 
-  public parsePOJOToModel = (option: Option): OptionModel =>
-    new OptionModel({
+  public parsePOJOToModel(option: Option): OptionModel {
+    return new OptionModel({
       id: option.id,
       isDefault: option.default,
       internalName: option.internalName,
@@ -22,95 +23,117 @@ export class OptionParser {
       restrictions: option.restrictions,
       unitModels: option.units.map((unit) => this.unitParser.parsePOJOToModel(unit)),
       optionContentModel: this.parseOptionContentPOJOToModel(option),
+      optionGoogleModel: this.parseOptionGooglePOJOToModel(option),
       optionPickupsModel: this.parseOptionPickupsPOJOToModel(option),
       optionPricingModel: this.parseOptionPricingPOJOToModel(option),
     });
+  }
 
-  private parseOptionContentPOJOToModel = (option: Option): OptionContentModel | undefined => {
+  public parseOptionContentPOJOToModel(optionContent: OptionContent): OptionContentModel | undefined {
     if (
-      option.title === undefined ||
-      option.subtitle === undefined ||
-      option.language === undefined ||
-      option.shortDescription === undefined ||
-      option.duration === undefined ||
-      option.durationAmount === undefined ||
-      option.durationUnit === undefined ||
-      option.itinerary === undefined
+      optionContent.title === undefined ||
+      optionContent.subtitle === undefined ||
+      optionContent.language === undefined ||
+      optionContent.shortDescription === undefined ||
+      optionContent.duration === undefined ||
+      optionContent.durationAmount === undefined ||
+      optionContent.durationUnit === undefined ||
+      optionContent.itinerary === undefined
     ) {
       return undefined;
     }
 
     return new OptionContentModel({
-      title: option.title,
-      subtitle: option.subtitle,
-      language: option.language,
-      shortDescription: option.shortDescription,
-      duration: option.duration,
-      durationAmount: option.durationAmount,
-      durationUnit: option.durationUnit,
-      itinerary: option.itinerary,
+      title: optionContent.title,
+      subtitle: optionContent.subtitle,
+      language: optionContent.language,
+      shortDescription: optionContent.shortDescription,
+      duration: optionContent.duration,
+      durationAmount: optionContent.durationAmount,
+      durationUnit: optionContent.durationUnit,
+      itinerary: optionContent.itinerary,
     });
-  };
+  }
 
-  private parseOptionPickupsPOJOToModel = (option: Option): OptionPickupsModel | undefined => {
+  public parseOptionGooglePOJOToModel(optionGoogle: OptionGoogle): OptionGoogleModel | undefined {
+    if (optionGoogle.googleOptions === undefined) {
+      return undefined;
+    }
+
+    return new OptionGoogleModel({
+      googleOptions: optionGoogle.googleOptions,
+    });
+  }
+
+  public parseOptionPickupsPOJOToModel(optionPickups: OptionPickup): OptionPickupsModel | undefined {
     if (
-      option.pickupRequired === undefined ||
-      option.pickupAvailable === undefined ||
-      option.pickupPoints === undefined
+      optionPickups.pickupRequired === undefined ||
+      optionPickups.pickupAvailable === undefined ||
+      optionPickups.pickupPoints === undefined
     ) {
       return undefined;
     }
 
     return new OptionPickupsModel({
-      pickupRequired: option.pickupRequired,
-      pickupAvailable: option.pickupAvailable,
-      pickupPoints: option.pickupPoints,
+      pickupRequired: optionPickups.pickupRequired,
+      pickupAvailable: optionPickups.pickupAvailable,
+      pickupPoints: optionPickups.pickupPoints,
     });
-  };
+  }
 
-  private parseOptionPricingPOJOToModel = (option: Option): OptionPricingModel | undefined => {
-    if (option.pricingFrom === undefined && option.pricing === undefined) {
+  public parseOptionPricingPOJOToModel(optionPricing: OptionPricing): OptionPricingModel | undefined {
+    if (optionPricing.pricingFrom === undefined && optionPricing.pricing === undefined) {
       return undefined;
     }
 
     return new OptionPricingModel({
-      pricingFrom: option.pricingFrom,
-      pricing: option.pricing,
+      pricingFrom: optionPricing.pricingFrom,
+      pricing: optionPricing.pricing,
     });
-  };
+  }
 
-  public parseModelToPOJO = (optionModel: OptionModel): Option => {
-    const option = this.parseMainModelToPojo(optionModel);
+  public parseModelToPOJO(optionModel: OptionModel): Option {
+    return Object.assign(
+      this.parseMainModelToPojo(optionModel),
+      this.parseContentModelToPOJO(optionModel.optionContentModel),
+      this.parseGoogleModelToPOJO(optionModel.optionGoogleModel),
+      this.parsePickupsModelToPOJO(optionModel.optionPickupsModel),
+      this.parsePricingModelToPOJO(optionModel.optionPricingModel)
+    );
+  }
 
-    this.parseContentModelToPOJO(option, optionModel);
-    this.parsePickupsModelToPOJO(option, optionModel);
-    this.parsePricingModelToPOJO(option, optionModel);
-
-    return option;
-  };
-
-  public parseModelToPOJOWithSpecificCapabilities = (
-    optionModel: OptionModel,
-    capabilities: CapabilityId[]
-  ): Option => {
-    const option = this.parseMainModelToPojo(optionModel, capabilities);
+  public parseModelToPOJOWithSpecificCapabilities(optionModel: OptionModel, capabilities: CapabilityId[]): Option {
+    let optionContent;
+    let optionGoogle;
+    let optionPickups;
+    let optionPricing;
 
     if (capabilities?.includes(CapabilityId.Content)) {
-      this.parseContentModelToPOJO(option, optionModel);
+      optionContent = this.parseContentModelToPOJO(optionModel.optionContentModel);
+    }
+
+    if (capabilities?.includes(CapabilityId.Google)) {
+      optionGoogle = this.parseGoogleModelToPOJO(optionModel.optionGoogleModel);
     }
 
     if (capabilities?.includes(CapabilityId.Pickups)) {
-      this.parsePickupsModelToPOJO(option, optionModel);
+      optionPickups = this.parsePickupsModelToPOJO(optionModel.optionPickupsModel);
     }
 
     if (capabilities?.includes(CapabilityId.Pricing)) {
-      this.parsePricingModelToPOJO(option, optionModel);
+      optionPricing = this.parsePricingModelToPOJO(optionModel.optionPricingModel);
     }
 
-    return option;
-  };
+    return Object.assign(
+      this.parseMainModelToPojo(optionModel, capabilities),
+      optionContent,
+      optionGoogle,
+      optionPickups,
+      optionPricing
+    );
+  }
 
-  private parseMainModelToPojo = (optionModel: OptionModel, capabilities?: CapabilityId[]): Option => {
+  private parseMainModelToPojo(optionModel: OptionModel, capabilities?: CapabilityId[]): Option {
     const units = optionModel.unitModels.map((unitModel) => {
       if (capabilities === undefined) {
         return this.unitParser.parseModelToPOJO(unitModel);
@@ -131,45 +154,55 @@ export class OptionParser {
       restrictions: optionModel.restrictions,
       units,
     };
-  };
+  }
 
-  private parseContentModelToPOJO = (option: Option, optionModel: OptionModel) => {
-    if (optionModel.optionContentModel === undefined) {
-      return;
+  public parseContentModelToPOJO(optionContentModel?: OptionContentModel): OptionContent {
+    if (optionContentModel === undefined) {
+      return {};
     }
 
-    const { optionContentModel } = optionModel;
+    return {
+      title: optionContentModel.title,
+      subtitle: optionContentModel.subtitle,
+      language: optionContentModel.language,
+      shortDescription: optionContentModel.shortDescription,
+      duration: optionContentModel.duration,
+      durationAmount: optionContentModel.durationAmount,
+      durationUnit: optionContentModel.durationUnit,
+      itinerary: optionContentModel.itinerary,
+    };
+  }
 
-    option.title = optionContentModel.title;
-    option.subtitle = optionContentModel.subtitle;
-    option.language = optionContentModel.language;
-    option.shortDescription = optionContentModel.shortDescription;
-    option.duration = optionContentModel.duration;
-    option.durationAmount = optionContentModel.durationAmount;
-    option.durationUnit = optionContentModel.durationUnit;
-    option.itinerary = optionContentModel.itinerary;
-  };
-
-  private parsePickupsModelToPOJO = (option: Option, optionModel: OptionModel) => {
-    if (optionModel.optionPickupsModel === undefined) {
-      return;
+  public parseGoogleModelToPOJO(optionGoogleModel?: OptionGoogleModel): OptionGoogle {
+    if (optionGoogleModel === undefined) {
+      return {};
     }
 
-    const optionPickupModel = optionModel.optionPickupsModel;
+    return {
+      googleOptions: optionGoogleModel.googleOptions,
+    };
+  }
 
-    option.pickupRequired = optionPickupModel.pickupRequired;
-    option.pickupAvailable = optionPickupModel.pickupAvailable;
-    option.pickupPoints = optionPickupModel.pickupPoints;
-  };
-
-  private parsePricingModelToPOJO = (option: Option, optionModel: OptionModel) => {
-    if (optionModel.optionPricingModel === undefined) {
-      return;
+  public parsePickupsModelToPOJO(optionPickupsModel?: OptionPickupsModel): OptionPickup {
+    if (optionPickupsModel === undefined) {
+      return {};
     }
 
-    const { optionPricingModel } = optionModel;
+    return {
+      pickupRequired: optionPickupsModel.pickupRequired,
+      pickupAvailable: optionPickupsModel.pickupAvailable,
+      pickupPoints: optionPickupsModel.pickupPoints,
+    };
+  }
 
-    option.pricingFrom = optionPricingModel.pricingFrom;
-    option.pricing = optionPricingModel.pricing;
-  };
+  public parsePricingModelToPOJO(optionPricingModel?: OptionPricingModel): OptionPricing {
+    if (optionPricingModel === undefined) {
+      return {};
+    }
+
+    return {
+      pricingFrom: optionPricingModel.pricingFrom,
+      pricing: optionPricingModel.pricing,
+    };
+  }
 }
