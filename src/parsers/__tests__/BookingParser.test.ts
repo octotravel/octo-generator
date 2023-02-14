@@ -310,6 +310,7 @@ describe("BookingParser", () => {
           bookingParser.parseModelToPOJOWithSpecificCapabilities(bookingModel, [
             CapabilityId.Cart,
             CapabilityId.Content,
+            CapabilityId.Google,
             CapabilityId.Offers,
             CapabilityId.Pickups,
             CapabilityId.Pricing,

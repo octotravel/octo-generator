@@ -1,4 +1,12 @@
-import { DurationUnit, UnitType } from "@octocloud/types";
+import {
+  DurationUnit,
+  UnitType,
+  Option,
+  OptionContent,
+  OptionPickup,
+  OptionPricing,
+  OptionGoogle,
+} from "@octocloud/types";
 import { UnitDataProvider } from "../../../dataProviders/UnitDataProvider";
 import { PricingDataProvider } from "../../../dataProviders/PricingDataProvider";
 import { OptionModel } from "../../../models/option/OptionModel";
@@ -6,9 +14,10 @@ import { UnitModel } from "../../../models/unit/UnitModel";
 import { OptionContentModel } from "../../../models/option/OptionContentModel";
 import { OptionPickupsModel } from "../../../models/option/OptionPickupsModel";
 import { OptionPricingModel } from "../../../models/option/OptionPricingModel";
+import { OptionGoogleModel } from "../../../models/option/OptionGoogleModel";
 
 export class OptionTestDataProvider {
-  public static option = {
+  public static option: Option = {
     id: "id",
     default: true,
     internalName: "internalName",
@@ -34,7 +43,7 @@ export class OptionTestDataProvider {
     ],
   };
 
-  public static optionContent = {
+  public static optionContent: Required<OptionContent> = {
     title: "title",
     subtitle: "subtitle",
     language: "language",
@@ -45,20 +54,31 @@ export class OptionTestDataProvider {
     itinerary: null,
   };
 
-  public static optionPickups = {
+  public static optionGoogle: Required<OptionGoogle> = {
+    googleOptions: {
+      landing_page: {
+        url: "",
+      },
+      option_categories: [],
+      related_locations: [],
+    },
+  };
+
+  public static optionPickups: Required<OptionPickup> = {
     pickupRequired: false,
     pickupAvailable: false,
     pickupPoints: [],
   };
 
-  public static optionPricing = {
+  public static optionPricing: OptionPricing = {
     pricing: [PricingDataProvider.adultPricing],
     pricingFrom: undefined,
   };
 
-  public static optionPOJO = {
+  public static optionPOJO: Option = {
     ...this.option,
     ...this.optionContent,
+    ...this.optionGoogle,
     ...this.optionPickups,
     ...this.optionPricing,
   };
@@ -76,23 +96,26 @@ export class OptionTestDataProvider {
     restrictions: this.optionPOJO.restrictions,
     unitModels: this.optionPOJO.units.map((unit) => new UnitModel(unit)),
     optionContentModel: new OptionContentModel({
-      title: this.optionPOJO.title,
-      subtitle: this.optionPOJO.subtitle,
-      language: this.optionPOJO.language,
-      shortDescription: this.optionPOJO.shortDescription,
-      duration: this.optionPOJO.duration,
-      durationAmount: this.optionPOJO.durationAmount,
-      durationUnit: this.optionPOJO.durationUnit,
-      itinerary: this.optionPOJO.itinerary,
+      title: this.optionContent.title,
+      subtitle: this.optionContent.subtitle,
+      language: this.optionContent.language,
+      shortDescription: this.optionContent.shortDescription,
+      duration: this.optionContent.duration,
+      durationAmount: this.optionContent.durationAmount,
+      durationUnit: this.optionContent.durationUnit,
+      itinerary: this.optionContent.itinerary,
+    }),
+    optionGoogleModel: new OptionGoogleModel({
+      googleOptions: this.optionGoogle.googleOptions,
     }),
     optionPickupsModel: new OptionPickupsModel({
-      pickupRequired: this.optionPOJO.pickupRequired,
-      pickupAvailable: this.optionPOJO.pickupAvailable,
-      pickupPoints: this.optionPOJO.pickupPoints,
+      pickupRequired: this.optionPickups.pickupRequired,
+      pickupAvailable: this.optionPickups.pickupAvailable,
+      pickupPoints: this.optionPickups.pickupPoints,
     }),
     optionPricingModel: new OptionPricingModel({
-      pricing: this.optionPOJO.pricing,
-      pricingFrom: this.optionPOJO.pricingFrom,
+      pricing: this.optionPricing.pricing,
+      pricingFrom: this.optionPricing.pricingFrom,
     }),
   });
 }
