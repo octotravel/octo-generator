@@ -63,7 +63,7 @@ export class BookingModel {
 
   public readonly bookingPickupsModel?: BookingPickupsModel;
 
-  public readonly bookingPricingModel?: BookingPricingModel;
+  protected _bookingPricingModel?: BookingPricingModel;
 
   public readonly bookingQuestionsModel?: BookingQuestionsModel;
 
@@ -152,7 +152,7 @@ export class BookingModel {
     this.bookingContentModel = bookingContentModel;
     this._bookingOffersModel = bookingOffersModel;
     this.bookingPickupsModel = bookingPickupsModel;
-    this.bookingPricingModel = bookingPricingModel;
+    this._bookingPricingModel = bookingPricingModel;
     this.bookingQuestionsModel = bookingQuestionsModel;
   }
 
@@ -290,6 +290,14 @@ export class BookingModel {
 
   set bookingOffersModel(bookingOffersModel: BookingOffersModel | undefined) {
     this._bookingOffersModel = bookingOffersModel;
+  }
+
+  get bookingPricingModel(): BookingPricingModel | undefined {
+    return this._bookingPricingModel;
+  }
+
+  set bookingPricingModel(bookingPricingModel: BookingPricingModel | undefined) {
+    this._bookingPricingModel = bookingPricingModel;
   }
 
   /**
