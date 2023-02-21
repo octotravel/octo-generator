@@ -5,6 +5,8 @@ import { UnitModelBuilder } from "./UnitModelBuilder";
 import { UnitItemPricingModel } from "../models/unitItem/UnitItemPricingModel";
 import { UnitModel } from "../models/unit/UnitModel";
 import { NullableFactory } from "../factories/NullableFactory";
+import { UuidFactory } from "../factories/UuidFactory";
+import { PricingDataProvider } from "../dataProviders/PricingDataProvider";
 
 interface UnitModelBuilderData {
   unitItemData: PartialUnitItem;
@@ -28,7 +30,7 @@ export class UnitItemModelBuilder {
     });
 
     return new UnitItemModel({
-      uuid: unitItemData.uuid ?? "10ea9ebd-a4f2-419e-808d-b0e111137a96",
+      uuid: unitItemData.uuid ?? UuidFactory.create(),
       resellerReference: unitItemData.resellerReference ?? null,
       supplierReference: unitItemData.supplierReference ?? null,
       unitModel,
@@ -63,14 +65,14 @@ export class UnitItemModelBuilder {
     }
 
     const { unitItemData } = builderData;
-    let pricing = unitItemData.pricing ?? undefined;
+    let pricing = unitItemData.pricing;
 
     if (unitItemData.pricing === undefined && unitModel.unitPricingModel?.pricing !== undefined) {
       pricing = unitModel.unitPricingModel.pricing[0];
     }
 
     return new UnitItemPricingModel({
-      pricing,
+      pricing: pricing ?? PricingDataProvider.emptyPricing,
     });
   }
 }

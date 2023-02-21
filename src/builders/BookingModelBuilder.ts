@@ -1,11 +1,4 @@
-import {
-  BookingStatus,
-  CapabilityId,
-  Currency,
-  DurationUnit,
-  DeliveryMethod,
-  RedemptionMethod,
-} from "@octocloud/types";
+import { BookingStatus, CapabilityId, DurationUnit, DeliveryMethod, RedemptionMethod } from "@octocloud/types";
 import { BookingModel } from "../models/booking/BookingModel";
 import { BookingCartModel } from "../models/booking/BookingCartModel";
 import { ProductModelBuilder } from "./ProductModelBuilder";
@@ -20,6 +13,7 @@ import { DeliveryMethodsDataProvider } from "../dataProviders/DeliveryMethodData
 import { BookingOffersModel } from "../models/booking/BookingOffersModel";
 import { OfferModelBuilder } from "./OfferModelBuilder";
 import { BookingQuestionsModel } from "../models/booking/BookingQuestionsModel";
+import { PricingDataProvider } from "../dataProviders/PricingDataProvider";
 
 interface BookingModelBuilderData {
   bookingData: PartialBooking;
@@ -213,14 +207,7 @@ export class BookingModelBuilder {
     const { bookingData } = builderData;
 
     return new BookingPricingModel({
-      pricing: bookingData.pricing ?? {
-        original: 0,
-        retail: 0,
-        net: null,
-        currency: Currency.EUR,
-        currencyPrecision: 0,
-        includedTaxes: [],
-      },
+      pricing: bookingData.pricing ?? PricingDataProvider.emptyPricing,
     });
   }
 
