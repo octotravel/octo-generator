@@ -18,7 +18,7 @@ export class UnitModel {
 
   public readonly unitContentModel?: UnitContentModel;
 
-  public readonly unitPricingModel?: UnitPricingModel;
+  protected _unitPricingModel?: UnitPricingModel;
 
   constructor({
     id,
@@ -47,6 +47,14 @@ export class UnitModel {
     this.requiredContactFields = requiredContactFields;
     this.unitContentModel = unitContentModel;
     this.unitPricingModel = unitPricingModel;
+  }
+
+  get unitPricingModel(): UnitPricingModel | undefined {
+    return this._unitPricingModel;
+  }
+
+  set unitPricingModel(unitPricingModel: UnitPricingModel | undefined) {
+    this._unitPricingModel = unitPricingModel;
   }
 
   /**

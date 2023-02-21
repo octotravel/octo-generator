@@ -20,7 +20,7 @@ export class UnitItemModel {
 
   public readonly ticket: Nullable<Ticket>;
 
-  public readonly unitItemPricingModel?: UnitItemPricingModel;
+  protected _unitItemPricingModel?: UnitItemPricingModel;
 
   constructor({
     uuid,
@@ -51,7 +51,15 @@ export class UnitItemModel {
     this.utcRedeemedAt = utcRedeemedAt;
     this.contact = contact;
     this.ticket = ticket;
-    this.unitItemPricingModel = unitItemPricingModel;
+    this._unitItemPricingModel = unitItemPricingModel;
+  }
+
+  get unitItemPricingModel(): UnitItemPricingModel | undefined {
+    return this._unitItemPricingModel;
+  }
+
+  set unitItemPricingModel(unitItemPricingModel: UnitItemPricingModel | undefined) {
+    this._unitItemPricingModel = unitItemPricingModel;
   }
 
   /**
