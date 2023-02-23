@@ -14,7 +14,7 @@ export class OfferModelBuilder {
       title: offerData.title ?? "amazing offer",
       code: offerData.code ?? `promotion_${UuidFactory.create()}`,
       description: offerData.description ?? null,
-      netDiscount: offerData.netDiscount ?? "null",
+      netDiscount: offerData.netDiscount ?? null,
       restrictions: offerData.restrictions ?? {
         minUnits: null,
         maxUnits: null,
