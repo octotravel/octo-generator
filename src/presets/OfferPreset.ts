@@ -1,4 +1,4 @@
-import { Offer } from "@octocloud/types";
+import { NetDiscount, Offer } from "@octocloud/types";
 import { OfferModelBuilder } from "../builders/OfferModelBuilder";
 import { OfferModel } from "../models/offer/OfferModel";
 import { OfferParser } from "../parsers/OfferParser";
@@ -13,7 +13,7 @@ export abstract class OfferPreset {
       code: "promotion_395fa759-8c9b-467b-9914-603d0d533405",
       title: "10% OFF",
       description: "Winter Special 10% off",
-      netDiscount: "COMMISSION",
+      netDiscount: NetDiscount.FULL,
       restrictions: {
         minUnits: 0,
         maxUnits: null,
