@@ -1,9 +1,17 @@
-import { CapabilityId, Product, ProductContent, ProductPricing, ProductQuestions } from "@octocloud/types";
+import {
+  CapabilityId,
+  Product,
+  ProductContent,
+  ProductGoogle,
+  ProductPricing,
+  ProductQuestions,
+} from "@octocloud/types";
 import { OptionParser } from "./OptionParser";
 import { ProductModel } from "../models/product/ProductModel";
 import { ProductContentModel } from "../models/product/ProductContentModel";
 import { ProductPricingModel } from "../models/product/ProductPricingModel";
 import { ProductQuestionsModel } from "../models/product/ProductQuestionsModel";
+import { ProductGoogleModel } from "../models/product/ProductGoogleModel";
 
 export class ProductParser {
   private readonly optionParser = new OptionParser();
@@ -25,6 +33,7 @@ export class ProductParser {
       redemptionMethod: product.redemptionMethod,
       optionModels: product.options.map((option) => this.optionParser.parsePOJOToModel(option)),
       productContentModel: this.parseContentPOJOToModel(product),
+      productGoogleModel: this.parseProductGooglePOJOToModel(product),
       productPricingModel: this.parsePricingPOJOToModel(product),
       productQuestionsModel: this.parseQuestionsPOJOToModel(product),
     });
@@ -80,6 +89,16 @@ export class ProductParser {
     });
   }
 
+  public parseProductGooglePOJOToModel(productGoogle: ProductGoogle): ProductGoogleModel | undefined {
+    if (productGoogle.googleOptions === undefined) {
+      return undefined;
+    }
+
+    return new ProductGoogleModel({
+      googleOptions: productGoogle.googleOptions,
+    });
+  }
+
   public parsePricingPOJOToModel(productPricing: ProductPricing): ProductPricingModel | undefined {
     if (
       productPricing.defaultCurrency === undefined ||
@@ -110,6 +129,7 @@ export class ProductParser {
     return Object.assign(
       this.parseMainModelToPojo(productModel),
       this.parseContentModelToPOJO(productModel.productContentModel),
+      this.parseGoogleModelToPOJO(productModel.productGoogleModel),
       this.parsePricingModelToPOJO(productModel.productPricingModel),
       this.parseQuestionsModelToPOJO(productModel.productQuestionsModel)
     );
@@ -117,11 +137,16 @@ export class ProductParser {
 
   public parseModelToPOJOWithSpecificCapabilities(productModel: ProductModel, capabilities: CapabilityId[]): Product {
     let productContent;
+    let productGoogle;
     let productPricing;
     let productQuestion;
 
     if (capabilities?.includes(CapabilityId.Content)) {
       productContent = this.parseContentModelToPOJO(productModel.productContentModel);
+    }
+
+    if (capabilities?.includes(CapabilityId.Google)) {
+      productGoogle = this.parseGoogleModelToPOJO(productModel.productGoogleModel);
     }
 
     if (capabilities?.includes(CapabilityId.Pricing)) {
@@ -135,6 +160,7 @@ export class ProductParser {
     return Object.assign(
       this.parseMainModelToPojo(productModel, capabilities),
       productContent,
+      productGoogle,
       productPricing,
       productQuestion
     );
@@ -192,6 +218,16 @@ export class ProductParser {
       videoUrl: productContentModel.videoUrl,
       galleryImages: productContentModel.galleryImages,
       bannerImages: productContentModel.bannerImages,
+    };
+  }
+
+  public parseGoogleModelToPOJO(productGoogleModel?: ProductGoogleModel): ProductGoogle {
+    if (productGoogleModel === undefined) {
+      return {};
+    }
+
+    return {
+      googleOptions: productGoogleModel.googleOptions,
     };
   }
 

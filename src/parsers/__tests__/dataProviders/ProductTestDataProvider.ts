@@ -18,6 +18,8 @@ import { UnitModel } from "../../../models/unit/UnitModel";
 import { ProductContentModel } from "../../../models/product/ProductContentModel";
 import { ProductPricingModel } from "../../../models/product/ProductPricingModel";
 import { ProductQuestionsModel } from "../../../models/product/ProductQuestionsModel";
+import { ProductGoogle } from "@octocloud/types";
+import { ProductGoogleModel } from "../../../models/product/ProductGoogleModel";
 
 export class ProductTestDataProvider {
   public static product: Product = {
@@ -90,6 +92,25 @@ export class ProductTestDataProvider {
     bannerImages: [],
   };
 
+  public static productGoogle: Required<ProductGoogle> = {
+    googleOptions: {
+      operator: {
+        name: "",
+        google_business_profile_name: "",
+        phone_number: "",
+      },
+      landing_page: {
+        url: null,
+      },
+      inventory_type: "",
+      landing_page_list_view: {
+        url: null,
+      },
+      option_categories: [],
+      related_locations: [],
+    },
+  };
+
   public static productPricing: Required<ProductPricing> = {
     defaultCurrency: Currency.EUR,
     availableCurrencies: [Currency.EUR],
@@ -103,6 +124,7 @@ export class ProductTestDataProvider {
   public static productPOJO: Required<Product> = {
     ...this.product,
     ...this.productContent,
+    ...this.productGoogle,
     ...this.productPricing,
     ...this.productQuestions,
   };
@@ -158,6 +180,9 @@ export class ProductTestDataProvider {
       videoUrl: this.productPOJO.videoUrl,
       galleryImages: this.productPOJO.galleryImages,
       bannerImages: this.productPOJO.bannerImages,
+    }),
+    productGoogleModel: new ProductGoogleModel({
+      googleOptions: this.productGoogle.googleOptions,
     }),
     productPricingModel: new ProductPricingModel({
       defaultCurrency: this.productPOJO.defaultCurrency,

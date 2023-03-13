@@ -1,10 +1,9 @@
-import { CapabilityId, Option, OptionContent, OptionPickup, OptionPricing, OptionGoogle } from "@octocloud/types";
+import { CapabilityId, Option, OptionContent, OptionPickup, OptionPricing } from "@octocloud/types";
 import { OptionModel } from "../models/option/OptionModel";
 import { UnitParser } from "./UnitParser";
 import { OptionContentModel } from "../models/option/OptionContentModel";
 import { OptionPickupsModel } from "../models/option/OptionPickupsModel";
 import { OptionPricingModel } from "../models/option/OptionPricingModel";
-import { OptionGoogleModel } from "../models/option/OptionGoogleModel";
 
 export class OptionParser {
   private readonly unitParser = new UnitParser();
@@ -23,7 +22,6 @@ export class OptionParser {
       restrictions: option.restrictions,
       unitModels: option.units.map((unit) => this.unitParser.parsePOJOToModel(unit)),
       optionContentModel: this.parseOptionContentPOJOToModel(option),
-      optionGoogleModel: this.parseOptionGooglePOJOToModel(option),
       optionPickupsModel: this.parseOptionPickupsPOJOToModel(option),
       optionPricingModel: this.parseOptionPricingPOJOToModel(option),
     });
@@ -52,16 +50,6 @@ export class OptionParser {
       durationAmount: optionContent.durationAmount,
       durationUnit: optionContent.durationUnit,
       itinerary: optionContent.itinerary,
-    });
-  }
-
-  public parseOptionGooglePOJOToModel(optionGoogle: OptionGoogle): OptionGoogleModel | undefined {
-    if (optionGoogle.googleOptions === undefined) {
-      return undefined;
-    }
-
-    return new OptionGoogleModel({
-      googleOptions: optionGoogle.googleOptions,
     });
   }
 
@@ -96,7 +84,6 @@ export class OptionParser {
     return Object.assign(
       this.parseMainModelToPojo(optionModel),
       this.parseContentModelToPOJO(optionModel.optionContentModel),
-      this.parseGoogleModelToPOJO(optionModel.optionGoogleModel),
       this.parsePickupsModelToPOJO(optionModel.optionPickupsModel),
       this.parsePricingModelToPOJO(optionModel.optionPricingModel)
     );
@@ -110,10 +97,6 @@ export class OptionParser {
 
     if (capabilities?.includes(CapabilityId.Content)) {
       optionContent = this.parseContentModelToPOJO(optionModel.optionContentModel);
-    }
-
-    if (capabilities?.includes(CapabilityId.Google)) {
-      optionGoogle = this.parseGoogleModelToPOJO(optionModel.optionGoogleModel);
     }
 
     if (capabilities?.includes(CapabilityId.Pickups)) {
@@ -170,16 +153,6 @@ export class OptionParser {
       durationAmount: optionContentModel.durationAmount,
       durationUnit: optionContentModel.durationUnit,
       itinerary: optionContentModel.itinerary,
-    };
-  }
-
-  public parseGoogleModelToPOJO(optionGoogleModel?: OptionGoogleModel): OptionGoogle {
-    if (optionGoogleModel === undefined) {
-      return {};
-    }
-
-    return {
-      googleOptions: optionGoogleModel.googleOptions,
     };
   }
 

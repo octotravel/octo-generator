@@ -16,6 +16,7 @@ import { ProductPricingModel } from "../models/product/ProductPricingModel";
 import { PartialProduct } from "../types/PartialProduct";
 import { DeliveryMethodsDataProvider } from "../dataProviders/DeliveryMethodDataProvider";
 import { ProductQuestionsModel } from "../models/product/ProductQuestionsModel";
+import { ProductGoogleModel } from "../models/product/ProductGoogleModel";
 
 interface ProductModelBuilderData {
   productData: PartialProduct;
@@ -25,6 +26,7 @@ interface ProductModelBuilderData {
 
 const defaultCapabilities: CapabilityId[] = [
   CapabilityId.Content,
+  CapabilityId.Google,
   CapabilityId.Pricing,
   CapabilityId.Pickups,
   CapabilityId.Questions,
@@ -56,6 +58,7 @@ export class ProductModelBuilder {
       redemptionMethod: productData.redemptionMethod ?? RedemptionMethod.DIGITAL,
       optionModels: this.buildOptionModels(builderData),
       productContentModel: this.buildContentModel(builderData),
+      productGoogleModel: this.buildGoogleModel(builderData),
       productPricingModel: this.buildPricingModel(builderData),
       productQuestionsModel: this.buildQuestionsModel(builderData),
     });
@@ -83,6 +86,33 @@ export class ProductModelBuilder {
         sourceModel: builderData.sourceModel,
       });
     }, builderData);
+  }
+
+  private buildGoogleModel(builderData: ProductModelBuilderData): ProductGoogleModel | undefined {
+    if (builderData.capabilities?.includes(CapabilityId.Google) === false) {
+      return undefined;
+    }
+
+    const { productData } = builderData;
+
+    return new ProductGoogleModel({
+      googleOptions: productData.googleOptions ?? {
+        operator: {
+          name: "",
+          google_business_profile_name: "",
+          phone_number: "",
+        },
+        landing_page: {
+          url: null,
+        },
+        inventory_type: "",
+        landing_page_list_view: {
+          url: null,
+        },
+        option_categories: [],
+        related_locations: [],
+      },
+    });
   }
 
   private buildContentModel(builderData: ProductModelBuilderData): ProductContentModel | undefined {

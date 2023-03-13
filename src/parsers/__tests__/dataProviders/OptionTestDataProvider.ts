@@ -1,12 +1,4 @@
-import {
-  DurationUnit,
-  UnitType,
-  Option,
-  OptionContent,
-  OptionPickup,
-  OptionPricing,
-  OptionGoogle,
-} from "@octocloud/types";
+import { DurationUnit, UnitType, Option, OptionContent, OptionPickup, OptionPricing } from "@octocloud/types";
 import { UnitDataProvider } from "../../../dataProviders/UnitDataProvider";
 import { PricingDataProvider } from "../../../dataProviders/PricingDataProvider";
 import { OptionModel } from "../../../models/option/OptionModel";
@@ -14,7 +6,6 @@ import { UnitModel } from "../../../models/unit/UnitModel";
 import { OptionContentModel } from "../../../models/option/OptionContentModel";
 import { OptionPickupsModel } from "../../../models/option/OptionPickupsModel";
 import { OptionPricingModel } from "../../../models/option/OptionPricingModel";
-import { OptionGoogleModel } from "../../../models/option/OptionGoogleModel";
 
 export class OptionTestDataProvider {
   public static option: Option = {
@@ -54,16 +45,6 @@ export class OptionTestDataProvider {
     itinerary: null,
   };
 
-  public static optionGoogle: Required<OptionGoogle> = {
-    googleOptions: {
-      landing_page: {
-        url: "",
-      },
-      option_categories: [],
-      related_locations: [],
-    },
-  };
-
   public static optionPickups: Required<OptionPickup> = {
     pickupRequired: false,
     pickupAvailable: false,
@@ -78,7 +59,6 @@ export class OptionTestDataProvider {
   public static optionPOJO: Option = {
     ...this.option,
     ...this.optionContent,
-    ...this.optionGoogle,
     ...this.optionPickups,
     ...this.optionPricing,
   };
@@ -104,9 +84,6 @@ export class OptionTestDataProvider {
       durationAmount: this.optionContent.durationAmount,
       durationUnit: this.optionContent.durationUnit,
       itinerary: this.optionContent.itinerary,
-    }),
-    optionGoogleModel: new OptionGoogleModel({
-      googleOptions: this.optionGoogle.googleOptions,
     }),
     optionPickupsModel: new OptionPickupsModel({
       pickupRequired: this.optionPickups.pickupRequired,

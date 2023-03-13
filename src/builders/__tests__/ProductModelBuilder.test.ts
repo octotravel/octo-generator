@@ -14,6 +14,7 @@ describe("ProductModelBuilder", () => {
 
       expect(productModel).toBeInstanceOf(ProductModel);
       expect(productModel.productContentModel).toBeUndefined();
+      expect(productModel.productGoogleModel).toBeUndefined();
       expect(productModel.productPricingModel).toBeUndefined();
       expect(productModel.productQuestionsModel).toBeUndefined();
     });
@@ -26,6 +27,20 @@ describe("ProductModelBuilder", () => {
 
       expect(productModel).toBeInstanceOf(ProductModel);
       expect(productModel.productContentModel).toBeDefined();
+      expect(productModel.productGoogleModel).toBeUndefined();
+      expect(productModel.productPricingModel).toBeUndefined();
+      expect(productModel.productQuestionsModel).toBeUndefined();
+    });
+
+    it("should build product model with google capability", async () => {
+      const productModel = productModelBuilder.build({
+        productData: ProductDataProvider.defaultProduct,
+        capabilities: [CapabilityId.Google],
+      });
+
+      expect(productModel).toBeInstanceOf(ProductModel);
+      expect(productModel.productContentModel).toBeUndefined();
+      expect(productModel.productGoogleModel).toBeDefined();
       expect(productModel.productPricingModel).toBeUndefined();
       expect(productModel.productQuestionsModel).toBeUndefined();
     });
@@ -38,6 +53,7 @@ describe("ProductModelBuilder", () => {
 
       expect(productModel).toBeInstanceOf(ProductModel);
       expect(productModel.productContentModel).toBeUndefined();
+      expect(productModel.productGoogleModel).toBeUndefined();
       expect(productModel.productPricingModel).toBeDefined();
       expect(productModel.productQuestionsModel).toBeUndefined();
     });
@@ -50,6 +66,7 @@ describe("ProductModelBuilder", () => {
 
       expect(productModel).toBeInstanceOf(ProductModel);
       expect(productModel.productContentModel).toBeUndefined();
+      expect(productModel.productGoogleModel).toBeUndefined();
       expect(productModel.productPricingModel).toBeUndefined();
       expect(productModel.productQuestionsModel).toBeDefined();
     });
@@ -57,11 +74,12 @@ describe("ProductModelBuilder", () => {
     it("should build product model with all capabilities", async () => {
       const productModel = productModelBuilder.build({
         productData: ProductDataProvider.defaultProduct,
-        capabilities: [CapabilityId.Content, CapabilityId.Pricing, CapabilityId.Questions],
+        capabilities: [CapabilityId.Content, CapabilityId.Google, CapabilityId.Pricing, CapabilityId.Questions],
       });
 
       expect(productModel).toBeInstanceOf(ProductModel);
       expect(productModel.productContentModel).toBeDefined();
+      expect(productModel.productGoogleModel).toBeDefined();
       expect(productModel.productPricingModel).toBeDefined();
       expect(productModel.productQuestionsModel).toBeDefined();
     });

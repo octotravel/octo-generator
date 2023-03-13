@@ -4,7 +4,6 @@ import { OptionPickupsModel } from "./OptionPickupsModel";
 import { OptionPricingModel } from "./OptionPricingModel";
 import { UnitModel } from "../unit/UnitModel";
 import { UndefinedModelError } from "../../errors/UndefinedModelError";
-import { OptionGoogleModel } from "./OptionGoogleModel";
 
 export class OptionModel {
   public readonly id: string;
@@ -31,8 +30,6 @@ export class OptionModel {
 
   public readonly optionContentModel?: OptionContentModel;
 
-  public readonly optionGoogleModel?: OptionGoogleModel;
-
   public readonly optionPickupsModel?: OptionPickupsModel;
 
   public readonly optionPricingModel?: OptionPricingModel;
@@ -50,7 +47,6 @@ export class OptionModel {
     restrictions,
     unitModels,
     optionContentModel,
-    optionGoogleModel,
     optionPickupsModel,
     optionPricingModel,
   }: {
@@ -66,7 +62,6 @@ export class OptionModel {
     restrictions: UnitRestrictions;
     unitModels: Array<UnitModel>;
     optionContentModel?: OptionContentModel;
-    optionGoogleModel?: OptionGoogleModel;
     optionPickupsModel?: OptionPickupsModel;
     optionPricingModel?: OptionPricingModel;
   }) {
@@ -82,7 +77,6 @@ export class OptionModel {
     this.restrictions = restrictions;
     this.unitModels = unitModels;
     this.optionContentModel = optionContentModel;
-    this.optionGoogleModel = optionGoogleModel;
     this.optionPickupsModel = optionPickupsModel;
     this.optionPricingModel = optionPricingModel;
   }
@@ -96,17 +90,6 @@ export class OptionModel {
     }
 
     return this.optionContentModel;
-  }
-
-  /**
-   * @throws UndefinedModelError
-   */
-  public getOptionGoogleModel(): OptionGoogleModel {
-    if (this.optionGoogleModel === undefined) {
-      throw UndefinedModelError.create("OptionGoogleModel", "OptionModel", this.id);
-    }
-
-    return this.optionGoogleModel;
   }
 
   /**

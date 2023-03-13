@@ -4,6 +4,7 @@ import { ProductContentModel } from "./ProductContentModel";
 import { ProductPricingModel } from "./ProductPricingModel";
 import { UndefinedModelError } from "../../errors/UndefinedModelError";
 import { ProductQuestionsModel } from "./ProductQuestionsModel";
+import { ProductGoogleModel } from "./ProductGoogleModel";
 
 export class ProductModel {
   public readonly id: string;
@@ -36,6 +37,8 @@ export class ProductModel {
 
   public readonly productContentModel?: ProductContentModel;
 
+  public readonly productGoogleModel?: ProductGoogleModel;
+
   public readonly productPricingModel?: ProductPricingModel;
 
   public readonly productQuestionsModel?: ProductQuestionsModel;
@@ -56,6 +59,7 @@ export class ProductModel {
     redemptionMethod,
     optionModels,
     productContentModel,
+    productGoogleModel,
     productPricingModel,
     productQuestionsModel,
   }: {
@@ -74,6 +78,7 @@ export class ProductModel {
     redemptionMethod: RedemptionMethod;
     optionModels: Array<OptionModel>;
     productContentModel?: ProductContentModel;
+    productGoogleModel?: ProductGoogleModel;
     productPricingModel?: ProductPricingModel;
     productQuestionsModel?: ProductQuestionsModel;
   }) {
@@ -93,6 +98,7 @@ export class ProductModel {
     this.redemptionMethod = redemptionMethod;
     this.optionModels = optionModels;
     this.productContentModel = productContentModel;
+    this.productGoogleModel = productGoogleModel;
     this.productPricingModel = productPricingModel;
     this.productQuestionsModel = productQuestionsModel;
   }
@@ -106,6 +112,17 @@ export class ProductModel {
     }
 
     return this.productContentModel;
+  }
+
+  /**
+   * @throws UndefinedModelError
+   */
+  public getProductGoogleModel(): ProductGoogleModel {
+    if (this.productGoogleModel === undefined) {
+      throw UndefinedModelError.create("ProductGoogleModel", "ProductModel", this.id);
+    }
+
+    return this.productGoogleModel;
   }
 
   /**

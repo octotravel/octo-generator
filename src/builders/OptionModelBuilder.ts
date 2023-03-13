@@ -9,7 +9,6 @@ import { UnitModel } from "../models/unit/UnitModel";
 import { LocaleDataProvider } from "../dataProviders/LocaleDataProvider";
 import { ProductModel } from "../models/product/ProductModel";
 import { PartialOption } from "../types/PartialOption";
-import { OptionGoogleModel } from "../models/option/OptionGoogleModel";
 
 interface OptionModelBuilderData {
   optionData: PartialOption;
@@ -19,12 +18,7 @@ interface OptionModelBuilderData {
 }
 
 const defaultPricingPer: PricingPer = PricingPer.UNIT;
-const defaultCapabilities: CapabilityId[] = [
-  CapabilityId.Content,
-  CapabilityId.Google,
-  CapabilityId.Pickups,
-  CapabilityId.Pricing,
-];
+const defaultCapabilities: CapabilityId[] = [CapabilityId.Content, CapabilityId.Pickups, CapabilityId.Pricing];
 
 export class OptionModelBuilder {
   private readonly unitModelBuilder = new UnitModelBuilder();
@@ -51,7 +45,6 @@ export class OptionModelBuilder {
       },
       unitModels: this.buildUnitModels(builderData),
       optionContentModel: this.buildContentModel(builderData),
-      optionGoogleModel: this.buildGoogleModel(builderData),
       optionPickupsModel: this.buildPickupsModel(builderData),
       optionPricingModel: this.buildPricingModel(builderData),
     });
@@ -92,24 +85,6 @@ export class OptionModelBuilder {
       durationAmount: optionData.durationAmount ?? "0",
       duration: optionData.duration ?? `${durationAmount} ${durationUnit}`,
       itinerary: optionData.itinerary ?? [],
-    });
-  }
-
-  private buildGoogleModel(builderData: OptionModelBuilderData): OptionGoogleModel | undefined {
-    if (builderData.capabilities?.includes(CapabilityId.Google) === false) {
-      return undefined;
-    }
-
-    const { optionData } = builderData;
-
-    return new OptionGoogleModel({
-      googleOptions: optionData.googleOptions ?? {
-        landing_page: {
-          url: "",
-        },
-        option_categories: [],
-        related_locations: [],
-      },
     });
   }
 
