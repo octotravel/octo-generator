@@ -9,6 +9,7 @@ import {
   ProductPricing,
   ProductQuestions,
   RedemptionMethod,
+  ProductGoogle,
 } from "@octocloud/types";
 import { LocaleDataProvider } from "../../../dataProviders/LocaleDataProvider";
 import { TimeZoneDataProvider } from "../../../dataProviders/TimeZoneDataProvider";
@@ -18,7 +19,6 @@ import { UnitModel } from "../../../models/unit/UnitModel";
 import { ProductContentModel } from "../../../models/product/ProductContentModel";
 import { ProductPricingModel } from "../../../models/product/ProductPricingModel";
 import { ProductQuestionsModel } from "../../../models/product/ProductQuestionsModel";
-import { ProductGoogle } from "@octocloud/types";
 import { ProductGoogleModel } from "../../../models/product/ProductGoogleModel";
 
 export class ProductTestDataProvider {
