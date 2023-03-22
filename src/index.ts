@@ -22,6 +22,8 @@ export * from "./models/availability/AvailabilityModel";
 
 export * from "./models/booking/BookingModel";
 
+export * from "./models/mapping/MappingModel";
+
 export * from "./models/offer/OfferModel";
 
 export * from "./models/option/OptionModel";
@@ -43,6 +45,8 @@ export * from "./parsers/AvailabilityParser";
 export * from "./parsers/AvailabilityCalendarParser";
 
 export * from "./parsers/BookingParser";
+
+export * from "./parsers/MappingParser";
 
 export * from "./parsers/OfferParser";
 
