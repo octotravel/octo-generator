@@ -38,7 +38,11 @@ export * from "./models/unit/UnitModel";
 
 export * from "./presets/AvailabilityOfferPreset";
 
+export * from "./presets/AvailabilityPreset";
+
 export * from "./presets/OfferPreset";
+
+export * from "./presets/ProductPreset";
 
 export * from "./parsers/AvailabilityParser";
 

@@ -46,9 +46,9 @@ export abstract class ProductPreset {
     },
   });
 
-  public static readonly FIRST_PRODUCT: Product = this.productParser.parseModelToPOJO(this.FIRST_PRODUCT_MODEL);
+  public static readonly FIRST_PRODUCT_POJO: Product = this.productParser.parseModelToPOJO(this.FIRST_PRODUCT_MODEL);
 
-  public static readonly SECOND_PRODUCT: Product = this.productParser.parseModelToPOJO(this.SECOND_PRODUCT_MODEL);
+  public static readonly SECOND_PRODUCT_POJO: Product = this.productParser.parseModelToPOJO(this.SECOND_PRODUCT_MODEL);
 
-  public static readonly THIRD_PRODUCT: Product = this.productParser.parseModelToPOJO(this.THIRD_PRODUCT_MODEL);
+  public static readonly THIRD_PRODUCT_POJO: Product = this.productParser.parseModelToPOJO(this.THIRD_PRODUCT_MODEL);
 }
