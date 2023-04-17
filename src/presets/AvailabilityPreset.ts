@@ -1,7 +1,4 @@
-import { Availability, AvailabilityStatus, NetDiscount, Offer, OpeningHours } from "@octocloud/types";
-import { OfferModelBuilder } from "../builders/OfferModelBuilder";
-import { OfferModel } from "../models/offer/OfferModel";
-import { OfferParser } from "../parsers/OfferParser";
+import { Availability, AvailabilityStatus } from "@octocloud/types";
 import { AvailabilityModelBuilder } from "../builders/AvailabilityModelBuilder";
 import { AvailabilityParser } from "../parsers/AvailabilityParser";
 import { AvailabilityModel } from "../models/availability/AvailabilityModel";
@@ -21,8 +18,8 @@ export abstract class AvailabilityPreset {
       capacity: null,
       maxUnits: null,
       utcCutoffAt: "",
-      openingHours: [],
-    },
+      openingHours: []
+    }
   });
 
   public static readonly TODAY_FULL_DAY_AVAILABILITY_POJO: Availability = this.availabilityParser.parseModelToPOJO(
