@@ -18,8 +18,8 @@ export abstract class AvailabilityPreset {
       capacity: null,
       maxUnits: null,
       utcCutoffAt: "",
-      openingHours: []
-    }
+      openingHours: [],
+    },
   });
 
   public static readonly TODAY_FULL_DAY_AVAILABILITY_POJO: Availability = this.availabilityParser.parseModelToPOJO(

@@ -44,7 +44,7 @@ export class AvailabilityCalendarModelBuilder {
     return AvailabilityCalendarPricingModelFactory.create({
       unitPricing: builderData.availabilityCalendarData.unitPricingFrom ?? [PricingDataProvider.unitPricing],
       pricing: builderData.availabilityCalendarData.pricingFrom ?? PricingDataProvider.adultPricing,
-      pricingPer: PricingPer.BOOKING,
+      pricingPer: builderData.pricingPer!,
     });
   }
 }

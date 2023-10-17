@@ -119,7 +119,7 @@ export class AvailabilityModelBuilder {
     return AvailabilityPricingModelFactory.create({
       unitPricing: builderData.availabilityData.unitPricing ?? [PricingDataProvider.unitPricing],
       pricing: builderData.availabilityData.pricing ?? PricingDataProvider.adultPricing,
-      pricingPer: PricingPer.BOOKING,
+      pricingPer: builderData.pricingPer!,
     });
   }
 }
