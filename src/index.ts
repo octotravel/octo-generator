@@ -10,6 +10,11 @@ export * from "./generators/OptionModelGenerator";
 
 export * from "./generators/OrderModelGenerator";
 
+export * from "./generators/PricingModelGenerator";
+
+export * from "./generators/PricingUnitModelGenerator";
+
+
 export * from "./generators/ProductModelGenerator";
 
 export * from "./generators/UnitItemModelGenerator";
@@ -29,6 +34,10 @@ export * from "./models/offer/OfferModel";
 export * from "./models/option/OptionModel";
 
 export * from "./models/order/OrderModel";
+
+export * from "./models/pricing/PricingModel";
+
+export * from "./models/pricing/PricingUnitModel";
 
 export * from "./models/product/ProductModel";
 
@@ -75,6 +84,10 @@ export * from "./types/PartialOffer";
 export * from "./types/PartialOption";
 
 export * from "./types/PartialOrder";
+
+export * from "./types/PartialPricing";
+
+export * from "./types/PartialPricingUnit";
 
 export * from "./types/PartialProduct";
 
