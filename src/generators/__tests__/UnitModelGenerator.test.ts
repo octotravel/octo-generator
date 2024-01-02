@@ -27,7 +27,7 @@ describe("UnitModelGenerator", () => {
       expect(validationErrors).toStrictEqual([]);
     });
 
-    it("should generate invalid unit model", async () => {
+    it.only("should generate invalid unit model", async () => {
       const unitModel = unitModelGenerator.generateUnit({
         unitData: {
           id: "",

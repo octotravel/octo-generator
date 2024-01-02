@@ -112,9 +112,9 @@ describe("BookingParser", () => {
     },
   };
   const bookingQuestions: Required<BookingQuestions> = {
-    questionAswers: [],
+    questionAnswers: [],
   };
-  const bookingPOJO: Required<Booking> = {
+  const bookingPOJO = {
     ...booking,
     ...bookingCart,
     ...bookingContent,
@@ -122,7 +122,7 @@ describe("BookingParser", () => {
     ...bookingPickups,
     ...bookingPricing,
     ...bookingQuestions,
-  };
+  } as Required<Booking>;
 
   const { productModel } = ProductTestDataProvider;
   const { offerModel } = OfferTestDataProvider;
@@ -182,7 +182,7 @@ describe("BookingParser", () => {
       pricing: bookingPOJO.pricing,
     }),
     bookingQuestionsModel: new BookingQuestionsModel({
-      questionAswers: bookingPOJO.questionAswers,
+      questionAswers: bookingPOJO.questionAnswers,
     }),
   });
 

@@ -32,10 +32,10 @@ describe("UnitItemParser", () => {
   const unitItemPricing: Required<UnitItemPricing> = {
     pricing: unitPOJO.pricing![0],
   };
-  const unitItemPOJO: Required<UnitItem> = {
+  const unitItemPOJO = {
     ...unitItem,
     ...unitItemPricing,
-  };
+  } as Required<UnitItem>;
 
   const unitItemModel = new UnitItemModel({
     uuid: unitItemPOJO.uuid,

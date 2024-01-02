@@ -1,4 +1,4 @@
-import { CapabilityId, UnitItem, UnitItemPricing } from "@octocloud/types";
+import { CapabilityId, Unit, UnitItem, UnitItemPricing } from "@octocloud/types";
 import { UnitItemModel } from "../models/unitItem/UnitItemModel";
 import { UnitParser } from "./UnitParser";
 import { UnitItemPricingModel } from "../models/unitItem/UnitItemPricingModel";
@@ -11,7 +11,7 @@ export class UnitItemParser {
       uuid: unitItem.uuid,
       resellerReference: unitItem.resellerReference,
       supplierReference: unitItem.supplierReference,
-      unitModel: this.unitParser.parsePOJOToModel(unitItem.unit),
+      unitModel: this.unitParser.parsePOJOToModel(unitItem.unit as Unit),
       status: unitItem.status,
       utcRedeemedAt: unitItem.utcRedeemedAt,
       contact: unitItem.contact,

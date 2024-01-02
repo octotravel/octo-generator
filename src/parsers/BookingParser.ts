@@ -7,6 +7,8 @@ import {
   BookingPricing,
   CapabilityId,
   BookingQuestions,
+  Product,
+  Option,
 } from "@octocloud/types";
 import { BookingModel } from "../models/booking/BookingModel";
 import { ProductParser } from "./ProductParser";
@@ -42,8 +44,8 @@ export class BookingParser {
       utcExpiresAt: booking.utcExpiresAt,
       utcRedeemedAt: booking.utcRedeemedAt,
       utcConfirmedAt: booking.utcConfirmedAt,
-      productModel: this.productParser.parsePOJOToModel(booking.product),
-      optionModel: this.optionParser.parsePOJOToModel(booking.option),
+      productModel: this.productParser.parsePOJOToModel(booking.product as Product),
+      optionModel: this.optionParser.parsePOJOToModel(booking.option as Option),
       cancellable: booking.cancellable,
       cancellation: booking.cancellation,
       freesale: booking.freesale,
@@ -153,12 +155,12 @@ export class BookingParser {
   }
 
   public parseQuestionsPOJOToModel(bookingQuestions: BookingQuestions): BookingQuestionsModel | undefined {
-    if (bookingQuestions.questionAswers === undefined) {
+    if (bookingQuestions.questionAnswers === undefined) {
       return undefined;
     }
 
     return new BookingQuestionsModel({
-      questionAswers: bookingQuestions.questionAswers,
+      questionAswers: bookingQuestions.questionAnswers,
     });
   }
 
@@ -337,7 +339,7 @@ export class BookingParser {
     }
 
     return {
-      questionAswers: bookingQuestionsModel.questionAswers,
+      questionAnswers: bookingQuestionsModel.questionAswers,
     };
   }
 }

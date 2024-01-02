@@ -1,6 +1,6 @@
 {
   "name": "@octocloud/generators",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/octotravel/octo-generator#readme",
   "dependencies": {
-    "@octocloud/types": "github:octotravel/octo-types",
+    "@octocloud/types": "1.5.12",
     "date-fns": "^2.29.1",
     "date-fns-tz": "^1.3.6",
     "uuid": "^9.0.0"

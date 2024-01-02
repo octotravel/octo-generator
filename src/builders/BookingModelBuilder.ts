@@ -219,7 +219,7 @@ export class BookingModelBuilder {
     const { bookingData } = builderData;
 
     return new BookingQuestionsModel({
-      questionAswers: bookingData.questionAswers ?? [],
+      questionAswers: bookingData.questionAnswers ?? [],
     });
   }
 }

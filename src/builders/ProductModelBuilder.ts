@@ -97,10 +97,17 @@ export class ProductModelBuilder {
 
     return new ProductGoogleModel({
       googleOptions: productData.googleOptions ?? {
+        rating: {
+          average_value: null,
+          rating_count: null,
+        },
         operator: {
           name: "",
-          google_business_profile_name: "",
+          google_business_profile_name: {
+            localized_texts: [],
+          },
           phone_number: "",
+          locations: [],
         },
         landing_page: {
           url: null,
