@@ -14,7 +14,6 @@ export * from "./generators/PricingModelGenerator";
 
 export * from "./generators/PricingUnitModelGenerator";
 
-
 export * from "./generators/ProductModelGenerator";
 
 export * from "./generators/UnitItemModelGenerator";
@@ -50,6 +49,8 @@ export * from "./presets/AvailabilityOfferPreset";
 export * from "./presets/AvailabilityPreset";
 
 export * from "./presets/OfferPreset";
+
+export * from "./presets/PricingPreset";
 
 export * from "./presets/ProductPreset";
 
