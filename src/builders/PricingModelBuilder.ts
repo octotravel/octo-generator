@@ -23,12 +23,12 @@ export class PricingModelBuilder {
       includedTaxes: pricingData.includedTaxes ?? [],
       currency: pricingData.currency ?? Currency.EUR,
       currencyPrecision: pricingData.currencyPrecision ?? 2,
-      pricingOfferModel: this.buildContentModel(builderData),
+      pricingOfferModel: this.buildOffersModel(builderData),
     });
   }
 
-  private buildContentModel(builderData: PricingModelBuilderData): PricingOfferModel | undefined {
-    if (builderData.capabilities?.includes(CapabilityId.Content) === false) {
+  private buildOffersModel(builderData: PricingModelBuilderData): PricingOfferModel | undefined {
+    if (builderData.capabilities?.includes(CapabilityId.Offers) === false) {
       return undefined;
     }
 

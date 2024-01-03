@@ -24,7 +24,7 @@ describe("PricingModelBuilder", () => {
       });
 
       expect(generatedPricingModel).toBeInstanceOf(PricingModel);
-      expect(generatedPricingModel.pricingOfferModel).toBeUndefined();
+      expect(generatedPricingModel.pricingOfferModel).toBeDefined();
     });
   });
 });
