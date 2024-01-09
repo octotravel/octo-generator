@@ -6,6 +6,7 @@ describe("MappingParser", () => {
   const mappingParser = new MappingParser();
 
   const mappingPOJO = {
+    id: "0c7afcb8-f690-4df4-a67f-0cb521b0db3e",
     resellerReference: "201244_489555_44813045_561402",
     resellerStatus: ResellerStatus.ACTIVE,
     title:
@@ -18,11 +19,10 @@ describe("MappingParser", () => {
     optionId: "62b670b7-cd42-49e2-9b5f-a5954a728e9d",
     unitId: "unit_cdebf651-b16b-4a1e-be32-847b5cd1d616",
     connected: true,
-    expediaTourTime: "08:30",
-    gygPriceOverApi: true,
   };
 
   const mappingModel = new MappingModel({
+    id: mappingPOJO.id,
     resellerReference: mappingPOJO.resellerReference,
     resellerStatus: mappingPOJO.resellerStatus,
     title: mappingPOJO.title,
@@ -34,8 +34,6 @@ describe("MappingParser", () => {
     optionId: mappingPOJO.optionId,
     unitId: mappingPOJO.unitId,
     connected: mappingPOJO.connected,
-    expediaTourTime: mappingPOJO.expediaTourTime,
-    gygPriceOverApi: mappingPOJO.gygPriceOverApi,
   });
 
   describe("parsePOJOToModel", () => {

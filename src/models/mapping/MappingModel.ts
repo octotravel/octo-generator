@@ -1,6 +1,8 @@
 import { ResellerStatus } from "@octocloud/types";
 
 export class MappingModel {
+  public readonly id: string;
+
   public readonly resellerReference: string;
 
   public readonly resellerStatus: ResellerStatus;
@@ -23,11 +25,8 @@ export class MappingModel {
 
   public readonly connected: boolean;
 
-  public readonly expediaTourTime: Nullable<string>;
-
-  public readonly gygPriceOverApi: boolean;
-
   constructor({
+    id,
     resellerReference,
     resellerStatus,
     title,
@@ -39,9 +38,8 @@ export class MappingModel {
     optionId,
     unitId,
     connected,
-    expediaTourTime,
-    gygPriceOverApi,
   }: {
+    id: string;
     resellerReference: string;
     resellerStatus: ResellerStatus;
     title: string;
@@ -53,9 +51,8 @@ export class MappingModel {
     optionId: Nullable<string>;
     unitId: Nullable<string>;
     connected: boolean;
-    expediaTourTime: Nullable<string>;
-    gygPriceOverApi: boolean;
   }) {
+    this.id = id;
     this.resellerReference = resellerReference;
     this.resellerStatus = resellerStatus;
     this.title = title;
@@ -67,7 +64,5 @@ export class MappingModel {
     this.optionId = optionId;
     this.unitId = unitId;
     this.connected = connected;
-    this.expediaTourTime = expediaTourTime;
-    this.gygPriceOverApi = gygPriceOverApi;
   }
 }

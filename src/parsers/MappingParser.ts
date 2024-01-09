@@ -4,6 +4,7 @@ import { MappingModel } from "../models/mapping/MappingModel";
 export class MappingParser {
   public parsePOJOToModel = (mapping: Mapping): MappingModel =>
     new MappingModel({
+      id: mapping.id,
       resellerReference: mapping.resellerReference,
       resellerStatus: mapping.resellerStatus,
       title: mapping.title,
@@ -15,12 +16,11 @@ export class MappingParser {
       optionId: mapping.optionId,
       unitId: mapping.unitId,
       connected: mapping.connected,
-      expediaTourTime: mapping.expediaTourTime,
-      gygPriceOverApi: mapping.gygPriceOverApi,
     });
 
   public parseModelToPOJO(mappingModel: MappingModel): Mapping {
     return {
+      id: mappingModel.id,
       resellerReference: mappingModel.resellerReference,
       resellerStatus: mappingModel.resellerStatus,
       title: mappingModel.title,
@@ -32,8 +32,6 @@ export class MappingParser {
       optionId: mappingModel.optionId,
       unitId: mappingModel.unitId,
       connected: mappingModel.connected,
-      expediaTourTime: mappingModel.expediaTourTime,
-      gygPriceOverApi: mappingModel.gygPriceOverApi,
     };
   }
 }
