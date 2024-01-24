@@ -1,23 +1,23 @@
-import { AvailabilityType, CapabilityId } from "@octocloud/types";
-import { AvailabilityCalendarValidator } from "@octocloud/validators";
-import { AvailabilityCalendarParser } from "../../parsers/AvailabilityCalendarParser";
-import { AvailabilityCalendarModelGenerator } from "../AvailabilityCalendarModelGenerator";
+import { AvailabilityType, CapabilityId } from '@octocloud/types';
+import { AvailabilityCalendarValidator } from '@octocloud/validators';
+import { AvailabilityCalendarParser } from '../../parsers/AvailabilityCalendarParser';
+import { AvailabilityCalendarModelGenerator } from '../AvailabilityCalendarModelGenerator';
 
-describe("AvailabilityCalendarModelGenerator", () => {
+describe('AvailabilityCalendarModelGenerator', () => {
   const availabilityCalendarModelGenerator = new AvailabilityCalendarModelGenerator();
   const availabilityCalendarParser = new AvailabilityCalendarParser();
   const capabilities = [CapabilityId.Pricing];
   const availabilityCalendarValidator = new AvailabilityCalendarValidator({
-    path: "",
+    path: '',
     capabilities,
     availabilityType: AvailabilityType.START_TIME,
   });
 
-  describe("generate and validate availability calendar model", () => {
-    it("should generate valid availability calendar model", async () => {
+  describe('generate and validate availability calendar model', () => {
+    it('should generate valid availability calendar model', async () => {
       const availabilityCalendarModel = availabilityCalendarModelGenerator.generateAvailabilityCalendar({
         availabilityCalendarData: {
-          localDate: "2022-12-11",
+          localDate: '2022-12-11',
         },
         capabilities,
       });
@@ -27,10 +27,10 @@ describe("AvailabilityCalendarModelGenerator", () => {
       expect(validationErrors).toStrictEqual([]);
     });
 
-    it("should generate invalid availability calendar model", async () => {
+    it('should generate invalid availability calendar model', async () => {
       const availabilityCalendarModel = availabilityCalendarModelGenerator.generateAvailabilityCalendar({
         availabilityCalendarData: {
-          localDate: "",
+          localDate: '',
         },
         capabilities,
       });

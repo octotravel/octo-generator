@@ -1,17 +1,19 @@
-import { OptionModelGenerator } from "../../../generators/OptionModelGenerator";
-import { UnitModel } from "../../unit/UnitModel";
-import { UnitDataProvider } from "../../../dataProviders/UnitDataProvider";
+import { OptionModelGenerator } from '../../../generators/OptionModelGenerator';
+import { UnitModel } from '../../unit/UnitModel';
+import { UnitDataProvider } from '../../../dataProviders/UnitDataProvider';
 
-describe("OptionModel", () => {
+describe('OptionModel', () => {
   const optionModelGenerator = new OptionModelGenerator();
 
-  describe("findUnitModelByUnitId", () => {
-    it("should return unit model", async () => {
+  describe('findUnitModelByUnitId', () => {
+    it('should return unit model', async () => {
       const optionModel = optionModelGenerator.generateOption({
         optionData: {
           restrictions: {
             minUnits: 0,
             maxUnits: null,
+            minPaxCount: 0,
+            maxPaxCount: null,
           },
           units: [UnitDataProvider.adultUnit],
         },
@@ -20,18 +22,20 @@ describe("OptionModel", () => {
       expect(optionModel.findUnitModelByUnitId(UnitDataProvider.adultUnit.id)).toBeInstanceOf(UnitModel);
     });
 
-    it("should return null", async () => {
+    it('should return null', async () => {
       const optionModel = optionModelGenerator.generateOption({
         optionData: {
           restrictions: {
             minUnits: 0,
             maxUnits: null,
+            minPaxCount: 0,
+            maxPaxCount: null,
           },
           units: [],
         },
       });
 
-      expect(optionModel.findUnitModelByUnitId("nonExistingId")).toStrictEqual(null);
+      expect(optionModel.findUnitModelByUnitId('nonExistingId')).toStrictEqual(null);
     });
   });
 });

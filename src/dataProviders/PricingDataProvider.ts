@@ -1,4 +1,4 @@
-import { Currency, Pricing, PricingUnit } from "@octocloud/types";
+import { Currency, Pricing, PricingUnit } from '@octocloud/types';
 
 export class PricingDataProvider {
   public static emptyPricing: Pricing = {
@@ -38,7 +38,7 @@ export class PricingDataProvider {
   };
 
   public static unitPricing: PricingUnit = {
-    unitId: "unitId",
+    unitId: 'unitId',
     original: 1000,
     retail: 1000,
     net: 1000,

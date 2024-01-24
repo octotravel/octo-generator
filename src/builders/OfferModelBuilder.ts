@@ -1,6 +1,6 @@
-import { UuidFactory } from "../factories/UuidFactory";
-import { OfferModel } from "../models/offer/OfferModel";
-import { PartialOffer } from "../types/PartialOffer";
+import { UuidFactory } from '../factories/UuidFactory';
+import { OfferModel } from '../models/offer/OfferModel';
+import { PartialOffer } from '../types/PartialOffer';
 
 interface OfferModelBuilderData {
   offerData: PartialOffer;
@@ -11,7 +11,7 @@ export class OfferModelBuilder {
     const { offerData } = builderData;
 
     return new OfferModel({
-      title: offerData.title ?? "amazing offer",
+      title: offerData.title ?? 'amazing offer',
       code: offerData.code ?? `promotion_${UuidFactory.create()}`,
       description: offerData.description ?? null,
       netDiscount: offerData.netDiscount ?? null,

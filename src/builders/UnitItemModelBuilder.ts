@@ -1,12 +1,12 @@
-import { BookingStatus, CapabilityId, RedemptionMethod } from "@octocloud/types";
-import { UnitItemModel } from "../models/unitItem/UnitItemModel";
-import { PartialUnitItem } from "../types/PartialUnitItem";
-import { UnitModelBuilder } from "./UnitModelBuilder";
-import { UnitItemPricingModel } from "../models/unitItem/UnitItemPricingModel";
-import { UnitModel } from "../models/unit/UnitModel";
-import { NullableFactory } from "../factories/NullableFactory";
-import { UuidFactory } from "../factories/UuidFactory";
-import { PricingDataProvider } from "../dataProviders/PricingDataProvider";
+import { BookingStatus, CapabilityId, RedemptionMethod } from '@octocloud/types';
+import { UnitItemModel } from '../models/unitItem/UnitItemModel';
+import { PartialUnitItem } from '../types/PartialUnitItem';
+import { UnitModelBuilder } from './UnitModelBuilder';
+import { UnitItemPricingModel } from '../models/unitItem/UnitItemPricingModel';
+import { UnitModel } from '../models/unit/UnitModel';
+import { NullableFactory } from '../factories/NullableFactory';
+import { UuidFactory } from '../factories/UuidFactory';
+import { PricingDataProvider } from '../dataProviders/PricingDataProvider';
 
 interface UnitModelBuilderData {
   unitItemData: PartialUnitItem;
@@ -31,6 +31,7 @@ export class UnitItemModelBuilder {
 
     return new UnitItemModel({
       uuid: unitItemData.uuid ?? UuidFactory.create(),
+      id: unitItemData.id ?? '',
       resellerReference: unitItemData.resellerReference ?? null,
       supplierReference: unitItemData.supplierReference ?? null,
       unitModel,
@@ -53,7 +54,7 @@ export class UnitItemModelBuilder {
           utcRedeemedAt: null,
           deliveryOptions: [],
         },
-        unitItemData.ticket
+        unitItemData.ticket,
       ),
       unitItemPricingModel: this.buildPricingModel(builderData, unitModel),
     });

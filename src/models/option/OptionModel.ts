@@ -1,9 +1,9 @@
-import { ContactField, UnitRestrictions } from "@octocloud/types";
-import { OptionContentModel } from "./OptionContentModel";
-import { OptionPickupsModel } from "./OptionPickupsModel";
-import { OptionPricingModel } from "./OptionPricingModel";
-import { UnitModel } from "../unit/UnitModel";
-import { UndefinedModelError } from "../../errors/UndefinedModelError";
+import { ContactField, OptionRestrictions } from '@octocloud/types';
+import { OptionContentModel } from './OptionContentModel';
+import { OptionPickupsModel } from './OptionPickupsModel';
+import { OptionPricingModel } from './OptionPricingModel';
+import { UnitModel } from '../unit/UnitModel';
+import { UndefinedModelError } from '../../errors/UndefinedModelError';
 
 export class OptionModel {
   public readonly id: string;
@@ -14,7 +14,7 @@ export class OptionModel {
 
   public readonly reference: Nullable<string>;
 
-  public readonly availabilityLocalStartTimes: Array<string>;
+  public readonly availabilityLocalStartTimes: string[];
 
   public readonly cancellationCutoff: string;
 
@@ -22,11 +22,13 @@ export class OptionModel {
 
   public readonly cancellationCutoffUnit: string;
 
-  public readonly requiredContactFields: Array<ContactField>;
+  public readonly requiredContactFields: ContactField[];
 
-  public readonly restrictions: UnitRestrictions;
+  public readonly visibleContactFields: ContactField[];
 
-  public readonly unitModels: Array<UnitModel>;
+  public readonly restrictions: OptionRestrictions;
+
+  public readonly unitModels: UnitModel[];
 
   public readonly optionContentModel?: OptionContentModel;
 
@@ -34,7 +36,7 @@ export class OptionModel {
 
   public readonly optionPricingModel?: OptionPricingModel;
 
-  constructor({
+  public constructor({
     id,
     isDefault,
     internalName,
@@ -44,6 +46,7 @@ export class OptionModel {
     cancellationCutoffAmount,
     cancellationCutoffUnit,
     requiredContactFields,
+    visibleContactFields,
     restrictions,
     unitModels,
     optionContentModel,
@@ -54,13 +57,14 @@ export class OptionModel {
     isDefault: boolean;
     internalName: string;
     reference: Nullable<string>;
-    availabilityLocalStartTimes: Array<string>;
+    availabilityLocalStartTimes: string[];
     cancellationCutoff: string;
     cancellationCutoffAmount: number;
     cancellationCutoffUnit: string;
-    requiredContactFields: Array<ContactField>;
-    restrictions: UnitRestrictions;
-    unitModels: Array<UnitModel>;
+    requiredContactFields: ContactField[];
+    visibleContactFields: ContactField[];
+    restrictions: OptionRestrictions;
+    unitModels: UnitModel[];
     optionContentModel?: OptionContentModel;
     optionPickupsModel?: OptionPickupsModel;
     optionPricingModel?: OptionPricingModel;
@@ -74,6 +78,7 @@ export class OptionModel {
     this.cancellationCutoffAmount = cancellationCutoffAmount;
     this.cancellationCutoffUnit = cancellationCutoffUnit;
     this.requiredContactFields = requiredContactFields;
+    this.visibleContactFields = visibleContactFields;
     this.restrictions = restrictions;
     this.unitModels = unitModels;
     this.optionContentModel = optionContentModel;
@@ -86,7 +91,7 @@ export class OptionModel {
    */
   public getOptionContentModel(): OptionContentModel {
     if (this.optionContentModel === undefined) {
-      throw UndefinedModelError.create("OptionContentModel", "OptionModel", this.id);
+      throw UndefinedModelError.create('OptionContentModel', 'OptionModel', this.id);
     }
 
     return this.optionContentModel;
@@ -97,7 +102,7 @@ export class OptionModel {
    */
   public getOptionPickupsModel(): OptionPickupsModel {
     if (this.optionPickupsModel === undefined) {
-      throw UndefinedModelError.create("OptionPickupsModel", "OptionModel", this.id);
+      throw UndefinedModelError.create('OptionPickupsModel', 'OptionModel', this.id);
     }
 
     return this.optionPickupsModel;
@@ -108,7 +113,7 @@ export class OptionModel {
    */
   public getOptionPricingModel(): OptionPricingModel {
     if (this.optionPricingModel === undefined) {
-      throw UndefinedModelError.create("OptionPricingModel", "OptionModel", this.id);
+      throw UndefinedModelError.create('OptionPricingModel', 'OptionModel', this.id);
     }
 
     return this.optionPricingModel;

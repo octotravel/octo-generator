@@ -1,7 +1,7 @@
-import { CapabilityId, Currency } from "@octocloud/types";
-import { PartialPricingUnit } from "../types/PartialPricingUnit";
-import { PricingOfferModel } from "../models/pricing/PricingOfferModel";
-import { PricingUnitModel } from "../models/pricing/PricingUnitModel";
+import { CapabilityId, Currency } from '@octocloud/types';
+import { PartialPricingUnit } from '../types/PartialPricingUnit';
+import { PricingOfferModel } from '../models/pricing/PricingOfferModel';
+import { PricingUnitModel } from '../models/pricing/PricingUnitModel';
 
 interface PricingUnitModelBuilderData {
   pricingUnitData: PartialPricingUnit;
@@ -17,7 +17,7 @@ export class PricingUnitModelBuilder {
     const { pricingUnitData } = builderData;
 
     return new PricingUnitModel({
-      unitId: "unitId",
+      unitId: 'unitId',
       original: pricingUnitData.original ?? 1000,
       retail: pricingUnitData.retail ?? 1000,
       net: pricingUnitData.net ?? 1000,

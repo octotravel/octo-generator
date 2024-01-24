@@ -1,18 +1,18 @@
-import { OrderStatus } from "@octocloud/types";
-import { OrderParser } from "../OrderParser";
-import { OrderModel } from "../../models/order/OrderModel";
+import { OrderStatus } from '@octocloud/types';
+import { OrderParser } from '../OrderParser';
+import { OrderModel } from '../../models/order/OrderModel';
 
-describe("OrderParser", () => {
+describe('OrderParser', () => {
   const orderParser = new OrderParser();
 
   const orderPOJO = {
-    id: "orderId",
+    id: 'orderId',
     testMode: true,
-    supplierReference: "supplierReference",
-    settlementMethod: "settlementMethod",
+    supplierReference: 'supplierReference',
+    settlementMethod: 'settlementMethod',
     status: OrderStatus.CONFIRMED,
-    utcExpiresAt: "2023-01-03T00:00:00+01:00",
-    utcConfirmedAt: "2023-02-03T00:00:00+01:00",
+    utcExpiresAt: '2023-01-03T00:00:00+01:00',
+    utcConfirmedAt: '2023-02-03T00:00:00+01:00',
     cancellable: true,
     bookings: [],
     contact: {
@@ -51,20 +51,20 @@ describe("OrderParser", () => {
     returnUrl: orderPOJO.returnUrl,
   });
 
-  describe("parsePOJOToModel", () => {
-    it("should return order model", async () => {
+  describe('parsePOJOToModel', () => {
+    it('should return order model', async () => {
       expect(orderParser.parsePOJOToModel(orderPOJO)).toStrictEqual(orderModel);
     });
   });
 
-  describe("parseModelToPOJO", () => {
-    it("should return order POJO", async () => {
+  describe('parseModelToPOJO', () => {
+    it('should return order POJO', async () => {
       expect(orderParser.parseModelToPOJO(orderModel)).toStrictEqual(orderPOJO);
     });
   });
 
-  describe("parseModelToPOJOWithSpecificCapabilities", () => {
-    it("should return unit POJO without any capabilities", async () => {
+  describe('parseModelToPOJOWithSpecificCapabilities', () => {
+    it('should return unit POJO without any capabilities', async () => {
       expect(orderParser.parseModelToPOJOWithSpecificCapabilities(orderModel, [])).toStrictEqual(orderPOJO);
     });
   });

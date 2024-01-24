@@ -4,28 +4,28 @@ on:
   push:
   pull_request:
     branches:
-      - "**"
-      - "!main"
+      - '**'
+      - '!main'
 
 jobs:
   checks:
-    name: "Checks"
-    runs-on: "ubuntu-latest"
+    name: 'Checks'
+    runs-on: 'ubuntu-latest'
 
     steps:
-      - name: "Checkout"
-        uses: "actions/checkout@v3"
+      - name: 'Checkout'
+        uses: 'actions/checkout@v3'
 
-      - name: "Setup node"
-        uses: "actions/setup-node@v3"
+      - name: 'Setup node'
+        uses: 'actions/setup-node@v3'
         with:
           node-version: 16
 
-      - name: "Cache node modules"
-        id: "cache-npm"
-        uses: "actions/cache@v3"
+      - name: 'Cache node modules'
+        id: 'cache-npm'
+        uses: 'actions/cache@v3'
         env:
-          cache-name: "cache-node-modules"
+          cache-name: 'cache-node-modules'
         with:
           path: ~/.npm
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
@@ -34,14 +34,14 @@ jobs:
             ${{ runner.os }}-build-
             ${{ runner.os }}-
 
-      - name: "Install npm dependencies"
-        run: "npm ci"
+      - name: 'Install npm dependencies'
+        run: 'npm ci'
 
-      - name: "Run Prettier"
-        run: "npm run format-check"
+      - name: 'Run Prettier'
+        run: 'npm run format-check'
 
-      - name: "Run ESLint"
-        run: "npm run lint"
+      - name: 'Run ESLint'
+        run: 'npm run lint'
 
-      - name: "Run Jest"
-        run: "npm run test"
+      - name: 'Run Jest'
+        run: 'npm run test'

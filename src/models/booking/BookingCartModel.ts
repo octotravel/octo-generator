@@ -5,7 +5,15 @@ export class BookingCartModel {
 
   public readonly primary?: boolean;
 
-  constructor({ orderId, orderReference, primary }: { orderId?: string; orderReference?: string; primary?: boolean }) {
+  public constructor({
+    orderId,
+    orderReference,
+    primary,
+  }: {
+    orderId?: string;
+    orderReference?: string;
+    primary?: boolean;
+  }) {
     this.orderId = orderId;
     this.orderReference = orderReference;
     this.primary = primary;

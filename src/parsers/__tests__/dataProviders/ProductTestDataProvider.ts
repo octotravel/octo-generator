@@ -10,21 +10,23 @@ import {
   ProductQuestions,
   RedemptionMethod,
   ProductGoogle,
-} from "@octocloud/types";
-import { LocaleDataProvider } from "../../../dataProviders/LocaleDataProvider";
-import { TimeZoneDataProvider } from "../../../dataProviders/TimeZoneDataProvider";
-import { ProductModel } from "../../../models/product/ProductModel";
-import { OptionModel } from "../../../models/option/OptionModel";
-import { UnitModel } from "../../../models/unit/UnitModel";
-import { ProductContentModel } from "../../../models/product/ProductContentModel";
-import { ProductPricingModel } from "../../../models/product/ProductPricingModel";
-import { ProductQuestionsModel } from "../../../models/product/ProductQuestionsModel";
-import { ProductGoogleModel } from "../../../models/product/ProductGoogleModel";
+  ProductPackage,
+} from '@octocloud/types';
+import { LocaleDataProvider } from '../../../dataProviders/LocaleDataProvider';
+import { TimeZoneDataProvider } from '../../../dataProviders/TimeZoneDataProvider';
+import { ProductModel } from '../../../models/product/ProductModel';
+import { OptionModel } from '../../../models/option/OptionModel';
+import { UnitModel } from '../../../models/unit/UnitModel';
+import { ProductContentModel } from '../../../models/product/ProductContentModel';
+import { ProductPricingModel } from '../../../models/product/ProductPricingModel';
+import { ProductQuestionsModel } from '../../../models/product/ProductQuestionsModel';
+import { ProductGoogleModel } from '../../../models/product/ProductGoogleModel';
+import { ProductPackageModel } from '../../../models/product/ProductPackageModel';
 
 export class ProductTestDataProvider {
   public static product: Product = {
-    id: "id",
-    internalName: "internalName",
+    id: 'id',
+    internalName: 'internalName',
     reference: null,
     locale: LocaleDataProvider.en,
     timeZone: TimeZoneDataProvider.europeLondon,
@@ -36,20 +38,25 @@ export class ProductTestDataProvider {
     deliveryFormats: [DeliveryFormat.PDF_URL, DeliveryFormat.QRCODE],
     deliveryMethods: [DeliveryMethod.TICKET, DeliveryMethod.VOUCHER],
     redemptionMethod: RedemptionMethod.DIGITAL,
+    freesaleDurationAmount: 0,
+    freesaleDurationUnit: '',
     options: [
       {
-        id: "id",
+        id: 'id',
         default: true,
-        internalName: "internalName",
+        internalName: 'internalName',
         reference: null,
         availabilityLocalStartTimes: [],
-        cancellationCutoff: "cancellationCutoff",
+        cancellationCutoff: 'cancellationCutoff',
         cancellationCutoffAmount: 0,
-        cancellationCutoffUnit: "cancellationCutoffUnit",
+        cancellationCutoffUnit: 'cancellationCutoffUnit',
         requiredContactFields: [],
+        visibleContactFields: [],
         restrictions: {
           minUnits: 0,
           maxUnits: null,
+          minPaxCount: 0,
+          maxPaxCount: null,
         },
         units: [],
       },
@@ -57,12 +64,12 @@ export class ProductTestDataProvider {
   };
 
   public static productContent: Required<ProductContent> = {
-    title: "title",
-    country: "country",
-    location: "location",
-    subtitle: "subtitle",
-    shortDescription: "shortDescription",
-    description: "description",
+    title: 'title',
+    country: 'country',
+    location: 'location',
+    subtitle: 'subtitle',
+    shortDescription: 'shortDescription',
+    description: 'description',
     highlights: [],
     inclusions: [],
     exclusions: [],
@@ -70,10 +77,10 @@ export class ProductTestDataProvider {
     redemptionInstructions: null,
     cancellationPolicy: null,
     destination: {
-      id: "id",
+      id: 'id',
       default: true,
-      name: "name",
-      country: "country",
+      name: 'name',
+      country: 'country',
       contact: {
         website: null,
         email: null,
@@ -90,6 +97,9 @@ export class ProductTestDataProvider {
     videoUrl: null,
     galleryImages: [],
     bannerImages: [],
+    pointToPoint: false,
+    privacyTerms: null,
+    alert: null,
   };
 
   public static productGoogle: Required<ProductGoogle> = {
@@ -99,17 +109,17 @@ export class ProductTestDataProvider {
         rating_count: null,
       },
       operator: {
-        name: "",
+        name: '',
         google_business_profile_name: {
           localized_texts: [],
         },
-        phone_number: "",
+        phone_number: '',
         locations: [],
       },
       landing_page: {
         url: null,
       },
-      inventory_type: "",
+      inventory_type: '',
       landing_page_list_view: {
         url: null,
       },
@@ -122,10 +132,15 @@ export class ProductTestDataProvider {
     defaultCurrency: Currency.EUR,
     availableCurrencies: [Currency.EUR],
     pricingPer: PricingPer.UNIT,
+    includeTax: true,
   };
 
   public static productQuestions: Required<ProductQuestions> = {
     questions: [],
+  };
+
+  public static productPackage: Required<ProductPackage> = {
+    isPackage: false,
   };
 
   public static productPOJO: Required<Product> = {
@@ -134,6 +149,7 @@ export class ProductTestDataProvider {
     ...this.productGoogle,
     ...this.productPricing,
     ...this.productQuestions,
+    ...this.productPackage,
   };
 
   public static productModel = new ProductModel({
@@ -150,6 +166,8 @@ export class ProductTestDataProvider {
     deliveryFormats: this.productPOJO.deliveryFormats,
     deliveryMethods: this.productPOJO.deliveryMethods,
     redemptionMethod: this.productPOJO.redemptionMethod,
+    freesaleDurationAmount: this.productPOJO.freesaleDurationAmount,
+    freesaleDurationUnit: this.productPOJO.freesaleDurationUnit,
     optionModels: this.productPOJO.options.map(
       (option) =>
         new OptionModel({
@@ -162,9 +180,10 @@ export class ProductTestDataProvider {
           cancellationCutoffAmount: option.cancellationCutoffAmount,
           cancellationCutoffUnit: option.cancellationCutoffUnit,
           requiredContactFields: option.requiredContactFields,
+          visibleContactFields: option.visibleContactFields,
           restrictions: option.restrictions,
           unitModels: option.units.map((unit) => new UnitModel(unit)),
-        })
+        }),
     ),
     productContentModel: new ProductContentModel({
       title: this.productPOJO.title,
@@ -187,6 +206,9 @@ export class ProductTestDataProvider {
       videoUrl: this.productPOJO.videoUrl,
       galleryImages: this.productPOJO.galleryImages,
       bannerImages: this.productPOJO.bannerImages,
+      pointToPoint: this.productPOJO.pointToPoint,
+      privacyTerms: this.productPOJO.privacyTerms,
+      alert: this.productPOJO.privacyTerms,
     }),
     productGoogleModel: new ProductGoogleModel({
       googleOptions: this.productGoogle.googleOptions,
@@ -195,9 +217,13 @@ export class ProductTestDataProvider {
       defaultCurrency: this.productPOJO.defaultCurrency,
       availableCurrencies: this.productPOJO.availableCurrencies,
       pricingPer: this.productPOJO.pricingPer,
+      includeTax: this.productPOJO.includeTax,
     }),
     productQuestionsModel: new ProductQuestionsModel({
       questions: this.productPOJO.questions,
+    }),
+    productPackageModel: new ProductPackageModel({
+      isPackage: this.productPOJO.isPackage,
     }),
   });
 }

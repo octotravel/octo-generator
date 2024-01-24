@@ -1,11 +1,11 @@
-import { OfferModelBuilder } from "../OfferModelBuilder";
-import { OfferModel } from "../../models/offer/OfferModel";
+import { OfferModelBuilder } from '../OfferModelBuilder';
+import { OfferModel } from '../../models/offer/OfferModel';
 
-describe("OfferModelBuilder", () => {
+describe('OfferModelBuilder', () => {
   const offerModelBuilder = new OfferModelBuilder();
 
-  describe("build", () => {
-    it("should build offer model", async () => {
+  describe('build', () => {
+    it('should build offer model', async () => {
       const generatedOfferModel = offerModelBuilder.build({
         offerData: {},
       });

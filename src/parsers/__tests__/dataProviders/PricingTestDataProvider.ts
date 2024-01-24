@@ -1,6 +1,6 @@
-import { Pricing, Currency, PricingOffer } from "@octocloud/types";
-import { PricingModel } from "../../../models/pricing/PricingModel";
-import { PricingOfferModel } from "../../../models/pricing/PricingOfferModel";
+import { Pricing, Currency, PricingOffer } from '@octocloud/types';
+import { PricingModel } from '../../../models/pricing/PricingModel';
+import { PricingOfferModel } from '../../../models/pricing/PricingOfferModel';
 
 export class PricingTestDataProvider {
   public static pricing: Pricing = {
@@ -12,7 +12,7 @@ export class PricingTestDataProvider {
     currencyPrecision: 2,
   };
 
-  static pricingOffer: Required<PricingOffer> = {
+  public static pricingOffer: Required<PricingOffer> = {
     offerDiscount: {
       original: 500,
       retail: 500,
@@ -20,9 +20,9 @@ export class PricingTestDataProvider {
     },
   };
 
-  static pricingPOJO: Pricing = { ...this.pricing, ...this.pricingOffer };
+  public static pricingPOJO: Pricing = { ...this.pricing, ...this.pricingOffer };
 
-  static pricingModel = new PricingModel({
+  public static pricingModel = new PricingModel({
     original: this.pricing.original,
     retail: this.pricing.retail,
     net: this.pricing.net,

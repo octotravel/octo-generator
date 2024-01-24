@@ -1,9 +1,9 @@
-import { OfferModel } from "../../../models/offer/OfferModel";
+import { OfferModel } from '../../../models/offer/OfferModel';
 
 export class OfferTestDataProvider {
   public static offerPOJO = {
-    title: "offerTitle",
-    code: "offerCode",
+    title: 'offerTitle',
+    code: 'offerCode',
     description: null,
     netDiscount: null,
     restrictions: {

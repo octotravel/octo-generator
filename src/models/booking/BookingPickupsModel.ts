@@ -1,4 +1,4 @@
-import { PickupPoint } from "@octocloud/types";
+import { PickupPoint } from '@octocloud/types';
 
 export class BookingPickupsModel {
   public readonly pickupRequested: boolean;
@@ -11,7 +11,7 @@ export class BookingPickupsModel {
 
   public readonly pickupPoint: Nullable<PickupPoint>;
 
-  constructor({
+  public constructor({
     pickupRequested,
     pickupPointId,
     pickupHotel,

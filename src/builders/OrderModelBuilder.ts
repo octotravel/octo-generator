@@ -1,9 +1,9 @@
-import { CapabilityId, OrderStatus } from "@octocloud/types";
-import { BookingModelBuilder } from "./BookingModelBuilder";
-import { PartialOrder } from "../types/PartialOrder";
-import { OrderModel } from "../models/order/OrderModel";
-import { DateFormatter } from "../common/DateFormatter";
-import { BookingModel } from "../models/booking/BookingModel";
+import { CapabilityId, OrderStatus } from '@octocloud/types';
+import { BookingModelBuilder } from './BookingModelBuilder';
+import { PartialOrder } from '../types/PartialOrder';
+import { OrderModel } from '../models/order/OrderModel';
+import { DateFormatter } from '../common/DateFormatter';
+import { BookingModel } from '../models/booking/BookingModel';
 
 interface OrderModelBuilderData {
   orderData: PartialOrder;
@@ -21,10 +21,10 @@ export class OrderModelBuilder {
     const { orderData } = builderData;
 
     return new OrderModel({
-      id: orderData.id ?? "orderId",
+      id: orderData.id ?? 'orderId',
       testMode: orderData.testMode ?? false,
-      supplierReference: orderData.supplierReference ?? "supplierReference",
-      settlementMethod: orderData.settlementMethod ?? "settlementMethod",
+      supplierReference: orderData.supplierReference ?? 'supplierReference',
+      settlementMethod: orderData.settlementMethod ?? 'settlementMethod',
       status: orderData.status ?? OrderStatus.ON_HOLD,
       utcExpiresAt: orderData.utcExpiresAt ?? DateFormatter.formatToUtcDate(new Date()),
       utcConfirmedAt: orderData.utcConfirmedAt ?? null,
@@ -57,10 +57,10 @@ export class OrderModelBuilder {
     return builderData.orderData.bookings.map(
       (bookingData) =>
         this.bookingModelBuilder.build({
-          bookingData: bookingData,
+          bookingData,
           capabilities: builderData.capabilities,
         }),
-      builderData
+      builderData,
     );
   }
 }

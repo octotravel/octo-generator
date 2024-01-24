@@ -1,4 +1,4 @@
-import { NetDiscount, OfferRestrictions } from "@octocloud/types";
+import { NetDiscount, OfferRestrictions } from '@octocloud/types';
 
 export class OfferModel {
   public readonly title: string;
@@ -11,7 +11,7 @@ export class OfferModel {
 
   public readonly restrictions: OfferRestrictions;
 
-  constructor({
+  public constructor({
     title,
     code,
     description,

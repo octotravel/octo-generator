@@ -1,7 +1,7 @@
-import { CapabilityId } from "@octocloud/types";
-import { PartialPricing } from "../types/PartialPricing";
-import { PricingModelBuilder } from "../builders/PricingModelBuilder";
-import { PricingModel } from "../models/pricing/PricingModel";
+import { CapabilityId } from '@octocloud/types';
+import { PartialPricing } from '../types/PartialPricing';
+import { PricingModelBuilder } from '../builders/PricingModelBuilder';
+import { PricingModel } from '../models/pricing/PricingModel';
 
 interface PricingGenerateData {
   pricingData: PartialPricing;

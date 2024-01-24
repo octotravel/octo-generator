@@ -1,7 +1,7 @@
-import { CapabilityId, Unit, UnitContent, UnitPricing } from "@octocloud/types";
-import { UnitModel } from "../models/unit/UnitModel";
-import { UnitContentModel } from "../models/unit/UnitContentModel";
-import { UnitPricingModel } from "../models/unit/UnitPricingModel";
+import { CapabilityId, Unit, UnitContent, UnitPricing } from '@octocloud/types';
+import { UnitModel } from '../models/unit/UnitModel';
+import { UnitContentModel } from '../models/unit/UnitContentModel';
+import { UnitPricingModel } from '../models/unit/UnitPricingModel';
 
 export class UnitParser {
   public parsePOJOToModel(unit: Unit): UnitModel {
@@ -11,6 +11,7 @@ export class UnitParser {
       reference: unit.reference,
       type: unit.type,
       requiredContactFields: unit.requiredContactFields,
+      visibleContactFields: unit.visibleContactFields,
       restrictions: unit.restrictions,
       unitContentModel: this.parseUnitContentPOJOToModel(unit),
       unitPricingModel: this.parseUnitPricingPOJOToModel(unit),
@@ -48,7 +49,7 @@ export class UnitParser {
     return Object.assign(
       this.parseMainModelToPojo(unitModel),
       this.parseContentModelToPOJO(unitModel.unitContentModel),
-      this.parsePricingModelToPOJO(unitModel.unitPricingModel)
+      this.parsePricingModelToPOJO(unitModel.unitPricingModel),
     );
   }
 
@@ -75,6 +76,7 @@ export class UnitParser {
       type: unitModel.type,
       restrictions: unitModel.restrictions,
       requiredContactFields: unitModel.requiredContactFields,
+      visibleContactFields: unitModel.visibleContactFields,
     };
   }
 

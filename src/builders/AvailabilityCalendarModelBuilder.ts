@@ -1,10 +1,10 @@
-import { AvailabilityStatus, CapabilityId, PricingPer } from "@octocloud/types";
-import { PricingDataProvider } from "../dataProviders/PricingDataProvider";
-import { DateFormatter } from "../common/DateFormatter";
-import { AvailabilityCalendarModel } from "../models/availability/AvailabilityCalendarModel";
-import { AvailabilityCalendarPricingModel } from "../models/availability/AvailabilityCalendarPricingModel";
-import { AvailabilityCalendarPricingModelFactory } from "../factories/AvailabilityCalendarPricingModelFactory";
-import { PartialAvailabilityCalendar } from "../types/PartialAvailabilityCalendar";
+import { AvailabilityStatus, CapabilityId, PricingPer } from '@octocloud/types';
+import { PricingDataProvider } from '../dataProviders/PricingDataProvider';
+import { DateFormatter } from '../common/DateFormatter';
+import { AvailabilityCalendarModel } from '../models/availability/AvailabilityCalendarModel';
+import { AvailabilityCalendarPricingModel } from '../models/availability/AvailabilityCalendarPricingModel';
+import { AvailabilityCalendarPricingModelFactory } from '../factories/AvailabilityCalendarPricingModelFactory';
+import { PartialAvailabilityCalendar } from '../types/PartialAvailabilityCalendar';
 
 interface AvailabilityCalendarModelBuilderData {
   availabilityCalendarData: PartialAvailabilityCalendar;
@@ -29,13 +29,16 @@ export class AvailabilityCalendarModelBuilder {
       status: availabilityCalendarData.status ?? AvailabilityStatus.CLOSED,
       vacancies: availabilityCalendarData.vacancies ?? 0,
       capacity: availabilityCalendarData.capacity ?? 20,
+      paxCount: availabilityCalendarData.paxCount ?? 0,
+      utcCutoffAt: availabilityCalendarData.utcCutoffAt ?? '18:00',
+      availabilityLocalStartTimes: availabilityCalendarData.availabilityLocalStartTimes ?? [],
       openingHours: availabilityCalendarData.openingHours ?? [],
       availabilityCalendarPricingModel: this.buildPricingModel(builderData),
     });
   }
 
   private buildPricingModel(
-    builderData: AvailabilityCalendarModelBuilderData
+    builderData: AvailabilityCalendarModelBuilderData,
   ): AvailabilityCalendarPricingModel | undefined {
     if (builderData.capabilities?.includes(CapabilityId.Pricing) === false) {
       return undefined;

@@ -1,4 +1,4 @@
-import { DurationUnit, Itinerary } from "@octocloud/types";
+import { DurationUnit, Itinerary, Point } from '@octocloud/types';
 
 export class OptionContentModel {
   public readonly title: string;
@@ -17,7 +17,13 @@ export class OptionContentModel {
 
   public readonly itinerary: Nullable<Itinerary[]>;
 
-  constructor({
+  public readonly coverImageUrl: Nullable<string>;
+
+  public readonly fromPoint: Nullable<Point>;
+
+  public readonly toPoint: Nullable<Point>;
+
+  public constructor({
     title,
     subtitle,
     language,
@@ -26,6 +32,9 @@ export class OptionContentModel {
     durationAmount,
     durationUnit,
     itinerary,
+    coverImageUrl,
+    fromPoint,
+    toPoint,
   }: {
     title: string;
     subtitle: Nullable<string>;
@@ -35,6 +44,9 @@ export class OptionContentModel {
     durationAmount: string;
     durationUnit: DurationUnit;
     itinerary: Nullable<Itinerary[]>;
+    coverImageUrl: Nullable<string>;
+    fromPoint: Nullable<Point>;
+    toPoint: Nullable<Point>;
   }) {
     this.title = title;
     this.subtitle = subtitle;
@@ -44,5 +56,8 @@ export class OptionContentModel {
     this.durationAmount = durationAmount;
     this.durationUnit = durationUnit;
     this.itinerary = itinerary;
+    this.coverImageUrl = coverImageUrl;
+    this.fromPoint = fromPoint;
+    this.toPoint = toPoint;
   }
 }

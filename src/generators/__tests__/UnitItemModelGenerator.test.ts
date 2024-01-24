@@ -1,22 +1,22 @@
-import { CapabilityId } from "@octocloud/types";
-import { UnitItemValidator } from "@octocloud/validators";
-import { UnitItemParser } from "../../parsers/UnitItemParser";
-import { UnitItemModelGenerator } from "../UnitItemModelGenerator";
+import { CapabilityId } from '@octocloud/types';
+import { UnitItemValidator } from '@octocloud/validators';
+import { UnitItemParser } from '../../parsers/UnitItemParser';
+import { UnitItemModelGenerator } from '../UnitItemModelGenerator';
 
-describe("UnitItemModelGenerator", () => {
+describe('UnitItemModelGenerator', () => {
   const unitItemModelGenerator = new UnitItemModelGenerator();
   const unitItemParser = new UnitItemParser();
   const capabilities = [CapabilityId.Pricing];
   const unitItemValidator = new UnitItemValidator({
-    path: "",
+    path: '',
     capabilities,
   });
 
-  describe("generate and validate unit item model", () => {
-    it("should generate valid unit model", async () => {
+  describe('generate and validate unit item model', () => {
+    it('should generate valid unit model', async () => {
       const unitItemModel = unitItemModelGenerator.generateUnitItem({
         unitItemData: {
-          uuid: "uuid",
+          uuid: 'uuid',
           ticket: null,
         },
         capabilities,
@@ -27,10 +27,10 @@ describe("UnitItemModelGenerator", () => {
       expect(validationErrors).toStrictEqual([]);
     });
 
-    it("should generate invalid unit model", async () => {
+    it('should generate invalid unit model', async () => {
       const unitItemModel = unitItemModelGenerator.generateUnitItem({
         unitItemData: {
-          uuid: "",
+          uuid: '',
           ticket: null,
         },
         capabilities,

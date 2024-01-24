@@ -1,14 +1,14 @@
-import { BookingAvailability, BookingStatus, Cancellation, Contact, Ticket, DeliveryMethod } from "@octocloud/types";
-import { OptionModel } from "../option/OptionModel";
-import { ProductModel } from "../product/ProductModel";
-import { BookingCartModel } from "./BookingCartModel";
-import { BookingContentModel } from "./BookingContentModel";
-import { BookingPickupsModel } from "./BookingPickupsModel";
-import { BookingPricingModel } from "./BookingPricingModel";
-import { UnitItemModel } from "../unitItem/UnitItemModel";
-import { UndefinedModelError } from "../../errors/UndefinedModelError";
-import { BookingOffersModel } from "./BookingOffersModel";
-import { BookingQuestionsModel } from "./BookingQuestionsModel";
+import { BookingStatus, Cancellation, Contact, Ticket, DeliveryMethod, Availability } from '@octocloud/types';
+import { OptionModel } from '../option/OptionModel';
+import { ProductModel } from '../product/ProductModel';
+import { BookingCartModel } from './BookingCartModel';
+import { BookingContentModel } from './BookingContentModel';
+import { BookingPickupsModel } from './BookingPickupsModel';
+import { BookingPricingModel } from './BookingPricingModel';
+import { UnitItemModel } from '../unitItem/UnitItemModel';
+import { UndefinedModelError } from '../../errors/UndefinedModelError';
+import { BookingOffersModel } from './BookingOffersModel';
+import { BookingQuestionsModel } from './BookingQuestionsModel';
 
 export class BookingModel {
   public readonly id: string;
@@ -43,7 +43,7 @@ export class BookingModel {
 
   public readonly freesale: boolean;
 
-  protected _availability: BookingAvailability;
+  protected _availability: Nullable<Availability>;
 
   protected _contact: Contact;
 
@@ -67,7 +67,7 @@ export class BookingModel {
 
   public readonly bookingQuestionsModel?: BookingQuestionsModel;
 
-  constructor({
+  public constructor({
     id,
     uuid,
     testMode,
@@ -113,7 +113,7 @@ export class BookingModel {
     cancellable: boolean;
     cancellation: Nullable<Cancellation>;
     freesale: boolean;
-    availability: BookingAvailability;
+    availability: Nullable<Availability>;
     contact: Contact;
     notes: Nullable<string>;
     deliveryMethods: DeliveryMethod[];
@@ -156,147 +156,147 @@ export class BookingModel {
     this.bookingQuestionsModel = bookingQuestionsModel;
   }
 
-  get resellerReference(): Nullable<string> {
+  public get resellerReference(): Nullable<string> {
     return this._resellerReference;
   }
 
-  set resellerReference(resellerReference: Nullable<string>) {
+  public set resellerReference(resellerReference: Nullable<string>) {
     this._resellerReference = resellerReference;
   }
 
-  get status(): BookingStatus {
+  public get status(): BookingStatus {
     return this._status;
   }
 
-  set status(status: BookingStatus) {
+  public set status(status: BookingStatus) {
     this._status = status;
   }
 
-  get utcUpdatedAt(): Nullable<string> {
+  public get utcUpdatedAt(): Nullable<string> {
     return this._utcUpdatedAt;
   }
 
-  set utcUpdatedAt(utcUpdatedAt: Nullable<string>) {
+  public set utcUpdatedAt(utcUpdatedAt: Nullable<string>) {
     this._utcUpdatedAt = utcUpdatedAt;
   }
 
-  get utcExpiresAt(): Nullable<string> {
+  public get utcExpiresAt(): Nullable<string> {
     return this._utcExpiresAt;
   }
 
-  set utcExpiresAt(utcExpiresAt: Nullable<string>) {
+  public set utcExpiresAt(utcExpiresAt: Nullable<string>) {
     this._utcExpiresAt = utcExpiresAt;
   }
 
-  get utcRedeemedAt(): Nullable<string> {
+  public get utcRedeemedAt(): Nullable<string> {
     return this._utcRedeemedAt;
   }
 
-  set utcRedeemedAt(utcRedeemedAt: Nullable<string>) {
+  public set utcRedeemedAt(utcRedeemedAt: Nullable<string>) {
     this._utcRedeemedAt = utcRedeemedAt;
   }
 
-  get utcConfirmedAt(): Nullable<string> {
+  public get utcConfirmedAt(): Nullable<string> {
     return this._utcConfirmedAt;
   }
 
-  set utcConfirmedAt(utcConfirmedAt: Nullable<string>) {
+  public set utcConfirmedAt(utcConfirmedAt: Nullable<string>) {
     this._utcConfirmedAt = utcConfirmedAt;
   }
 
-  get productModel(): ProductModel {
+  public get productModel(): ProductModel {
     return this._productModel;
   }
 
-  set productModel(productModel: ProductModel) {
+  public set productModel(productModel: ProductModel) {
     this._productModel = productModel;
   }
 
-  get optionModel(): OptionModel {
+  public get optionModel(): OptionModel {
     return this._optionModel;
   }
 
-  set optionModel(optionModel: OptionModel) {
+  public set optionModel(optionModel: OptionModel) {
     this._optionModel = optionModel;
   }
 
-  get cancellable(): boolean {
+  public get cancellable(): boolean {
     return this._cancellable;
   }
 
-  set cancellable(cancellable: boolean) {
+  public set cancellable(cancellable: boolean) {
     this._cancellable = cancellable;
   }
 
-  get cancellation(): Nullable<Cancellation> {
+  public get cancellation(): Nullable<Cancellation> {
     return this._cancellation;
   }
 
-  set cancellation(cancellation: Nullable<Cancellation>) {
+  public set cancellation(cancellation: Nullable<Cancellation>) {
     this._cancellation = cancellation;
   }
 
-  get availability(): BookingAvailability {
+  public get availability(): Nullable<Availability> {
     return this._availability;
   }
 
-  set availability(availability: BookingAvailability) {
+  public set availability(availability: Nullable<Availability>) {
     this._availability = availability;
   }
 
-  get notes(): Nullable<string> {
+  public get notes(): Nullable<string> {
     return this._notes;
   }
 
-  set notes(notes: Nullable<string>) {
+  public set notes(notes: Nullable<string>) {
     this._notes = notes;
   }
 
-  get contact(): Contact {
+  public get contact(): Contact {
     return this._contact;
   }
 
-  set contact(contact: Contact) {
+  public set contact(contact: Contact) {
     this._contact = contact;
   }
 
-  get voucher(): Nullable<Ticket> {
+  public get voucher(): Nullable<Ticket> {
     return this._voucher;
   }
 
-  set voucher(voucher: Nullable<Ticket>) {
+  public set voucher(voucher: Nullable<Ticket>) {
     this._voucher = voucher;
   }
 
-  get unitItemModels(): UnitItemModel[] {
+  public get unitItemModels(): UnitItemModel[] {
     return this._unitItemModels;
   }
 
-  set unitItemModels(unitItemModels: UnitItemModel[]) {
+  public set unitItemModels(unitItemModels: UnitItemModel[]) {
     this._unitItemModels = unitItemModels;
   }
 
-  get bookingCartModel(): BookingCartModel | undefined {
+  public get bookingCartModel(): BookingCartModel | undefined {
     return this._bookingCartModel;
   }
 
-  set bookingCartModel(bookingCartModel: BookingCartModel | undefined) {
+  public set bookingCartModel(bookingCartModel: BookingCartModel | undefined) {
     this._bookingCartModel = bookingCartModel;
   }
 
-  get bookingOffersModel(): BookingOffersModel | undefined {
+  public get bookingOffersModel(): BookingOffersModel | undefined {
     return this._bookingOffersModel;
   }
 
-  set bookingOffersModel(bookingOffersModel: BookingOffersModel | undefined) {
+  public set bookingOffersModel(bookingOffersModel: BookingOffersModel | undefined) {
     this._bookingOffersModel = bookingOffersModel;
   }
 
-  get bookingPricingModel(): BookingPricingModel | undefined {
+  public get bookingPricingModel(): BookingPricingModel | undefined {
     return this._bookingPricingModel;
   }
 
-  set bookingPricingModel(bookingPricingModel: BookingPricingModel | undefined) {
+  public set bookingPricingModel(bookingPricingModel: BookingPricingModel | undefined) {
     this._bookingPricingModel = bookingPricingModel;
   }
 
@@ -305,7 +305,7 @@ export class BookingModel {
    */
   public getBookingCartModel(): BookingCartModel {
     if (this.bookingCartModel === undefined) {
-      throw UndefinedModelError.create("BookingCartModel", "BookingModel", this.id);
+      throw UndefinedModelError.create('BookingCartModel', 'BookingModel', this.id);
     }
 
     return this.bookingCartModel;
@@ -316,7 +316,7 @@ export class BookingModel {
    */
   public getBookingContentModel(): BookingContentModel {
     if (this.bookingContentModel === undefined) {
-      throw UndefinedModelError.create("BookingContentModel", "BookingModel", this.id);
+      throw UndefinedModelError.create('BookingContentModel', 'BookingModel', this.id);
     }
 
     return this.bookingContentModel;
@@ -327,7 +327,7 @@ export class BookingModel {
    */
   public getBookingOffersModel(): BookingOffersModel {
     if (this.bookingOffersModel === undefined) {
-      throw UndefinedModelError.create("BookingOffersModel", "BookingModel", this.id);
+      throw UndefinedModelError.create('BookingOffersModel', 'BookingModel', this.id);
     }
 
     return this.bookingOffersModel;
@@ -338,7 +338,7 @@ export class BookingModel {
    */
   public getBookingPickupsModel(): BookingPickupsModel {
     if (this.bookingPickupsModel === undefined) {
-      throw UndefinedModelError.create("BookingPickupsModel", "BookingModel", this.id);
+      throw UndefinedModelError.create('BookingPickupsModel', 'BookingModel', this.id);
     }
 
     return this.bookingPickupsModel;
@@ -349,7 +349,7 @@ export class BookingModel {
    */
   public getBookingPricingModel(): BookingPricingModel {
     if (this.bookingPricingModel === undefined) {
-      throw UndefinedModelError.create("BookingPricingModel", "BookingModel", this.id);
+      throw UndefinedModelError.create('BookingPricingModel', 'BookingModel', this.id);
     }
 
     return this.bookingPricingModel;
@@ -360,7 +360,7 @@ export class BookingModel {
    */
   public getBookingQuestionsModel(): BookingQuestionsModel {
     if (this.bookingQuestionsModel === undefined) {
-      throw UndefinedModelError.create("BookingPricingModel", "BookingModel", this.id);
+      throw UndefinedModelError.create('BookingPricingModel', 'BookingModel', this.id);
     }
 
     return this.bookingQuestionsModel;

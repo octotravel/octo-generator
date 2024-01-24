@@ -7,20 +7,18 @@ import {
   BookingPricing,
   CapabilityId,
   BookingQuestions,
-  Product,
-  Option,
-} from "@octocloud/types";
-import { BookingModel } from "../models/booking/BookingModel";
-import { ProductParser } from "./ProductParser";
-import { OptionParser } from "./OptionParser";
-import { BookingCartModel } from "../models/booking/BookingCartModel";
-import { BookingContentModel } from "../models/booking/BookingContentModel";
-import { BookingPickupsModel } from "../models/booking/BookingPickupsModel";
-import { BookingPricingModel } from "../models/booking/BookingPricingModel";
-import { UnitItemParser } from "./UnitItemParser";
-import { OfferParser } from "./OfferParser";
-import { BookingOffersModel } from "../models/booking/BookingOffersModel";
-import { BookingQuestionsModel } from "../models/booking/BookingQuestionsModel";
+} from '@octocloud/types';
+import { BookingModel } from '../models/booking/BookingModel';
+import { ProductParser } from './ProductParser';
+import { OptionParser } from './OptionParser';
+import { BookingCartModel } from '../models/booking/BookingCartModel';
+import { BookingContentModel } from '../models/booking/BookingContentModel';
+import { BookingPickupsModel } from '../models/booking/BookingPickupsModel';
+import { BookingPricingModel } from '../models/booking/BookingPricingModel';
+import { UnitItemParser } from './UnitItemParser';
+import { OfferParser } from './OfferParser';
+import { BookingOffersModel } from '../models/booking/BookingOffersModel';
+import { BookingQuestionsModel } from '../models/booking/BookingQuestionsModel';
 
 export class BookingParser {
   private readonly productParser = new ProductParser();
@@ -44,8 +42,8 @@ export class BookingParser {
       utcExpiresAt: booking.utcExpiresAt,
       utcRedeemedAt: booking.utcRedeemedAt,
       utcConfirmedAt: booking.utcConfirmedAt,
-      productModel: this.productParser.parsePOJOToModel(booking.product as Product),
-      optionModel: this.optionParser.parsePOJOToModel(booking.option as Option),
+      productModel: this.productParser.parsePOJOToModel(booking.product!),
+      optionModel: this.optionParser.parsePOJOToModel(booking.option!),
       cancellable: booking.cancellable,
       cancellation: booking.cancellation,
       freesale: booking.freesale,
@@ -87,7 +85,9 @@ export class BookingParser {
       bookingContent.meetingLocalDateTime === undefined ||
       bookingContent.duration === undefined ||
       bookingContent.durationAmount === undefined ||
-      bookingContent.durationUnit === undefined
+      bookingContent.durationUnit === undefined ||
+      bookingContent.termsAccepted === undefined ||
+      bookingContent.notices === undefined
     ) {
       return undefined;
     }
@@ -99,6 +99,8 @@ export class BookingParser {
       duration: bookingContent.duration,
       durationAmount: bookingContent.durationAmount,
       durationUnit: bookingContent.durationUnit,
+      termsAccepted: bookingContent.termsAccepted,
+      notices: bookingContent.notices,
     });
   }
 
@@ -172,7 +174,7 @@ export class BookingParser {
       this.parseOffersModelToPOJO(bookingModel.bookingOffersModel),
       this.parsePickupsModelToPOJO(bookingModel.bookingPickupsModel),
       this.parsePricingModelToPOJO(bookingModel.bookingPricingModel),
-      this.parseQuestionsModelToPOJO(bookingModel.bookingQuestionsModel)
+      this.parseQuestionsModelToPOJO(bookingModel.bookingQuestionsModel),
     );
   }
 
@@ -204,7 +206,7 @@ export class BookingParser {
       bookingPricing = this.parsePricingModelToPOJO(bookingModel.bookingPricingModel);
     }
 
-    if (capabilities.includes(CapabilityId.Pricing)) {
+    if (capabilities.includes(CapabilityId.Questions)) {
       bookingQuestions = this.parseQuestionsModelToPOJO(bookingModel.bookingQuestionsModel);
     }
 
@@ -215,7 +217,7 @@ export class BookingParser {
       bookingOffers,
       bookingPickups,
       bookingPricing,
-      bookingQuestions
+      bookingQuestions,
     );
   }
 
@@ -257,7 +259,7 @@ export class BookingParser {
       cancellable: bookingModel.cancellable,
       cancellation: bookingModel.cancellation,
       freesale: bookingModel.freesale,
-      availabilityId: bookingModel.availability.id,
+      availabilityId: bookingModel.availability?.id ?? null,
       availability: bookingModel.availability,
       contact: bookingModel.contact,
       notes: bookingModel.notes,
@@ -291,6 +293,8 @@ export class BookingParser {
       duration: bookingContentModel.duration,
       durationAmount: bookingContentModel.durationAmount,
       durationUnit: bookingContentModel.durationUnit,
+      termsAccepted: bookingContentModel.termsAccepted,
+      notices: bookingContentModel.notices,
     };
   }
 

@@ -1,24 +1,24 @@
-import { CapabilityId, DeliveryMethod } from "@octocloud/types";
-import { ProductValidator } from "@octocloud/validators";
-import { ProductModelGenerator } from "../ProductModelGenerator";
-import { ProductParser } from "../../parsers/ProductParser";
-import { OptionDataProvider } from "../../dataProviders/OptionDataProvider";
+import { CapabilityId, DeliveryMethod } from '@octocloud/types';
+import { ProductValidator } from '@octocloud/validators';
+import { ProductModelGenerator } from '../ProductModelGenerator';
+import { ProductParser } from '../../parsers/ProductParser';
+import { OptionDataProvider } from '../../dataProviders/OptionDataProvider';
 
-describe("ProductModelGenerator", () => {
+describe('ProductModelGenerator', () => {
   const productModelGenerator = new ProductModelGenerator();
   const productParser = new ProductParser();
   const capabilities = [CapabilityId.Content, CapabilityId.Pricing];
   const productValidator = new ProductValidator({
-    path: "",
+    path: '',
     capabilities,
   });
 
-  describe("generate and validate product model", () => {
-    it("should generate valid product model", async () => {
+  describe('generate and validate product model', () => {
+    it('should generate valid product model', async () => {
       const productModel = productModelGenerator.generateProduct({
         productData: {
-          id: "id",
-          internalName: "internalName",
+          id: 'id',
+          internalName: 'internalName',
           deliveryMethods: [DeliveryMethod.VOUCHER, DeliveryMethod.TICKET],
           options: [OptionDataProvider.defaultOption],
         },
@@ -30,11 +30,11 @@ describe("ProductModelGenerator", () => {
       expect(validationErrors).toStrictEqual([]);
     });
 
-    it("should generate invalid model", async () => {
+    it('should generate invalid model', async () => {
       const productModel = productModelGenerator.generateProduct({
         productData: {
-          id: "",
-          internalName: "",
+          id: '',
+          internalName: '',
           deliveryMethods: [DeliveryMethod.VOUCHER, DeliveryMethod.TICKET],
           options: [],
         },

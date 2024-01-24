@@ -1,4 +1,4 @@
-import { OfferModel } from "../offer/OfferModel";
+import { OfferModel } from '../offer/OfferModel';
 
 export class AvailabilityOffersModel {
   public readonly offerCode: string;
@@ -9,7 +9,7 @@ export class AvailabilityOffersModel {
 
   public readonly offerModel: OfferModel;
 
-  constructor({
+  public constructor({
     offerCode,
     offerTitle,
     offerModels,

@@ -5,13 +5,15 @@ import {
   AvailabilityOffers,
   AvailabilityPickup,
   AvailabilityPricing,
-} from "@octocloud/types";
-import { AvailabilityModel } from "../models/availability/AvailabilityModel";
-import { AvailabilityContentModel } from "../models/availability/AvailabilityContentModel";
-import { AvailabilityPickupsModel } from "../models/availability/AvailabilityPickupsModel";
-import { AvailabilityPricingModel } from "../models/availability/AvailabilityPricingModel";
-import { OfferParser } from "./OfferParser";
-import { AvailabilityOffersModel } from "../models/availability/AvailabilityOffersModel";
+  AvailabilityResources,
+} from '@octocloud/types';
+import { AvailabilityModel } from '../models/availability/AvailabilityModel';
+import { AvailabilityContentModel } from '../models/availability/AvailabilityContentModel';
+import { AvailabilityPickupsModel } from '../models/availability/AvailabilityPickupsModel';
+import { AvailabilityPricingModel } from '../models/availability/AvailabilityPricingModel';
+import { OfferParser } from './OfferParser';
+import { AvailabilityOffersModel } from '../models/availability/AvailabilityOffersModel';
+import { AvailabilityResourcesModel } from '../models/availability/AvailabilityResourcesModel';
 
 export class AvailabilityParser {
   private readonly offerParser = new OfferParser();
@@ -33,6 +35,7 @@ export class AvailabilityParser {
       availabilityOffersModel: this.parseOffersPOJOToModel(availability),
       availabilityPickupsModel: this.parsePickupPOJOToModel(availability),
       availabilityPricingModel: this.parsePricingPOJOToModel(availability),
+      availabilityResourcesModel: this.parseResourcesPOJOToModel(availability),
     });
   }
 
@@ -42,7 +45,9 @@ export class AvailabilityParser {
       availabilityContent.meetingPointCoordinates === undefined ||
       availabilityContent.meetingPointLatitude === undefined ||
       availabilityContent.meetingPointLongitude === undefined ||
-      availabilityContent.meetingLocalDateTime === undefined
+      availabilityContent.meetingLocalDateTime === undefined ||
+      availabilityContent.tourGroup === undefined ||
+      availabilityContent.notices === undefined
     ) {
       return undefined;
     }
@@ -53,6 +58,8 @@ export class AvailabilityParser {
       meetingPointLatitude: availabilityContent.meetingPointLatitude,
       meetingPointLongitude: availabilityContent.meetingPointLongitude,
       meetingLocalDateTime: availabilityContent.meetingLocalDateTime,
+      tourGroup: availabilityContent.tourGroup,
+      notices: availabilityContent.notices,
     });
   }
 
@@ -101,24 +108,38 @@ export class AvailabilityParser {
     });
   }
 
+  public parseResourcesPOJOToModel(
+    availabilityResources: AvailabilityResources,
+  ): AvailabilityResourcesModel | undefined {
+    if (availabilityResources.hasResources === undefined) {
+      return undefined;
+    }
+
+    return new AvailabilityResourcesModel({
+      hasResources: availabilityResources.hasResources,
+    });
+  }
+
   public parseModelToPOJO(availabilityModel: AvailabilityModel): Availability {
     return Object.assign(
       this.parseMainModelToPojo(availabilityModel),
       this.parseContentModelToPOJO(availabilityModel.availabilityContentModel),
       this.parseOffersModelToPOJO(availabilityModel.availabilityOffersModel),
       this.parsePickupsModelToPOJO(availabilityModel.availabilityPickupsModel),
-      this.parsePricingModelToPOJO(availabilityModel.availabilityPricingModel)
+      this.parsePricingModelToPOJO(availabilityModel.availabilityPricingModel),
+      this.parseResourcesModelToPOJO(availabilityModel.availabilityResourcesModel),
     );
   }
 
   public parseModelToPOJOWithSpecificCapabilities = (
     availabilityModel: AvailabilityModel,
-    capabilities: CapabilityId[]
+    capabilities: CapabilityId[],
   ): Availability => {
     let availabilityContent;
     let availabilityOffers;
     let availabilityPickups;
     let availabilityPricing;
+    let availabilityResources;
 
     if (capabilities.includes(CapabilityId.Content)) {
       availabilityContent = this.parseContentModelToPOJO(availabilityModel.availabilityContentModel);
@@ -136,12 +157,17 @@ export class AvailabilityParser {
       availabilityPricing = this.parsePricingModelToPOJO(availabilityModel.availabilityPricingModel);
     }
 
+    if (capabilities.includes(CapabilityId.Resources)) {
+      availabilityResources = this.parseResourcesModelToPOJO(availabilityModel.availabilityResourcesModel);
+    }
+
     return Object.assign(
       this.parseMainModelToPojo(availabilityModel),
       availabilityContent,
       availabilityOffers,
       availabilityPickups,
-      availabilityPricing
+      availabilityPricing,
+      availabilityResources,
     );
   };
 
@@ -172,6 +198,8 @@ export class AvailabilityParser {
       meetingPointLatitude: availabilityContentModel.meetingPointLatitude,
       meetingPointLongitude: availabilityContentModel.meetingPointLongitude,
       meetingLocalDateTime: availabilityContentModel.meetingLocalDateTime,
+      tourGroup: availabilityContentModel.tourGroup,
+      notices: availabilityContentModel.notices,
     };
   }
 
@@ -208,6 +236,16 @@ export class AvailabilityParser {
     return {
       unitPricing: availabilityPricingModel.unitPricing,
       pricing: availabilityPricingModel.pricing,
+    };
+  }
+
+  public parseResourcesModelToPOJO(availabilityResourcesModel?: AvailabilityResourcesModel): AvailabilityResources {
+    if (availabilityResourcesModel === undefined) {
+      return {};
+    }
+
+    return {
+      hasResources: availabilityResourcesModel.hasResources,
     };
   }
 }

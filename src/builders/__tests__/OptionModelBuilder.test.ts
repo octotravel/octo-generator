@@ -1,13 +1,13 @@
-import { CapabilityId, PricingPer } from "@octocloud/types";
-import { OptionModelBuilder } from "../OptionModelBuilder";
-import { OptionModel } from "../../models/option/OptionModel";
-import { OptionDataProvider } from "../../dataProviders/OptionDataProvider";
-import { ProductModel } from "../../models/product/ProductModel";
+import { CapabilityId, PricingPer } from '@octocloud/types';
+import { OptionModelBuilder } from '../OptionModelBuilder';
+import { OptionModel } from '../../models/option/OptionModel';
+import { OptionDataProvider } from '../../dataProviders/OptionDataProvider';
+import { ProductModel } from '../../models/product/ProductModel';
 
-describe("OptionModelBuilder", () => {
+describe('OptionModelBuilder', () => {
   const optionModelBuilder = new OptionModelBuilder();
-  describe("build", () => {
-    it("should build option model without any capabilities", async () => {
+  describe('build', () => {
+    it('should build option model without any capabilities', async () => {
       const generatedOptionModel = optionModelBuilder.build({
         optionData: OptionDataProvider.defaultOption,
         pricingPer: PricingPer.BOOKING,
@@ -20,7 +20,7 @@ describe("OptionModelBuilder", () => {
       expect(generatedOptionModel.optionPricingModel).toBeUndefined();
     });
 
-    it("should build option model with content capability", async () => {
+    it('should build option model with content capability', async () => {
       const generatedOptionModel = optionModelBuilder.build({
         optionData: OptionDataProvider.defaultOption,
         pricingPer: PricingPer.BOOKING,
@@ -33,7 +33,7 @@ describe("OptionModelBuilder", () => {
       expect(generatedOptionModel.optionPricingModel).toBeUndefined();
     });
 
-    it("should build option model with pickups capability", async () => {
+    it('should build option model with pickups capability', async () => {
       const generatedOptionModel = optionModelBuilder.build({
         optionData: OptionDataProvider.defaultOption,
         pricingPer: PricingPer.BOOKING,
@@ -46,7 +46,7 @@ describe("OptionModelBuilder", () => {
       expect(generatedOptionModel.optionPricingModel).toBeUndefined();
     });
 
-    it("should build option model with pricing capability", async () => {
+    it('should build option model with pricing capability', async () => {
       const generatedOptionModel = optionModelBuilder.build({
         optionData: OptionDataProvider.defaultOption,
         pricingPer: PricingPer.BOOKING,
@@ -59,7 +59,7 @@ describe("OptionModelBuilder", () => {
       expect(generatedOptionModel.optionPricingModel).toBeDefined();
     });
 
-    it("should build option model with all capabilities", async () => {
+    it('should build option model with all capabilities', async () => {
       const generatedOptionModel = optionModelBuilder.build({
         optionData: OptionDataProvider.defaultOption,
         pricingPer: PricingPer.BOOKING,
@@ -72,7 +72,7 @@ describe("OptionModelBuilder", () => {
       expect(generatedOptionModel.optionPricingModel).toBeDefined();
     });
 
-    it("should build option model with product as a source model", async () => {
+    it('should build option model with product as a source model', async () => {
       const generatedOptionModel = optionModelBuilder.build({
         optionData: OptionDataProvider.defaultOption,
         pricingPer: PricingPer.BOOKING,

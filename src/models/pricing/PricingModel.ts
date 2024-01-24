@@ -1,5 +1,5 @@
-import { Tax } from "@octocloud/types";
-import { PricingOfferModel } from "./PricingOfferModel";
+import { Tax } from '@octocloud/types';
+import { PricingOfferModel } from './PricingOfferModel';
 
 export class PricingModel {
   public readonly original: number;
@@ -12,11 +12,11 @@ export class PricingModel {
 
   public readonly currencyPrecision: number;
 
-  public readonly includedTaxes: Array<Tax>;
+  public readonly includedTaxes: Tax[];
 
   public readonly pricingOfferModel?: PricingOfferModel;
 
-  constructor({
+  public constructor({
     original,
     retail,
     net,
@@ -30,7 +30,7 @@ export class PricingModel {
     net: Nullable<number>;
     currency: string;
     currencyPrecision: number;
-    includedTaxes: Array<Tax>;
+    includedTaxes: Tax[];
     pricingOfferModel?: PricingOfferModel;
   }) {
     this.original = original;

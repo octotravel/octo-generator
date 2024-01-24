@@ -1,8 +1,8 @@
-import { Product } from "@octocloud/types";
-import { PartialOption } from "./PartialOption";
+import { Product } from '@octocloud/types';
+import { PartialOption } from './PartialOption';
 
 export type PartialProduct = Partial<
-  Omit<Product, "options"> & {
-    options: Array<PartialOption>;
+  Omit<Product, 'options'> & {
+    options: PartialOption[];
   }
 >;

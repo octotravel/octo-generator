@@ -1,6 +1,6 @@
-import { OfferModelBuilder } from "../builders/OfferModelBuilder";
-import { PartialOffer } from "../types/PartialOffer";
-import { OfferModel } from "../models/offer/OfferModel";
+import { OfferModelBuilder } from '../builders/OfferModelBuilder';
+import { PartialOffer } from '../types/PartialOffer';
+import { OfferModel } from '../models/offer/OfferModel';
 
 interface OfferGenerateData {
   offerData: PartialOffer;

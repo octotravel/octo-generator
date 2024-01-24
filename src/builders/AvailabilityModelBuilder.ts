@@ -1,16 +1,17 @@
-import { AvailabilityStatus, CapabilityId, PricingPer } from "@octocloud/types";
-import { addDays } from "date-fns";
-import { PricingDataProvider } from "../dataProviders/PricingDataProvider";
-import { AvailabilityModel } from "../models/availability/AvailabilityModel";
-import { AvailabilityContentModel } from "../models/availability/AvailabilityContentModel";
-import { AvailabilityPricingModel } from "../models/availability/AvailabilityPricingModel";
-import { AvailabilityPickupsModel } from "../models/availability/AvailabilityPickupsModel";
-import { DateFormatter } from "../common/DateFormatter";
-import { TimeZoneDataProvider } from "../dataProviders/TimeZoneDataProvider";
-import { AvailabilityPricingModelFactory } from "../factories/AvailabilityPricingModelFactory";
-import { PartialAvailability } from "../types/PartialAvailability";
-import { AvailabilityOffersModel } from "../models/availability/AvailabilityOffersModel";
-import { OfferModelBuilder } from "./OfferModelBuilder";
+import { AvailabilityStatus, CapabilityId, PricingPer } from '@octocloud/types';
+import { addDays } from 'date-fns';
+import { PricingDataProvider } from '../dataProviders/PricingDataProvider';
+import { AvailabilityModel } from '../models/availability/AvailabilityModel';
+import { AvailabilityContentModel } from '../models/availability/AvailabilityContentModel';
+import { AvailabilityPricingModel } from '../models/availability/AvailabilityPricingModel';
+import { AvailabilityPickupsModel } from '../models/availability/AvailabilityPickupsModel';
+import { DateFormatter } from '../common/DateFormatter';
+import { TimeZoneDataProvider } from '../dataProviders/TimeZoneDataProvider';
+import { AvailabilityPricingModelFactory } from '../factories/AvailabilityPricingModelFactory';
+import { PartialAvailability } from '../types/PartialAvailability';
+import { AvailabilityOffersModel } from '../models/availability/AvailabilityOffersModel';
+import { OfferModelBuilder } from './OfferModelBuilder';
+import { AvailabilityResourcesModel } from '../models/availability/AvailabilityResourcesModel';
 
 interface AvailabilityModelBuilderData {
   availabilityData: PartialAvailability;
@@ -36,7 +37,7 @@ export class AvailabilityModelBuilder {
     const { availabilityData } = builderData;
     const date = new Date();
     const dateAsString = DateFormatter.formatForAvailability(date);
-    const time = "00:00:00";
+    const time = '00:00:00';
     const datetime = new Date(`${dateAsString}T${time}`);
 
     const localDateTimeStart =
@@ -62,6 +63,7 @@ export class AvailabilityModelBuilder {
       availabilityOffersModel: this.buildOffersModel(builderData),
       availabilityPickupsModel: this.buildPickupModel(builderData),
       availabilityPricingModel: this.buildPricingModel(builderData),
+      availabilityResourcesModel: this.buildResourcesModel(builderData),
     });
   }
 
@@ -78,6 +80,8 @@ export class AvailabilityModelBuilder {
       meetingPointLatitude: availabilityData.meetingPointLatitude ?? null,
       meetingPointLongitude: availabilityData.meetingPointLongitude ?? null,
       meetingLocalDateTime: availabilityData.meetingLocalDateTime ?? null,
+      tourGroup: availabilityData.tourGroup ?? null,
+      notices: availabilityData.notices ?? [],
     });
   }
 
@@ -89,8 +93,8 @@ export class AvailabilityModelBuilder {
     const { availabilityData } = builderData;
 
     return new AvailabilityOffersModel({
-      offerCode: availabilityData.offerCode ?? "offerCode",
-      offerTitle: availabilityData.offerTitle ?? "offerTitle",
+      offerCode: availabilityData.offerCode ?? 'offerCode',
+      offerTitle: availabilityData.offerTitle ?? 'offerTitle',
       offerModels:
         builderData.availabilityData.offers?.map((offer) => this.offerModelBuilder.build({ offerData: offer })) ?? [],
       offerModel: this.offerModelBuilder.build({ offerData: availabilityData.offer ?? {} }),
@@ -120,6 +124,18 @@ export class AvailabilityModelBuilder {
       unitPricing: builderData.availabilityData.unitPricing ?? [PricingDataProvider.unitPricing],
       pricing: builderData.availabilityData.pricing ?? PricingDataProvider.adultPricing,
       pricingPer: builderData.pricingPer!,
+    });
+  }
+
+  private buildResourcesModel(builderData: AvailabilityModelBuilderData): AvailabilityResourcesModel | undefined {
+    if (builderData.capabilities?.includes(CapabilityId.Resources) === false) {
+      return undefined;
+    }
+
+    const { availabilityData } = builderData;
+
+    return new AvailabilityResourcesModel({
+      hasResources: availabilityData.hasResources ?? false,
     });
   }
 }

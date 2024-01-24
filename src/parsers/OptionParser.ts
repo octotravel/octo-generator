@@ -1,9 +1,9 @@
-import { CapabilityId, Option, OptionContent, OptionPickup, OptionPricing } from "@octocloud/types";
-import { OptionModel } from "../models/option/OptionModel";
-import { UnitParser } from "./UnitParser";
-import { OptionContentModel } from "../models/option/OptionContentModel";
-import { OptionPickupsModel } from "../models/option/OptionPickupsModel";
-import { OptionPricingModel } from "../models/option/OptionPricingModel";
+import { CapabilityId, Option, OptionContent, OptionPickup, OptionPricing } from '@octocloud/types';
+import { OptionModel } from '../models/option/OptionModel';
+import { UnitParser } from './UnitParser';
+import { OptionContentModel } from '../models/option/OptionContentModel';
+import { OptionPickupsModel } from '../models/option/OptionPickupsModel';
+import { OptionPricingModel } from '../models/option/OptionPricingModel';
 
 export class OptionParser {
   private readonly unitParser = new UnitParser();
@@ -19,6 +19,7 @@ export class OptionParser {
       cancellationCutoffAmount: option.cancellationCutoffAmount,
       cancellationCutoffUnit: option.cancellationCutoffUnit,
       requiredContactFields: option.requiredContactFields,
+      visibleContactFields: option.visibleContactFields,
       restrictions: option.restrictions,
       unitModels: option.units.map((unit) => this.unitParser.parsePOJOToModel(unit)),
       optionContentModel: this.parseOptionContentPOJOToModel(option),
@@ -36,7 +37,10 @@ export class OptionParser {
       optionContent.duration === undefined ||
       optionContent.durationAmount === undefined ||
       optionContent.durationUnit === undefined ||
-      optionContent.itinerary === undefined
+      optionContent.itinerary === undefined ||
+      optionContent.coverImageUrl === undefined ||
+      optionContent.fromPoint === undefined ||
+      optionContent.toPoint === undefined
     ) {
       return undefined;
     }
@@ -50,6 +54,9 @@ export class OptionParser {
       durationAmount: optionContent.durationAmount,
       durationUnit: optionContent.durationUnit,
       itinerary: optionContent.itinerary,
+      coverImageUrl: optionContent.coverImageUrl,
+      fromPoint: optionContent.fromPoint,
+      toPoint: optionContent.toPoint,
     });
   }
 
@@ -85,7 +92,7 @@ export class OptionParser {
       this.parseMainModelToPojo(optionModel),
       this.parseContentModelToPOJO(optionModel.optionContentModel),
       this.parsePickupsModelToPOJO(optionModel.optionPickupsModel),
-      this.parsePricingModelToPOJO(optionModel.optionPricingModel)
+      this.parsePricingModelToPOJO(optionModel.optionPricingModel),
     );
   }
 
@@ -112,7 +119,7 @@ export class OptionParser {
       optionContent,
       optionGoogle,
       optionPickups,
-      optionPricing
+      optionPricing,
     );
   }
 
@@ -134,6 +141,7 @@ export class OptionParser {
       cancellationCutoffAmount: optionModel.cancellationCutoffAmount,
       cancellationCutoffUnit: optionModel.cancellationCutoffUnit,
       requiredContactFields: optionModel.requiredContactFields,
+      visibleContactFields: optionModel.visibleContactFields,
       restrictions: optionModel.restrictions,
       units,
     };
@@ -153,6 +161,9 @@ export class OptionParser {
       durationAmount: optionContentModel.durationAmount,
       durationUnit: optionContentModel.durationUnit,
       itinerary: optionContentModel.itinerary,
+      coverImageUrl: optionContentModel.coverImageUrl,
+      fromPoint: optionContentModel.fromPoint,
+      toPoint: optionContentModel.toPoint,
     };
   }
 

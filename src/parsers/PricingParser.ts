@@ -1,6 +1,6 @@
-import { CapabilityId, Pricing, PricingOffer } from "@octocloud/types";
-import { PricingModel } from "../models/pricing/PricingModel";
-import { PricingOfferModel } from "../models/pricing/PricingOfferModel";
+import { CapabilityId, Pricing, PricingOffer } from '@octocloud/types';
+import { PricingModel } from '../models/pricing/PricingModel';
+import { PricingOfferModel } from '../models/pricing/PricingOfferModel';
 
 export class PricingParser {
   public parsePOJOToModel(pricing: Pricing): PricingModel {
@@ -28,7 +28,7 @@ export class PricingParser {
   public parseModelToPOJO(pricingModel: PricingModel): Pricing {
     return Object.assign(
       this.parseMainModelToPojo(pricingModel),
-      this.parseOfferModelToPOJO(pricingModel.pricingOfferModel)
+      this.parseOfferModelToPOJO(pricingModel.pricingOfferModel),
     );
   }
 

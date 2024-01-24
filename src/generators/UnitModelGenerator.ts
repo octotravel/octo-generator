@@ -1,8 +1,8 @@
-import { CapabilityId, PricingPer } from "@octocloud/types";
-import { UnitModel } from "../models/unit/UnitModel";
-import { UnitModelBuilder } from "../builders/UnitModelBuilder";
-import { UnitDataProvider } from "../dataProviders/UnitDataProvider";
-import { PartialUnit } from "../types/PartialUnit";
+import { CapabilityId, PricingPer } from '@octocloud/types';
+import { UnitModel } from '../models/unit/UnitModel';
+import { UnitModelBuilder } from '../builders/UnitModelBuilder';
+import { UnitDataProvider } from '../dataProviders/UnitDataProvider';
+import { PartialUnit } from '../types/PartialUnit';
 
 interface UnitGenerateData {
   unitData: PartialUnit;
@@ -24,14 +24,14 @@ export class UnitModelGenerator {
   public generateMultipleUnits(
     unitsData: PartialUnit[],
     pricingPer?: PricingPer,
-    capabilities?: CapabilityId[]
+    capabilities?: CapabilityId[],
   ): UnitModel[] {
     return unitsData.map((unitData) =>
       this.unitModelBuilder.build({
         unitData,
         pricingPer,
         capabilities,
-      })
+      }),
     );
   }
 

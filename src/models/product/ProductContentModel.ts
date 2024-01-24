@@ -1,4 +1,4 @@
-import { Category, Destination, FAQ, Image } from "@octocloud/types";
+import { Category, Destination, FAQ, Image } from '@octocloud/types';
 
 export class ProductContentModel {
   public readonly title: string;
@@ -13,11 +13,11 @@ export class ProductContentModel {
 
   public readonly description: Nullable<string>;
 
-  public readonly highlights: Array<string>;
+  public readonly highlights: string[];
 
-  public readonly inclusions: Array<string>;
+  public readonly inclusions: string[];
 
-  public readonly exclusions: Array<string>;
+  public readonly exclusions: string[];
 
   public readonly bookingTerms: Nullable<string>;
 
@@ -27,9 +27,9 @@ export class ProductContentModel {
 
   public readonly destination: Destination;
 
-  public readonly categories: Array<Category>;
+  public readonly categories: Category[];
 
-  public readonly faqs: Array<FAQ>;
+  public readonly faqs: FAQ[];
 
   public readonly coverImageUrl: Nullable<string>;
 
@@ -37,11 +37,17 @@ export class ProductContentModel {
 
   public readonly videoUrl: Nullable<string>;
 
-  public readonly galleryImages: Array<Image>;
+  public readonly galleryImages: Image[];
 
-  public readonly bannerImages: Array<Image>;
+  public readonly bannerImages: Image[];
 
-  constructor({
+  public readonly pointToPoint: boolean;
+
+  public readonly privacyTerms: Nullable<string>;
+
+  public readonly alert: Nullable<string>;
+
+  public constructor({
     title,
     country,
     location,
@@ -62,6 +68,9 @@ export class ProductContentModel {
     videoUrl,
     galleryImages,
     bannerImages,
+    pointToPoint,
+    privacyTerms,
+    alert,
   }: {
     title: string;
     country: string;
@@ -69,20 +78,23 @@ export class ProductContentModel {
     subtitle: Nullable<string>;
     shortDescription: Nullable<string>;
     description: Nullable<string>;
-    highlights: Array<string>;
-    inclusions: Array<string>;
-    exclusions: Array<string>;
+    highlights: string[];
+    inclusions: string[];
+    exclusions: string[];
     bookingTerms: Nullable<string>;
     redemptionInstructions: Nullable<string>;
     cancellationPolicy: Nullable<string>;
     destination: Destination;
-    categories: Array<Category>;
-    faqs: Array<FAQ>;
+    categories: Category[];
+    faqs: FAQ[];
     coverImageUrl: Nullable<string>;
     bannerImageUrl: Nullable<string>;
     videoUrl: Nullable<string>;
-    galleryImages: Array<Image>;
-    bannerImages: Array<Image>;
+    galleryImages: Image[];
+    bannerImages: Image[];
+    pointToPoint: boolean;
+    privacyTerms: Nullable<string>;
+    alert: Nullable<string>;
   }) {
     this.title = title;
     this.country = country;
@@ -104,5 +116,8 @@ export class ProductContentModel {
     this.videoUrl = videoUrl;
     this.galleryImages = galleryImages;
     this.bannerImages = bannerImages;
+    this.pointToPoint = pointToPoint;
+    this.privacyTerms = privacyTerms;
+    this.alert = alert;
   }
 }

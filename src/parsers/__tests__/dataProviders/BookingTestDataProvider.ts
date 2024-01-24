@@ -1,21 +1,21 @@
-import { BookingStatus, Currency, DeliveryMethod, DurationUnit } from "@octocloud/types";
-import { OptionTestDataProvider } from "./OptionTestDataProvider";
-import { ProductTestDataProvider } from "./ProductTestDataProvider";
-import { BookingCartModel } from "../../../models/booking/BookingCartModel";
-import { BookingContentModel } from "../../../models/booking/BookingContentModel";
-import { BookingModel } from "../../../models/booking/BookingModel";
-import { BookingPickupsModel } from "../../../models/booking/BookingPickupsModel";
-import { BookingPricingModel } from "../../../models/booking/BookingPricingModel";
+import { AvailabilityStatus, Booking, BookingStatus, Currency, DeliveryMethod, DurationUnit } from '@octocloud/types';
+import { OptionTestDataProvider } from './OptionTestDataProvider';
+import { ProductTestDataProvider } from './ProductTestDataProvider';
+import { BookingCartModel } from '../../../models/booking/BookingCartModel';
+import { BookingContentModel } from '../../../models/booking/BookingContentModel';
+import { BookingModel } from '../../../models/booking/BookingModel';
+import { BookingPickupsModel } from '../../../models/booking/BookingPickupsModel';
+import { BookingPricingModel } from '../../../models/booking/BookingPricingModel';
 
 export class BookingTestDataProvider {
-  public static booking = {
-    id: "be9c948c-e170-4de2-8367-053830ce4a40",
-    uuid: "45464f1d-e958-4bb4-921f-43afcb71004a",
+  public static booking: Booking = {
+    id: 'be9c948c-e170-4de2-8367-053830ce4a40',
+    uuid: '45464f1d-e958-4bb4-921f-43afcb71004a',
     testMode: false,
     resellerReference: null,
     supplierReference: null,
     status: BookingStatus.CONFIRMED,
-    utcCreatedAt: "2022-11-28T08:43:37Z",
+    utcCreatedAt: '2022-11-28T08:43:37Z',
     utcUpdatedAt: null,
     utcExpiresAt: null,
     utcRedeemedAt: null,
@@ -27,12 +27,18 @@ export class BookingTestDataProvider {
     cancellable: true,
     cancellation: null,
     freesale: false,
-    availabilityId: "availabilityId",
+    availabilityId: 'availabilityId',
     availability: {
-      id: "availabilityId",
-      localDateTimeStart: "2023-01-03T09:15:00+01:00",
-      localDateTimeEnd: "2023-01-03T09:39:00+01:00",
+      id: 'availabilityId',
+      localDateTimeStart: '2023-01-03T09:15:00+01:00',
+      localDateTimeEnd: '2023-01-03T09:39:00+01:00',
       allDay: false,
+      available: true,
+      status: AvailabilityStatus.AVAILABLE,
+      vacancies: null,
+      capacity: null,
+      maxUnits: null,
+      utcCutoffAt: '18:00',
       openingHours: [],
     },
     contact: {
@@ -53,8 +59,8 @@ export class BookingTestDataProvider {
   };
 
   public static bookingCart = {
-    orderId: "orderId",
-    orderReference: "orderReference",
+    orderId: 'orderId',
+    orderReference: 'orderReference',
     primary: false,
   };
 
@@ -62,9 +68,11 @@ export class BookingTestDataProvider {
     meetingPoint: null,
     meetingPointCoordinates: null,
     meetingLocalDateTime: null,
-    duration: "duration",
-    durationAmount: "durationAmount",
+    duration: 'duration',
+    durationAmount: 'durationAmount',
     durationUnit: DurationUnit.HOUR,
+    termsAccepted: true,
+    notices: [],
   };
 
   public static bookingPickups = {
@@ -129,6 +137,8 @@ export class BookingTestDataProvider {
       duration: this.bookingPOJO.duration,
       durationAmount: this.bookingPOJO.durationAmount,
       durationUnit: this.bookingPOJO.durationUnit,
+      termsAccepted: this.bookingPOJO.termsAccepted,
+      notices: this.bookingPOJO.notices,
     }),
     bookingPickupsModel: new BookingPickupsModel({
       pickupRequested: this.bookingPOJO.pickupRequested,

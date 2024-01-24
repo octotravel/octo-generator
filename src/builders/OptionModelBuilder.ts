@@ -1,14 +1,14 @@
-import { CapabilityId, DurationUnit, PricingPer } from "@octocloud/types";
-import { UnitModelBuilder } from "./UnitModelBuilder";
-import { OptionModel } from "../models/option/OptionModel";
-import { OptionContentModel } from "../models/option/OptionContentModel";
-import { OptionPickupsModel } from "../models/option/OptionPickupsModel";
-import { OptionPricingModel } from "../models/option/OptionPricingModel";
-import { PricingDataProvider } from "../dataProviders/PricingDataProvider";
-import { UnitModel } from "../models/unit/UnitModel";
-import { LocaleDataProvider } from "../dataProviders/LocaleDataProvider";
-import { ProductModel } from "../models/product/ProductModel";
-import { PartialOption } from "../types/PartialOption";
+import { CapabilityId, DurationUnit, PricingPer } from '@octocloud/types';
+import { UnitModelBuilder } from './UnitModelBuilder';
+import { OptionModel } from '../models/option/OptionModel';
+import { OptionContentModel } from '../models/option/OptionContentModel';
+import { OptionPickupsModel } from '../models/option/OptionPickupsModel';
+import { OptionPricingModel } from '../models/option/OptionPricingModel';
+import { PricingDataProvider } from '../dataProviders/PricingDataProvider';
+import { UnitModel } from '../models/unit/UnitModel';
+import { LocaleDataProvider } from '../dataProviders/LocaleDataProvider';
+import { ProductModel } from '../models/product/ProductModel';
+import { PartialOption } from '../types/PartialOption';
 
 interface OptionModelBuilderData {
   optionData: PartialOption;
@@ -30,18 +30,21 @@ export class OptionModelBuilder {
     const { optionData } = builderData;
 
     return new OptionModel({
-      id: optionData.id ?? "DEFAULT",
+      id: optionData.id ?? 'DEFAULT',
       isDefault: optionData.default ?? true,
-      internalName: optionData.internalName ?? "DEFAULT",
+      internalName: optionData.internalName ?? 'DEFAULT',
       reference: optionData.reference ?? null,
-      availabilityLocalStartTimes: optionData.availabilityLocalStartTimes ?? ["00:00"],
-      cancellationCutoff: optionData.cancellationCutoff ?? "0 hours",
+      availabilityLocalStartTimes: optionData.availabilityLocalStartTimes ?? ['00:00'],
+      cancellationCutoff: optionData.cancellationCutoff ?? '0 hours',
       cancellationCutoffAmount: optionData.cancellationCutoffAmount ?? 0,
-      cancellationCutoffUnit: optionData.cancellationCutoffUnit ?? "hour",
+      cancellationCutoffUnit: optionData.cancellationCutoffUnit ?? 'hour',
       requiredContactFields: optionData.requiredContactFields ?? [],
+      visibleContactFields: optionData.visibleContactFields ?? [],
       restrictions: optionData.restrictions ?? {
         minUnits: 0,
         maxUnits: null,
+        minPaxCount: 0,
+        maxPaxCount: null,
       },
       unitModels: this.buildUnitModels(builderData),
       optionContentModel: this.buildContentModel(builderData),
@@ -63,7 +66,7 @@ export class OptionModelBuilder {
           capabilities: builderData.capabilities,
           sourceModel: builderData.sourceModel,
         }),
-      builderData
+      builderData,
     );
   }
 
@@ -74,17 +77,20 @@ export class OptionModelBuilder {
 
     const { optionData } = builderData;
     const durationUnit = optionData.durationUnit ?? DurationUnit.HOUR;
-    const durationAmount = optionData.durationAmount ?? "0";
+    const durationAmount = optionData.durationAmount ?? '0';
 
     return new OptionContentModel({
-      title: optionData.title ?? "title",
-      subtitle: optionData.subtitle ?? "subtitle",
+      title: optionData.title ?? 'title',
+      subtitle: optionData.subtitle ?? 'subtitle',
       language: optionData.language ?? LocaleDataProvider.en,
-      shortDescription: optionData.shortDescription ?? "shortDescription",
+      shortDescription: optionData.shortDescription ?? 'shortDescription',
       durationUnit: optionData.durationUnit ?? DurationUnit.HOUR,
-      durationAmount: optionData.durationAmount ?? "0",
+      durationAmount: optionData.durationAmount ?? '0',
       duration: optionData.duration ?? `${durationAmount} ${durationUnit}`,
       itinerary: optionData.itinerary ?? [],
+      coverImageUrl: optionData.coverImageUrl ?? null,
+      fromPoint: optionData.fromPoint ?? null,
+      toPoint: optionData.toPoint ?? null,
     });
   }
 

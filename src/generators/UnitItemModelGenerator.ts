@@ -1,7 +1,7 @@
-import { CapabilityId } from "@octocloud/types";
-import { PartialUnitItem } from "../types/PartialUnitItem";
-import { UnitItemModelBuilder } from "../builders/UnitItemModelBuilder";
-import { UnitItemModel } from "../models/unitItem/UnitItemModel";
+import { CapabilityId } from '@octocloud/types';
+import { PartialUnitItem } from '../types/PartialUnitItem';
+import { UnitItemModelBuilder } from '../builders/UnitItemModelBuilder';
+import { UnitItemModel } from '../models/unitItem/UnitItemModel';
 
 interface UnitItemGenerateData {
   unitItemData: PartialUnitItem;
@@ -23,7 +23,7 @@ export class UnitItemModelGenerator {
       this.unitItemModelBuilder.build({
         unitItemData,
         capabilities,
-      })
+      }),
     );
   }
 }

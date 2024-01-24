@@ -1,13 +1,13 @@
-import { CapabilityId } from "@octocloud/types";
-import { BookingModelBuilder } from "../BookingModelBuilder";
-import { BookingModel } from "../../models/booking/BookingModel";
-import { AvailabilityDataProvider } from "../../dataProviders/AvailabilityDataProvider";
+import { CapabilityId } from '@octocloud/types';
+import { BookingModelBuilder } from '../BookingModelBuilder';
+import { BookingModel } from '../../models/booking/BookingModel';
+import { AvailabilityDataProvider } from '../../dataProviders/AvailabilityDataProvider';
 
-describe("BookingModelBuilder", () => {
+describe('BookingModelBuilder', () => {
   const bookingModelBuilder = new BookingModelBuilder();
 
-  describe("build", () => {
-    it("should build booking model without any capabilities", async () => {
+  describe('build', () => {
+    it('should build booking model without any capabilities', async () => {
       const generateBookingModel = bookingModelBuilder.build({
         bookingData: {
           availability: AvailabilityDataProvider.availability,
@@ -24,7 +24,7 @@ describe("BookingModelBuilder", () => {
       expect(generateBookingModel.bookingQuestionsModel).toBeUndefined();
     });
 
-    it("should build booking model with cart capability", async () => {
+    it('should build booking model with cart capability', async () => {
       const generateBookingModel = bookingModelBuilder.build({
         bookingData: {
           availability: AvailabilityDataProvider.availability,
@@ -41,7 +41,7 @@ describe("BookingModelBuilder", () => {
       expect(generateBookingModel.bookingQuestionsModel).toBeUndefined();
     });
 
-    it("should build booking model with content capability", async () => {
+    it('should build booking model with content capability', async () => {
       const generateBookingModel = bookingModelBuilder.build({
         bookingData: {
           availability: AvailabilityDataProvider.availability,
@@ -58,7 +58,7 @@ describe("BookingModelBuilder", () => {
       expect(generateBookingModel.bookingQuestionsModel).toBeUndefined();
     });
 
-    it("should build booking model with offers capability", async () => {
+    it('should build booking model with offers capability', async () => {
       const generateBookingModel = bookingModelBuilder.build({
         bookingData: {
           availability: AvailabilityDataProvider.availability,
@@ -75,7 +75,7 @@ describe("BookingModelBuilder", () => {
       expect(generateBookingModel.bookingQuestionsModel).toBeUndefined();
     });
 
-    it("should build booking model with pickups capability", async () => {
+    it('should build booking model with pickups capability', async () => {
       const generateBookingModel = bookingModelBuilder.build({
         bookingData: {
           availability: AvailabilityDataProvider.availability,
@@ -92,7 +92,7 @@ describe("BookingModelBuilder", () => {
       expect(generateBookingModel.bookingQuestionsModel).toBeUndefined();
     });
 
-    it("should build booking model with pricing capability", async () => {
+    it('should build booking model with pricing capability', async () => {
       const generateBookingModel = bookingModelBuilder.build({
         bookingData: {
           availability: AvailabilityDataProvider.availability,
@@ -109,7 +109,7 @@ describe("BookingModelBuilder", () => {
       expect(generateBookingModel.bookingQuestionsModel).toBeUndefined();
     });
 
-    it("should build booking model with questions capability", async () => {
+    it('should build booking model with questions capability', async () => {
       const generateBookingModel = bookingModelBuilder.build({
         bookingData: {
           availability: AvailabilityDataProvider.availability,
@@ -126,7 +126,7 @@ describe("BookingModelBuilder", () => {
       expect(generateBookingModel.bookingQuestionsModel).toBeDefined();
     });
 
-    it("should build booking model with all capabilities", async () => {
+    it('should build booking model with all capabilities', async () => {
       const generateBookingModel = bookingModelBuilder.build({
         bookingData: {
           availability: AvailabilityDataProvider.availability,
