@@ -1,12 +1,12 @@
-import { CapabilityId, PricingPer, UnitType } from "@octocloud/types";
-import { UnitModel } from "../models/unit/UnitModel";
-import { UnitDataProvider } from "../dataProviders/UnitDataProvider";
-import { UnitContentModel } from "../models/unit/UnitContentModel";
-import { UnitPricingModel } from "../models/unit/UnitPricingModel";
-import { PricingDataProvider } from "../dataProviders/PricingDataProvider";
-import { ProductModel } from "../models/product/ProductModel";
-import { OptionPricingModel } from "../models/option/OptionPricingModel";
-import { PartialUnit } from "../types/PartialUnit";
+import { CapabilityId, PricingPer, UnitType } from '@octocloud/types';
+import { UnitModel } from '../models/unit/UnitModel';
+import { UnitDataProvider } from '../dataProviders/UnitDataProvider';
+import { UnitContentModel } from '../models/unit/UnitContentModel';
+import { UnitPricingModel } from '../models/unit/UnitPricingModel';
+import { PricingDataProvider } from '../dataProviders/PricingDataProvider';
+import { ProductModel } from '../models/product/ProductModel';
+import { OptionPricingModel } from '../models/option/OptionPricingModel';
+import { PartialUnit } from '../types/PartialUnit';
 
 interface UnitModelBuilderData {
   unitData: PartialUnit;
@@ -26,12 +26,13 @@ export class UnitModelBuilder {
     const { unitData } = builderData;
 
     return new UnitModel({
-      id: unitData.id ?? "id",
-      internalName: unitData.internalName ?? "internalName",
-      reference: unitData.reference ?? "reference",
+      id: unitData.id ?? 'id',
+      internalName: unitData.internalName ?? 'internalName',
+      reference: unitData.reference ?? 'reference',
       type: unitData.type ?? UnitType.ADULT,
       restrictions: unitData.restrictions ?? UnitDataProvider.commonRestrictions,
       requiredContactFields: unitData.requiredContactFields ?? [],
+      visibleContactFields: unitData.visibleContactFields ?? [],
       unitContentModel: this.buildContentModel(builderData),
       unitPricingModel: this.buildPricingModel(builderData),
     });
@@ -45,9 +46,9 @@ export class UnitModelBuilder {
     const { unitData } = builderData;
 
     return new UnitContentModel({
-      title: unitData.title ?? "title",
-      titlePlural: unitData.titlePlural ?? "titles",
-      subtitle: unitData.subtitle ?? "subtitle",
+      title: unitData.title ?? 'title',
+      titlePlural: unitData.titlePlural ?? 'titles',
+      subtitle: unitData.subtitle ?? 'subtitle',
     });
   }
 

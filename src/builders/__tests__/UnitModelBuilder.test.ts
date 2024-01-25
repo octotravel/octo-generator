@@ -1,14 +1,14 @@
-import { CapabilityId, PricingPer } from "@octocloud/types";
-import { UnitModel } from "../../models/unit/UnitModel";
-import { UnitModelBuilder } from "../UnitModelBuilder";
-import { UnitDataProvider } from "../../dataProviders/UnitDataProvider";
-import { ProductModel } from "../../models/product/ProductModel";
+import { CapabilityId, PricingPer } from '@octocloud/types';
+import { UnitModel } from '../../models/unit/UnitModel';
+import { UnitModelBuilder } from '../UnitModelBuilder';
+import { UnitDataProvider } from '../../dataProviders/UnitDataProvider';
+import { ProductModel } from '../../models/product/ProductModel';
 
-describe("UnitModelBuilder", () => {
+describe('UnitModelBuilder', () => {
   const unitModelBuilder = new UnitModelBuilder();
 
-  describe("build", () => {
-    it("should build unit model without any capabilities", async () => {
+  describe('build', () => {
+    it('should build unit model without any capabilities', async () => {
       const generatedUnitModel = unitModelBuilder.build({
         unitData: UnitDataProvider.adultUnit,
         pricingPer: PricingPer.UNIT,
@@ -20,7 +20,7 @@ describe("UnitModelBuilder", () => {
       expect(generatedUnitModel.unitPricingModel).toBeUndefined();
     });
 
-    it("should build unit model with content capability", async () => {
+    it('should build unit model with content capability', async () => {
       const generatedUnitModel = unitModelBuilder.build({
         unitData: UnitDataProvider.adultUnit,
         pricingPer: PricingPer.UNIT,
@@ -32,7 +32,7 @@ describe("UnitModelBuilder", () => {
       expect(generatedUnitModel.unitPricingModel).toBeUndefined();
     });
 
-    it("should build unit model with pricing capability", async () => {
+    it('should build unit model with pricing capability', async () => {
       const generatedUnitModel = unitModelBuilder.build({
         unitData: UnitDataProvider.adultUnit,
         pricingPer: PricingPer.UNIT,
@@ -44,7 +44,7 @@ describe("UnitModelBuilder", () => {
       expect(generatedUnitModel.unitPricingModel).toBeDefined();
     });
 
-    it("should build unit model with all capabilities", async () => {
+    it('should build unit model with all capabilities', async () => {
       const generatedUnitModel = unitModelBuilder.build({
         unitData: UnitDataProvider.adultUnit,
         pricingPer: PricingPer.UNIT,
@@ -56,7 +56,7 @@ describe("UnitModelBuilder", () => {
       expect(generatedUnitModel.unitPricingModel).toBeDefined();
     });
 
-    it("should build unit model with pricing per unit", async () => {
+    it('should build unit model with pricing per unit', async () => {
       const generatedUnitModel = unitModelBuilder.build({
         unitData: UnitDataProvider.adultUnit,
         pricingPer: PricingPer.UNIT,
@@ -66,7 +66,7 @@ describe("UnitModelBuilder", () => {
       expect(generatedUnitModel.unitPricingModel?.pricing).toBeDefined();
     });
 
-    it("should build unit model with pricing per booking", async () => {
+    it('should build unit model with pricing per booking', async () => {
       const generatedUnitModel = unitModelBuilder.build({
         unitData: UnitDataProvider.adultUnit,
         pricingPer: PricingPer.BOOKING,
@@ -77,7 +77,7 @@ describe("UnitModelBuilder", () => {
       expect(generatedUnitModel.unitPricingModel).toBeUndefined();
     });
 
-    it("should build unit model with product as a source model", async () => {
+    it('should build unit model with product as a source model', async () => {
       const generatedUnitModel = unitModelBuilder.build({
         unitData: UnitDataProvider.adultUnit,
         pricingPer: PricingPer.UNIT,

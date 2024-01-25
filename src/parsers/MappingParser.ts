@@ -1,5 +1,5 @@
-import { Mapping } from "@octocloud/types";
-import { MappingModel } from "../models/mapping/MappingModel";
+import { Mapping } from '@octocloud/types';
+import { MappingModel } from '../models/mapping/MappingModel';
 
 export class MappingParser {
   public parsePOJOToModel = (mapping: Mapping): MappingModel =>

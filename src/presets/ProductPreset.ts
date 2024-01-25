@@ -1,7 +1,7 @@
-import { AvailabilityType, Product } from "@octocloud/types";
-import { ProductModelBuilder } from "../builders/ProductModelBuilder";
-import { ProductModel } from "../models/product/ProductModel";
-import { ProductParser } from "../parsers/ProductParser";
+import { AvailabilityType, Product } from '@octocloud/types';
+import { ProductModelBuilder } from '../builders/ProductModelBuilder';
+import { ProductModel } from '../models/product/ProductModel';
+import { ProductParser } from '../parsers/ProductParser';
 
 export abstract class ProductPreset {
   private static readonly productModelBuilder: ProductModelBuilder = new ProductModelBuilder();
@@ -10,11 +10,11 @@ export abstract class ProductPreset {
 
   public static readonly FIRST_PRODUCT_MODEL: ProductModel = this.productModelBuilder.build({
     productData: {
-      id: "firstProductId",
+      id: 'firstProductId',
       availabilityType: AvailabilityType.OPENING_HOURS,
       options: [
         {
-          id: "firstOptionId",
+          id: 'firstOptionId',
         },
       ],
     },
@@ -22,13 +22,13 @@ export abstract class ProductPreset {
 
   public static readonly SECOND_PRODUCT_MODEL: ProductModel = this.productModelBuilder.build({
     productData: {
-      id: "secondProductId",
+      id: 'secondProductId',
       availabilityType: AvailabilityType.OPENING_HOURS,
       location: undefined,
       description: undefined,
       options: [
         {
-          id: "firstOptionId",
+          id: 'firstOptionId',
         },
       ],
     },
@@ -36,11 +36,11 @@ export abstract class ProductPreset {
 
   public static readonly THIRD_PRODUCT_MODEL: ProductModel = this.productModelBuilder.build({
     productData: {
-      id: "thirdProductId",
+      id: 'thirdProductId',
       availabilityType: AvailabilityType.START_TIME,
       options: [
         {
-          id: "firstOptionId",
+          id: 'firstOptionId',
         },
       ],
     },

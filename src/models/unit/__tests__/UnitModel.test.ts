@@ -1,15 +1,15 @@
-import { UnitType, PricingPer } from "@octocloud/types";
-import { PricingDataProvider } from "../../../dataProviders/PricingDataProvider";
-import { UnitModelGenerator } from "../../../generators/UnitModelGenerator";
+import { UnitType, PricingPer } from '@octocloud/types';
+import { PricingDataProvider } from '../../../dataProviders/PricingDataProvider';
+import { UnitModelGenerator } from '../../../generators/UnitModelGenerator';
 
-describe("UnitModel", () => {
+describe('UnitModel', () => {
   const unitModelGenerator = new UnitModelGenerator();
 
-  describe("isOnBooking", () => {
-    it("should return true", async () => {
+  describe('isOnBooking', () => {
+    it('should return true', async () => {
       const optionModel = unitModelGenerator.generateUnit({
         unitData: {
-          id: "id",
+          id: 'id',
           type: UnitType.ADULT,
           pricing: [PricingDataProvider.adultPricing],
         },
@@ -19,10 +19,10 @@ describe("UnitModel", () => {
       expect(optionModel.isOnBooking()).toStrictEqual(true);
     });
 
-    it("should return false", async () => {
+    it('should return false', async () => {
       const optionModel = unitModelGenerator.generateUnit({
         unitData: {
-          id: "id",
+          id: 'id',
           type: UnitType.ADULT,
           pricing: [PricingDataProvider.adultPricing],
         },

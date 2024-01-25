@@ -1,6 +1,6 @@
-import { Restrictions, Unit, UnitType } from "@octocloud/types";
-import { PricingDataProvider } from "./PricingDataProvider";
-import { PartialUnit } from "../types/PartialUnit";
+import { Restrictions, Unit, UnitType } from '@octocloud/types';
+import { PricingDataProvider } from './PricingDataProvider';
+import { PartialUnit } from '../types/PartialUnit';
 
 export class UnitDataProvider {
   public static commonRestrictions: Restrictions = {
@@ -14,20 +14,21 @@ export class UnitDataProvider {
   };
 
   public static adultUnit: Unit = {
-    id: "unit_c1709f42-297e-4f7e-bd6b-3e77d4622d8a",
-    internalName: "Adult",
-    reference: "reference",
+    id: 'unit_c1709f42-297e-4f7e-bd6b-3e77d4622d8a',
+    internalName: 'Adult',
+    reference: 'reference',
     type: UnitType.ADULT,
     requiredContactFields: [],
+    visibleContactFields: [],
     restrictions: UnitDataProvider.commonRestrictions,
-    title: "Adult",
-    titlePlural: "Adults",
-    subtitle: "Aged 16 - 59",
+    title: 'Adult',
+    titlePlural: 'Adults',
+    subtitle: 'Aged 16 - 59',
     pricingFrom: [PricingDataProvider.adultPricing],
   };
 
   public static childUnit: PartialUnit = {
-    id: "child",
+    id: 'child',
     type: UnitType.CHILD,
     pricing: [PricingDataProvider.childPricing],
   };

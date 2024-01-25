@@ -1,6 +1,6 @@
-import { AvailabilityCalendar, AvailabilityCalendarPricing, CapabilityId } from "@octocloud/types";
-import { AvailabilityCalendarModel } from "../models/availability/AvailabilityCalendarModel";
-import { AvailabilityCalendarPricingModel } from "../models/availability/AvailabilityCalendarPricingModel";
+import { AvailabilityCalendar, AvailabilityCalendarPricing, CapabilityId } from '@octocloud/types';
+import { AvailabilityCalendarModel } from '../models/availability/AvailabilityCalendarModel';
+import { AvailabilityCalendarPricingModel } from '../models/availability/AvailabilityCalendarPricingModel';
 
 export class AvailabilityCalendarParser {
   public parsePOJOToModel(availabilityCalendar: AvailabilityCalendar): AvailabilityCalendarModel {
@@ -9,14 +9,17 @@ export class AvailabilityCalendarParser {
       available: availabilityCalendar.available,
       status: availabilityCalendar.status,
       vacancies: availabilityCalendar.vacancies,
+      paxCount: availabilityCalendar.paxCount,
       capacity: availabilityCalendar.capacity,
       openingHours: availabilityCalendar.openingHours,
+      utcCutoffAt: availabilityCalendar.utcCutoffAt,
+      availabilityLocalStartTimes: availabilityCalendar.availabilityLocalStartTimes,
       availabilityCalendarPricingModel: this.parsePricingPOJOToModel(availabilityCalendar),
     });
   }
 
   public parsePricingPOJOToModel(
-    availabilityCalendarPricing: AvailabilityCalendarPricing
+    availabilityCalendarPricing: AvailabilityCalendarPricing,
   ): AvailabilityCalendarPricingModel | undefined {
     if (
       availabilityCalendarPricing.unitPricingFrom === undefined &&
@@ -36,7 +39,7 @@ export class AvailabilityCalendarParser {
 
     Object.assign(
       availabilityCalendar,
-      this.parsePricingModelToPOJO(availabilityCalendarModel.availabilityCalendarPricingModel)
+      this.parsePricingModelToPOJO(availabilityCalendarModel.availabilityCalendarPricingModel),
     );
 
     return availabilityCalendar;
@@ -44,14 +47,14 @@ export class AvailabilityCalendarParser {
 
   public parseModelToPOJOWithSpecificCapabilities(
     availabilityCalendarModel: AvailabilityCalendarModel,
-    capabilities: CapabilityId[]
+    capabilities: CapabilityId[],
   ): AvailabilityCalendar {
     const availabilityCalendar = this.parseMainModelToPojo(availabilityCalendarModel);
     let availabilityCalendarPricing;
 
     if (capabilities.includes(CapabilityId.Pricing)) {
       availabilityCalendarPricing = this.parsePricingModelToPOJO(
-        availabilityCalendarModel.availabilityCalendarPricingModel
+        availabilityCalendarModel.availabilityCalendarPricingModel,
       );
     }
 
@@ -60,17 +63,22 @@ export class AvailabilityCalendarParser {
     return availabilityCalendar;
   }
 
-  private parseMainModelToPojo = (availabilityCalendarModel: AvailabilityCalendarModel): AvailabilityCalendar => ({
+  private readonly parseMainModelToPojo = (
+    availabilityCalendarModel: AvailabilityCalendarModel,
+  ): AvailabilityCalendar => ({
     localDate: availabilityCalendarModel.localDate,
     available: availabilityCalendarModel.available,
     status: availabilityCalendarModel.status,
     vacancies: availabilityCalendarModel.vacancies,
     capacity: availabilityCalendarModel.capacity,
     openingHours: availabilityCalendarModel.openingHours,
+    paxCount: availabilityCalendarModel.paxCount,
+    utcCutoffAt: availabilityCalendarModel.utcCutoffAt,
+    availabilityLocalStartTimes: availabilityCalendarModel.availabilityLocalStartTimes,
   });
 
   public parsePricingModelToPOJO(
-    availabilityCalendarPricingModel?: AvailabilityCalendarPricingModel
+    availabilityCalendarPricingModel?: AvailabilityCalendarPricingModel,
   ): AvailabilityCalendarPricing {
     if (availabilityCalendarPricingModel === undefined) {
       return {};

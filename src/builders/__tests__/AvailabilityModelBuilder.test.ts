@@ -1,12 +1,12 @@
-import { CapabilityId, PricingPer } from "@octocloud/types";
-import { AvailabilityModelBuilder } from "../AvailabilityModelBuilder";
-import { AvailabilityModel } from "../../models/availability/AvailabilityModel";
+import { CapabilityId, PricingPer } from '@octocloud/types';
+import { AvailabilityModelBuilder } from '../AvailabilityModelBuilder';
+import { AvailabilityModel } from '../../models/availability/AvailabilityModel';
 
-describe("AvailabilityModelBuilder", () => {
+describe('AvailabilityModelBuilder', () => {
   const availabilityModelBuilder = new AvailabilityModelBuilder();
 
-  describe("build", () => {
-    it("should build availability model without any capabilities", async () => {
+  describe('build', () => {
+    it('should build availability model without any capabilities', async () => {
       const availabilityModel = availabilityModelBuilder.build({
         availabilityData: {},
         pricingPer: PricingPer.BOOKING,
@@ -20,7 +20,7 @@ describe("AvailabilityModelBuilder", () => {
       expect(availabilityModel.availabilityPricingModel).toBeUndefined();
     });
 
-    it("should build availability model with content capability", async () => {
+    it('should build availability model with content capability', async () => {
       const availabilityModel = availabilityModelBuilder.build({
         availabilityData: {},
         pricingPer: PricingPer.BOOKING,
@@ -34,7 +34,7 @@ describe("AvailabilityModelBuilder", () => {
       expect(availabilityModel.availabilityPricingModel).toBeUndefined();
     });
 
-    it("should build availability model with offers capability", async () => {
+    it('should build availability model with offers capability', async () => {
       const availabilityModel = availabilityModelBuilder.build({
         availabilityData: {},
         pricingPer: PricingPer.BOOKING,
@@ -48,7 +48,7 @@ describe("AvailabilityModelBuilder", () => {
       expect(availabilityModel.availabilityPricingModel).toBeUndefined();
     });
 
-    it("should build availability model with pickups capability", async () => {
+    it('should build availability model with pickups capability', async () => {
       const availabilityModel = availabilityModelBuilder.build({
         availabilityData: {},
         pricingPer: PricingPer.BOOKING,
@@ -62,7 +62,7 @@ describe("AvailabilityModelBuilder", () => {
       expect(availabilityModel.availabilityPricingModel).toBeUndefined();
     });
 
-    it("should build availability model with pricing capability", async () => {
+    it('should build availability model with pricing capability', async () => {
       const availabilityModel = availabilityModelBuilder.build({
         availabilityData: {},
         pricingPer: PricingPer.BOOKING,
@@ -76,7 +76,7 @@ describe("AvailabilityModelBuilder", () => {
       expect(availabilityModel.availabilityPricingModel).toBeDefined();
     });
 
-    it("should build availability model with all capabilities", async () => {
+    it('should build availability model with all capabilities', async () => {
       const availabilityModel = availabilityModelBuilder.build({
         availabilityData: {},
         pricingPer: PricingPer.BOOKING,

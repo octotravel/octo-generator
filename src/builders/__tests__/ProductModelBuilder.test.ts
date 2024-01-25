@@ -1,12 +1,12 @@
-import { CapabilityId } from "@octocloud/types";
-import { ProductModelBuilder } from "../ProductModelBuilder";
-import { ProductDataProvider } from "../../dataProviders/ProductDataProvider";
-import { ProductModel } from "../../models/product/ProductModel";
+import { CapabilityId } from '@octocloud/types';
+import { ProductModelBuilder } from '../ProductModelBuilder';
+import { ProductDataProvider } from '../../dataProviders/ProductDataProvider';
+import { ProductModel } from '../../models/product/ProductModel';
 
-describe("ProductModelBuilder", () => {
+describe('ProductModelBuilder', () => {
   const productModelBuilder = new ProductModelBuilder();
-  describe("build", () => {
-    it("should build product model without any capabilities", async () => {
+  describe('build', () => {
+    it('should build product model without any capabilities', async () => {
       const productModel = productModelBuilder.build({
         productData: ProductDataProvider.defaultProduct,
         capabilities: [],
@@ -19,7 +19,7 @@ describe("ProductModelBuilder", () => {
       expect(productModel.productQuestionsModel).toBeUndefined();
     });
 
-    it("should build product model with content capability", async () => {
+    it('should build product model with content capability', async () => {
       const productModel = productModelBuilder.build({
         productData: ProductDataProvider.defaultProduct,
         capabilities: [CapabilityId.Content],
@@ -32,7 +32,7 @@ describe("ProductModelBuilder", () => {
       expect(productModel.productQuestionsModel).toBeUndefined();
     });
 
-    it("should build product model with google capability", async () => {
+    it('should build product model with google capability', async () => {
       const productModel = productModelBuilder.build({
         productData: ProductDataProvider.defaultProduct,
         capabilities: [CapabilityId.Google],
@@ -45,7 +45,7 @@ describe("ProductModelBuilder", () => {
       expect(productModel.productQuestionsModel).toBeUndefined();
     });
 
-    it("should build product model with pricing capability", async () => {
+    it('should build product model with pricing capability', async () => {
       const productModel = productModelBuilder.build({
         productData: ProductDataProvider.defaultProduct,
         capabilities: [CapabilityId.Pricing],
@@ -58,7 +58,7 @@ describe("ProductModelBuilder", () => {
       expect(productModel.productQuestionsModel).toBeUndefined();
     });
 
-    it("should build product model with questions capability", async () => {
+    it('should build product model with questions capability', async () => {
       const productModel = productModelBuilder.build({
         productData: ProductDataProvider.defaultProduct,
         capabilities: [CapabilityId.Questions],
@@ -71,7 +71,7 @@ describe("ProductModelBuilder", () => {
       expect(productModel.productQuestionsModel).toBeDefined();
     });
 
-    it("should build product model with all capabilities", async () => {
+    it('should build product model with all capabilities', async () => {
       const productModel = productModelBuilder.build({
         productData: ProductDataProvider.defaultProduct,
         capabilities: [CapabilityId.Content, CapabilityId.Google, CapabilityId.Pricing, CapabilityId.Questions],

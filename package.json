@@ -1,31 +1,35 @@
 {
   "name": "@octocloud/generators",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "scripts": {
-    "build": "tsc",
-    "format-check": "prettier --check \"**/*.{ts,js,css,json,md}\"",
-    "format": "prettier --write \"**/*.{ts,js,css,json,md}\"",
-    "lint": "eslint . --ext .ts",
-    "lint-fix": "eslint . --ext .ts --fix",
-    "test": "jest --verbose",
-    "test-coverage": "jest --coverage",
-    "prepare": "npm run build",
-    "checks": "npm run format && npm run lint && npm run test"
-  },
+  "license": "MIT",
+  "author": "",
+  "homepage": "https://github.com/octotravel/octo-generator#readme",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/octotravel/octo-generator.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "MIT",
   "bugs": {
     "url": "https://github.com/octotravel/octo-generator/issues"
   },
-  "homepage": "https://github.com/octotravel/octo-generator#readme",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "build:dry": "tsc --noEmit",
+    "check": "npm run build:dry && npm run format:check && npm run lint",
+    "checks": "npm run format && npm run lint && npm run test",
+    "fix": "npm run format:package && npm run format && npm run lint:fix",
+    "fix:staged": "npx lint-staged",
+    "format": "prettier . '!./ops' --write",
+    "format:check": "prettier . '!./ops' --check",
+    "format:package": "prettier-package-json --write",
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --ext .ts --fix",
+    "prepare": "npm run build && husky install",
+    "test": "jest --verbose",
+    "test-coverage": "jest --coverage"
+  },
+  "types": "dist/index.d.ts",
   "dependencies": {
     "@octocloud/types": "^1.5.13",
     "date-fns": "^2.29.1",
@@ -36,17 +40,29 @@
     "@octocloud/validators": "^1.0.2",
     "@types/jest": "^29.4.0",
     "@types/uuid": "^9.0.0",
-    "@typescript-eslint/eslint-plugin": "^5.32.0",
-    "@typescript-eslint/parser": "^5.32.0",
-    "eslint": "^8.21.0",
-    "eslint-config-airbnb": "^19.0.4",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-unused-imports": "^2.0.0",
-    "husky": "^8.0.1",
+    "@typescript-eslint/eslint-plugin": "6.18.1",
+    "@typescript-eslint/parser": "6.18.1",
+    "eslint": "8.56.0",
+    "eslint-config-airbnb-base": "15.0.0",
+    "eslint-config-airbnb-typescript": "17.1.0",
+    "eslint-config-prettier": "9.1.0",
+    "eslint-config-standard-with-typescript": "43.0.0",
+    "eslint-plugin-import": "2.29.1",
+    "eslint-plugin-unused-imports": "3.0.0",
+    "husky": "8.0.3",
     "jest": "^29.4.1",
-    "lint-staged": "^13.0.3",
-    "prettier": "^2.7.1",
+    "lint-staged": "15.2.0",
+    "prettier": "3.1.1",
+    "prettier-package-json": "2.8.0",
     "ts-jest": "^29.0.5",
-    "typescript": "^4.7.4"
+    "typescript": "5.3.3"
+  },
+  "keywords": [],
+  "lint-staged": {
+    "./package.json": "npm run format:package",
+    "*": "npm run format",
+    "*.(ts|js)": [
+      "npm run lint:fix"
+    ]
   }
 }

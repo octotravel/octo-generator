@@ -1,32 +1,65 @@
 module.exports = {
-  parser: "@typescript-eslint/parser",
+  root: true,
+  parser: '@typescript-eslint/parser',
+  parserOptions: { project: ['./tsconfig.json'] },
   settings: {
-    "import/resolver": {
+    'import/resolver': {
       node: {
-        extensions: [".ts"],
+        extensions: ['.ts'],
       },
     },
   },
-  plugins: ["@typescript-eslint", "unused-imports"],
-  extends: ["eslint:recommended", "plugin:@typescript-eslint/recommended", "airbnb", "prettier"],
-  rules: {
-    "@typescript-eslint/ban-ts-comment": "warn",
-    "new-cap": "error",
-    "unused-imports/no-unused-imports": "error",
-    "class-methods-use-this": "off",
-    "import/prefer-default-export": "off",
-    "import/extensions": "off",
-    "no-param-reassign": "off",
-    "no-underscore-dangle": "off",
-    "prefer-destructuring": "off",
-    "object-shorthand": "off",
-    curly: "error",
-    quotes: ["error", "double"],
-  },
-  env: {
-    jest: true,
-  },
-  globals: {
-    Nullable: true,
-  },
+  plugins: ['@typescript-eslint', 'unused-imports', 'import'],
+  extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'prettier'],
+  overrides: [
+    {
+      files: ['*.ts'],
+      extends: 'standard-with-typescript',
+      rules: {
+        'no-console': 'error',
+        'promise/param-names': 'off',
+        'no-tabs': 'off',
+        'n/handle-callback-err': 'off',
+        '@typescript-eslint/semi': 'off',
+        '@typescript-eslint/comma-dangle': 'off',
+        '@typescript-eslint/member-delimiter-style': 'off',
+        '@typescript-eslint/consistent-type-imports': 'off',
+        '@typescript-eslint/unbound-method': 'off',
+        '@typescript-eslint/no-floating-promises': 'off',
+        '@typescript-eslint/no-extraneous-class': 'off',
+        '@typescript-eslint/strict-boolean-expressions': 'off',
+        '@typescript-eslint/restrict-template-expressions': 'off',
+        '@typescript-eslint/no-non-null-assertion': 'off',
+        '@typescript-eslint/no-unsafe-argument': 'off',
+        '@typescript-eslint/consistent-type-assertions': 'off',
+        '@typescript-eslint/no-misused-promises': 'off',
+        '@typescript-eslint/no-unused-vars': 'off',
+        '@typescript-eslint/naming-convention': 'off',
+        '@typescript-eslint/no-non-null-asserted-optional-chain': 'off',
+        '@typescript-eslint/space-before-function-paren': 'off',
+        '@typescript-eslint/indent': 'off',
+        '@typescript-eslint/no-explicit-any': 'off',
+        '@typescript-eslint/explicit-member-accessibility': [
+          'error',
+          {
+            accessibility: 'explicit',
+            overrides: {
+              accessors: 'explicit',
+              constructors: 'explicit',
+              methods: 'explicit',
+              properties: 'explicit',
+              parameterProperties: 'explicit',
+            },
+          },
+        ],
+      },
+    },
+    {
+      files: ['*.ts'],
+      rules: {
+        '@typescript-eslint/dot-notation': 'error',
+        'no-shadow': 'off',
+      },
+    },
+  ],
 };

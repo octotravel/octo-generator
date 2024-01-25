@@ -1,9 +1,9 @@
-import { GoogleOptions } from "@octocloud/types";
+import { GoogleOptions } from '@octocloud/types';
 
 export class ProductGoogleModel {
   public readonly googleOptions: GoogleOptions;
 
-  constructor({ googleOptions }: { googleOptions: GoogleOptions }) {
+  public constructor({ googleOptions }: { googleOptions: GoogleOptions }) {
     this.googleOptions = googleOptions;
   }
 }

@@ -1,7 +1,7 @@
-import { CapabilityId, Unit, UnitItem, UnitItemPricing } from "@octocloud/types";
-import { UnitItemModel } from "../models/unitItem/UnitItemModel";
-import { UnitParser } from "./UnitParser";
-import { UnitItemPricingModel } from "../models/unitItem/UnitItemPricingModel";
+import { CapabilityId, Unit, UnitItem, UnitItemPricing } from '@octocloud/types';
+import { UnitItemModel } from '../models/unitItem/UnitItemModel';
+import { UnitParser } from './UnitParser';
+import { UnitItemPricingModel } from '../models/unitItem/UnitItemPricingModel';
 
 export class UnitItemParser {
   private readonly unitParser: UnitParser = new UnitParser();
@@ -9,9 +9,10 @@ export class UnitItemParser {
   public parsePOJOToModel(unitItem: UnitItem): UnitItemModel {
     return new UnitItemModel({
       uuid: unitItem.uuid,
+      id: unitItem.id,
       resellerReference: unitItem.resellerReference,
       supplierReference: unitItem.supplierReference,
-      unitModel: this.unitParser.parsePOJOToModel(unitItem.unit as Unit),
+      unitModel: this.unitParser.parsePOJOToModel(unitItem.unit!),
       status: unitItem.status,
       utcRedeemedAt: unitItem.utcRedeemedAt,
       contact: unitItem.contact,
@@ -33,13 +34,13 @@ export class UnitItemParser {
   public parseModelToPOJO(unitItemModel: UnitItemModel): UnitItem {
     return Object.assign(
       this.parseMainModelToPojo(unitItemModel),
-      this.parsePricingModelToPOJO(unitItemModel.unitItemPricingModel)
+      this.parsePricingModelToPOJO(unitItemModel.unitItemPricingModel),
     );
   }
 
   public parseModelToPOJOWithSpecificCapabilities(
     unitItemModel: UnitItemModel,
-    capabilities: CapabilityId[]
+    capabilities: CapabilityId[],
   ): UnitItem {
     let unitItemPricing;
 
@@ -61,6 +62,7 @@ export class UnitItemParser {
 
     return {
       uuid: unitItemModel.uuid,
+      id: unitItemModel.id,
       resellerReference: unitItemModel.resellerReference,
       supplierReference: unitItemModel.supplierReference,
       unitId: unitItemModel.unitModel.id,

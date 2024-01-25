@@ -1,13 +1,13 @@
-import { Pricing } from "@octocloud/types";
+import { Pricing } from '@octocloud/types';
 
 export class OptionPricingModel {
-  public readonly pricingFrom?: Array<Pricing>;
+  public readonly pricingFrom?: Pricing[];
 
-  public readonly pricing?: Array<Pricing>;
+  public readonly pricing?: Pricing[];
 
-  constructor({ pricingFrom, pricing }: { pricingFrom?: Array<Pricing>; pricing?: Array<Pricing> }) {
+  public constructor({ pricingFrom, pricing }: { pricingFrom?: Pricing[]; pricing?: Pricing[] }) {
     if (pricingFrom !== undefined && pricing !== undefined) {
-      throw new Error("Only one of pricingFrom and pricing should be set.");
+      throw new Error('Only one of pricingFrom and pricing should be set.');
     }
 
     this.pricingFrom = pricingFrom;

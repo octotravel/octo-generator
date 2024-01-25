@@ -1,5 +1,5 @@
-import { Offer, OfferComparison } from "@octocloud/types";
-import { OfferModel } from "../offer/OfferModel";
+import { Offer, OfferComparison } from '@octocloud/types';
+import { OfferModel } from '../offer/OfferModel';
 
 export class BookingOffersModel {
   public readonly offerCode: string;
@@ -14,7 +14,7 @@ export class BookingOffersModel {
 
   public readonly offerModel: Offer;
 
-  constructor({
+  public constructor({
     offerCode,
     offerTitle,
     offerComparisons,

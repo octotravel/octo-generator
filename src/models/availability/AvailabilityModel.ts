@@ -1,8 +1,9 @@
-import { AvailabilityStatus, OpeningHours } from "@octocloud/types";
-import { AvailabilityContentModel } from "./AvailabilityContentModel";
-import { AvailabilityPickupsModel } from "./AvailabilityPickupsModel";
-import { AvailabilityPricingModel } from "./AvailabilityPricingModel";
-import { AvailabilityOffersModel } from "./AvailabilityOffersModel";
+import { AvailabilityStatus, OpeningHours } from '@octocloud/types';
+import { AvailabilityContentModel } from './AvailabilityContentModel';
+import { AvailabilityPickupsModel } from './AvailabilityPickupsModel';
+import { AvailabilityPricingModel } from './AvailabilityPricingModel';
+import { AvailabilityOffersModel } from './AvailabilityOffersModel';
+import { AvailabilityResourcesModel } from './AvailabilityResourcesModel';
 
 export class AvailabilityModel {
   public readonly id: string;
@@ -35,7 +36,9 @@ export class AvailabilityModel {
 
   public readonly availabilityPricingModel?: AvailabilityPricingModel;
 
-  constructor({
+  public readonly availabilityResourcesModel?: AvailabilityResourcesModel;
+
+  public constructor({
     id,
     localDateTimeStart,
     localDateTimeEnd,
@@ -51,6 +54,7 @@ export class AvailabilityModel {
     availabilityPickupsModel,
     availabilityOffersModel,
     availabilityPricingModel,
+    availabilityResourcesModel,
   }: {
     id: string;
     localDateTimeStart: string;
@@ -67,6 +71,7 @@ export class AvailabilityModel {
     availabilityPickupsModel?: AvailabilityPickupsModel;
     availabilityOffersModel?: AvailabilityOffersModel;
     availabilityPricingModel?: AvailabilityPricingModel;
+    availabilityResourcesModel?: AvailabilityResourcesModel;
   }) {
     this.id = id;
     this.localDateTimeStart = localDateTimeStart;
@@ -83,5 +88,6 @@ export class AvailabilityModel {
     this.availabilityPickupsModel = availabilityPickupsModel;
     this.availabilityOffersModel = availabilityOffersModel;
     this.availabilityPricingModel = availabilityPricingModel;
+    this.availabilityResourcesModel = availabilityResourcesModel;
   }
 }

@@ -1,3 +1,3 @@
-import { Offer } from "@octocloud/types";
+import { Offer } from '@octocloud/types';
 
 export type PartialOffer = Partial<Offer>;

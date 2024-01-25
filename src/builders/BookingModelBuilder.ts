@@ -1,19 +1,19 @@
-import { BookingStatus, CapabilityId, DurationUnit, DeliveryMethod, RedemptionMethod } from "@octocloud/types";
-import { BookingModel } from "../models/booking/BookingModel";
-import { BookingCartModel } from "../models/booking/BookingCartModel";
-import { ProductModelBuilder } from "./ProductModelBuilder";
-import { OptionModelBuilder } from "./OptionModelBuilder";
-import { BookingContentModel } from "../models/booking/BookingContentModel";
-import { BookingPickupsModel } from "../models/booking/BookingPickupsModel";
-import { BookingPricingModel } from "../models/booking/BookingPricingModel";
-import { PartialBooking } from "../types/PartialBooking";
-import { UnitItemModel } from "../models/unitItem/UnitItemModel";
-import { UnitItemModelBuilder } from "./UnitItemModelBuilder";
-import { DeliveryMethodsDataProvider } from "../dataProviders/DeliveryMethodDataProvider";
-import { BookingOffersModel } from "../models/booking/BookingOffersModel";
-import { OfferModelBuilder } from "./OfferModelBuilder";
-import { BookingQuestionsModel } from "../models/booking/BookingQuestionsModel";
-import { PricingDataProvider } from "../dataProviders/PricingDataProvider";
+import { BookingStatus, CapabilityId, DurationUnit, DeliveryMethod, RedemptionMethod } from '@octocloud/types';
+import { BookingModel } from '../models/booking/BookingModel';
+import { BookingCartModel } from '../models/booking/BookingCartModel';
+import { ProductModelBuilder } from './ProductModelBuilder';
+import { OptionModelBuilder } from './OptionModelBuilder';
+import { BookingContentModel } from '../models/booking/BookingContentModel';
+import { BookingPickupsModel } from '../models/booking/BookingPickupsModel';
+import { BookingPricingModel } from '../models/booking/BookingPricingModel';
+import { PartialBooking } from '../types/PartialBooking';
+import { UnitItemModel } from '../models/unitItem/UnitItemModel';
+import { UnitItemModelBuilder } from './UnitItemModelBuilder';
+import { DeliveryMethodsDataProvider } from '../dataProviders/DeliveryMethodDataProvider';
+import { BookingOffersModel } from '../models/booking/BookingOffersModel';
+import { OfferModelBuilder } from './OfferModelBuilder';
+import { BookingQuestionsModel } from '../models/booking/BookingQuestionsModel';
+import { PricingDataProvider } from '../dataProviders/PricingDataProvider';
 
 interface BookingModelBuilderData {
   bookingData: PartialBooking;
@@ -67,18 +67,18 @@ export class BookingModelBuilder {
     let utcConfirmedAt = bookingData.utcConfirmedAt ?? null;
 
     if ((utcConfirmedAt === undefined || utcConfirmedAt === null) && status === BookingStatus.CONFIRMED) {
-      utcConfirmedAt = "2022-11-28T08:43:38Z";
+      utcConfirmedAt = '2022-11-28T08:43:38Z';
     }
 
     return new BookingModel({
-      id: bookingData.id ?? "id",
-      uuid: bookingData.uuid ?? "uuid",
+      id: bookingData.id ?? 'id',
+      uuid: bookingData.uuid ?? 'uuid',
       testMode: bookingData.testMode ?? false,
       resellerReference: bookingData.resellerReference ?? null,
       supplierReference: bookingData.supplierReference ?? null,
       status,
-      utcCreatedAt: bookingData.utcCreatedAt ?? "2022-11-28T08:43:37Z",
-      utcUpdatedAt: bookingData.utcUpdatedAt ?? "2022-11-28T08:43:38Z",
+      utcCreatedAt: bookingData.utcCreatedAt ?? '2022-11-28T08:43:37Z',
+      utcUpdatedAt: bookingData.utcUpdatedAt ?? '2022-11-28T08:43:38Z',
       utcExpiresAt: bookingData.utcExpiresAt ?? null,
       utcRedeemedAt: bookingData.utcRedeemedAt ?? null,
       utcConfirmedAt,
@@ -130,7 +130,7 @@ export class BookingModelBuilder {
           capabilities: builderData.capabilities,
           sourceModel: BookingModel,
         }),
-      builderData
+      builderData,
     );
   }
 
@@ -142,8 +142,8 @@ export class BookingModelBuilder {
     const { bookingData } = builderData;
 
     return new BookingCartModel({
-      orderId: bookingData.orderId ?? "orderId",
-      orderReference: bookingData.orderReference ?? "orderReference",
+      orderId: bookingData.orderId ?? 'orderId',
+      orderReference: bookingData.orderReference ?? 'orderReference',
       primary: bookingData.primary ?? false,
     });
   }
@@ -159,9 +159,11 @@ export class BookingModelBuilder {
       meetingPoint: bookingData.meetingPoint ?? null,
       meetingPointCoordinates: bookingData.meetingPointCoordinates ?? null,
       meetingLocalDateTime: bookingData.meetingLocalDateTime ?? null,
-      duration: bookingData.duration ?? "duration",
-      durationAmount: bookingData.duration ?? "durationAmount",
+      duration: bookingData.duration ?? 'duration',
+      durationAmount: bookingData.duration ?? 'durationAmount',
       durationUnit: bookingData.duration ?? DurationUnit.HOUR,
+      termsAccepted: bookingData.termsAccepted ?? true,
+      notices: bookingData.notices ?? [],
     });
   }
 
@@ -173,8 +175,8 @@ export class BookingModelBuilder {
     const { bookingData } = builderData;
 
     return new BookingOffersModel({
-      offerCode: bookingData.offerCode ?? "offerCode",
-      offerTitle: bookingData.offerTitle ?? "offerTitle",
+      offerCode: bookingData.offerCode ?? 'offerCode',
+      offerTitle: bookingData.offerTitle ?? 'offerTitle',
       offerComparisons: bookingData.offerComparisons ?? [],
       offerIsCombination: bookingData.offerIsCombination ?? false,
       offerModels:
@@ -192,7 +194,7 @@ export class BookingModelBuilder {
 
     return new BookingPickupsModel({
       pickupRequested: bookingData.pickupRequested ?? false,
-      pickupPointId: bookingData.pickupPointId ?? "pickupPointId",
+      pickupPointId: bookingData.pickupPointId ?? 'pickupPointId',
       pickupHotel: bookingData.pickupHotel ?? null,
       pickupHotelRoom: bookingData.pickupHotelRoom ?? null,
       pickupPoint: bookingData.pickupPoint ?? null,

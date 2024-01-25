@@ -3,15 +3,17 @@ import {
   Product,
   ProductContent,
   ProductGoogle,
+  ProductPackage,
   ProductPricing,
   ProductQuestions,
-} from "@octocloud/types";
-import { OptionParser } from "./OptionParser";
-import { ProductModel } from "../models/product/ProductModel";
-import { ProductContentModel } from "../models/product/ProductContentModel";
-import { ProductPricingModel } from "../models/product/ProductPricingModel";
-import { ProductQuestionsModel } from "../models/product/ProductQuestionsModel";
-import { ProductGoogleModel } from "../models/product/ProductGoogleModel";
+} from '@octocloud/types';
+import { OptionParser } from './OptionParser';
+import { ProductModel } from '../models/product/ProductModel';
+import { ProductContentModel } from '../models/product/ProductContentModel';
+import { ProductPricingModel } from '../models/product/ProductPricingModel';
+import { ProductQuestionsModel } from '../models/product/ProductQuestionsModel';
+import { ProductGoogleModel } from '../models/product/ProductGoogleModel';
+import { ProductPackageModel } from '../models/product/ProductPackageModel';
 
 export class ProductParser {
   private readonly optionParser = new OptionParser();
@@ -31,11 +33,14 @@ export class ProductParser {
       deliveryFormats: product.deliveryFormats,
       deliveryMethods: product.deliveryMethods,
       redemptionMethod: product.redemptionMethod,
+      freesaleDurationAmount: product.freesaleDurationAmount,
+      freesaleDurationUnit: product.freesaleDurationUnit,
       optionModels: product.options.map((option) => this.optionParser.parsePOJOToModel(option)),
       productContentModel: this.parseContentPOJOToModel(product),
       productGoogleModel: this.parseProductGooglePOJOToModel(product),
       productPricingModel: this.parsePricingPOJOToModel(product),
       productQuestionsModel: this.parseQuestionsPOJOToModel(product),
+      productPackageModel: this.parsePackagePOJOToModel(product),
     });
   }
 
@@ -60,7 +65,10 @@ export class ProductParser {
       productContent.bannerImageUrl === undefined ||
       productContent.videoUrl === undefined ||
       productContent.galleryImages === undefined ||
-      productContent.bannerImages === undefined
+      productContent.bannerImages === undefined ||
+      productContent.pointToPoint === undefined ||
+      productContent.privacyTerms === undefined ||
+      productContent.alert === undefined
     ) {
       return undefined;
     }
@@ -86,6 +94,9 @@ export class ProductParser {
       videoUrl: productContent.videoUrl,
       galleryImages: productContent.galleryImages,
       bannerImages: productContent.bannerImages,
+      pointToPoint: productContent.pointToPoint,
+      privacyTerms: productContent.privacyTerms,
+      alert: productContent.alert,
     });
   }
 
@@ -112,6 +123,7 @@ export class ProductParser {
       defaultCurrency: productPricing.defaultCurrency,
       availableCurrencies: productPricing.availableCurrencies,
       pricingPer: productPricing.pricingPer,
+      includeTax: true,
     });
   }
 
@@ -125,13 +137,24 @@ export class ProductParser {
     });
   }
 
+  public parsePackagePOJOToModel(productPackage: ProductPackage): ProductPackageModel | undefined {
+    if (productPackage.isPackage === undefined) {
+      return undefined;
+    }
+
+    return new ProductPackageModel({
+      isPackage: productPackage.isPackage,
+    });
+  }
+
   public parseModelToPOJO(productModel: ProductModel): Product {
     return Object.assign(
       this.parseMainModelToPojo(productModel),
       this.parseContentModelToPOJO(productModel.productContentModel),
       this.parseGoogleModelToPOJO(productModel.productGoogleModel),
       this.parsePricingModelToPOJO(productModel.productPricingModel),
-      this.parseQuestionsModelToPOJO(productModel.productQuestionsModel)
+      this.parseQuestionsModelToPOJO(productModel.productQuestionsModel),
+      this.parsePackageModelToPOJO(productModel.productPackageModel),
     );
   }
 
@@ -140,6 +163,7 @@ export class ProductParser {
     let productGoogle;
     let productPricing;
     let productQuestion;
+    let productPackage;
 
     if (capabilities?.includes(CapabilityId.Content)) {
       productContent = this.parseContentModelToPOJO(productModel.productContentModel);
@@ -157,12 +181,17 @@ export class ProductParser {
       productQuestion = this.parseQuestionsModelToPOJO(productModel.productQuestionsModel);
     }
 
+    if (capabilities?.includes(CapabilityId.Packages)) {
+      productPackage = this.parsePackageModelToPOJO(productModel.productPackageModel);
+    }
+
     return Object.assign(
       this.parseMainModelToPojo(productModel, capabilities),
       productContent,
       productGoogle,
       productPricing,
-      productQuestion
+      productQuestion,
+      productPackage,
     );
   }
 
@@ -188,6 +217,8 @@ export class ProductParser {
       deliveryFormats: productModel.deliveryFormats,
       deliveryMethods: productModel.deliveryMethods,
       redemptionMethod: productModel.redemptionMethod,
+      freesaleDurationAmount: productModel.freesaleDurationAmount,
+      freesaleDurationUnit: productModel.freesaleDurationUnit,
       options,
     };
   }
@@ -218,6 +249,9 @@ export class ProductParser {
       videoUrl: productContentModel.videoUrl,
       galleryImages: productContentModel.galleryImages,
       bannerImages: productContentModel.bannerImages,
+      pointToPoint: productContentModel.pointToPoint,
+      privacyTerms: productContentModel.privacyTerms,
+      alert: productContentModel.alert,
     };
   }
 
@@ -240,6 +274,7 @@ export class ProductParser {
       defaultCurrency: productPricingModel.defaultCurrency,
       availableCurrencies: productPricingModel.availableCurrencies,
       pricingPer: productPricingModel.pricingPer,
+      includeTax: productPricingModel.includeTax,
     };
   }
 
@@ -250,6 +285,16 @@ export class ProductParser {
 
     return {
       questions: productQuestionsModel?.questions,
+    };
+  }
+
+  private parsePackageModelToPOJO(ProductPackageModel?: ProductPackageModel): ProductPackage {
+    if (ProductPackageModel === undefined) {
+      return {};
+    }
+
+    return {
+      isPackage: ProductPackageModel?.isPackage,
     };
   }
 }

@@ -1,3 +1,3 @@
-import { Unit } from "@octocloud/types";
+import { Unit } from '@octocloud/types';
 
 export type PartialUnit = Partial<Unit>;

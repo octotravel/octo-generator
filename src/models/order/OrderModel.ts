@@ -1,5 +1,5 @@
-import { Contact, OfferCombination, OrderStatus, Pricing } from "@octocloud/types";
-import { BookingModel } from "../booking/BookingModel";
+import { Contact, OfferCombination, OrderStatus, Pricing } from '@octocloud/types';
+import { BookingModel } from '../booking/BookingModel';
 
 export class OrderModel {
   public readonly id: string;
@@ -18,7 +18,7 @@ export class OrderModel {
 
   protected _cancellable: boolean;
 
-  protected _bookingModels: Array<BookingModel>;
+  protected _bookingModels: BookingModel[];
 
   protected _contact: Contact;
 
@@ -32,7 +32,7 @@ export class OrderModel {
 
   public readonly returnUrl?: string;
 
-  constructor({
+  public constructor({
     id,
     testMode,
     supplierReference,
@@ -57,7 +57,7 @@ export class OrderModel {
     utcExpiresAt: Nullable<string>;
     utcConfirmedAt: Nullable<string>;
     cancellable: boolean;
-    bookingModels: Array<BookingModel>;
+    bookingModels: BookingModel[];
     contact: Contact;
     termsAccepted?: boolean;
     pricing?: Pricing;
@@ -82,51 +82,51 @@ export class OrderModel {
     this.returnUrl = returnUrl;
   }
 
-  get status(): OrderStatus {
+  public get status(): OrderStatus {
     return this._status;
   }
 
-  set status(status: OrderStatus) {
+  public set status(status: OrderStatus) {
     this._status = status;
   }
 
-  get utcExpiresAt(): Nullable<string> {
+  public get utcExpiresAt(): Nullable<string> {
     return this._utcExpiresAt;
   }
 
-  set utcExpiresAt(utcExpiresAt: Nullable<string>) {
+  public set utcExpiresAt(utcExpiresAt: Nullable<string>) {
     this._utcExpiresAt = utcExpiresAt;
   }
 
-  get utcConfirmedAt(): Nullable<string> {
+  public get utcConfirmedAt(): Nullable<string> {
     return this._utcConfirmedAt;
   }
 
-  set utcConfirmedAt(utcConfirmedAt: Nullable<string>) {
+  public set utcConfirmedAt(utcConfirmedAt: Nullable<string>) {
     this._utcConfirmedAt = utcConfirmedAt;
   }
 
-  get cancellable(): boolean {
+  public get cancellable(): boolean {
     return this._cancellable;
   }
 
-  set cancellable(cancellable: boolean) {
+  public set cancellable(cancellable: boolean) {
     this._cancellable = cancellable;
   }
 
-  get contact(): Contact {
+  public get contact(): Contact {
     return this._contact;
   }
 
-  set contact(contact: Contact) {
+  public set contact(contact: Contact) {
     this._contact = contact;
   }
 
-  get bookingModels(): Array<BookingModel> {
+  public get bookingModels(): BookingModel[] {
     return this._bookingModels;
   }
 
-  set bookingModels(bookingModels: Array<BookingModel>) {
+  public set bookingModels(bookingModels: BookingModel[]) {
     this._bookingModels = bookingModels;
   }
 

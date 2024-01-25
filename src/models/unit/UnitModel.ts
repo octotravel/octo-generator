@@ -1,7 +1,7 @@
-import { Restrictions, UnitType } from "@octocloud/types";
-import { UndefinedModelError } from "../../errors/UndefinedModelError";
-import { UnitContentModel } from "./UnitContentModel";
-import { UnitPricingModel } from "./UnitPricingModel";
+import { ContactField, Restrictions, UnitType } from '@octocloud/types';
+import { UndefinedModelError } from '../../errors/UndefinedModelError';
+import { UnitContentModel } from './UnitContentModel';
+import { UnitPricingModel } from './UnitPricingModel';
 
 export class UnitModel {
   public readonly id: string;
@@ -14,19 +14,22 @@ export class UnitModel {
 
   public readonly restrictions: Restrictions;
 
-  public readonly requiredContactFields: string[];
+  public readonly requiredContactFields: ContactField[];
+
+  public readonly visibleContactFields: ContactField[];
 
   public readonly unitContentModel?: UnitContentModel;
 
   protected _unitPricingModel?: UnitPricingModel;
 
-  constructor({
+  public constructor({
     id,
     internalName,
     reference,
     type,
     restrictions,
     requiredContactFields,
+    visibleContactFields,
     unitContentModel,
     unitPricingModel,
   }: {
@@ -35,7 +38,8 @@ export class UnitModel {
     reference: string;
     type: UnitType;
     restrictions: Restrictions;
-    requiredContactFields: string[];
+    requiredContactFields: ContactField[];
+    visibleContactFields: ContactField[];
     unitContentModel?: UnitContentModel;
     unitPricingModel?: UnitPricingModel;
   }) {
@@ -45,15 +49,16 @@ export class UnitModel {
     this.type = type;
     this.restrictions = restrictions;
     this.requiredContactFields = requiredContactFields;
+    this.visibleContactFields = visibleContactFields;
     this.unitContentModel = unitContentModel;
     this.unitPricingModel = unitPricingModel;
   }
 
-  get unitPricingModel(): UnitPricingModel | undefined {
+  public get unitPricingModel(): UnitPricingModel | undefined {
     return this._unitPricingModel;
   }
 
-  set unitPricingModel(unitPricingModel: UnitPricingModel | undefined) {
+  public set unitPricingModel(unitPricingModel: UnitPricingModel | undefined) {
     this._unitPricingModel = unitPricingModel;
   }
 
@@ -62,7 +67,7 @@ export class UnitModel {
    */
   public getOptionContentModel(): UnitContentModel {
     if (this.unitContentModel === undefined) {
-      throw UndefinedModelError.create("UnitContentModel", "UnitModel", this.id);
+      throw UndefinedModelError.create('UnitContentModel', 'UnitModel', this.id);
     }
 
     return this.unitContentModel;
@@ -73,7 +78,7 @@ export class UnitModel {
    */
   public getUnitPricingModel(): UnitPricingModel {
     if (this.unitPricingModel === undefined) {
-      throw UndefinedModelError.create("UnitPricingModel", "UnitModel", this.id);
+      throw UndefinedModelError.create('UnitPricingModel', 'UnitModel', this.id);
     }
 
     return this.unitPricingModel;

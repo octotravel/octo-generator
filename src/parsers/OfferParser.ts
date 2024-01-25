@@ -1,5 +1,5 @@
-import { Offer } from "@octocloud/types";
-import { OfferModel } from "../models/offer/OfferModel";
+import { Offer } from '@octocloud/types';
+import { OfferModel } from '../models/offer/OfferModel';
 
 export class OfferParser {
   public parsePOJOToModel(offer: Offer): OfferModel {

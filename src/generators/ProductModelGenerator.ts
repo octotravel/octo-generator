@@ -1,7 +1,7 @@
-import { CapabilityId } from "@octocloud/types";
-import { ProductModel } from "../models/product/ProductModel";
-import { ProductModelBuilder } from "../builders/ProductModelBuilder";
-import { PartialProduct } from "../types/PartialProduct";
+import { CapabilityId } from '@octocloud/types';
+import { ProductModel } from '../models/product/ProductModel';
+import { ProductModelBuilder } from '../builders/ProductModelBuilder';
+import { PartialProduct } from '../types/PartialProduct';
 
 interface ProductGeneratorData {
   productData: PartialProduct;

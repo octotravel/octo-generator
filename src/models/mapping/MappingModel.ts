@@ -1,4 +1,4 @@
-import { ResellerStatus } from "@octocloud/types";
+import { ResellerStatus } from '@octocloud/types';
 
 export class MappingModel {
   public readonly id: string;
@@ -25,7 +25,7 @@ export class MappingModel {
 
   public readonly connected: boolean;
 
-  constructor({
+  public constructor({
     id,
     resellerReference,
     resellerStatus,

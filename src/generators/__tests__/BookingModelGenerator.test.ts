@@ -1,10 +1,10 @@
-import { CapabilityId } from "@octocloud/types";
-import { BookingValidator } from "@octocloud/validators";
-import { BookingParser } from "../../parsers/BookingParser";
-import { BookingModelGenerator } from "../BookingModelGenerator";
-import { AvailabilityDataProvider } from "../../dataProviders/AvailabilityDataProvider";
+import { CapabilityId } from '@octocloud/types';
+import { BookingValidator } from '@octocloud/validators';
+import { BookingParser } from '../../parsers/BookingParser';
+import { BookingModelGenerator } from '../BookingModelGenerator';
+import { AvailabilityDataProvider } from '../../dataProviders/AvailabilityDataProvider';
 
-describe("BookingModelGenerator", () => {
+describe('BookingModelGenerator', () => {
   const bookingModelGenerator = new BookingModelGenerator();
   const bookingParser = new BookingParser();
   const capabilities = [CapabilityId.Cart, CapabilityId.Content, CapabilityId.Pickups, CapabilityId.Pricing];
@@ -12,11 +12,11 @@ describe("BookingModelGenerator", () => {
     capabilities,
   });
 
-  describe("generate and validate booking model", () => {
-    it("should generate valid booking model", async () => {
+  describe('generate and validate booking model', () => {
+    it('should generate valid booking model', async () => {
       const bookingModel = bookingModelGenerator.generateBooking({
         bookingData: {
-          id: "id",
+          id: 'id',
           availability: AvailabilityDataProvider.availability,
         },
         capabilities,
@@ -27,10 +27,10 @@ describe("BookingModelGenerator", () => {
       expect(validationErrors).toStrictEqual([]);
     });
 
-    it("should generate invalid booking model", async () => {
+    it('should generate invalid booking model', async () => {
       const unitModel = bookingModelGenerator.generateBooking({
         bookingData: {
-          id: "",
+          id: '',
           availability: AvailabilityDataProvider.availability,
         },
         capabilities,

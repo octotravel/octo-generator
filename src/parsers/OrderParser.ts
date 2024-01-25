@@ -1,6 +1,6 @@
-import { CapabilityId, Order } from "@octocloud/types";
-import { BookingParser } from "./BookingParser";
-import { OrderModel } from "../models/order/OrderModel";
+import { CapabilityId, Order } from '@octocloud/types';
+import { BookingParser } from './BookingParser';
+import { OrderModel } from '../models/order/OrderModel';
 
 export class OrderParser {
   private readonly bookingParser = new BookingParser();
@@ -32,7 +32,7 @@ export class OrderParser {
     return this.parseMainModelToPojo(orderModel, capabilities);
   }
 
-  private parseMainModelToPojo = (orderModel: OrderModel, capabilities?: CapabilityId[]): Order => {
+  private readonly parseMainModelToPojo = (orderModel: OrderModel, capabilities?: CapabilityId[]): Order => {
     const bookings = orderModel.bookingModels.map((bookingModel) => {
       if (capabilities === undefined) {
         return this.bookingParser.parseModelToPOJO(bookingModel);
@@ -49,7 +49,7 @@ export class OrderParser {
       utcExpiresAt: orderModel.utcExpiresAt,
       utcConfirmedAt: orderModel.utcConfirmedAt,
       cancellable: orderModel.cancellable,
-      bookings: bookings,
+      bookings,
       contact: orderModel.contact,
       termsAccepted: orderModel.termsAccepted,
       pricing: orderModel.pricing,

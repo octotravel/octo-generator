@@ -1,22 +1,22 @@
-import { CapabilityId } from "@octocloud/types";
-import { AvailabilityValidator } from "@octocloud/validators";
-import { AvailabilityModelGenerator } from "../AvailabilityModelGenerator";
-import { AvailabilityParser } from "../../parsers/AvailabilityParser";
+import { CapabilityId } from '@octocloud/types';
+import { AvailabilityValidator } from '@octocloud/validators';
+import { AvailabilityModelGenerator } from '../AvailabilityModelGenerator';
+import { AvailabilityParser } from '../../parsers/AvailabilityParser';
 
-describe("AvailabilityModelGenerator", () => {
+describe('AvailabilityModelGenerator', () => {
   const availabilityModelGenerator = new AvailabilityModelGenerator();
   const availabilityParser = new AvailabilityParser();
   const capabilities = [CapabilityId.Content, CapabilityId.Pricing, CapabilityId.Pickups];
   const availabilityValidator = new AvailabilityValidator({
-    path: "",
+    path: '',
     capabilities,
   });
 
-  describe("generate and validate availability model", () => {
-    it("should generate valid availability model", async () => {
+  describe('generate and validate availability model', () => {
+    it('should generate valid availability model', async () => {
       const availabilityModel = availabilityModelGenerator.generateAvailability({
         availabilityData: {
-          id: "2023-12-01T00:00:00+01:00",
+          id: '2023-12-01T00:00:00+01:00',
         },
         capabilities,
       });
@@ -26,10 +26,10 @@ describe("AvailabilityModelGenerator", () => {
       expect(validationErrors).toStrictEqual([]);
     });
 
-    it("should generate invalid availability model", async () => {
+    it('should generate invalid availability model', async () => {
       const availabilityModel = availabilityModelGenerator.generateAvailability({
         availabilityData: {
-          id: "",
+          id: '',
         },
         capabilities,
       });

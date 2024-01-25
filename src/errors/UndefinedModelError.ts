@@ -1,4 +1,4 @@
-import { RuntimeError } from "./RuntimeError";
+import { RuntimeError } from './RuntimeError';
 
 export class UndefinedModelError extends RuntimeError {
   public readonly modelName: string;
@@ -18,13 +18,13 @@ export class UndefinedModelError extends RuntimeError {
   public static create(
     modelName: string,
     parentModelName: string,
-    parentModelIdentificator: string
+    parentModelIdentificator: string,
   ): UndefinedModelError {
     return new this(
       `Model "${modelName}" is undefined on parent model ${parentModelName} with identificator ${parentModelIdentificator}.`,
       modelName,
       parentModelName,
-      parentModelIdentificator
+      parentModelIdentificator,
     );
   }
 }

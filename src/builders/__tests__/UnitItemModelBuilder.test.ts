@@ -1,12 +1,12 @@
-import { CapabilityId } from "@octocloud/types";
-import { UnitItemModel } from "../../models/unitItem/UnitItemModel";
-import { UnitItemModelBuilder } from "../UnitItemModelBuilder";
+import { CapabilityId } from '@octocloud/types';
+import { UnitItemModel } from '../../models/unitItem/UnitItemModel';
+import { UnitItemModelBuilder } from '../UnitItemModelBuilder';
 
-describe("UnitItemModelBuilder", () => {
+describe('UnitItemModelBuilder', () => {
   const unitItemModelBuilder = new UnitItemModelBuilder();
 
-  describe("build", () => {
-    it("should build unit item model without pricing capability", async () => {
+  describe('build', () => {
+    it('should build unit item model without pricing capability', async () => {
       const generatedUnitItemModel = unitItemModelBuilder.build({
         unitItemData: {},
         capabilities: [],
@@ -16,7 +16,7 @@ describe("UnitItemModelBuilder", () => {
       expect(generatedUnitItemModel.unitItemPricingModel).toBeUndefined();
     });
 
-    it("should build unit item model with pricing capability", async () => {
+    it('should build unit item model with pricing capability', async () => {
       const generatedUnitItemModel = unitItemModelBuilder.build({
         unitItemData: {},
         capabilities: [CapabilityId.Pricing],

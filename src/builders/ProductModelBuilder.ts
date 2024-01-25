@@ -5,18 +5,19 @@ import {
   DeliveryFormat,
   PricingPer,
   RedemptionMethod,
-} from "@octocloud/types";
-import { OptionModel } from "../models/option/OptionModel";
-import { OptionModelBuilder } from "./OptionModelBuilder";
-import { ProductModel } from "../models/product/ProductModel";
-import { TimeZoneDataProvider } from "../dataProviders/TimeZoneDataProvider";
-import { LocaleDataProvider } from "../dataProviders/LocaleDataProvider";
-import { ProductContentModel } from "../models/product/ProductContentModel";
-import { ProductPricingModel } from "../models/product/ProductPricingModel";
-import { PartialProduct } from "../types/PartialProduct";
-import { DeliveryMethodsDataProvider } from "../dataProviders/DeliveryMethodDataProvider";
-import { ProductQuestionsModel } from "../models/product/ProductQuestionsModel";
-import { ProductGoogleModel } from "../models/product/ProductGoogleModel";
+} from '@octocloud/types';
+import { OptionModel } from '../models/option/OptionModel';
+import { OptionModelBuilder } from './OptionModelBuilder';
+import { ProductModel } from '../models/product/ProductModel';
+import { TimeZoneDataProvider } from '../dataProviders/TimeZoneDataProvider';
+import { LocaleDataProvider } from '../dataProviders/LocaleDataProvider';
+import { ProductContentModel } from '../models/product/ProductContentModel';
+import { ProductPricingModel } from '../models/product/ProductPricingModel';
+import { PartialProduct } from '../types/PartialProduct';
+import { DeliveryMethodsDataProvider } from '../dataProviders/DeliveryMethodDataProvider';
+import { ProductQuestionsModel } from '../models/product/ProductQuestionsModel';
+import { ProductGoogleModel } from '../models/product/ProductGoogleModel';
+import { ProductPackageModel } from '../models/product/ProductPackageModel';
 
 interface ProductModelBuilderData {
   productData: PartialProduct;
@@ -43,8 +44,8 @@ export class ProductModelBuilder {
     const { productData } = builderData;
 
     return new ProductModel({
-      id: productData.id ?? "id",
-      internalName: productData.internalName ?? "internalName",
+      id: productData.id ?? 'id',
+      internalName: productData.internalName ?? 'internalName',
       reference: productData.reference ?? null,
       locale: productData.locale ?? LocaleDataProvider.en,
       timeZone: productData.timeZone ?? TimeZoneDataProvider.europeLondon,
@@ -56,11 +57,14 @@ export class ProductModelBuilder {
       deliveryFormats: productData.deliveryFormats ?? [DeliveryFormat.PDF_URL, DeliveryFormat.QRCODE],
       deliveryMethods: productData.deliveryMethods ?? DeliveryMethodsDataProvider.defaultDeliveryMethods,
       redemptionMethod: productData.redemptionMethod ?? RedemptionMethod.DIGITAL,
+      freesaleDurationAmount: productData.freesaleDurationAmount ?? 0,
+      freesaleDurationUnit: productData.freesaleDurationUnit ?? '',
       optionModels: this.buildOptionModels(builderData),
       productContentModel: this.buildContentModel(builderData),
       productGoogleModel: this.buildGoogleModel(builderData),
       productPricingModel: this.buildPricingModel(builderData),
       productQuestionsModel: this.buildQuestionsModel(builderData),
+      productPackageModel: this.buildPackageModel(builderData),
     });
   }
 
@@ -102,17 +106,17 @@ export class ProductModelBuilder {
           rating_count: null,
         },
         operator: {
-          name: "",
+          name: '',
           google_business_profile_name: {
             localized_texts: [],
           },
-          phone_number: "",
+          phone_number: '',
           locations: [],
         },
         landing_page: {
           url: null,
         },
-        inventory_type: "",
+        inventory_type: '',
         landing_page_list_view: {
           url: null,
         },
@@ -129,10 +133,10 @@ export class ProductModelBuilder {
 
     const { productData } = builderData;
     const destination = productData.destination ?? {
-      id: "id",
+      id: 'id',
       default: true,
-      name: "name",
-      country: "country",
+      name: 'name',
+      country: 'country',
       contact: {
         website: null,
         email: null,
@@ -144,12 +148,12 @@ export class ProductModelBuilder {
     };
 
     return new ProductContentModel({
-      title: productData.title ?? "title",
-      country: productData.country ?? "country",
-      location: productData.location ?? "location",
-      subtitle: productData.subtitle ?? "subtitle",
-      shortDescription: productData.shortDescription ?? "shortDescription",
-      description: productData.description ?? "description",
+      title: productData.title ?? 'title',
+      country: productData.country ?? 'country',
+      location: productData.location ?? 'location',
+      subtitle: productData.subtitle ?? 'subtitle',
+      shortDescription: productData.shortDescription ?? 'shortDescription',
+      description: productData.description ?? 'description',
       highlights: productData.highlights ?? [],
       inclusions: productData.inclusions ?? [],
       exclusions: productData.exclusions ?? [],
@@ -164,6 +168,9 @@ export class ProductModelBuilder {
       videoUrl: productData.videoUrl ?? null,
       galleryImages: productData.galleryImages ?? [],
       bannerImages: productData.bannerImages ?? [],
+      pointToPoint: productData.pointToPoint ?? false,
+      privacyTerms: productData.privacyTerms ?? null,
+      alert: productData.alert ?? null,
     });
   }
 
@@ -178,6 +185,7 @@ export class ProductModelBuilder {
       defaultCurrency: productData.defaultCurrency ?? Currency.EUR,
       availableCurrencies: productData.availableCurrencies ?? [Currency.EUR],
       pricingPer: productData.pricingPer ?? PricingPer.UNIT,
+      includeTax: productData.includeTax ?? true,
     });
   }
 
@@ -190,6 +198,18 @@ export class ProductModelBuilder {
 
     return new ProductQuestionsModel({
       questions: productData.questions ?? [],
+    });
+  }
+
+  private buildPackageModel(builderData: ProductModelBuilderData): ProductPackageModel | undefined {
+    if (builderData.capabilities?.includes(CapabilityId.Packages) === false) {
+      return undefined;
+    }
+
+    const { productData } = builderData;
+
+    return new ProductPackageModel({
+      isPackage: productData.isPackage ?? false,
     });
   }
 }

@@ -1,12 +1,12 @@
-import { CapabilityId, PricingPer } from "@octocloud/types";
-import { AvailabilityCalendarModel } from "../../models/availability/AvailabilityCalendarModel";
-import { AvailabilityCalendarModelBuilder } from "../AvailabilityCalendarModelBuilder";
+import { CapabilityId, PricingPer } from '@octocloud/types';
+import { AvailabilityCalendarModel } from '../../models/availability/AvailabilityCalendarModel';
+import { AvailabilityCalendarModelBuilder } from '../AvailabilityCalendarModelBuilder';
 
-describe("AvailabilityCalendarModelBuilder", () => {
+describe('AvailabilityCalendarModelBuilder', () => {
   const availabilityCalendarModelBuilder = new AvailabilityCalendarModelBuilder();
 
-  describe("build", () => {
-    it("should build availability calendar model without any capabilities", async () => {
+  describe('build', () => {
+    it('should build availability calendar model without any capabilities', async () => {
       const availabilityCalendarModel = availabilityCalendarModelBuilder.build({
         availabilityCalendarData: {},
         pricingPer: PricingPer.BOOKING,
@@ -17,7 +17,7 @@ describe("AvailabilityCalendarModelBuilder", () => {
       expect(availabilityCalendarModel.availabilityCalendarPricingModel).toBeUndefined();
     });
 
-    it("should build availability calendar model with all capabilities", async () => {
+    it('should build availability calendar model with all capabilities', async () => {
       const availabilityCalendarModel = availabilityCalendarModelBuilder.build({
         availabilityCalendarData: {},
         pricingPer: PricingPer.BOOKING,

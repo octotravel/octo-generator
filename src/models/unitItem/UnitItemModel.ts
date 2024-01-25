@@ -1,10 +1,12 @@
-import { BookingStatus, Contact, Ticket } from "@octocloud/types";
-import { UnitModel } from "../unit/UnitModel";
-import { UnitItemPricingModel } from "./UnitItemPricingModel";
-import { UndefinedModelError } from "../../errors/UndefinedModelError";
+import { BookingStatus, Contact, Ticket } from '@octocloud/types';
+import { UnitModel } from '../unit/UnitModel';
+import { UnitItemPricingModel } from './UnitItemPricingModel';
+import { UndefinedModelError } from '../../errors/UndefinedModelError';
 
 export class UnitItemModel {
   public readonly uuid: string;
+
+  public readonly id: string;
 
   public readonly resellerReference: Nullable<string>;
 
@@ -22,8 +24,9 @@ export class UnitItemModel {
 
   protected _unitItemPricingModel?: UnitItemPricingModel;
 
-  constructor({
+  public constructor({
     uuid,
+    id,
     resellerReference,
     supplierReference,
     unitModel,
@@ -34,6 +37,7 @@ export class UnitItemModel {
     unitItemPricingModel,
   }: {
     uuid: string;
+    id: string;
     resellerReference: Nullable<string>;
     supplierReference: Nullable<string>;
     unitModel: UnitModel;
@@ -44,6 +48,7 @@ export class UnitItemModel {
     unitItemPricingModel?: UnitItemPricingModel;
   }) {
     this.uuid = uuid;
+    this.id = id;
     this.resellerReference = resellerReference;
     this.supplierReference = supplierReference;
     this.unitModel = unitModel;
@@ -54,11 +59,11 @@ export class UnitItemModel {
     this._unitItemPricingModel = unitItemPricingModel;
   }
 
-  get unitItemPricingModel(): UnitItemPricingModel | undefined {
+  public get unitItemPricingModel(): UnitItemPricingModel | undefined {
     return this._unitItemPricingModel;
   }
 
-  set unitItemPricingModel(unitItemPricingModel: UnitItemPricingModel | undefined) {
+  public set unitItemPricingModel(unitItemPricingModel: UnitItemPricingModel | undefined) {
     this._unitItemPricingModel = unitItemPricingModel;
   }
 
@@ -67,7 +72,7 @@ export class UnitItemModel {
    */
   public getUnitItemPricingModel(): UnitItemPricingModel {
     if (this.unitItemPricingModel === undefined) {
-      throw UndefinedModelError.create("UnitItemPricingModel", "UnitItemModel", this.uuid);
+      throw UndefinedModelError.create('UnitItemPricingModel', 'UnitItemModel', this.uuid);
     }
 
     return this.unitItemPricingModel;
