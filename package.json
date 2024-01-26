@@ -1,6 +1,6 @@
 {
   "name": "@octocloud/generators",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "",
   "license": "MIT",
   "author": "",
@@ -31,7 +31,7 @@
   },
   "types": "dist/index.d.ts",
   "dependencies": {
-    "@octocloud/types": "^1.5.13",
+    "@octocloud/types": "^1.5.20",
     "date-fns": "^2.29.1",
     "date-fns-tz": "^1.3.6",
     "uuid": "^9.0.0"
