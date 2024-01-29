@@ -8,5 +8,5 @@ export type PartialBooking = Partial<
     option: PartialOption;
   }
 > & {
-  availability: Availability;
+  availability: Nullable<Availability>;
 };
