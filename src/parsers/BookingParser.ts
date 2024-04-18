@@ -63,15 +63,13 @@ export class BookingParser {
   }
 
   public parseCartPOJOToModel(bookingCart: BookingCart): BookingCartModel | undefined {
-    if (
-      bookingCart.orderId === undefined ||
-      bookingCart.primary === undefined
-    ) {
+    if (bookingCart.orderId === undefined || bookingCart.primary === undefined) {
       return undefined;
     }
 
     return new BookingCartModel({
       orderId: bookingCart.orderId,
+      orderReference: bookingCart.orderReference,
       primary: bookingCart.primary,
     });
   }
