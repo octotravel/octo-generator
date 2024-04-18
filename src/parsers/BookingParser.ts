@@ -67,11 +67,15 @@ export class BookingParser {
       return undefined;
     }
 
-    return new BookingCartModel({
-      orderId: bookingCart.orderId,
-      orderReference: bookingCart.orderReference,
-      primary: bookingCart.primary,
-    });
+    return new BookingCartModel(
+      Object.fromEntries(
+        Object.entries({
+          orderId: bookingCart.orderId,
+          orderReference: bookingCart.orderReference,
+          primary: bookingCart.primary,
+        }).filter(([_, value]) => value !== undefined),
+      ),
+    );
   }
 
   public parseContentPOJOToModel(bookingContent: BookingContent): BookingContentModel | undefined {
