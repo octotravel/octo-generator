@@ -65,7 +65,6 @@ export class BookingParser {
   public parseCartPOJOToModel(bookingCart: BookingCart): BookingCartModel | undefined {
     if (
       bookingCart.orderId === undefined ||
-      bookingCart.orderReference === undefined ||
       bookingCart.primary === undefined
     ) {
       return undefined;
@@ -73,7 +72,6 @@ export class BookingParser {
 
     return new BookingCartModel({
       orderId: bookingCart.orderId,
-      orderReference: bookingCart.orderReference,
       primary: bookingCart.primary,
     });
   }
