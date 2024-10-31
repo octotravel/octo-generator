@@ -54,6 +54,8 @@ export * from './presets/PricingPreset';
 
 export * from './presets/ProductPreset';
 
+export * from './presets/BookingPreset';
+
 export * from './parsers/AvailabilityParser';
 
 export * from './parsers/AvailabilityCalendarParser';
