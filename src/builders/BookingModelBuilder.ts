@@ -70,6 +70,16 @@ export class BookingModelBuilder {
       utcConfirmedAt = '2022-11-28T08:43:38Z';
     }
 
+    if (bookingData.status === BookingStatus.CANCELLED) {
+      if (bookingData.cancellation === undefined) {
+        bookingData.cancellation = {
+          reason: 'product sucks',
+          utcCancelledAt: '2022-11-28T08:43:37Z',
+          refund: '',
+        };
+      }
+    }
+
     return new BookingModel({
       id: bookingData.id ?? 'id',
       uuid: bookingData.uuid ?? 'uuid',
@@ -116,7 +126,9 @@ export class BookingModelBuilder {
     if (builderData.bookingData.unitItems === undefined) {
       return [
         this.unitItemModelBuilder.build({
-          unitItemData: {},
+          unitItemData: {
+            status: builderData.bookingData.status,
+          },
           capabilities: builderData.capabilities,
           sourceModel: BookingModel,
         }),
