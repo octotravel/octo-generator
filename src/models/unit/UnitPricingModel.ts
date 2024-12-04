@@ -1,16 +1,9 @@
 import { Pricing } from '@octocloud/types';
 
 export class UnitPricingModel {
-  public readonly pricingFrom?: Pricing[];
-
   public readonly pricing?: Pricing[];
 
-  public constructor({ pricingFrom, pricing }: { pricingFrom?: Pricing[]; pricing?: Pricing[] }) {
-    if (pricingFrom !== undefined && pricing !== undefined) {
-      throw new Error('Only one of pricingFrom and pricing should be set.');
-    }
-
-    this.pricingFrom = pricingFrom;
+  public constructor({ pricing }: { pricing?: Pricing[] }) {
     this.pricing = pricing;
   }
 }

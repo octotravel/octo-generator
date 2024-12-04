@@ -4,6 +4,8 @@ import { UnitParser } from './UnitParser';
 import { OptionContentModel } from '../models/option/OptionContentModel';
 import { OptionPickupsModel } from '../models/option/OptionPickupsModel';
 import { OptionPricingModel } from '../models/option/OptionPricingModel';
+import { ParserOptions } from '../common/ParserOptions';
+import { ProductModel } from '../models/product/ProductModel';
 
 export class OptionParser {
   private readonly unitParser = new UnitParser();
@@ -82,21 +84,24 @@ export class OptionParser {
     }
 
     return new OptionPricingModel({
-      pricingFrom: optionPricing.pricingFrom,
-      pricing: optionPricing.pricing,
+      pricing: optionPricing.pricing ?? optionPricing.pricingFrom,
     });
   }
 
-  public parseModelToPOJO(optionModel: OptionModel): Option {
+  public parseModelToPOJO(optionModel: OptionModel, options: ParserOptions = { sourceModel: ProductModel }): Option {
     return Object.assign(
-      this.parseMainModelToPojo(optionModel),
+      this.parseMainModelToPojo(optionModel, [], options),
       this.parseContentModelToPOJO(optionModel.optionContentModel),
       this.parsePickupsModelToPOJO(optionModel.optionPickupsModel),
-      this.parsePricingModelToPOJO(optionModel.optionPricingModel),
+      this.parsePricingModelToPOJO(optionModel.optionPricingModel, options),
     );
   }
 
-  public parseModelToPOJOWithSpecificCapabilities(optionModel: OptionModel, capabilities: CapabilityId[]): Option {
+  public parseModelToPOJOWithSpecificCapabilities(
+    optionModel: OptionModel,
+    capabilities: CapabilityId[],
+    options: ParserOptions = { sourceModel: ProductModel },
+  ): Option {
     let optionContent;
     let optionGoogle;
     let optionPickups;
@@ -111,7 +116,7 @@ export class OptionParser {
     }
 
     if (capabilities?.includes(CapabilityId.Pricing)) {
-      optionPricing = this.parsePricingModelToPOJO(optionModel.optionPricingModel);
+      optionPricing = this.parsePricingModelToPOJO(optionModel.optionPricingModel, options);
     }
 
     return Object.assign(
@@ -123,12 +128,16 @@ export class OptionParser {
     );
   }
 
-  private parseMainModelToPojo(optionModel: OptionModel, capabilities?: CapabilityId[]): Option {
+  private parseMainModelToPojo(
+    optionModel: OptionModel,
+    capabilities: CapabilityId[],
+    options?: ParserOptions,
+  ): Option {
     const units = optionModel.unitModels.map((unitModel) => {
       if (capabilities === undefined) {
-        return this.unitParser.parseModelToPOJO(unitModel);
+        return this.unitParser.parseModelToPOJO(unitModel, options);
       }
-      return this.unitParser.parseModelToPOJOWithSpecificCapabilities(unitModel, capabilities);
+      return this.unitParser.parseModelToPOJOWithSpecificCapabilities(unitModel, capabilities, options);
     });
 
     return {
@@ -179,13 +188,18 @@ export class OptionParser {
     };
   }
 
-  public parsePricingModelToPOJO(optionPricingModel?: OptionPricingModel): OptionPricing {
+  public parsePricingModelToPOJO(optionPricingModel?: OptionPricingModel, options?: ParserOptions): OptionPricing {
     if (optionPricingModel === undefined) {
       return {};
     }
 
+    if (options?.sourceModel === ProductModel) {
+      return {
+        pricingFrom: optionPricingModel.pricing,
+      };
+    }
+
     return {
-      pricingFrom: optionPricingModel.pricingFrom,
       pricing: optionPricingModel.pricing,
     };
   }

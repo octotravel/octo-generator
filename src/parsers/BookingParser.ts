@@ -19,6 +19,7 @@ import { UnitItemParser } from './UnitItemParser';
 import { OfferParser } from './OfferParser';
 import { BookingOffersModel } from '../models/booking/BookingOffersModel';
 import { BookingQuestionsModel } from '../models/booking/BookingQuestionsModel';
+import { ParserOptions } from '../common/ParserOptions';
 
 export class BookingParser {
   private readonly productParser = new ProductParser();

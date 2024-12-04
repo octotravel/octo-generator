@@ -61,17 +61,8 @@ export class UnitModelBuilder {
     }
 
     const { unitData } = builderData;
-    unitData.pricing ??= [PricingDataProvider.adultPricing];
-    unitData.pricingFrom ??= [PricingDataProvider.adultPricing];
-
-    if (builderData.sourceModel === ProductModel) {
-      return new OptionPricingModel({
-        pricingFrom: unitData.pricingFrom,
-      });
-    }
-
     return new OptionPricingModel({
-      pricing: unitData.pricing,
+      pricing: unitData.pricing ?? unitData.pricingFrom,
     });
   }
 }

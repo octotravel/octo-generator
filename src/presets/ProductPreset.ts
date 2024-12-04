@@ -1,12 +1,30 @@
-import { AvailabilityType, Product } from '@octocloud/types';
+import { AvailabilityType, CapabilityId, Currency, PricingPer, Product } from '@octocloud/types';
 import { ProductModelBuilder } from '../builders/ProductModelBuilder';
 import { ProductModel } from '../models/product/ProductModel';
 import { ProductParser } from '../parsers/ProductParser';
+import { OptionModelBuilder } from '../builders/OptionModelBuilder';
+import { OptionParser } from '../parsers/OptionParser';
+import { OptionPreset } from './OptionPreset';
 
 export abstract class ProductPreset {
   private static readonly productModelBuilder: ProductModelBuilder = new ProductModelBuilder();
-
   private static readonly productParser: ProductParser = new ProductParser();
+
+  private static readonly optionModelBuilder = new OptionModelBuilder();
+  private static readonly optionParser = new OptionParser();
+
+  public static readonly OPENINGHOURS_PRODUCT_MODEL: ProductModel = this.productModelBuilder.build({
+    productData: {
+      id: 'openinghours_product',
+      availabilityType: AvailabilityType.OPENING_HOURS,
+      pricingPer: PricingPer.UNIT,
+      options: [OptionPreset.OPTION_POJO],
+      defaultCurrency: Currency.EUR,
+      availableCurrencies: [Currency.EUR],
+    },
+    sourceModel: ProductModel,
+    capabilities: [CapabilityId.Pricing],
+  });
 
   public static readonly FIRST_PRODUCT_MODEL: ProductModel = this.productModelBuilder.build({
     productData: {
@@ -45,6 +63,11 @@ export abstract class ProductPreset {
       ],
     },
   });
+
+  public static readonly OPENINGHOURS_PRODUCT_POJO: Product = this.productParser.parseModelToPOJO(
+    this.OPENINGHOURS_PRODUCT_MODEL,
+    { sourceModel: ProductModel },
+  );
 
   public static readonly FIRST_PRODUCT_POJO: Product = this.productParser.parseModelToPOJO(this.FIRST_PRODUCT_MODEL);
 

@@ -81,8 +81,7 @@ describe('OptionModelBuilder', () => {
       });
 
       expect(generatedOptionModel).toBeInstanceOf(OptionModel);
-      expect(generatedOptionModel.optionPricingModel?.pricingFrom).toBeDefined();
-      expect(generatedOptionModel.optionPricingModel?.pricing).toBeUndefined();
+      expect(generatedOptionModel.optionPricingModel?.pricing).toBeDefined();
     });
   });
 });

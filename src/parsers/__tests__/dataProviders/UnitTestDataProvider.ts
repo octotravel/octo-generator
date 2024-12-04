@@ -24,10 +24,14 @@ export class UnitTestDataProvider {
 
   public static unitPricing: UnitPricing = {
     pricing: [PricingDataProvider.adultPricing],
-    pricingFrom: undefined,
   };
 
-  public static unitPOJO: Unit = { ...this.unit, ...this.unitContent, ...this.unitPricing };
+  public static unitPricingFrom: UnitPricing = {
+    pricingFrom: [PricingDataProvider.adultPricing],
+  };
+
+  public static unitPOJO: Unit = { ...this.unit, ...this.unitContent, ...this.unitPricingFrom };
+  public static unitPOJOonBooking: Unit = { ...this.unit, ...this.unitContent, ...this.unitPricing };
 
   public static unitModel = new UnitModel({
     id: this.unitPOJO.id,
@@ -43,8 +47,7 @@ export class UnitTestDataProvider {
       subtitle: this.unitContent.subtitle,
     }),
     unitPricingModel: new UnitPricingModel({
-      pricing: this.unitPOJO.pricing,
-      pricingFrom: undefined,
+      pricing: this.unitPOJO.pricingFrom,
     }),
   });
 }

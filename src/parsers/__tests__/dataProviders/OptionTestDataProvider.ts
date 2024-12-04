@@ -59,8 +59,7 @@ export class OptionTestDataProvider {
   };
 
   public static optionPricing: OptionPricing = {
-    pricing: [PricingDataProvider.adultPricing],
-    pricingFrom: undefined,
+    pricingFrom: [PricingDataProvider.adultPricing],
   };
 
   public static optionPOJO: Option = {
@@ -102,8 +101,7 @@ export class OptionTestDataProvider {
       pickupPoints: this.optionPickups.pickupPoints,
     }),
     optionPricingModel: new OptionPricingModel({
-      pricing: this.optionPricing.pricing,
-      pricingFrom: this.optionPricing.pricingFrom,
+      pricing: this.optionPricing.pricingFrom,
     }),
   });
 }

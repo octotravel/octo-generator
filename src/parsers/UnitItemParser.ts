@@ -2,6 +2,7 @@ import { CapabilityId, Unit, UnitItem, UnitItemPricing } from '@octocloud/types'
 import { UnitItemModel } from '../models/unitItem/UnitItemModel';
 import { UnitParser } from './UnitParser';
 import { UnitItemPricingModel } from '../models/unitItem/UnitItemPricingModel';
+import { BookingModel } from '../models/booking/BookingModel';
 
 export class UnitItemParser {
   private readonly unitParser: UnitParser = new UnitParser();
@@ -55,9 +56,11 @@ export class UnitItemParser {
     let unit;
 
     if (capabilities === undefined) {
-      unit = this.unitParser.parseModelToPOJO(unitItemModel.unitModel);
+      unit = this.unitParser.parseModelToPOJO(unitItemModel.unitModel, { sourceModel: BookingModel });
     } else {
-      unit = this.unitParser.parseModelToPOJOWithSpecificCapabilities(unitItemModel.unitModel, capabilities);
+      unit = this.unitParser.parseModelToPOJOWithSpecificCapabilities(unitItemModel.unitModel, capabilities, {
+        sourceModel: BookingModel,
+      });
     }
 
     return {
