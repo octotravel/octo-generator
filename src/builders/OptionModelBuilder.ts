@@ -28,7 +28,6 @@ export class OptionModelBuilder {
     builderData.capabilities ??= defaultCapabilities;
 
     const { optionData } = builderData;
-
     return new OptionModel({
       id: optionData.id ?? 'DEFAULT',
       isDefault: optionData.default ?? true,
@@ -41,9 +40,9 @@ export class OptionModelBuilder {
       requiredContactFields: optionData.requiredContactFields ?? [],
       visibleContactFields: optionData.visibleContactFields ?? [],
       restrictions: optionData.restrictions ?? {
-        minUnits: 0,
+        minUnits: 1,
         maxUnits: null,
-        minPaxCount: 0,
+        minPaxCount: 1,
         maxPaxCount: null,
       },
       unitModels: this.buildUnitModels(builderData),
@@ -117,17 +116,9 @@ export class OptionModelBuilder {
     }
 
     const { optionData } = builderData;
-    optionData.pricing ??= [PricingDataProvider.adultPricing];
-    optionData.pricingFrom ??= [PricingDataProvider.adultPricing];
-
-    if (builderData.sourceModel === ProductModel) {
-      return new OptionPricingModel({
-        pricingFrom: optionData.pricing,
-      });
-    }
 
     return new OptionPricingModel({
-      pricing: optionData.pricingFrom,
+      pricing: optionData.pricing ?? optionData.pricingFrom,
     });
   }
 }

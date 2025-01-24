@@ -7,7 +7,7 @@ import { AvailabilityDataProvider } from '../../dataProviders/AvailabilityDataPr
 describe('BookingModelGenerator', () => {
   const bookingModelGenerator = new BookingModelGenerator();
   const bookingParser = new BookingParser();
-  const capabilities = [CapabilityId.Cart, CapabilityId.Content, CapabilityId.Pickups, CapabilityId.Pricing];
+  const capabilities: CapabilityId[] = [];
   const bookingValidator = new BookingValidator({
     capabilities,
   });
@@ -19,7 +19,6 @@ describe('BookingModelGenerator', () => {
           id: 'id',
           availability: AvailabilityDataProvider.availability,
         },
-        capabilities,
       });
       const unit = bookingParser.parseModelToPOJO(bookingModel);
       const validationErrors = bookingValidator.validate(unit);

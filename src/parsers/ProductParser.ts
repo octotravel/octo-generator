@@ -14,6 +14,7 @@ import { ProductPricingModel } from '../models/product/ProductPricingModel';
 import { ProductQuestionsModel } from '../models/product/ProductQuestionsModel';
 import { ProductGoogleModel } from '../models/product/ProductGoogleModel';
 import { ProductPackageModel } from '../models/product/ProductPackageModel';
+import { ParserOptions } from '../common/ParserOptions';
 
 export class ProductParser {
   private readonly optionParser = new OptionParser();
@@ -147,9 +148,9 @@ export class ProductParser {
     });
   }
 
-  public parseModelToPOJO(productModel: ProductModel): Product {
+  public parseModelToPOJO(productModel: ProductModel, options: ParserOptions = { sourceModel: ProductModel }): Product {
     return Object.assign(
-      this.parseMainModelToPojo(productModel),
+      this.parseMainModelToPojo(productModel, [], options),
       this.parseContentModelToPOJO(productModel.productContentModel),
       this.parseGoogleModelToPOJO(productModel.productGoogleModel),
       this.parsePricingModelToPOJO(productModel.productPricingModel),
@@ -195,12 +196,16 @@ export class ProductParser {
     );
   }
 
-  private parseMainModelToPojo(productModel: ProductModel, capabilities?: CapabilityId[]): Product {
-    const options = productModel.optionModels.map((optionModel) => {
+  private parseMainModelToPojo(
+    productModel: ProductModel,
+    capabilities: CapabilityId[],
+    options?: ParserOptions,
+  ): Product {
+    const optionPOJOs = productModel.optionModels.map((optionModel) => {
       if (capabilities === undefined) {
-        return this.optionParser.parseModelToPOJO(optionModel);
+        return this.optionParser.parseModelToPOJO(optionModel, options);
       }
-      return this.optionParser.parseModelToPOJOWithSpecificCapabilities(optionModel, capabilities);
+      return this.optionParser.parseModelToPOJOWithSpecificCapabilities(optionModel, capabilities, options);
     });
 
     return {
@@ -219,7 +224,7 @@ export class ProductParser {
       redemptionMethod: productModel.redemptionMethod,
       freesaleDurationAmount: productModel.freesaleDurationAmount,
       freesaleDurationUnit: productModel.freesaleDurationUnit,
-      options,
+      options: optionPOJOs,
     };
   }
 

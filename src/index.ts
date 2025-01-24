@@ -48,13 +48,17 @@ export * from './presets/AvailabilityOfferPreset';
 
 export * from './presets/AvailabilityPreset';
 
+export * from './presets/BookingPreset';
+
 export * from './presets/OfferPreset';
+
+export * from './presets/OptionPreset';
 
 export * from './presets/PricingPreset';
 
 export * from './presets/ProductPreset';
 
-export * from './presets/BookingPreset';
+export * from './presets/UnitPreset';
 
 export * from './parsers/AvailabilityParser';
 

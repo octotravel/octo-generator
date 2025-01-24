@@ -1,13 +1,14 @@
 import { CapabilityId } from '@octocloud/types';
 import { UnitParser } from '../UnitParser';
 import { UnitTestDataProvider } from './dataProviders/UnitTestDataProvider';
+import { ProductModel } from '../../models/product/ProductModel';
 
 describe('UnitParser', () => {
   const unitParser = new UnitParser();
 
   const { unit } = UnitTestDataProvider;
   const { unitContent } = UnitTestDataProvider;
-  const { unitPricing } = UnitTestDataProvider;
+  const { unitPricingFrom } = UnitTestDataProvider;
   const { unitPOJO } = UnitTestDataProvider;
   const { unitModel } = UnitTestDataProvider;
 
@@ -19,7 +20,7 @@ describe('UnitParser', () => {
 
   describe('parseModelToPOJO', () => {
     it('should return unit POJO', async () => {
-      expect(unitParser.parseModelToPOJO(unitModel)).toStrictEqual(unitPOJO);
+      expect(unitParser.parseModelToPOJO(unitModel, { sourceModel: ProductModel })).toStrictEqual(unitPOJO);
     });
   });
 
@@ -40,9 +41,13 @@ describe('UnitParser', () => {
 
   describe('parseModelToPOJOWithSpecificCapabilities', () => {
     it('should return unit POJO with pricing capability', async () => {
-      expect(unitParser.parseModelToPOJOWithSpecificCapabilities(unitModel, [CapabilityId.Pricing])).toStrictEqual({
+      expect(
+        unitParser.parseModelToPOJOWithSpecificCapabilities(unitModel, [CapabilityId.Pricing], {
+          sourceModel: ProductModel,
+        }),
+      ).toStrictEqual({
         ...unit,
-        ...unitPricing,
+        ...unitPricingFrom,
       });
     });
   });
@@ -50,7 +55,9 @@ describe('UnitParser', () => {
   describe('parseModelToPOJOWithSpecificCapabilities', () => {
     it('should return unit POJO with all capabilities', async () => {
       expect(
-        unitParser.parseModelToPOJOWithSpecificCapabilities(unitModel, [CapabilityId.Content, CapabilityId.Pricing]),
+        unitParser.parseModelToPOJOWithSpecificCapabilities(unitModel, [CapabilityId.Content, CapabilityId.Pricing], {
+          sourceModel: ProductModel,
+        }),
       ).toStrictEqual(unitPOJO);
     });
   });

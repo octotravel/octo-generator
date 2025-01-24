@@ -24,10 +24,13 @@ import { BookingPricingModel } from '../../models/booking/BookingPricingModel';
 import { OfferTestDataProvider } from './dataProviders/OfferTestDataProvider';
 import { BookingOffersModel } from '../../models/booking/BookingOffersModel';
 import { BookingQuestionsModel } from '../../models/booking/BookingQuestionsModel';
+import { ProductParser } from '../ProductParser';
+import { OptionParser } from '../OptionParser';
 
 describe('BookingParser', () => {
   const bookingParser = new BookingParser();
-  const { productPOJO } = ProductTestDataProvider;
+  const productParser = new ProductParser();
+  const optionParser = new OptionParser();
   const { offerPOJO } = OfferTestDataProvider;
   const { optionPOJO } = OptionTestDataProvider;
 
@@ -43,10 +46,10 @@ describe('BookingParser', () => {
     utcExpiresAt: null,
     utcRedeemedAt: null,
     utcConfirmedAt: null,
-    productId: productPOJO.id,
-    product: productPOJO,
+    productId: ProductTestDataProvider.productModel.id,
+    product: productParser.parseModelToPOJO(ProductTestDataProvider.productModel),
     optionId: optionPOJO.id,
-    option: optionPOJO,
+    option: optionParser.parseModelToPOJO(OptionTestDataProvider.optionModel),
     cancellable: true,
     cancellation: null,
     freesale: false,
@@ -198,19 +201,19 @@ describe('BookingParser', () => {
   });
 
   describe('parsePOJOToModel', () => {
-    it('should return unit model', async () => {
+    it('should return booking model', async () => {
       expect(bookingParser.parsePOJOToModel(bookingPOJO)).toStrictEqual(bookingModel);
     });
   });
 
   describe('parseModelToPOJO', () => {
-    it('should return unit POJO', async () => {
+    it('should return booking POJO', async () => {
       expect(bookingParser.parseModelToPOJO(bookingModel)).toStrictEqual(bookingPOJO);
     });
   });
 
   describe('parseModelToPOJOWithSpecificCapabilities', () => {
-    it('should return unit POJO without any capabilities', async () => {
+    it('should return booking POJO without any capabilities', async () => {
       expect(bookingParser.parseModelToPOJOWithSpecificCapabilities(bookingModel, [])).toStrictEqual(
         expect.objectContaining({
           ...booking,
@@ -223,7 +226,7 @@ describe('BookingParser', () => {
     });
 
     describe('parseModelToPOJOWithSpecificCapabilities', () => {
-      it('should return unit POJO with cart capability', async () => {
+      it('should return booking POJO with cart capability', async () => {
         expect(bookingParser.parseModelToPOJOWithSpecificCapabilities(bookingModel, [CapabilityId.Cart])).toStrictEqual(
           expect.objectContaining({
             ...{
@@ -240,7 +243,7 @@ describe('BookingParser', () => {
     });
 
     describe('parseModelToPOJOWithSpecificCapabilities', () => {
-      it('should return unit POJO with content capability', async () => {
+      it('should return booking POJO with content capability', async () => {
         expect(
           bookingParser.parseModelToPOJOWithSpecificCapabilities(bookingModel, [CapabilityId.Content]),
         ).toStrictEqual(
@@ -259,7 +262,7 @@ describe('BookingParser', () => {
     });
 
     describe('parseModelToPOJOWithSpecificCapabilities', () => {
-      it('should return unit POJO with offers capability', async () => {
+      it('should return booking POJO with offers capability', async () => {
         expect(
           bookingParser.parseModelToPOJOWithSpecificCapabilities(bookingModel, [CapabilityId.Offers]),
         ).toStrictEqual(
@@ -278,7 +281,7 @@ describe('BookingParser', () => {
     });
 
     describe('parseModelToPOJOWithSpecificCapabilities', () => {
-      it('should return unit POJO with pickups capability', async () => {
+      it('should return booking POJO with pickups capability', async () => {
         expect(
           bookingParser.parseModelToPOJOWithSpecificCapabilities(bookingModel, [CapabilityId.Pickups]),
         ).toStrictEqual(
@@ -297,7 +300,7 @@ describe('BookingParser', () => {
     });
 
     describe('parseModelToPOJOWithSpecificCapabilities', () => {
-      it('should return unit POJO with pricing capability', async () => {
+      it('should return booking POJO with pricing capability', async () => {
         expect(
           bookingParser.parseModelToPOJOWithSpecificCapabilities(bookingModel, [CapabilityId.Pricing]),
         ).toStrictEqual(
@@ -316,7 +319,7 @@ describe('BookingParser', () => {
     });
 
     describe('parseModelToPOJOWithSpecificCapabilities', () => {
-      it('should return unit POJO with all capabilities', async () => {
+      it('should return booking POJO with all capabilities', async () => {
         expect(
           bookingParser.parseModelToPOJOWithSpecificCapabilities(bookingModel, [
             CapabilityId.Cart,

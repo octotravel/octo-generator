@@ -6,15 +6,15 @@ import { UnitItemPricingModel } from '../../models/unitItem/UnitItemPricingModel
 
 describe('UnitItemParser', () => {
   const unitItemParser = new UnitItemParser();
-  const { unitPOJO } = UnitTestDataProvider;
+  const { unitPOJOonBooking } = UnitTestDataProvider;
   const { unitModel } = UnitTestDataProvider;
   const unitItem: UnitItem = {
     uuid: '10ea9ebd-a4f2-419e-808d-b0e111137a96',
     id: '',
     resellerReference: null,
     supplierReference: null,
-    unitId: unitPOJO.id,
-    unit: unitPOJO,
+    unitId: unitPOJOonBooking.id,
+    unit: unitPOJOonBooking,
     status: BookingStatus.CANCELLED,
     utcRedeemedAt: null,
     contact: {
@@ -31,7 +31,7 @@ describe('UnitItemParser', () => {
     ticket: null,
   };
   const unitItemPricing: Required<UnitItemPricing> = {
-    pricing: unitPOJO.pricing![0],
+    pricing: unitPOJOonBooking.pricing![0],
   };
   const unitItemPOJO = {
     ...unitItem,

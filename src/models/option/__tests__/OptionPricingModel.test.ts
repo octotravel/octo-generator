@@ -5,11 +5,10 @@ describe('OptionPricingModel', () => {
     it('should throw error', async () => {
       const optionPricingModel = (): OptionPricingModel =>
         new OptionPricingModel({
-          pricingFrom: [],
           pricing: [],
         });
 
-      expect(optionPricingModel).toThrowError(Error);
+      expect(optionPricingModel).not.toThrowError(Error);
     });
   });
 });

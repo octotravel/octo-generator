@@ -1,7 +1,9 @@
-import { CapabilityId, Unit, UnitContent, UnitPricing } from '@octocloud/types';
+import { CapabilityId, Unit, UnitContent, UnitPricing, Product } from '@octocloud/types';
 import { UnitModel } from '../models/unit/UnitModel';
 import { UnitContentModel } from '../models/unit/UnitContentModel';
 import { UnitPricingModel } from '../models/unit/UnitPricingModel';
+import { ParserOptions } from '../common/ParserOptions';
+import { ProductModel } from '../models/product/ProductModel';
 
 export class UnitParser {
   public parsePOJOToModel(unit: Unit): UnitModel {
@@ -40,20 +42,23 @@ export class UnitParser {
     }
 
     return new UnitPricingModel({
-      pricingFrom: unitPricing.pricingFrom,
-      pricing: unitPricing.pricing,
+      pricing: unitPricing.pricing ?? unitPricing.pricingFrom,
     });
   }
 
-  public parseModelToPOJO(unitModel: UnitModel): Unit {
+  public parseModelToPOJO(unitModel: UnitModel, options: ParserOptions = { sourceModel: ProductModel }): Unit {
     return Object.assign(
       this.parseMainModelToPojo(unitModel),
       this.parseContentModelToPOJO(unitModel.unitContentModel),
-      this.parsePricingModelToPOJO(unitModel.unitPricingModel),
+      this.parsePricingModelToPOJO(unitModel.unitPricingModel, options),
     );
   }
 
-  public parseModelToPOJOWithSpecificCapabilities(unitModel: UnitModel, capabilities: CapabilityId[]): Unit {
+  public parseModelToPOJOWithSpecificCapabilities(
+    unitModel: UnitModel,
+    capabilities: CapabilityId[],
+    options: ParserOptions = { sourceModel: ProductModel },
+  ): Unit {
     let unitContent;
     let unitPricing;
 
@@ -62,7 +67,7 @@ export class UnitParser {
     }
 
     if (capabilities?.includes(CapabilityId.Pricing)) {
-      unitPricing = this.parsePricingModelToPOJO(unitModel.unitPricingModel);
+      unitPricing = this.parsePricingModelToPOJO(unitModel.unitPricingModel, options);
     }
 
     return Object.assign(this.parseMainModelToPojo(unitModel), unitContent, unitPricing);
@@ -92,13 +97,18 @@ export class UnitParser {
     };
   }
 
-  public parsePricingModelToPOJO(unitPricingModel?: UnitPricingModel): UnitPricing {
+  public parsePricingModelToPOJO(unitPricingModel?: UnitPricingModel, options?: ParserOptions): UnitPricing {
     if (unitPricingModel === undefined) {
       return {};
     }
 
+    if (options?.sourceModel === ProductModel) {
+      return {
+        pricingFrom: unitPricingModel.pricing,
+      };
+    }
+
     return {
-      pricingFrom: unitPricingModel.pricingFrom,
       pricing: unitPricingModel.pricing,
     };
   }

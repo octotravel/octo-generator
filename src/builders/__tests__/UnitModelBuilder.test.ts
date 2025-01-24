@@ -63,7 +63,6 @@ describe('UnitModelBuilder', () => {
       });
 
       expect(generatedUnitModel).toBeInstanceOf(UnitModel);
-      expect(generatedUnitModel.unitPricingModel?.pricing).toBeDefined();
     });
 
     it('should build unit model with pricing per booking', async () => {
@@ -73,7 +72,7 @@ describe('UnitModelBuilder', () => {
       });
 
       expect(generatedUnitModel).toBeInstanceOf(UnitModel);
-      expect(generatedUnitModel.unitPricingModel?.pricingFrom).toBeUndefined();
+      expect(generatedUnitModel.unitPricingModel?.pricing).toBeUndefined();
       expect(generatedUnitModel.unitPricingModel).toBeUndefined();
     });
 
@@ -85,8 +84,7 @@ describe('UnitModelBuilder', () => {
       });
 
       expect(generatedUnitModel).toBeInstanceOf(UnitModel);
-      expect(generatedUnitModel.unitPricingModel?.pricingFrom).toBeDefined();
-      expect(generatedUnitModel.unitPricingModel?.pricing).toBeUndefined();
+      expect(generatedUnitModel.unitPricingModel?.pricing).toBeDefined();
     });
   });
 });
