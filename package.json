@@ -1,6 +1,6 @@
 {
   "name": "@octocloud/generators",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "",
   "license": "MIT",
   "author": "",
@@ -31,31 +31,24 @@
   },
   "types": "dist/index.d.ts",
   "dependencies": {
-    "@octocloud/types": "^1.5.20",
+    "@octocloud/types": "octotravel/octo-types#feat/biomejs",
     "date-fns": "^2.29.1",
     "date-fns-tz": "^1.3.6",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
-    "@octocloud/validators": "^1.0.2",
-    "@types/jest": "^29.4.0",
+    "@biomejs/biome": "1.9.4",
+    "@octocloud/validators": "octotravel/octo-types#feat/biomejs",
     "@types/uuid": "^9.0.0",
-    "@typescript-eslint/eslint-plugin": "6.18.1",
-    "@typescript-eslint/parser": "6.18.1",
-    "eslint": "8.56.0",
-    "eslint-config-airbnb-base": "15.0.0",
-    "eslint-config-airbnb-typescript": "17.1.0",
-    "eslint-config-prettier": "9.1.0",
-    "eslint-config-standard-with-typescript": "43.0.0",
-    "eslint-plugin-import": "2.29.1",
-    "eslint-plugin-unused-imports": "3.0.0",
-    "husky": "8.0.3",
-    "jest": "^29.4.1",
-    "lint-staged": "15.2.0",
-    "prettier": "3.1.1",
-    "prettier-package-json": "2.8.0",
-    "ts-jest": "^29.0.5",
-    "typescript": "5.3.3"
+    "@types/node": "^22.9.0",
+    "typescript": "^5.7.2",
+    "@vitest/coverage-v8": "2.1.3",
+    "audit-ci": "7.1.0",
+    "lefthook": "1.10.10",
+    "tsup": "8.3.5",
+    "vite": "5.4.10",
+    "vitest": "2.1.3",
+    "vitest-mock-extended": "2.0.2"
   },
-  "keywords": [],
+  "keywords": []
 }
