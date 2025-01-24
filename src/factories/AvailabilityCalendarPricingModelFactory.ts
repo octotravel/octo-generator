@@ -2,28 +2,28 @@ import { Pricing, PricingPer, PricingUnit } from '@octocloud/types';
 import { AvailabilityCalendarPricingModel } from '../models/availability/AvailabilityCalendarPricingModel';
 
 interface AvailabilityCalendarPricingModelFactoryData {
-  unitPricing?: PricingUnit[];
-  pricing?: Pricing;
-  pricingPer: PricingPer;
-  containsUnits?: boolean;
+	unitPricing?: PricingUnit[];
+	pricing?: Pricing;
+	pricingPer: PricingPer;
+	containsUnits?: boolean;
 }
 
 export abstract class AvailabilityCalendarPricingModelFactory {
-  public static create(factoryData: AvailabilityCalendarPricingModelFactoryData): AvailabilityCalendarPricingModel {
-    let unitPricingFrom;
-    let pricingFrom;
+	public static create(factoryData: AvailabilityCalendarPricingModelFactoryData): AvailabilityCalendarPricingModel {
+		let unitPricingFrom: PricingUnit[] | undefined;
+		let pricingFrom: Pricing | undefined;
 
-    if (factoryData.pricingPer === PricingPer.UNIT) {
-      unitPricingFrom = factoryData.unitPricing;
-    }
+		if (factoryData.pricingPer === PricingPer.UNIT) {
+			unitPricingFrom = factoryData.unitPricing;
+		}
 
-    if (factoryData.pricingPer === PricingPer.BOOKING || factoryData.containsUnits === true) {
-      pricingFrom = factoryData.pricing;
-    }
+		if (factoryData.pricingPer === PricingPer.BOOKING || factoryData.containsUnits === true) {
+			pricingFrom = factoryData.pricing;
+		}
 
-    return new AvailabilityCalendarPricingModel({
-      unitPricingFrom,
-      pricingFrom,
-    });
-  }
+		return new AvailabilityCalendarPricingModel({
+			unitPricingFrom,
+			pricingFrom,
+		});
+	}
 }

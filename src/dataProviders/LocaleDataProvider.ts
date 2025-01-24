@@ -1,3 +1,3 @@
 export class LocaleDataProvider {
-  public static en = 'en';
+	public static en = 'en';
 }

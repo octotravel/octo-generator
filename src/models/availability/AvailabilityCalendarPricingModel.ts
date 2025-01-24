@@ -1,12 +1,12 @@
 import { Pricing, PricingUnit } from '@octocloud/types';
 
 export class AvailabilityCalendarPricingModel {
-  public readonly unitPricingFrom?: PricingUnit[];
+	public readonly unitPricingFrom?: PricingUnit[];
 
-  public readonly pricingFrom?: Pricing;
+	public readonly pricingFrom?: Pricing;
 
-  public constructor({ unitPricingFrom, pricingFrom }: { unitPricingFrom?: PricingUnit[]; pricingFrom?: Pricing }) {
-    this.unitPricingFrom = unitPricingFrom;
-    this.pricingFrom = pricingFrom;
-  }
+	public constructor({ unitPricingFrom, pricingFrom }: { unitPricingFrom?: PricingUnit[]; pricingFrom?: Pricing }) {
+		this.unitPricingFrom = unitPricingFrom;
+		this.pricingFrom = pricingFrom;
+	}
 }

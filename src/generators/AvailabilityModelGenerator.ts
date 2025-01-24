@@ -4,29 +4,29 @@ import { AvailabilityModel } from '../models/availability/AvailabilityModel';
 import { PartialAvailability } from '../types/PartialAvailability';
 
 interface AvailabilityGenerateData {
-  availabilityData: PartialAvailability;
-  pricingPer?: PricingPer;
-  capabilities?: CapabilityId[];
+	availabilityData: PartialAvailability;
+	pricingPer?: PricingPer;
+	capabilities?: CapabilityId[];
 }
 
 export class AvailabilityModelGenerator {
-  private readonly availabilityModelBuilder = new AvailabilityModelBuilder();
+	private readonly availabilityModelBuilder = new AvailabilityModelBuilder();
 
-  public generateAvailability(availabilityGenerateData: AvailabilityGenerateData): AvailabilityModel {
-    return this.availabilityModelBuilder.build({
-      availabilityData: availabilityGenerateData.availabilityData,
-      pricingPer: availabilityGenerateData.pricingPer,
-      capabilities: availabilityGenerateData.capabilities,
-    });
-  }
+	public generateAvailability(availabilityGenerateData: AvailabilityGenerateData): AvailabilityModel {
+		return this.availabilityModelBuilder.build({
+			availabilityData: availabilityGenerateData.availabilityData,
+			pricingPer: availabilityGenerateData.pricingPer,
+			capabilities: availabilityGenerateData.capabilities,
+		});
+	}
 
-  public generateMultipleAvailabilities(
-    availabilitiesData: PartialAvailability[],
-    pricingPer?: PricingPer,
-    capabilities?: CapabilityId[],
-  ): AvailabilityModel[] {
-    return availabilitiesData.map((availabilityData) =>
-      this.generateAvailability({ availabilityData, pricingPer, capabilities }),
-    );
-  }
+	public generateMultipleAvailabilities(
+		availabilitiesData: PartialAvailability[],
+		pricingPer?: PricingPer,
+		capabilities?: CapabilityId[],
+	): AvailabilityModel[] {
+		return availabilitiesData.map((availabilityData) =>
+			this.generateAvailability({ availabilityData, pricingPer, capabilities }),
+		);
+	}
 }

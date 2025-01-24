@@ -1,16 +1,17 @@
-import { OfferModelBuilder } from '../OfferModelBuilder';
+import { describe, expect, it } from 'vitest';
 import { OfferModel } from '../../models/offer/OfferModel';
+import { OfferModelBuilder } from '../OfferModelBuilder';
 
 describe('OfferModelBuilder', () => {
-  const offerModelBuilder = new OfferModelBuilder();
+	const offerModelBuilder = new OfferModelBuilder();
 
-  describe('build', () => {
-    it('should build offer model', async () => {
-      const generatedOfferModel = offerModelBuilder.build({
-        offerData: {},
-      });
+	describe('build', () => {
+		it('should build offer model', async () => {
+			const generatedOfferModel = offerModelBuilder.build({
+				offerData: {},
+			});
 
-      expect(generatedOfferModel).toBeInstanceOf(OfferModel);
-    });
-  });
+			expect(generatedOfferModel).toBeInstanceOf(OfferModel);
+		});
+	});
 });

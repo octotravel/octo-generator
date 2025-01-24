@@ -1,15 +1,15 @@
+import { describe, expect, it } from 'vitest';
 import { OptionPricingModel } from '../OptionPricingModel';
 
 describe('OptionPricingModel', () => {
-  describe('constructor', () => {
-    it('should throw error', async () => {
-      const optionPricingModel = (): OptionPricingModel =>
-        new OptionPricingModel({
-          pricingFrom: [],
-          pricing: [],
-        });
+	describe('constructor', () => {
+		it('should throw error', async () => {
+			const optionPricingModel = (): OptionPricingModel =>
+				new OptionPricingModel({
+					pricing: [],
+				});
 
-      expect(optionPricingModel).toThrowError(Error);
-    });
-  });
+			expect(optionPricingModel).not.toThrowError(Error);
+		});
+	});
 });

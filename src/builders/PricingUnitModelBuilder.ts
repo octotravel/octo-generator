@@ -1,46 +1,47 @@
-import { CapabilityId, Currency } from '@octocloud/types';
-import { PartialPricingUnit } from '../types/PartialPricingUnit';
+import { CapabilityId, Currency, UnitType } from '@octocloud/types';
 import { PricingOfferModel } from '../models/pricing/PricingOfferModel';
 import { PricingUnitModel } from '../models/pricing/PricingUnitModel';
+import { PartialPricingUnit } from '../types/PartialPricingUnit';
 
 interface PricingUnitModelBuilderData {
-  pricingUnitData: PartialPricingUnit;
-  capabilities?: CapabilityId[];
+	pricingUnitData: PartialPricingUnit;
+	capabilities?: CapabilityId[];
 }
 
 const defaultCapabilities: CapabilityId[] = [CapabilityId.Offers];
 
 export class PricingUnitModelBuilder {
-  public build(builderData: PricingUnitModelBuilderData): PricingUnitModel {
-    builderData.capabilities ??= defaultCapabilities;
+	public build(builderData: PricingUnitModelBuilderData): PricingUnitModel {
+		builderData.capabilities ??= defaultCapabilities;
 
-    const { pricingUnitData } = builderData;
+		const { pricingUnitData } = builderData;
 
-    return new PricingUnitModel({
-      unitId: 'unitId',
-      original: pricingUnitData.original ?? 1000,
-      retail: pricingUnitData.retail ?? 1000,
-      net: pricingUnitData.net ?? 1000,
-      includedTaxes: pricingUnitData.includedTaxes ?? [],
-      currency: pricingUnitData.currency ?? Currency.EUR,
-      currencyPrecision: pricingUnitData.currencyPrecision ?? 2,
-      pricingOfferModel: this.buildOffersModel(builderData),
-    });
-  }
+		return new PricingUnitModel({
+			unitId: 'unitId',
+			unitType: pricingUnitData.unitType ?? UnitType.ADULT,
+			original: pricingUnitData.original ?? 1000,
+			retail: pricingUnitData.retail ?? 1000,
+			net: pricingUnitData.net ?? 1000,
+			includedTaxes: pricingUnitData.includedTaxes ?? [],
+			currency: pricingUnitData.currency ?? Currency.EUR,
+			currencyPrecision: pricingUnitData.currencyPrecision ?? 2,
+			pricingOfferModel: this.buildOffersModel(builderData),
+		});
+	}
 
-  private buildOffersModel(builderData: PricingUnitModelBuilderData): PricingOfferModel | undefined {
-    if (builderData.capabilities?.includes(CapabilityId.Offers) === false) {
-      return undefined;
-    }
+	private buildOffersModel(builderData: PricingUnitModelBuilderData): PricingOfferModel | undefined {
+		if (builderData.capabilities?.includes(CapabilityId.Offers) === false) {
+			return undefined;
+		}
 
-    const { pricingUnitData } = builderData;
+		const { pricingUnitData } = builderData;
 
-    return new PricingOfferModel({
-      offerDiscount: pricingUnitData.offerDiscount ?? {
-        original: 500,
-        retail: 500,
-        includedTaxes: [],
-      },
-    });
-  }
+		return new PricingOfferModel({
+			offerDiscount: pricingUnitData.offerDiscount ?? {
+				original: 500,
+				retail: 500,
+				includedTaxes: [],
+			},
+		});
+	}
 }
