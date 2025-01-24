@@ -1,4 +1,4 @@
-import { AvailabilityType, Product } from '@octocloud/types';
+import { AvailabilityType, Product, UnitType } from '@octocloud/types';
 import { ProductModelBuilder } from '../builders/ProductModelBuilder';
 import { ProductModel } from '../models/product/ProductModel';
 import { ProductParser } from '../parsers/ProductParser';
@@ -46,9 +46,34 @@ export abstract class ProductPreset {
     },
   });
 
+  public static readonly FOURTH_PRODUCT_MODEL: ProductModel = this.productModelBuilder.build({
+    productData: {
+      id: 'fourthProductId',
+      availabilityType: AvailabilityType.OPENING_HOURS,
+      options: [
+        {
+          id: 'firstOptionId',
+          units: [
+            {
+              id: UnitType.ADULT,
+            },
+            {
+              id: UnitType.CHILD,
+            },
+            {
+              id: UnitType.OTHER,
+            },
+          ],
+        },
+      ],
+    },
+  });
+
   public static readonly FIRST_PRODUCT_POJO: Product = this.productParser.parseModelToPOJO(this.FIRST_PRODUCT_MODEL);
 
   public static readonly SECOND_PRODUCT_POJO: Product = this.productParser.parseModelToPOJO(this.SECOND_PRODUCT_MODEL);
 
   public static readonly THIRD_PRODUCT_POJO: Product = this.productParser.parseModelToPOJO(this.THIRD_PRODUCT_MODEL);
+
+  public static readonly FOURTH_PRODUCT_POJO: Product = this.productParser.parseModelToPOJO(this.FOURTH_PRODUCT_MODEL);
 }
