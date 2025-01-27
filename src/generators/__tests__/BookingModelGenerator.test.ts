@@ -2,6 +2,7 @@ import { CapabilityId } from '@octocloud/types';
 import { BookingValidator } from '@octocloud/validator/backend/src/common/validation/v1/validators/backendValidator/Booking/BookingValidator';
 import { describe, expect, it } from 'vitest';
 import { AvailabilityDataProvider } from '../../dataProviders/AvailabilityDataProvider';
+import { UuidFactory } from '../../factories/UuidFactory';
 import { BookingParser } from '../../parsers/BookingParser';
 import { BookingModelGenerator } from '../BookingModelGenerator';
 
@@ -17,6 +18,7 @@ describe('BookingModelGenerator', () => {
 		it('should generate valid booking model', async () => {
 			const bookingModel = bookingModelGenerator.generateBooking({
 				bookingData: {
+					uuid: UuidFactory.create(),
 					id: 'id',
 					availability: AvailabilityDataProvider.availability,
 				},
