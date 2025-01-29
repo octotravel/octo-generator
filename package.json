@@ -1,68 +1,55 @@
 {
-  "name": "@octocloud/generators",
-  "version": "1.0.10",
-  "description": "",
-  "license": "MIT",
-  "author": "",
-  "homepage": "https://github.com/octotravel/octo-generator#readme",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/octotravel/octo-generator.git"
-  },
-  "bugs": {
-    "url": "https://github.com/octotravel/octo-generator/issues"
-  },
-  "main": "dist/index.js",
-  "scripts": {
-    "build": "tsc",
-    "build:dry": "tsc --noEmit",
-    "check": "npm run build:dry && npm run format:check && npm run lint",
-    "checks": "npm run format && npm run lint && npm run test",
-    "fix": "npm run format:package && npm run format && npm run lint:fix",
-    "fix:staged": "npx lint-staged",
-    "format": "prettier . '!./ops' --write",
-    "format:check": "prettier . '!./ops' --check",
-    "format:package": "prettier-package-json --write",
-    "lint": "eslint . --ext .ts",
-    "lint:fix": "eslint . --ext .ts --fix",
-    "prepare": "npm run build && husky install",
-    "test": "jest --verbose",
-    "test-coverage": "jest --coverage"
-  },
-  "types": "dist/index.d.ts",
-  "dependencies": {
-    "@octocloud/types": "^1.5.20",
-    "date-fns": "^2.29.1",
-    "date-fns-tz": "^1.3.6",
-    "uuid": "^9.0.0"
-  },
-  "devDependencies": {
-    "@octocloud/validators": "^1.0.2",
-    "@types/jest": "^29.4.0",
-    "@types/uuid": "^9.0.0",
-    "@typescript-eslint/eslint-plugin": "6.18.1",
-    "@typescript-eslint/parser": "6.18.1",
-    "eslint": "8.56.0",
-    "eslint-config-airbnb-base": "15.0.0",
-    "eslint-config-airbnb-typescript": "17.1.0",
-    "eslint-config-prettier": "9.1.0",
-    "eslint-config-standard-with-typescript": "43.0.0",
-    "eslint-plugin-import": "2.29.1",
-    "eslint-plugin-unused-imports": "3.0.0",
-    "husky": "8.0.3",
-    "jest": "^29.4.1",
-    "lint-staged": "15.2.0",
-    "prettier": "3.1.1",
-    "prettier-package-json": "2.8.0",
-    "ts-jest": "^29.0.5",
-    "typescript": "5.3.3"
-  },
-  "keywords": [],
-  "lint-staged": {
-    "./package.json": "npm run format:package",
-    "*": "npm run format",
-    "*.(ts|js)": [
-      "npm run lint:fix"
-    ]
-  }
+	"name": "@octocloud/generators",
+	"version": "1.0.11",
+	"description": "",
+	"license": "MIT",
+	"author": "",
+	"homepage": "https://github.com/octotravel/octo-generator#readme",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/octotravel/octo-generator.git"
+	},
+	"bugs": {
+		"url": "https://github.com/octotravel/octo-generator/issues"
+	},
+	"main": "dist/index.js",
+	"scripts": {
+		"build": "tsc",
+		"build:dry": "tsc --noEmit",
+		"build:dry:ci": "tsc --noEmit",
+		"check": "npm run build:dry && npm run format && npm run lint",
+		"fix": "biome check --write .",
+		"format": "biome format",
+		"format:fix": "biome format --write .",
+		"lint": "biome lint",
+		"lint:fix": "biome lint --write .",
+		"test": "VITE_CJS_IGNORE_WARNING=true vitest run --config ./vitest.config.ts",
+		"test:coverage": "VITE_CJS_IGNORE_WARNING=true vitest run --config ./vitest.config.ts --coverage",
+		"dev": "npm run build -- --watch src",
+		"lefthook": "lefthook install",
+		"audit": "audit-ci --config ./audit-ci.json",
+		"prepare": "npm run build"
+	},
+	"types": "dist/index.d.ts",
+	"dependencies": {
+		"@octocloud/types": "^1.5.34",
+		"date-fns": "^2.29.1",
+		"date-fns-tz": "^1.3.6",
+		"uuid": "^9.0.0"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "1.9.4",
+		"@octocloud/validator": "octotravel/validator#biomejs",
+		"@types/uuid": "^9.0.0",
+		"@types/node": "^22.9.0",
+		"typescript": "^5.7.2",
+		"@vitest/coverage-v8": "2.1.3",
+		"audit-ci": "7.1.0",
+		"lefthook": "1.10.10",
+		"tsup": "8.3.5",
+		"vite": "5.4.14",
+		"vitest": "2.1.3",
+		"vitest-mock-extended": "2.0.2"
+	},
+	"keywords": []
 }

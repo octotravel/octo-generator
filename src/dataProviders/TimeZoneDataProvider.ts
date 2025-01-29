@@ -1,3 +1,3 @@
 export class TimeZoneDataProvider {
-  public static europeLondon = 'Europe/London';
+	public static europeLondon = 'Europe/London';
 }

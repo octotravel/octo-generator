@@ -4,31 +4,31 @@ import { AvailabilityCalendarModel } from '../models/availability/AvailabilityCa
 import { PartialAvailabilityCalendar } from '../types/PartialAvailabilityCalendar';
 
 interface AvailabilityCalendarGenerateData {
-  availabilityCalendarData: PartialAvailabilityCalendar;
-  pricingPer?: PricingPer;
-  capabilities?: CapabilityId[];
+	availabilityCalendarData: PartialAvailabilityCalendar;
+	pricingPer?: PricingPer;
+	capabilities?: CapabilityId[];
 }
 
 export class AvailabilityCalendarModelGenerator {
-  private readonly availabilityCalendarModelBuilder = new AvailabilityCalendarModelBuilder();
+	private readonly availabilityCalendarModelBuilder = new AvailabilityCalendarModelBuilder();
 
-  public generateAvailabilityCalendar(
-    availabilityCalendarGenerateData: AvailabilityCalendarGenerateData,
-  ): AvailabilityCalendarModel {
-    return this.availabilityCalendarModelBuilder.build({
-      availabilityCalendarData: availabilityCalendarGenerateData.availabilityCalendarData,
-      pricingPer: availabilityCalendarGenerateData.pricingPer,
-      capabilities: availabilityCalendarGenerateData.capabilities,
-    });
-  }
+	public generateAvailabilityCalendar(
+		availabilityCalendarGenerateData: AvailabilityCalendarGenerateData,
+	): AvailabilityCalendarModel {
+		return this.availabilityCalendarModelBuilder.build({
+			availabilityCalendarData: availabilityCalendarGenerateData.availabilityCalendarData,
+			pricingPer: availabilityCalendarGenerateData.pricingPer,
+			capabilities: availabilityCalendarGenerateData.capabilities,
+		});
+	}
 
-  public generateMultipleAvailabilityCalendars(
-    availabilityCalendarsData: PartialAvailabilityCalendar[],
-    pricingPer?: PricingPer,
-    capabilities?: CapabilityId[],
-  ): AvailabilityCalendarModel[] {
-    return availabilityCalendarsData.map((availabilityCalendarData) =>
-      this.generateAvailabilityCalendar({ availabilityCalendarData, pricingPer, capabilities }),
-    );
-  }
+	public generateMultipleAvailabilityCalendars(
+		availabilityCalendarsData: PartialAvailabilityCalendar[],
+		pricingPer?: PricingPer,
+		capabilities?: CapabilityId[],
+	): AvailabilityCalendarModel[] {
+		return availabilityCalendarsData.map((availabilityCalendarData) =>
+			this.generateAvailabilityCalendar({ availabilityCalendarData, pricingPer, capabilities }),
+		);
+	}
 }
