@@ -1,8 +1,5 @@
 import { CapabilityId, PricingPer, UnitType } from '@octocloud/types';
-import { PricingDataProvider } from '../dataProviders/PricingDataProvider';
 import { UnitDataProvider } from '../dataProviders/UnitDataProvider';
-import { OptionPricingModel } from '../models/option/OptionPricingModel';
-import { ProductModel } from '../models/product/ProductModel';
 import { UnitContentModel } from '../models/unit/UnitContentModel';
 import { UnitModel } from '../models/unit/UnitModel';
 import { UnitPricingModel } from '../models/unit/UnitPricingModel';
@@ -61,7 +58,7 @@ export class UnitModelBuilder {
 		}
 
 		const { unitData } = builderData;
-		return new OptionPricingModel({
+		return new UnitPricingModel({
 			pricing: unitData.pricing ?? unitData.pricingFrom,
 		});
 	}

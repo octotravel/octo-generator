@@ -90,7 +90,7 @@ export class OptionParser {
 
 	public parseModelToPOJO(optionModel: OptionModel, options: ParserOptions = { sourceModel: ProductModel }): Option {
 		return Object.assign(
-			this.parseMainModelToPojo(optionModel, [], options),
+			this.parseMainModelToPojo(optionModel, undefined, options),
 			this.parseContentModelToPOJO(optionModel.optionContentModel),
 			this.parsePickupsModelToPOJO(optionModel.optionPickupsModel),
 			this.parsePricingModelToPOJO(optionModel.optionPricingModel, options),
@@ -130,7 +130,7 @@ export class OptionParser {
 
 	private parseMainModelToPojo(
 		optionModel: OptionModel,
-		capabilities: CapabilityId[],
+		capabilities?: CapabilityId[],
 		options?: ParserOptions,
 	): Option {
 		const units = optionModel.unitModels.map((unitModel) => {
