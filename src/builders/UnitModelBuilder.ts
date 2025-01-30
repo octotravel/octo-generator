@@ -54,7 +54,6 @@ export class UnitModelBuilder {
 			builderData.capabilities?.includes(CapabilityId.Pricing) === false ||
 			builderData.pricingPer === PricingPer.BOOKING
 		) {
-			console.log('undefined');
 			return undefined;
 		}
 
