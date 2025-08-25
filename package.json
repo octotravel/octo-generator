@@ -38,7 +38,7 @@
 		"uuid": "^9.0.0"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "1.9.4",
+		"@biomejs/biome": "2.1.0",
 		"@octocloud/validator": "octotravel/validator#biomejs",
 		"@types/uuid": "^9.0.0",
 		"@types/node": "^22.9.0",
