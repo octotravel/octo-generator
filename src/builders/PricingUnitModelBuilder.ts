@@ -38,7 +38,7 @@ export class PricingUnitModelBuilder {
 
 		return new PricingOfferModel({
 			offerDiscount: pricingUnitData.offerDiscount ?? {
-				original: 500,
+				net: 500,
 				retail: 500,
 				includedTaxes: [],
 			},

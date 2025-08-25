@@ -38,7 +38,7 @@ export abstract class PricingPreset {
 			currency: Currency.EUR,
 			currencyPrecision: 2,
 			offerDiscount: {
-				original: 500,
+				net: 500,
 				retail: 500,
 				includedTaxes: [],
 			},

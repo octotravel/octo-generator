@@ -51,6 +51,9 @@ export class ProductTestDataProvider {
 				cancellationCutoff: 'cancellationCutoff',
 				cancellationCutoffAmount: 0,
 				cancellationCutoffUnit: DurationUnit.HOUR,
+				availabilityCutoff: 'availabilityCutoff',
+				availabilityCutoffAmount: 0,
+				availabilityCutoffUnit: DurationUnit.HOUR,
 				requiredContactFields: [],
 				visibleContactFields: [],
 				restrictions: {
@@ -120,7 +123,7 @@ export class ProductTestDataProvider {
 			landing_page: {
 				url: null,
 			},
-			inventory_type: '',
+			inventory_types: [''],
 			landing_page_list_view: {
 				url: null,
 			},

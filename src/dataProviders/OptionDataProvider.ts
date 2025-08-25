@@ -11,6 +11,9 @@ export class OptionDataProvider {
 		cancellationCutoff: '1 hour',
 		cancellationCutoffAmount: 1,
 		cancellationCutoffUnit: DurationUnit.HOUR,
+		availabilityCutoff: '1 hour',
+		availabilityCutoffAmount: 1,
+		availabilityCutoffUnit: DurationUnit.HOUR,
 		requiredContactFields: [],
 		restrictions: {
 			minUnits: 0,

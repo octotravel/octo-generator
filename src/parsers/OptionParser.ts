@@ -149,6 +149,9 @@ export class OptionParser {
 			cancellationCutoff: optionModel.cancellationCutoff,
 			cancellationCutoffAmount: optionModel.cancellationCutoffAmount,
 			cancellationCutoffUnit: DurationUnit.HOUR,
+			availabilityCutoff: optionModel.cancellationCutoff, // TODO: add properly
+			availabilityCutoffAmount: optionModel.cancellationCutoffAmount, // TODO: add properly
+			availabilityCutoffUnit: DurationUnit.HOUR,
 			requiredContactFields: optionModel.requiredContactFields,
 			visibleContactFields: optionModel.visibleContactFields,
 			restrictions: optionModel.restrictions,

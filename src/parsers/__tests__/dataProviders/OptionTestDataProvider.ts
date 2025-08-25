@@ -17,6 +17,9 @@ export class OptionTestDataProvider {
 		cancellationCutoff: 'cancellationCutoff',
 		cancellationCutoffAmount: 0,
 		cancellationCutoffUnit: DurationUnit.HOUR,
+		availabilityCutoff: 'availabilityCutoff',
+		availabilityCutoffAmount: 0,
+		availabilityCutoffUnit: DurationUnit.HOUR,
 		requiredContactFields: [],
 		visibleContactFields: [],
 		restrictions: {
