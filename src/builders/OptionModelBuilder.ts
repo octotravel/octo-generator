@@ -35,6 +35,9 @@ export class OptionModelBuilder {
 			cancellationCutoff: optionData.cancellationCutoff ?? '0 hours',
 			cancellationCutoffAmount: optionData.cancellationCutoffAmount ?? 0,
 			cancellationCutoffUnit: optionData.cancellationCutoffUnit ?? 'hour',
+			availabilityCutoff: optionData.availabilityCutoff ?? '0 hours',
+			availabilityCutoffAmount: optionData.availabilityCutoffAmount ?? 0,
+			availabilityCutoffUnit: optionData.availabilityCutoffUnit ?? 'hour',
 			requiredContactFields: optionData.requiredContactFields ?? [],
 			visibleContactFields: optionData.visibleContactFields ?? [],
 			restrictions: optionData.restrictions ?? {
