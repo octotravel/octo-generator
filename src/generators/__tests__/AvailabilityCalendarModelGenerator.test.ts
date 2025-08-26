@@ -1,5 +1,5 @@
 import { AvailabilityType, CapabilityId } from '@octocloud/types';
-import { AvailabilityCalendarValidator } from '@octocloud/validator/backend/src/common/validation/v1/validators/backendValidator/AvailabilityCalendar/AvailabilityCalendarValidator';
+import { AvailabilityCalendarValidator } from '@octocloud/validator/backend/src/common/validation/supplier/validators/backendValidator/AvailabilityCalendar/AvailabilityCalendarValidator';
 import { describe, expect, it } from 'vitest';
 import { AvailabilityCalendarParser } from '../../parsers/AvailabilityCalendarParser';
 import { AvailabilityCalendarModelGenerator } from '../AvailabilityCalendarModelGenerator';

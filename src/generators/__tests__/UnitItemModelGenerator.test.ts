@@ -1,5 +1,5 @@
 import { CapabilityId } from '@octocloud/types';
-import { UnitItemValidator } from '@octocloud/validator/backend/src/common/validation/v1/validators/backendValidator/UnitItem/UnitItemValidator';
+import { UnitItemValidator } from '@octocloud/validator/backend/src/common/validation/supplier/validators/backendValidator/UnitItem/UnitItemValidator';
 import { describe, expect, it } from 'vitest';
 import { UuidFactory } from '../../factories/UuidFactory';
 import { UnitItemParser } from '../../parsers/UnitItemParser';

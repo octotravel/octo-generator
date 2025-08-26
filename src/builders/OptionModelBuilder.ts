@@ -1,11 +1,9 @@
 import { CapabilityId, DurationUnit, PricingPer } from '@octocloud/types';
 import { LocaleDataProvider } from '../dataProviders/LocaleDataProvider';
-import { PricingDataProvider } from '../dataProviders/PricingDataProvider';
 import { OptionContentModel } from '../models/option/OptionContentModel';
 import { OptionModel } from '../models/option/OptionModel';
 import { OptionPickupsModel } from '../models/option/OptionPickupsModel';
 import { OptionPricingModel } from '../models/option/OptionPricingModel';
-import { ProductModel } from '../models/product/ProductModel';
 import { UnitModel } from '../models/unit/UnitModel';
 import { PartialOption } from '../types/PartialOption';
 import { UnitModelBuilder } from './UnitModelBuilder';

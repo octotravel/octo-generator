@@ -10,7 +10,6 @@ import {
 	Option,
 	Product,
 } from '@octocloud/types';
-import { ParserOptions } from '../common/ParserOptions';
 import { BookingCartModel } from '../models/booking/BookingCartModel';
 import { BookingContentModel } from '../models/booking/BookingContentModel';
 import { BookingModel } from '../models/booking/BookingModel';

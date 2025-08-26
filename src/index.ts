@@ -39,50 +39,28 @@ export * from './models/pricing/PricingModel';
 export * from './models/pricing/PricingUnitModel';
 
 export * from './models/product/ProductModel';
-
-export * from './models/unitItem/UnitItemModel';
-
 export * from './models/unit/UnitModel';
-
-export * from './presets/AvailabilityOfferPreset';
-
-export * from './presets/AvailabilityPreset';
-
-export * from './presets/BookingPreset';
-
-export * from './presets/OfferPreset';
-
-export * from './presets/OptionPreset';
-
-export * from './presets/PricingPreset';
-
-export * from './presets/ProductPreset';
-
-export * from './presets/UnitPreset';
-
-export * from './parsers/AvailabilityParser';
-
+export * from './models/unitItem/UnitItemModel';
 export * from './parsers/AvailabilityCalendarParser';
-
+export * from './parsers/AvailabilityParser';
 export * from './parsers/BookingParser';
-
 export * from './parsers/MappingParser';
-
 export * from './parsers/OfferParser';
-
 export * from './parsers/OptionParser';
-
 export * from './parsers/OrderParser';
-
 export * from './parsers/PricingParser';
-
 export * from './parsers/PricingUnitParser';
-
 export * from './parsers/ProductParser';
-
 export * from './parsers/UnitItemParser';
-
 export * from './parsers/UnitParser';
+export * from './presets/AvailabilityOfferPreset';
+export * from './presets/AvailabilityPreset';
+export * from './presets/BookingPreset';
+export * from './presets/OfferPreset';
+export * from './presets/OptionPreset';
+export * from './presets/PricingPreset';
+export * from './presets/ProductPreset';
+export * from './presets/UnitPreset';
 
 export * from './types/PartialAvailability';
 

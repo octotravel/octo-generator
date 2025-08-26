@@ -1,4 +1,4 @@
-import { CapabilityId, OfferDiscount, PricingOffer, PricingUnit } from '@octocloud/types';
+import { CapabilityId, PricingOffer, PricingUnit } from '@octocloud/types';
 import { PricingOfferModel } from '../models/pricing/PricingOfferModel';
 import { PricingUnitModel } from '../models/pricing/PricingUnitModel';
 

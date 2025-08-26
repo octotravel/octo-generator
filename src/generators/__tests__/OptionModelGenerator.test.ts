@@ -1,5 +1,5 @@
 import { CapabilityId } from '@octocloud/types';
-import { OptionValidator } from '@octocloud/validator/backend/src/common/validation/v1/validators/backendValidator/Option/OptionValidator';
+import { OptionValidator } from '@octocloud/validator/backend/src/common/validation/supplier/validators/backendValidator/Option/OptionValidator';
 import { describe, expect, it } from 'vitest';
 import { OptionParser } from '../../parsers/OptionParser';
 import { OptionModelGenerator } from '../OptionModelGenerator';

@@ -1,9 +1,7 @@
-import { AvailabilityType, CapabilityId, Currency, PricingPer, Product, Unit, UnitType } from '@octocloud/types';
-import { ProductModelBuilder } from '../builders/ProductModelBuilder';
+import { CapabilityId, PricingPer, Unit, UnitType } from '@octocloud/types';
 import { UnitModelBuilder } from '../builders/UnitModelBuilder';
 import { ProductModel } from '../models/product/ProductModel';
 import { UnitModel } from '../models/unit/UnitModel';
-import { ProductParser } from '../parsers/ProductParser';
 import { UnitParser } from '../parsers/UnitParser';
 import { PricingPreset } from './PricingPreset';
 
