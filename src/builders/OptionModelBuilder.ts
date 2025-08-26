@@ -1,11 +1,9 @@
 import { CapabilityId, DurationUnit, PricingPer } from '@octocloud/types';
 import { LocaleDataProvider } from '../dataProviders/LocaleDataProvider';
-import { PricingDataProvider } from '../dataProviders/PricingDataProvider';
 import { OptionContentModel } from '../models/option/OptionContentModel';
 import { OptionModel } from '../models/option/OptionModel';
 import { OptionPickupsModel } from '../models/option/OptionPickupsModel';
 import { OptionPricingModel } from '../models/option/OptionPricingModel';
-import { ProductModel } from '../models/product/ProductModel';
 import { UnitModel } from '../models/unit/UnitModel';
 import { PartialOption } from '../types/PartialOption';
 import { UnitModelBuilder } from './UnitModelBuilder';
@@ -37,6 +35,9 @@ export class OptionModelBuilder {
 			cancellationCutoff: optionData.cancellationCutoff ?? '0 hours',
 			cancellationCutoffAmount: optionData.cancellationCutoffAmount ?? 0,
 			cancellationCutoffUnit: optionData.cancellationCutoffUnit ?? 'hour',
+			availabilityCutoff: optionData.availabilityCutoff ?? '0 hours',
+			availabilityCutoffAmount: optionData.availabilityCutoffAmount ?? 0,
+			availabilityCutoffUnit: optionData.availabilityCutoffUnit ?? 'hour',
 			requiredContactFields: optionData.requiredContactFields ?? [],
 			visibleContactFields: optionData.visibleContactFields ?? [],
 			restrictions: optionData.restrictions ?? {

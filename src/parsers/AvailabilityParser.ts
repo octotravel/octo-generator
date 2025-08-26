@@ -77,7 +77,7 @@ export class AvailabilityParser {
 			offerCode: availabilityOffers.offerCode,
 			offerTitle: availabilityOffers.offerTitle,
 			offerModels: availabilityOffers.offers.map((offer) => this.offerParser.parsePOJOToModel(offer)),
-			offerModel: this.offerParser.parsePOJOToModel(availabilityOffers.offer),
+			offerModel: availabilityOffers.offer ? this.offerParser.parsePOJOToModel(availabilityOffers.offer) : null,
 		});
 	}
 
@@ -212,7 +212,9 @@ export class AvailabilityParser {
 			offerCode: availabilityOffersModel.offerCode,
 			offerTitle: availabilityOffersModel.offerTitle,
 			offers: availabilityOffersModel.offerModels.map((offerModel) => this.offerParser.parseModelToPOJO(offerModel)),
-			offer: this.offerParser.parseModelToPOJO(availabilityOffersModel.offerModel),
+			offer: availabilityOffersModel.offerModel
+				? this.offerParser.parseModelToPOJO(availabilityOffersModel.offerModel)
+				: null,
 		};
 	}
 

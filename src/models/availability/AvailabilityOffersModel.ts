@@ -1,13 +1,13 @@
 import { OfferModel } from '../offer/OfferModel';
 
 export class AvailabilityOffersModel {
-	public readonly offerCode: string;
+	public readonly offerCode: string | null;
 
-	public readonly offerTitle: string;
+	public readonly offerTitle: string | null;
 
 	public readonly offerModels: OfferModel[];
 
-	public readonly offerModel: OfferModel;
+	public readonly offerModel: OfferModel | null;
 
 	public constructor({
 		offerCode,
@@ -15,10 +15,10 @@ export class AvailabilityOffersModel {
 		offerModels,
 		offerModel,
 	}: {
-		offerCode: string;
-		offerTitle: string;
+		offerCode: string | null;
+		offerTitle: string | null;
 		offerModels: OfferModel[];
-		offerModel: OfferModel;
+		offerModel: OfferModel | null;
 	}) {
 		this.offerCode = offerCode;
 		this.offerTitle = offerTitle;

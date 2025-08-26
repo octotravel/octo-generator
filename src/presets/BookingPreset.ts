@@ -1,13 +1,10 @@
-import { AvailabilityStatus, AvailabilityType, Booking, BookingStatus, CapabilityId, Product } from '@octocloud/types';
-import { BookingModelBuilder } from '../builders/BookingModelBuilder';
-
-import { BookingParser } from '../parsers/BookingParser';
-
+import { AvailabilityStatus, Booking, BookingStatus, CapabilityId } from '@octocloud/types';
 import { AvailabilityModelBuilder } from '../builders/AvailabilityModelBuilder';
+import { BookingModelBuilder } from '../builders/BookingModelBuilder';
 import { ProductModelBuilder } from '../builders/ProductModelBuilder';
 import { AvailabilityParser } from '../parsers/AvailabilityParser';
+import { BookingParser } from '../parsers/BookingParser';
 import { ProductParser } from '../parsers/ProductParser';
-import { AvailabilityPreset } from './AvailabilityPreset';
 import { OptionPreset } from './OptionPreset';
 import { ProductPreset } from './ProductPreset';
 

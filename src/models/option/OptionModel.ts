@@ -22,6 +22,12 @@ export class OptionModel {
 
 	public readonly cancellationCutoffUnit: string;
 
+	public readonly availabilityCutoff: string;
+
+	public readonly availabilityCutoffAmount: number;
+
+	public readonly availabilityCutoffUnit: string;
+
 	public readonly requiredContactFields: ContactField[];
 
 	public readonly visibleContactFields: ContactField[];
@@ -45,6 +51,9 @@ export class OptionModel {
 		cancellationCutoff,
 		cancellationCutoffAmount,
 		cancellationCutoffUnit,
+		availabilityCutoff,
+		availabilityCutoffAmount,
+		availabilityCutoffUnit,
 		requiredContactFields,
 		visibleContactFields,
 		restrictions,
@@ -61,6 +70,9 @@ export class OptionModel {
 		cancellationCutoff: string;
 		cancellationCutoffAmount: number;
 		cancellationCutoffUnit: string;
+		availabilityCutoff: string;
+		availabilityCutoffAmount: number;
+		availabilityCutoffUnit: string;
 		requiredContactFields: ContactField[];
 		visibleContactFields: ContactField[];
 		restrictions: OptionRestrictions;
@@ -77,6 +89,9 @@ export class OptionModel {
 		this.cancellationCutoff = cancellationCutoff;
 		this.cancellationCutoffAmount = cancellationCutoffAmount;
 		this.cancellationCutoffUnit = cancellationCutoffUnit;
+		this.availabilityCutoff = availabilityCutoff;
+		this.availabilityCutoffAmount = availabilityCutoffAmount;
+		this.availabilityCutoffUnit = availabilityCutoffUnit;
 		this.requiredContactFields = requiredContactFields;
 		this.visibleContactFields = visibleContactFields;
 		this.restrictions = restrictions;

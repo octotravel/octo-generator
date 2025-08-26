@@ -16,7 +16,7 @@ export class PricingUnitTestDataProvider {
 
 	public static pricingUnitOffer: Required<PricingOffer> = {
 		offerDiscount: {
-			original: 500,
+			net: 500,
 			retail: 500,
 			includedTaxes: [],
 		},

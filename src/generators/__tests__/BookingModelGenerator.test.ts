@@ -1,5 +1,5 @@
 import { CapabilityId } from '@octocloud/types';
-import { BookingValidator } from '@octocloud/validator/backend/src/common/validation/v1/validators/backendValidator/Booking/BookingValidator';
+import { BookingValidator } from '@octocloud/validator/backend/src/common/validation/supplier/validators/backendValidator/Booking/BookingValidator';
 import { describe, expect, it } from 'vitest';
 import { AvailabilityDataProvider } from '../../dataProviders/AvailabilityDataProvider';
 import { UuidFactory } from '../../factories/UuidFactory';

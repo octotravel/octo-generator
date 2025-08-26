@@ -116,7 +116,7 @@ export class ProductModelBuilder {
 				landing_page: {
 					url: null,
 				},
-				inventory_type: '',
+				inventory_types: [''],
 				landing_page_list_view: {
 					url: null,
 				},

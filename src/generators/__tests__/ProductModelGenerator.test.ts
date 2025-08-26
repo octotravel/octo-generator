@@ -1,5 +1,5 @@
 import { CapabilityId, DeliveryMethod } from '@octocloud/types';
-import { ProductValidator } from '@octocloud/validator/backend/src/common/validation/v1/validators/backendValidator/Product/ProductValidator';
+import { ProductValidator } from '@octocloud/validator/backend/src/common/validation/supplier/validators/backendValidator/Product/ProductValidator';
 import { describe, expect, it } from 'vitest';
 import { OptionDataProvider } from '../../dataProviders/OptionDataProvider';
 import { ProductParser } from '../../parsers/ProductParser';

@@ -1,4 +1,4 @@
-import { CapabilityId, Product, Unit, UnitContent, UnitPricing } from '@octocloud/types';
+import { CapabilityId, Unit, UnitContent, UnitPricing } from '@octocloud/types';
 import { ParserOptions } from '../common/ParserOptions';
 import { ProductModel } from '../models/product/ProductModel';
 import { UnitContentModel } from '../models/unit/UnitContentModel';

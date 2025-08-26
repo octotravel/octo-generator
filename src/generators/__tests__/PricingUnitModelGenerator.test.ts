@@ -1,5 +1,5 @@
 import { CapabilityId } from '@octocloud/types';
-import { PricingValidator } from '@octocloud/validator/backend/src/common/validation/v1/validators/backendValidator/Pricing/PricingValidator';
+import { PricingValidator } from '@octocloud/validator/backend/src/common/validation/supplier/validators/backendValidator/Pricing/PricingValidator';
 import { describe, expect, it } from 'vitest';
 import { PricingUnitParser } from '../../parsers/PricingUnitParser';
 import { PricingUnitModelGenerator } from '../PricingUnitModelGenerator';

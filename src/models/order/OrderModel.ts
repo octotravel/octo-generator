@@ -26,8 +26,10 @@ export class OrderModel {
 
 	public readonly pricing?: Pricing;
 
+	// biome-ignore lint/suspicious/noExplicitAny: type will be added later
 	public readonly offerCombinations?: any[];
 
+	// biome-ignore lint/suspicious/noExplicitAny: type will be added later
 	public readonly cardPayment?: any;
 
 	public readonly returnUrl?: string;
