@@ -21,7 +21,7 @@ export class PricingUnitModelBuilder {
 			unitType: pricingUnitData.unitType ?? UnitType.ADULT,
 			original: pricingUnitData.original ?? 1000,
 			retail: pricingUnitData.retail ?? 1000,
-			net: pricingUnitData.net ?? 1000,
+			net: pricingUnitData.net !== undefined ? pricingUnitData.net : 1000,
 			includedTaxes: pricingUnitData.includedTaxes ?? [],
 			currency: pricingUnitData.currency ?? Currency.EUR,
 			currencyPrecision: pricingUnitData.currencyPrecision ?? 2,
