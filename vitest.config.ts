@@ -14,6 +14,7 @@ export default defineConfig({
 			},
 		},
 		fileParallelism: true,
+		mockReset: true,
 		watch: false,
 		globals: false,
 		testTimeout: 30000,
@@ -22,7 +23,7 @@ export default defineConfig({
 		include: ['**/__tests__/**/*.+(test.ts)'],
 		exclude: ['**/node_modules/**', '**/dist/**'],
 		coverage: {
-			reporter: ['text'],
+			reporter: ['text', 'html', 'clover', 'json', 'json-summary'],
 			reportOnFailure: true,
 			all: false,
 			allowExternal: false,
