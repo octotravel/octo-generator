@@ -54,11 +54,7 @@ export abstract class BookingPreset {
 			option: OptionPreset.OPTION_POJO,
 			availability: AvailabilityPreset.TODAY_FULL_DAY_AVAILABILITY_POJO,
 			status: BookingStatus.CANCELLED,
-			unitItems: [
-				UnitItemPreset.UNIT_ITEM_ADULT_PDF_POJO,
-				UnitItemPreset.UNIT_ITEM_ADULT_PKPASS_POJO,
-				UnitItemPreset.UNIT_ITEM_ADULT_QRCODE_POJO,
-			],
+			unitItems: [],
 		},
 		capabilities: [CapabilityId.Pricing],
 	});
