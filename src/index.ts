@@ -53,13 +53,16 @@ export * from './parsers/PricingUnitParser';
 export * from './parsers/ProductParser';
 export * from './parsers/UnitItemParser';
 export * from './parsers/UnitParser';
+
 export * from './presets/AvailabilityOfferPreset';
 export * from './presets/AvailabilityPreset';
 export * from './presets/BookingPreset';
+export * from './presets/DeliveryOptionPreset';
 export * from './presets/OfferPreset';
 export * from './presets/OptionPreset';
 export * from './presets/PricingPreset';
 export * from './presets/ProductPreset';
+export * from './presets/UnitItemPreset';
 export * from './presets/UnitPreset';
 
 export * from './types/PartialAvailability';
