@@ -129,6 +129,9 @@ export class ProductTestDataProvider {
 			},
 			option_categories: [],
 			related_locations: [],
+			brand_name: {
+				localized_texts: [],
+			},
 		},
 	};
 

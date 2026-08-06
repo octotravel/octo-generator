@@ -1,4 +1,4 @@
-import format from 'date-fns-tz/format';
+import { format } from 'date-fns-tz';
 
 export class DateFormatter {
 	public static formatAsAvailabilityId = (date: Date, timeZone: string): string =>
